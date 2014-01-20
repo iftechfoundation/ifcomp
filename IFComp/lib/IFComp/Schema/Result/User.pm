@@ -61,6 +61,17 @@ User's real name
   is_nullable: 0
   size: 64
 
+An MD5 hash of the concatenation of the user's clear text password along with the salt field
+
+=head2 salt
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 64
+
+A variable-sized random salt used to generate the password hash
+
 =head2 email
 
   data_type: 'char'
@@ -101,6 +112,8 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
   "password",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  "salt",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
   "email",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
