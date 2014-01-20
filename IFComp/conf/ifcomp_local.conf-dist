@@ -3,7 +3,7 @@
   schema_class IFComp::Schema
   <connect_info>
     dsn dbi:mysql:ifcomp
-    user editor
-    password editor
+    user db_user
+    password db_password
   </connect_info>
 </Model::IFCompDB>
