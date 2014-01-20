@@ -5,13 +5,6 @@ use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
     schema_class => 'IFComp::Schema',
-
-    # TODO: Remove these values/get them from a local conf
-    connect_info => {
-        dsn => 'dbi:mysql:dbname=ifcomp',
-        user => 'root',
-        password => '',
-    }
 );
 
 =head1 NAME
