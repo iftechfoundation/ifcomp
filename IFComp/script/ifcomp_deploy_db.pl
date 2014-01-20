@@ -1,9 +1,9 @@
 #!/usr/bin/env perl 
 
 use strict;
-use lib 'lib';
-use Time::HiRes;
 use FindBin;
+use lib ("$FindBin::Bin/../lib");
+use Time::HiRes;
 use Getopt::Std;
 
 my %Opts;
