@@ -36,6 +36,17 @@ my $dsn       = "dbi:SQLite:$db_file";
 #     use_ext => 1,
 #     flatten_to_hash => 1,
 #                                      });
+sub connect_info
+{
+    my ($self) = shift;
+    return ($dsn, 
+            '', 
+            '', 
+            {
+                sqlite_unicode => 1,
+                on_connect_call => 'use_foreign_keys',
+            });
+}
 
 sub init_schema 
 {
@@ -50,11 +61,7 @@ sub init_schema
         }
     }
 
-    my $schema = IFComp::Schema->
-        connect( $dsn, '', '', {
-            sqlite_unicode => 1,
-            on_connect_call => 'use_foreign_keys',
-                 });
+    my $schema = IFComp::Schema->connect( $self->connect_info() );
 
     # The default dir for deploy is "./", which means that if you run
     # the tests from IFComp_HOME it tries to read IFComp.sql to get the
