@@ -74,7 +74,7 @@ sub init_schema
         'User',
         [
             ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url'], 
-            [ 1, 'user1', '', '123456', 'testing@taskboy.com', 1, 'http://taskboy.com/' ],
+            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/' ],
         ],
         );
 
