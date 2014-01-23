@@ -35,6 +35,28 @@ sub index :Path :Args(0) {
     $c->response->body( $c->welcome_message );
 }
 
+=head2 login 
+
+The login handler
+
+=cut
+
+sub login :Global 
+{
+    my ($self, $c) = @_;
+    
+    if ($c->authenticate({ name => $c->req->param("username"), 
+                           password => $c->req->param("password"),
+                         }))
+    {
+        warn("User authed\n");
+        return $c->response->body( "Hello, " . $c->user->name );
+    }
+
+    warn("Authenication failed\n");
+    return $c->response->body( "FORBIDDEN" );
+}
+
 =head2 default
 
 Standard 404 error page

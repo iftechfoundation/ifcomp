@@ -433,4 +433,42 @@ __PACKAGE__->meta->make_immutable;
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
+
+use Digest::MD5 ('md5_hex');
+
+sub check_password
+{
+    my ($self, $password) = @_;
+
+    unless ($password)
+    {
+        warn("No password given\n");
+        return;
+    }
+
+    my $hash = md5_hex($password . $self->salt);
+    return $self->password eq $hash;
+}
+
+sub save_password
+{
+    my ($self, $clear_password) = @_;
+
+    unless ($clear_password)
+    {
+        warn("No password\n");
+        return;
+    }
+
+    unless ($self->salt)
+    {
+        warn("No salt\n");
+        return;
+    }
+    
+    my $hash = md5_hex($clear_password . $self->salt);
+    $self->password($hash);
+    $self->update;
+}
+
 1;
