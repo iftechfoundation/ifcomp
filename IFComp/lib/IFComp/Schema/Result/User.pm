@@ -424,16 +424,6 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AxhlTomQm2e71Ty2Eb5vBA
 
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
-__PACKAGE__->meta->make_immutable;
-1;
-# End of lines loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/User.pm' 
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
-__PACKAGE__->meta->make_immutable;
-
 use Digest::MD5 ('md5_hex');
 
 sub check_password
@@ -465,10 +455,12 @@ sub save_password
         warn("No salt\n");
         return;
     }
-    
+
     my $hash = md5_hex($clear_password . $self->salt);
     $self->password($hash);
     $self->update;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
