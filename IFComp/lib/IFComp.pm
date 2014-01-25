@@ -20,6 +20,7 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
+    Authentication
 /;
 
 extends 'Catalyst';
@@ -41,6 +42,20 @@ __PACKAGE__->config(
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
     'Plugin::ConfigLoader' => {file => "conf/" }, # Load configs from the conf dir
+    'Plugin::Authentication' => {
+        default_realm => "default",
+        default => {
+            credential => {
+                class => "Password",
+                #password_field => "password",
+                password_type => "self_check",
+            },
+            store => {
+                class => "DBIx::Class",
+                user_model => "IFCompDB::User",
+            },
+        },
+    },
 );
 
 # Start the application
