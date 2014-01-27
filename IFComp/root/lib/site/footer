@@ -1,0 +1,5 @@
+<!-- BEGIN site/footer -->
+ <footer>
+        <p id="copyright">&copy; [% site.copyright %]</p>
+ </footer>
+<!-- END site/footer -->

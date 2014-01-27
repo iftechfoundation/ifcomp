@@ -1,0 +1,3 @@
+[% PROCESS site/header %]
+
+[% content %]
