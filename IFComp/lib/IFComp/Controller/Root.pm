@@ -48,6 +48,8 @@ sub login :Global
                          }))
     {
         warn("User authed\n");
+        $c->change_session_id;
+        $c->session->{login} = time();
         return $c->response->body( "Hello, " . $c->user->name );
     }
 
