@@ -43,18 +43,25 @@ sub login :Global
 {
     my ($self, $c) = @_;
     
-    if ($c->authenticate({ name => $c->req->param("username"), 
-                           password => $c->req->param("password"),
-                         }))
+    if ($c->req->param("username") && $c->req->param("password"))
     {
-        warn("User authed\n");
-        $c->change_session_id;
-        $c->session->{login} = time();
-        return $c->response->body( "Hello, " . $c->user->name );
+        if ($c->authenticate({ name => $c->req->param("username"), 
+                               password => $c->req->param("password"),
+                         }))
+        {
+            warn("User authed\n");
+            $c->change_session_id;
+            $c->session->{login} = time();
+            return $c->response->body( "Hello, " . $c->user->name );
+        }
+        
+        warn("Authenication failed\n");
+        return $c->response->body( "FORBIDDEN" );
     }
-
-    warn("Authenication failed\n");
-    return $c->response->body( "FORBIDDEN" );
+    else
+    {
+        $c->stash->{template} = 'welcome.tt2';        
+    }
 }
 
 =head2 default
