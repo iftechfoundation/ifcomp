@@ -31,6 +31,10 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{template} = 'welcome.tt2';
+    if ($c->user)
+    {
+        $c->stash("username" => $c->user->name);
+    }
 }
 
 =head2 login 
@@ -43,6 +47,7 @@ sub login :Global
 {
     my ($self, $c) = @_;
     
+    $c->stash->{template} = 'welcome.tt2';        
     if ($c->req->param("username") && $c->req->param("password"))
     {
         if ($c->authenticate({ name => $c->req->param("username"), 
@@ -52,16 +57,17 @@ sub login :Global
             warn("User authed\n");
             $c->change_session_id;
             $c->session->{login} = time();
-            return $c->response->body( "Hello, " . $c->user->name );
+            # Is this where I would use chaining?
+            $c->stash("username" => $c->user->name);
         }
-        
-        warn("Authenication failed\n");
-        return $c->response->body( "FORBIDDEN" );
+        else
+        {
+            warn("Authenication failed\n");
+            $c->response->code(403);
+            return $c->response->body( "FORBIDDEN" );
+        }
     }
-    else
-    {
-        $c->stash->{template} = 'welcome.tt2';        
-    }
+    
 }
 
 =head2 default
