@@ -21,6 +21,9 @@ use Catalyst qw/
     ConfigLoader
     Static::Simple
     Authentication
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
 /;
 
 extends 'Catalyst';
@@ -55,6 +58,11 @@ __PACKAGE__->config(
                 user_model => "IFCompDB::User",
             },
         },
+    },
+    'Plugin::Session' => { 
+        'expires' => 31536000, # Year
+        'rewrite' => 0,
+        'storage' => '/tmp/ifcomp.session',
     },
 );
 
