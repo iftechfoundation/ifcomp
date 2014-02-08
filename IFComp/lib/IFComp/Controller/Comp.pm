@@ -51,7 +51,14 @@ sub index :Chained('fetch_comp') :PathPart('') :Args(0) {
         { order_by => 'year' },
     )->get_column( 'year' )->all;
 
+    my $comp = $c->stash->{ comp };
     $c->stash->{ comp_years } = \@comp_years;
+    if ( $comp->year > $comp_years[0] ) {
+        $c->stash->{ previous_year } = $comp->year - 1;
+    }
+    if ( $comp->year < $comp_years[-1] ) {
+        $c->stash->{ next_year } = $comp->year + 1;
+    }
 
     # Run a kooky SQL query to get a list of all places that are ties.
     my $tied_place_sql = 'select e1.place from entry e1, entry e2 where e1.id != e2.id '
