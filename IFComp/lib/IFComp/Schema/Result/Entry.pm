@@ -98,7 +98,8 @@ __PACKAGE__->table("entry");
 =head2 ifdb_id
 
   data_type: 'char'
-  is_nullable: 1
+  default_value: (empty string)
+  is_nullable: 0
   size: 16
 
 =head2 comp
@@ -162,7 +163,7 @@ __PACKAGE__->add_columns(
   "play_url",
   { data_type => "char", is_nullable => 1, size => 128 },
   "ifdb_id",
-  { data_type => "char", is_nullable => 1, size => 16 },
+  { data_type => "char", default_value => "", is_nullable => 0, size => 16 },
   "comp",
   {
     data_type => "integer",
@@ -195,6 +196,20 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ifdb_id>
+
+=over 4
+
+=item * L</ifdb_id>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("ifdb_id", ["ifdb_id"]);
 
 =head1 RELATIONS
 
@@ -259,8 +274,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-07 23:09:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nIZMDYLxGnmCqORbS1+Iyg
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 13:04:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fkrNTyV/4odwp0ouiq/XAw
 
 use Lingua::EN::Numbers::Ordinate;
 
