@@ -1,0 +1,53 @@
+<div class="container">
+[% INCLUDE pager %]
+
+<h1>Entries from the [% comp.year %] IFComp</h1>
+
+[% IF comp.year == 1995 %]
+<div class="alert alert-info">
+<p>
+The competition's very first run in 1995 split the entries into two categories: one for games written with Inform, and one for TADS. Therefore, that year had two first-place winners, two second-place winners, and so on...
+</p>
+</div>
+[% END %]
+
+[% FOREACH entry IN entries %]
+[% INCLUDE entry_row %]
+<hr />
+[% END %]
+
+[% INCLUDE pager %]
+
+
+</div>
+
+[% BLOCK entry_row %]
+[% place = entry.place %]
+<div class="media">
+  <a class="pull-left" href="#">
+    <img style="width:200px;" class="media-object img-responsive" src="/static/images/curses.jpg" alt="Cover art for [% entry.title %]">
+  </a>
+  <div class="media-body">
+    <h2 class="media-heading"><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
+    [% IF there_is_a_tie_for.$place %](tie)[% END %]
+    </span></h2>
+    <h2 class="media-heading">[% entry.title %]</h2>
+    [% IF entry.subtitle %]
+        <h3 class="media-heading">[% entry.subtitle %]</h3>
+    [% END %]
+        <p>by [% INCLUDE author_name.tt %]</p>
+        <p>[% entry.blurb %]</p>
+        <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
+        </p>
+  </div>
+</div>
+
+[% END %]
+
+[% BLOCK pager %]
+<ul class="pagination pagination-sm">
+  [% FOREACH year IN comp_years %]
+      <li [% IF year == comp.year %]class="active"[% END %]><a href="[% c.uri_for_action('/comp/index', [ year ] ) %]">[% year %]</a></li>
+  [% END %]
+</ul>
+[% END %]

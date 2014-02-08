@@ -1,0 +1,7 @@
+[% IF entry.reveal_pseudonym %]
+    “[% entry.pseudonym %]” ([% entry.author.name %])
+[% ELSIF entry.pseudonym %]
+    [% entry.pseudonym %]
+[% ELSE %]
+    [% entry.author.name %]
+[% END %]
