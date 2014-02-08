@@ -119,6 +119,17 @@ __PACKAGE__->table("entry");
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 blurb
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 reveal_pseudonym
+
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -167,6 +178,10 @@ __PACKAGE__->add_columns(
   },
   "place",
   { data_type => "tinyint", is_nullable => 1 },
+  "blurb",
+  { data_type => "text", is_nullable => 1 },
+  "reveal_pseudonym",
+  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -244,10 +259,15 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KADz+UwwPOudBU09ZJTvow
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-07 23:09:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nIZMDYLxGnmCqORbS1+Iyg
 
+use Lingua::EN::Numbers::Ordinate;
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+sub place_as_ordinate {
+    my $self = shift;
+    return ordinate( $self->place );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
