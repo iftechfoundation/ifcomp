@@ -131,6 +131,12 @@ __PACKAGE__->table("entry");
   default_value: 0
   is_nullable: 0
 
+=head2 cover_art
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 32
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -183,6 +189,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "reveal_pseudonym",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
+  "cover_art",
+  { data_type => "char", is_nullable => 1, size => 32 },
 );
 
 =head1 PRIMARY KEY
@@ -274,8 +282,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 13:04:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fkrNTyV/4odwp0ouiq/XAw
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 16:27:27
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4rF16UEkKyakOfLwQu7wiQ
 
 use Lingua::EN::Numbers::Ordinate;
 
