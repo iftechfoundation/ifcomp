@@ -137,6 +137,11 @@ __PACKAGE__->table("entry");
   is_nullable: 1
   size: 32
 
+=head2 miss_congeniality_place
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -191,6 +196,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "cover_art",
   { data_type => "char", is_nullable => 1, size => 32 },
+  "miss_congeniality_place",
+  { data_type => "tinyint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -282,8 +289,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 16:27:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4rF16UEkKyakOfLwQu7wiQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 16:52:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XSc+pbYO2azLTIUJhi1izA
 
 use Lingua::EN::Numbers::Ordinate;
 
