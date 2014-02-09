@@ -78,6 +78,20 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<year>
+
+=over 4
+
+=item * L</year>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("year", ["year"]);
+
 =head1 RELATIONS
 
 =head2 entries
@@ -111,8 +125,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QTo0MPjcSVnBu9nmKfkkew
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 12:39:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lX7PPQSNGK7EURDUacpK6w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

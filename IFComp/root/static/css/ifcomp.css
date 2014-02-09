@@ -1,0 +1,19 @@
+.label-first-place {
+    background-color: #428bca
+}
+
+.label-second-place {
+    background-color: #d9534f
+}
+
+.label-third-place {
+    background-color: gold
+}
+
+.label-fourth-through-tenth-place {
+    background-color: #5bc0de
+}
+
+.label-enth-place {
+    background-color: #999
+}

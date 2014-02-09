@@ -98,7 +98,8 @@ __PACKAGE__->table("entry");
 =head2 ifdb_id
 
   data_type: 'char'
-  is_nullable: 1
+  default_value: (empty string)
+  is_nullable: 0
   size: 16
 
 =head2 comp
@@ -115,6 +116,28 @@ __PACKAGE__->table("entry");
   is_nullable: 0
 
 =head2 place
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 blurb
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 reveal_pseudonym
+
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
+=head2 cover_art
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 32
+
+=head2 miss_congeniality_place
 
   data_type: 'tinyint'
   is_nullable: 1
@@ -151,7 +174,7 @@ __PACKAGE__->add_columns(
   "play_url",
   { data_type => "char", is_nullable => 1, size => 128 },
   "ifdb_id",
-  { data_type => "char", is_nullable => 1, size => 16 },
+  { data_type => "char", default_value => "", is_nullable => 0, size => 16 },
   "comp",
   {
     data_type => "integer",
@@ -167,6 +190,14 @@ __PACKAGE__->add_columns(
   },
   "place",
   { data_type => "tinyint", is_nullable => 1 },
+  "blurb",
+  { data_type => "text", is_nullable => 1 },
+  "reveal_pseudonym",
+  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
+  "cover_art",
+  { data_type => "char", is_nullable => 1, size => 32 },
+  "miss_congeniality_place",
+  { data_type => "tinyint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -180,6 +211,20 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<ifdb_id>
+
+=over 4
+
+=item * L</ifdb_id>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("ifdb_id", ["ifdb_id"]);
 
 =head1 RELATIONS
 
@@ -244,10 +289,15 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KADz+UwwPOudBU09ZJTvow
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 16:52:36
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XSc+pbYO2azLTIUJhi1izA
 
+use Lingua::EN::Numbers::Ordinate;
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+sub place_as_ordinate {
+    my $self = shift;
+    return ordinate( $self->place );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
