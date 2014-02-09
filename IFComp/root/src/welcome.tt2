@@ -1,7 +1,8 @@
 [% META title = 'IFComp' %]
 <div class="jumbotron">
-      <div class="container"><img style="float: right;" src="/static/images/catalyst_logo.png">
-        <h1>Frotz!</h1>
+      <div class="container"><img alt="The 2014 IF Comp" class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp.png">
+        <h1>The Interactive Fiction Competition</h1>
+        <h2>An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
         [% IF username %]
         <p>Welcome, [% username %]</p>
         [% END %]
@@ -9,28 +10,50 @@
 
  </div>[%# end of jumbotron %]
 
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Template Toolkit</h2>
-          <p>The Template Toolkit is a fast, flexible and highly extensible template processing system. It is Free (in both senses: free beer and free speech), Open Source software and runs on virtually every modern operating system known to man. It is mature, reliable and well documented, and is used to generate content for countless web sites ranging from the very small to the very large.</p>
-          <p><a class="btn btn-default" href="http://www.template-toolkit.org/" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Bootstrap 3</h2>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.<br>
-             Global CSS settings, fundamental HTML elements styled and enhanced with extensible classes, and an advanced grid system. </p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/" role="button">View details &raquo;</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>jQuery or Dojo</h2>
-          <p>jQuery is common, but DojoToolkit is powerful and clean, stable and asynchronous. I would like to substitute jQuery with Dojo 2.0 as soon as it'll be released in 2014.</p>
-          <p><a class="btn btn-default" href="http://dojotoolkit.org/" role="button">View details &raquo;</a></p>
-        </div>
-      </div>
-    <hr>
+<div class="container">
 
+ <div class="row">
+ 
+     <div class="col-sm-4">
+        <h2>You're here early!</h2>
+
+        <p>
+        Welcome to IFComp.org! If you've visited before, you might notice things look quite a bit different. We're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year, by golly!
+        </p>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>What's here now?</h2>
+        
+        [%# XXX Make the year here not hardcoded, and make this a proper
+            uri_for_action() call. 
+        %]
+        <p>Not much yet, but you can <a href="[% c.uri_for('/comp/2013/') %]">browse past competition results</a>. These revamped pages contain more information about every past comp game, including links to their IFDB pages &mdash; which each feature online-play and download links, collected reviews, and other goodies.</p>
+    </div>
+    
+    <div class="col-sm-4">
+        <h2>Stay comp-informed</h2>
+    <p>
+        For news and updates, please <a href="http://blog.ifcomp.org">visit our blog</a> or <a href="twitter.com/ifcomp">follow us on Twitter</a>. We'll post updates throughout the runup to the June kickoff while this new website comes online, bit by bit.
+    </p>
+    
+      </div>
+    </div>
+<!--
+    <div class="col-xs-12">
+        <h1>Well, you're here early! <small>Please pardon our dust...</small></h1>
+
+    <p>
+        Welcome to IFComp.org! As you can see, we're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year, by golly!
+    </p>
+    
+    <p>
+        For news and updates, please <a href="http://blog.ifcomp.org">visit our blog</a> or <a href="twitter.com/ifcomp">follow us on Twitter</a>. In the runup to the comp kickoff this June, we plan to post several pages of interest to competition contestants and judges, as well as anyone wishing to learn more about the grand traditions  
+    </p>
+
+      </div>
+    </div>
+    -->
+</div>
     [% PROCESS site/footer %]
-</div>[%# end of jumbotron %]
 <!-- END of welcome -->
