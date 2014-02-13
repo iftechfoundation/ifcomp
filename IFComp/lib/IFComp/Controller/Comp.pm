@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
+use JSON::Any;
 
 =head1 NAME
 
@@ -15,13 +16,6 @@ Catalyst Controller.
 =head1 METHODS
 
 =cut
-
-
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->response->body('Matched IFComp::Controller::Comp in Comp.');
-}
 
 sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
     my ( $self, $c, $comp_year ) = @_;
