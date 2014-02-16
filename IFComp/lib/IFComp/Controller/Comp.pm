@@ -1,6 +1,7 @@
 package IFComp::Controller::Comp;
 use Moose;
 use namespace::autoclean;
+use DateTime;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -17,10 +18,13 @@ Catalyst Controller.
 =cut
 
 
-sub index :Path :Args(0) {
+sub comp :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched IFComp::Controller::Comp in Comp.');
+    # XXX A low-quality hack that just grabs last calendar-year and forwards us there.
+    #     It ought to instead send us to the most recent closed-down comp, specifically.
+    my $last_year = DateTime->now->year - 1;
+    $c->res->redirect( $c->uri_for_action( '/comp/index', [ $last_year ] ) );
 }
 
 sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
