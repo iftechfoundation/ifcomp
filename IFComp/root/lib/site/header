@@ -8,9 +8,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">[% template.title or site.title %]</a>
+          <a class="navbar-brand" href="/">IFComp</a>
         </div>
         <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+              <li><a href="/rules/">Rules</a></li>
+              <li><a href="/comp/">Results</a></li>
+          </ul>
           <form class="navbar-form navbar-right" role="form" action="/login" method="POST">
             <div class="form-group">
               <input type="text" name="username" placeholder="Email" class="form-control">
