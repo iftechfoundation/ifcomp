@@ -1,104 +1,124 @@
+[% META title = 'IFComp - Rules' %]
 <div class="container">
-<h1>Rules for the Competition</h1>
+<div class="jumbotron">
+<h1 style="text-align:center;">Rules for the Competition</h1>
+</div>
 
-<p>The rules are not quite as simple as the original <a
-href="http://groups.google.com/groups?selm=3qd67a%24fa3%40newsbf02.news.aol.com&oe=UTF-8&output=gplain">"One
-Rule"</a> from the <a href="history.html">first competition</a>, but I
-have tried to keep them relatively straightforward. Those who violate
-a rule once will either be issued a warning or disqualified at the
-discretion of the organizer. Those who violate a rule twice are
-disqualified.  If you have any questions regarding the rules, please
+<div class="alert alert-info">
+<p><strong>Things have changed a bit since last year!</strong> If you've read the IFComp rules before 2014, then most of what's below will seem quite familiar &mdash; but there are some more significant updates to note. See in particular Author Rule #1, regarding the use of copyrighted source material.</p>
+</div>
+
+<div class="page-header">
+<h1>About these rules</h2>
+</div>
+
+<p>The IFComp's rules help make sure that entrants, judges, and organizers agree on the purpose, scope, and spirit of the competition. We do our best to keep them simple.</p>
+
+<p>That said, we take them seriously: those who violate
+a rule once will either be issued a warning or disqualified, at the
+discretion of the organizer. Those who violate a rule twice will be
+disqualified.</p>
+
+<p>These rules may be changed as required by the organizer, who will note rule changes on <a href="http://ifcomp.tumblr.com">the competition blog</a>. In
+addition, the organizer has final say in all disputes regarding
+any ambiguities in the rules listed below.</p>
+
+<p>If you have any questions regarding the rules, please
 <a href="mailto:ifcomp@ifcomp.org">contact the organizer</a>.</p>
 
-
-<h3>Rules for Judges</h3>
+<div class="page-header">
+<h1>Rules for Judges <small>which authors should know too</small></h1>
+</div>
 
 <ol>
-<li>Judges must base their judgement of each game on at most the first
-two hours of play. If a judge is still playing a game at the end of a
+<p>
+<li><strong>Judges must base their judgment of each game on at most the first
+two hours of play.</strong> If a judge is still playing a game at the end of a
 cumulative two hours of playing time and wishes to continue playing
 it, the judge must rate the game <i>and not change that rating
 later</i> before continuing play. Authors may write a game of any
 length they desire, but should keep this rule in mind when determining
-the length of their entry.</li>
+the length of their entry.
+</p>
+</li>
 
-<li>Judges may discuss the games during the judging period, but should
+<li>
+<p>
+<strong>Judges must play and rate at least five games</strong> for their ratings to be
+counted during a given competition year.
+</p>
+</li>
+
+<li>
+<p>
+<strong>Judges may discuss the games during the judging period</strong>, but should
 be careful when doing so in a public forum. Make appropriate allowances
 to hide spoilers, and don't put spoilers in titles of posts or blog
-entries. If you post on the Usenet newsgroup rec.games.int-fiction,
-please preface your subject line with "comp13 Discussion:".</li>
+entries. You may freely use the intfiction.org foum set aside for public comp discussion.</p>
+</li>
 
-<li>You may not give a rating to any game you have beta-tested.</li>
+<li>
+<p><strong>Judges may not rate any games they have beta-tested.</strong></p>
+</li>
 
-<li>You must play and rate at least five games for your ratings to be
-counted.</li>
+<li>
+<p><strong>Judges are not obligated to replay updated versions</strong> of entries they have already downloaded, started to play, or rated. A judge may play and rate an entry's originally submitted version or its most recent update, at their own discretion.</p>
+</li>
+
 </ol>
 
-<p>Note to judges: authors are allowed to update their games during
-the competition. You aren't required to play the updated
-version. The original version of the games are available <a
-href="http://ifarchive.org/">on the Interactive Fiction Archive</a>.</p>
-
-
-<h3>Rules for Authors</h3>
+<div class="page-header">
+<h1>Rules for Authors</h1>
+</div>
 
 <ol>
-<li>Games must not be based upon works currently under copyright
-unless permission is obtained from the copyright holder. You may
-parody established works, but you may not, for example, write a game
-based on Terry Pratchett's <cite>Discworld</cite> without
-permission. This avoids the entire issue of copyright and the ethics
-involved. For the purposes of the competition, a work is still under
-copyright for a period of 70 years after the author's death or if it
-was published after 1923 (just to make things as simple as is possible
-given the complexities of copyright law).</li>
+<li>
+<p><strong>An entry may adapt characters, locations, concepts, or other aspects from a copyrighted work.</strong> That is to say: your entry may be a transformative work (a.k.a. "fanfic"). However, <strong>you may not directly copy any portion of a copyrighted work into your own game</strong>, unless you have explicit written permission from the original work's rights holder. This holds true for text, images, music, or work in any other medium.</p>
 
-<li>Do not use copyrighted multimedia assets (graphics or sound)
-without permission from the copyright owner. This is especially
-important for MIDI files, as many web sites have MIDI versions of
-copyrighted songs available for download. If you don't know if a song,
-sound file, or picture is under copyright, don't use it.</li>
+<p>You may, for example, enter a game involving the further adventures of the characters from a novel that inspires you. You may not, however, fill your game with whole paragraphs of descriptive text or dialogue copied directly from that same novel, unless you have obtained permission in writing from the novel's copyright holder. Similarly, you may not freely set your game's cover art to a scan of the novel's own cover, nor create background music out of the soundtrack to the novel's film adaptation. (Or any other copyrighted work of music, for that matter.)</p>
 
-<li>All entries <i>must</i> be freely playable by judges, no strings
-attached. While you retain the copyright to any games you enter, by
+<p>As in all other matters regarding these rules, the competition organizer is the ultimate arbiter for whether an entry that does build upon a copyrighted work meets this rule as intended. If you're not sure whether the entry you have in mind would qualify under this rule, please <a href="mailto:ifcomp@ifcomp.org">contact the organizer</a>.</p>
+</li>
+
+<li><p><strong>All entries must cost nothing for judges to play, no strings
+attached.</strong> While you retain the copyright to any games you enter, by
 entering you are granting the competition and the <a
 href="http://ifarchive.org">Interactive Fiction Archive</a> the
 non-exclusive right to distribute your game for free, and granting
 judges the right to play your game for free. No shareware,
-donorware, commercial products, etc. may be entered.</li>
+donorware, commercial products, etc. may be entered.</p></li>
 
-<li>All entries must be previously unreleased at the opening of
-voting. This includes beta versions. The author must know who has had
-access to copies of their games before the competition. The game may
-not have been freely accessible: if you place a version of your game
-on a web site, the URL cannot be publicly handed out. If an entry has
-previously been circulated, it will be disqualified. Translations of
-previously-released works are considered to be released. If you
+<li><p><strong>All entries must be previously unreleased at the opening of
+voting.</strong> By "unreleased", we generally mean that a qualifying entry has never been widely distributed, sold, or made available for public play or download prior to the competition.</p>
+<p><strong>Note that this rule does
+not prevent you from having your game tested by a few beta-testers</strong>, as
+long as you know who each of those beta-testers are. The author must know who has had
+access to copies of their games before the competition. If you have placed a version of your game
+on the web, then the link to to play or download the game cannot have been publicly handed out.</p>
+<p>Translations of
+previously-released works into another language are considered already released, and therefore (while we applaud the effort!) they do not qualify as valid IFComp entries.</p>
+
+<p>If you
 are unsure whether your game fails to meet this rule, please <a
-href="mailto:ifcomp@ifcomp.org">ask me</a>. Note that this rule does
-not prevent you from having your game tested by a few beta-testers, as
-long as you know who those beta-testers are.</li>
+href="mailto:ifcomp@ifcomp.org">ask the organizer</a>.</p>
+</li>
+<li><p><strong>Authors of a competition entry may not discuss any of the entries
+in a public forum, blog, or social network during the voting period</strong>, nor may they use these media to
+canvass for votes. However, authors are free to link to or write about the existence of their entries as part of the larger IFComp.</p>
+<p>In other words, feel free to encourage the public to participate in the competition, playing your entries and others, either casually or as judges. You may not, however, encourage people to vote for your entries other others. Beyond the allowed level of announcement, you may not engage in public discussion about any of the games -- including your own -- until the competition's voting period is over.</p></li>
 
-<li>Authors of a competition entry may not discuss any of the entries
-in a public Internet forum during the voting period, nor may they
-canvass fora for votes. Once the competition has begun, do not post
-your thoughts on your entry or anyone else's on a newsgroup or
-bulletin board until the deadline for voting has passed.</li>
-
-<li>Authors may enter at most three games.</li>
+<li><p><strong>Authors may enter at most three games</strong> per competition year.</p></li>
 </ol>
 
-
-<h3>Rule for Everyone</h3>
+<div class="page-header">
+<h1>Rules for Everyone</h1>
+</div>
 
 <ol>
-<li>Anyone who impersonates a contest official in any capacity related
-to the contest will be immediately disqualified and will be banned
-permanently from future involvement in the competition.</li>
+<li><p><strong>Anyone who impersonates a contest official in any capacity related
+to the contest will be immediately disqualified</strong> and will be banned
+permanently from future involvement in the competition.</p></li>
 </ol>
 
-<p>These rules may be changed as required by the organizer. In
-addition, the organizer has final say in all disputes regarding
-potential loopholes in the above rules.</p>
 
 </div>
