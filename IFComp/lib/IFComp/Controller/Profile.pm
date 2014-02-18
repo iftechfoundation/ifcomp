@@ -68,12 +68,62 @@ sub auth :Path('auth.php')
 sub auth_login
 {
     my ($self, $c) = @_;
+
+    my $email     = $c->req->param("email");
+    my $password  = $c->req->param("password");
+    my $site_id   = $c->req->param("site_id");
+    my $client_id = $c->req->param("client_id");
+    my $client_ip = $c->req->param("ip");
+
+    # Look up site by name
+    my $site = $c->model("IFCompDB::FederateSite")->search({ name => $site_id});
+    unless ($site)
+    {
+        return { error_code => "UNKNOWN SITE",
+                 error_text => "Cannot find site '$site_id'",
+        };
+    }
+    
+    my $user = $c->model("IFCompDB::User")->search({ email => $email });
+    unless ($user)
+    {
+        return { error_code => "bad password",
+                 error_text => "The password passed in was invalid, or the account doesn't exist"
+        };
+    }
+        
+    unless ($user->verified)
+    {
+        return { error_code => "unverified", # legacy
+                 error_text => "The login was valid, but the account has not been verified",
+        };
+    }
+
+    my %opts;
+    if ($client_id eq "ios_app_001")
+    {
+        $opts{override} = "rijndael-128";
+    }
+
+    if ($user->check_password($password, \%opts))
+    {
+        # create a new auth token
+    }
+    else
+    {
+        return { error_code => "bad password", # legacy response
+                 error_text => "The password passed in was invalid, or the account doesn't exist",
+        };
+    }
+
+
     return { error_code => "NYI", error_text => "NYI - login"}
 }
 
 sub auth_verify
 {
     my ($self, $c) = @_;
+
     return { error_code => "NYI", error_text => "NYI - verify"}
 }
 
