@@ -750,10 +750,10 @@ sub check_password
     }
 
     my $hashing_method = $args{override} || $self->site->hashing_method;
-    my $password;
+    my $plaintext;
     if ($hashing_method eq 'rijndael-256')
     {
-        $password = $self->decrypt_rijndael_256($password);
+        $plaintext = $self->decrypt_rijndael_256($password);
     }
     elsif ($hashing_method eq 'rijndael-128')
     {
@@ -766,7 +766,9 @@ sub check_password
         return;
     }
 
-    my $hash = md5($password . $self->legacy_salt);
+    warn("DEBUG: password '$plaintext'");
+
+    my $hash = md5($plaintext . $self->legacy_salt);
 
     return $self->password eq $hash;
 }
@@ -788,12 +790,14 @@ sub save_password
 sub encrypt_rijndael_256
 {
     my ($self, $plaintext) = @_;
-    my $crypt_bin = "encrypt-rijndael-256.php";
+    my $crypt_bin = $self->config->path_to("script", "encrypt-rijndael-256.php")->stringify;
     unless (-e $crypt_bin)
     {
         warn("Cannot find '$crypt_bin'\n");
         return;
     }
+
+    my $api_key = decode_base64($self->site->api_key);
     my $cmd = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
     my $hash = qx[$cmd];
     return $hash;
@@ -802,12 +806,15 @@ sub encrypt_rijndael_256
 sub decrypt_rijndael_256
 {
     my ($self, $hash) = @_;
-    my $crypt_bin = "decrypt-rijndael-256.php";
+
+    my $crypt_bin = $self->config->path_to("script", "decrypt-rijndael-256.php")->stringify;
     unless (-e $crypt_bin)
     {
         warn("Cannot find '$crypt_bin'\n");
         return;
     }
+
+    my $api_key = decode_base64($self->site->api_key);
     my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
     my $plaintext = qx($cmd);
     return $plaintext;
