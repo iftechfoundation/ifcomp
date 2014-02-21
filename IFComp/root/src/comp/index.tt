@@ -33,6 +33,7 @@ The competition's very first run in 1995 split the entries into two categories: 
 
 [% BLOCK entry_row %]
 [% place = entry.place %]
+[% mc_place = entry.miss_congeniality_place %]
 <div class="row">
     <div class="col-sm-12">
         <h2><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
@@ -54,7 +55,7 @@ The competition's very first run in 1995 split the entries into two categories: 
         <p>by [% INCLUDE author_name.tt %]</p>
         <p>[% entry.blurb %]</p>
         [% IF entry.miss_congeniality_place %]
-        <p><b>[% entry.miss_congeniality_place_as_ordinate %] place, <a href="#">Miss Congeniality Award</a></b></p>
+        <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="#">Miss Congeniality Awards</a></em>.</p>
         [% END %]
         <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
         </p>
