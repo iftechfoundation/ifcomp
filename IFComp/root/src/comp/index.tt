@@ -44,7 +44,7 @@ The competition's very first run in 1995 split the entries into two categories: 
 <div class="row">
     [% IF entry.cover_art %]
         <div class="col-xs-4">
-            <img class="img-responsive" src="/static/images/covers/[% entry.cover_art %]" alt="Cover art for [% entry.title %]">
+            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]">
         </div>
     [% END %]
     <div class="col-xs-8">
