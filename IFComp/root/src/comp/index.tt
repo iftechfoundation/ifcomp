@@ -46,7 +46,7 @@ The competition's very first run in 1995 split the entries into two categories: 
 
     [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
         <div class="col-xs-4">
-            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]">
+            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
         </div>
     [% END %]
     
@@ -54,7 +54,7 @@ The competition's very first run in 1995 split the entries into two categories: 
     [% IF entry.subtitle %]
         <h3>[% entry.subtitle %]</h3>
     [% END %]
-        <p>by [% INCLUDE author_name.tt %]</p>
+        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
         <p>[% entry.blurb %]</p>
         [% IF entry.miss_congeniality_place %]
         <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="#">Miss Congeniality Awards</a></em>.</p>
