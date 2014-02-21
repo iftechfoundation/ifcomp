@@ -53,6 +53,9 @@ The competition's very first run in 1995 split the entries into two categories: 
     [% END %]
         <p>by [% INCLUDE author_name.tt %]</p>
         <p>[% entry.blurb %]</p>
+        [% IF entry.miss_congeniality_place %]
+        <p><b>[% entry.miss_congeniality_place_as_ordinate %] place, <a href="#">Miss Congeniality Award</a></b></p>
+        [% END %]
         <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
         </p>
     </div>
