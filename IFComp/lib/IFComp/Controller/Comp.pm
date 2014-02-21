@@ -64,17 +64,32 @@ sub index :Chained('fetch_comp') :PathPart('') :Args(0) {
         $c->stash->{ next_year } = $comp->year + 1;
     }
 
-    # Run a kooky SQL query to get a list of all places that are ties.
-    my $tied_place_sql = 'select e1.place from entry e1, entry e2 where e1.id != e2.id '
-                         . 'and e1.place=e2.place group by e1.place';
-    my $ties_ref = $c->model( 'IFCompDB' )->schema->storage->dbh->selectcol_arrayref(
-        $tied_place_sql
+    $c->stash->{ there_is_a_tie_for } = _get_tie_hash( $comp, 'place' );
+    $c->stash->{ there_is_a_miss_congeniality_tie_for } =
+        _get_tie_hash( $comp, 'miss_congeniality_place' );
+}
+
+sub _get_tie_hash {
+    my ( $comp, $place_field ) = @_;
+
+    my $dbh = $comp->result_source->schema->storage->dbh;
+    my $tied_place_sql = "select e1.$place_field from entry e1, entry e2 "
+                         . 'where e1.id != e2.id '
+                         . "and e1.$place_field=e2.$place_field "
+                         . 'and e1.comp = ? and e2.comp = ? '
+                         . "group by e1.$place_field ";
+    my $ties_ref = $dbh->selectcol_arrayref(
+        $tied_place_sql,
+        {},
+        $comp->id,
+        $comp->id,
     );
     my %ties;
     foreach ( @$ties_ref ) {
         $ties{ $_ } = 1;
     }
-    $c->stash->{ there_is_a_tie_for } = \%ties;
+
+    return \%ties;
 }
 
 =encoding utf8
