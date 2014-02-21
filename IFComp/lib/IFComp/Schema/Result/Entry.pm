@@ -50,7 +50,7 @@ __PACKAGE__->table("entry");
   data_type: 'char'
   default_value: (empty string)
   is_nullable: 0
-  size: 64
+  size: 128
 
 =head2 subtitle
 
@@ -113,7 +113,7 @@ __PACKAGE__->table("entry");
 
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 place
 
@@ -131,15 +131,9 @@ __PACKAGE__->table("entry");
   default_value: 0
   is_nullable: 0
 
-=head2 cover_art
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 32
-
 =head2 miss_congeniality_place
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =cut
@@ -153,7 +147,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "title",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
   "subtitle",
   { data_type => "char", is_nullable => 1, size => 128 },
   "author",
@@ -186,7 +180,7 @@ __PACKAGE__->add_columns(
   {
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
-    is_nullable => 0,
+    is_nullable => 1,
   },
   "place",
   { data_type => "tinyint", is_nullable => 1 },
@@ -194,10 +188,8 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "reveal_pseudonym",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
-  "cover_art",
-  { data_type => "char", is_nullable => 1, size => 32 },
   "miss_congeniality_place",
-  { data_type => "tinyint", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -289,8 +281,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 16:52:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:XSc+pbYO2azLTIUJhi1izA
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-21 11:56:52
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ux14E2DwinoGePLSlsscjg
 
 use Lingua::EN::Numbers::Ordinate;
 
