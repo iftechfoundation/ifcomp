@@ -59,10 +59,18 @@ __PACKAGE__->config(
             },
         },
     },
-    'Plugin::Session' => { 
+    'Plugin::Session' => {
         'expires' => 31536000, # Year
         'rewrite' => 0,
         'storage' => '/tmp/ifcomp.session',
+    },
+    'Plugin::Static::Simple' => {
+        dirs => [
+            'static',
+        ],
+    },
+    'Model::Covers' => {
+        root_dir => __PACKAGE__->path_to('file_store')
     },
 );
 
