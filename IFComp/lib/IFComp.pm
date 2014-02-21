@@ -44,6 +44,7 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
+    encoding => 'UTF-8',
     'Plugin::ConfigLoader' => {file => "conf/" }, # Load configs from the conf dir
     'Plugin::Authentication' => {
         default_realm => "default",
@@ -59,10 +60,18 @@ __PACKAGE__->config(
             },
         },
     },
-    'Plugin::Session' => { 
+    'Plugin::Session' => {
         'expires' => 31536000, # Year
         'rewrite' => 0,
         'storage' => '/tmp/ifcomp.session',
+    },
+    'Plugin::Static::Simple' => {
+        dirs => [
+            'static',
+        ],
+    },
+    'Model::Covers' => {
+        root_dir => __PACKAGE__->path_to('file_store')
     },
 );
 
