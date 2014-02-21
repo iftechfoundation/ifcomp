@@ -299,5 +299,10 @@ sub place_as_ordinate {
     return ordinate( $self->place );
 }
 
+sub miss_congeniality_place_as_ordinate {
+    my $self = shift;
+    return ordinate( $self->miss_congeniality_place );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
