@@ -42,11 +42,13 @@ The competition's very first run in 1995 split the entries into two categories: 
     </div>
 </div>
 <div class="row">
-    [% IF entry.cover_art %]
+
+    [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
         <div class="col-xs-4">
             <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]">
         </div>
     [% END %]
+    
     <div class="col-xs-8">
     [% IF entry.subtitle %]
         <h3>[% entry.subtitle %]</h3>
