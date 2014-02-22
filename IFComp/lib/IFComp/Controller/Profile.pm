@@ -5,6 +5,7 @@ use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller'; }
 
 use JSON::Any;
+use MIME::Base64;
 
 =head1 NAME
 
@@ -71,31 +72,42 @@ sub auth_login
 
     my $email     = $c->req->param("email");
     my $password  = $c->req->param("password");
-    my $site_id   = $c->req->param("site_id");
-    my $client_id = $c->req->param("client_id");
+    my $site_id   = $c->req->param("site_id") || 1;
+    my $client_id = $c->req->param("client_id") || "";
     my $client_ip = $c->req->param("ip");
 
     # Look up site by name
-    my $site = $c->model("IFCompDB::FederateSite")->search({ name => $site_id});
+    my $site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id});
     unless ($site)
     {
-        return { error_code => "UNKNOWN SITE",
-                 error_text => "Cannot find site '$site_id'",
+        return { 
+            error_code => "UNKNOWN SITE",
+            error_text => "Cannot find site '$site_id'",
         };
     }
     
-    my $user = $c->model("IFCompDB::User")->search({ email => $email });
-    unless ($user)
+    unless ($email && $password)
+    {
+        return { 
+            error_code => "bad parameters",
+            error_text => "Missing email and/or password",
+        };
+    }
+
+    my @users = $c->model("IFCompDB::User")->search({ email => $email })->all;
+    unless (@users)
     {
         return { error_code => "bad password",
                  error_text => "The password passed in was invalid, or the account doesn't exist"
         };
     }
-        
-    unless ($user->verified)
+
+    my $user = $users[0];
+    unless ($user->is_verified)
     {
-        return { error_code => "unverified", # legacy
-                 error_text => "The login was valid, but the account has not been verified",
+        return { 
+            error_code => "unverified", # legacy
+            error_text => "The login was valid, but the account has not been verified",
         };
     }
 
@@ -105,7 +117,7 @@ sub auth_login
         $opts{override} = "rijndael-128";
     }
 
-    if ($user->check_password($password, \%opts))
+    if ($self->check_password($c, $user, $password, \%opts))
     {
         # create a new auth token
     }
@@ -115,7 +127,6 @@ sub auth_login
                  error_text => "The password passed in was invalid, or the account doesn't exist",
         };
     }
-
 
     return { error_code => "NYI", error_text => "NYI - login"}
 }
@@ -131,6 +142,76 @@ sub auth_logout
 {
     my ($self, $c) = @_;
     return { error_code => "NYI", error_text => "NYI - logout"}
+}
+
+sub check_password
+{
+    my ($self, $c, $user, $password) = (shift, shift, shift, shift);
+    my %args = (
+                 override => undef,
+                 %{$_[0] || {}}
+               ); 
+
+    unless ($password)
+    {
+        warn("No password given\n");
+        return;
+    }
+
+    my $hashing_method = $args{override} || $user->site->hashing_method;
+    my $plaintext;
+    if ($hashing_method eq 'rijndael-256')
+    {
+        $plaintext = $self->decrypt_rijndael_256($c, $password, $user);
+    }
+    elsif ($hashing_method eq 'rijndael-128')
+    {
+        warn("rijndael-128 not yet implemented");
+        return;
+    }
+    else
+    {
+        warn("Hashing method '$hashing_method' unknown");
+        return;
+    }
+
+    warn("DEBUG: password '$plaintext'");
+
+    return $user->hash_password($plaintext) eq $user->password;
+}
+
+sub encrypt_rijndael_256
+{
+    my ($self, $c, $plaintext, $user) = @_;
+
+    my $crypt_bin = $c->config->path_to("script", "encrypt-rijndael-256.php")->stringify;
+    unless (-e $crypt_bin)
+    {
+        warn("Cannot find '$crypt_bin'\n");
+        return;
+    }
+
+    my $api_key = decode_base64($user->site->api_key);
+    my $cmd = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
+    my $hash = qx[$cmd];
+    return $hash;
+}
+
+sub decrypt_rijndael_256
+{
+    my ($self, $c, $hash, $user) = @_;
+
+    my $crypt_bin = $c->path_to("script", "decrypt-rijndael-256.php")->stringify;
+    unless (-e $crypt_bin)
+    {
+        warn("Cannot find '$crypt_bin'\n");
+        return;
+    }
+
+    my $api_key = decode_base64($user->site->api_key);
+    my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
+    my $plaintext = qx($cmd);
+    return $plaintext;
 }
 
 =encoding utf8

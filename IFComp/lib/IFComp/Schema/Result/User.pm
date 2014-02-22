@@ -735,42 +735,10 @@ __PACKAGE__->has_many(
 
 use Digest::MD5 ('md5_hex');
 
-sub check_password
+sub hash_password
 {
-    my ($self, $password) = (shift, shift);
-    my %args = (
-                 override => undef,
-                 %{$_[0] || {}}
-               ); 
-
-    unless ($password)
-    {
-        warn("No password given\n");
-        return;
-    }
-
-    my $hashing_method = $args{override} || $self->site->hashing_method;
-    my $plaintext;
-    if ($hashing_method eq 'rijndael-256')
-    {
-        $plaintext = $self->decrypt_rijndael_256($password);
-    }
-    elsif ($hashing_method eq 'rijndael-128')
-    {
-        warn("rijndael-128 not yet implemented");
-        return;
-    }
-    else
-    {
-        warn("Hashing method '$hashing_method' unknown");
-        return;
-    }
-
-    warn("DEBUG: password '$plaintext'");
-
-    my $hash = md5($plaintext . $self->legacy_salt);
-
-    return $self->password eq $hash;
+    my ($self, $password) = @_;
+    return md5_hex($password . $self->legacy_salt);
 }
 
 sub legacy_salt
@@ -787,45 +755,13 @@ sub save_password
     $self->update;
 }
 
-sub encrypt_rijndael_256
+sub is_verified
 {
-    my ($self, $plaintext) = @_;
-    my $crypt_bin = $self->config->path_to("script", "encrypt-rijndael-256.php")->stringify;
-    unless (-e $crypt_bin)
-    {
-        warn("Cannot find '$crypt_bin'\n");
-        return;
-    }
-
-    my $api_key = decode_base64($self->site->api_key);
-    my $cmd = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
-    my $hash = qx[$cmd];
-    return $hash;
+    my ($self) = @_;
+    return $self->verified > 0;
 }
 
-sub decrypt_rijndael_256
-{
-    my ($self, $hash) = @_;
-
-    my $crypt_bin = $self->config->path_to("script", "decrypt-rijndael-256.php")->stringify;
-    unless (-e $crypt_bin)
-    {
-        warn("Cannot find '$crypt_bin'\n");
-        return;
-    }
-
-    my $api_key = decode_base64($self->site->api_key);
-    my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
-    my $plaintext = qx($cmd);
-    return $plaintext;
-}
 
 __PACKAGE__->meta->make_immutable;
 
-1;
-# End of lines loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/User.pm' 
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
-__PACKAGE__->meta->make_immutable;
 1;
