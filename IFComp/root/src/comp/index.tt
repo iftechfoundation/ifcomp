@@ -1,3 +1,4 @@
+[% meta.title = 'IFComp ' _ comp.year -%]
 <div class="container">
 
 <div class="jumbotron">

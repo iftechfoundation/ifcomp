@@ -12,7 +12,7 @@
 
    # define a data structure to hold sitewide data
    site = {
-     title     => 'Catalyst::View::Bootstrap Example Page',
+     title     => 'The Interactive Fiction Competition',
      copyright => '2014 Your Name Here',
    };
 
