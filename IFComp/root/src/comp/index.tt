@@ -56,7 +56,9 @@ The competition's very first run in 1995 split the entries into two categories: 
         <h3>[% entry.subtitle %]</h3>
     [% END %]
         <p><strong>[% INCLUDE author_name.tt %]</strong></p>
-        <p>[% entry.blurb %]</p>
+        [% FILTER html_para %]
+        	[% entry.blurb %]
+        [% END %]
         [% IF entry.miss_congeniality_place %]
         <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="#">Miss Congeniality Awards</a></em>.</p>
         [% END %]
