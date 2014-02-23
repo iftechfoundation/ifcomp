@@ -66,6 +66,34 @@ sub auth :Path('auth.php')
     $c->response->body($j->encode($data));
 }
 
+sub auth_check_token
+{
+    my ($self, $c) = @_;
+    my $token = $c->req->param("token");
+    my $user_id = $c->req->param("user_id");
+
+    unless ($token && $user_id)
+    {
+        return;
+    }
+    
+    my @tokens = $c->model("IFCompDB::AuthToken")->search({token => $token, user_id => $user_id}, { order_by => { -desc => "created" }})->all;
+    
+    return unless @tokens;
+
+    if (@tokens > 1)
+    {
+        # prune old tokens
+        my $current_token = shift @tokens;
+        for (@tokens)
+        {
+            $_->delete;
+        }
+    }
+
+    return 1;
+}
+
 sub auth_login
 {
     my ($self, $c) = @_;
@@ -129,20 +157,25 @@ sub auth_login
         };
     }
 
+    chomp(my $token_key = encode_base64(time()^$$));
+
+    # Delete old tokens for this user
+    my @all = $c->model("IFCompDB::AuthToken")->search({ user_id => $user->id })->all;
+    for (@all)
+    {
+        $_->delete;
+    }
+
     my $token = $c->model("IFCompDB::AuthToken")->create(
         {
             user_id => $user->id,
+            token => $token_key,
+            created => \"CURRENT_TIMESTAMP",
         });
-
-    my $user_fascade = {
-        email => $email,
-        name => $user->name,
-        token => $token->id,
-    };
 
     return {
         success => 1,
-        user => $user_fascade
+        user => $user->get_api_fascade(),
     }
 }
 
@@ -150,7 +183,19 @@ sub auth_verify
 {
     my ($self, $c) = @_;
 
-    return { error_code => "NYI", error_text => "NYI - verify"}
+    my $ret = {};
+    if ($self->auth_check_token($c))
+    {
+        my @users = $c->model("IFCompDB::User")->search({id => $c->req->param("user_id")})->all();
+        
+        $ret = { success => 1, "user" => $users[0]->get_api_fascade };
+    }
+    else
+    {
+        $ret = {"error_code" => "bad token", "error_text" => "The token passed in was invalid"};
+    }
+
+    return $ret;
 }
 
 sub auth_logout
