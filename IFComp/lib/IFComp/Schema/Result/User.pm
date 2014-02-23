@@ -738,7 +738,7 @@ use Digest::MD5 ('md5_hex');
 sub hash_password
 {
     my ($self, $password) = @_;
-    return md5_hex($password . $self->legacy_salt);
+    return md5_hex($self->legacy_salt . $password);
 }
 
 sub legacy_salt

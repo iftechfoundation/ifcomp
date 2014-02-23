@@ -13,7 +13,9 @@
   $api = base64_decode($argv[2]);
   # echo "API: '$api'\n";
 
-  $iv = mcrypt_create_iv(32,MCRYPT_DEV_RANDOM);
+  # SUPER SLOW
+  # $iv = mcrypt_create_iv(32,MCRYPT_DEV_RANDOM);
+  $iv = str_repeat('a', 32);
   # echo "IV: '$iv'\n";
 
   $alg = "rijndael-256";

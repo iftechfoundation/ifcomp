@@ -97,8 +97,9 @@ sub auth_login
     my @users = $c->model("IFCompDB::User")->search({ email => $email })->all;
     unless (@users)
     {
-        return { error_code => "bad password",
-                 error_text => "The password passed in was invalid, or the account doesn't exist"
+        return { 
+            error_code => "bad password",
+            error_text => "The password passed in was invalid, or the account doesn't exist"
         };
     }
 
@@ -119,7 +120,7 @@ sub auth_login
 
     if ($self->check_password($c, $user, $password, \%opts))
     {
-        # create a new auth token
+        warn("Password check\n");
     }
     else
     {
@@ -128,7 +129,21 @@ sub auth_login
         };
     }
 
-    return { error_code => "NYI", error_text => "NYI - login"}
+    my $token = $c->model("IFCompDB::AuthToken")->create(
+        {
+            user_id => $user->id,
+        });
+
+    my $user_fascade = {
+        email => $email,
+        name => $user->name,
+        token => $token->id,
+    };
+
+    return {
+        success => 1,
+        user => $user_fascade
+    }
 }
 
 sub auth_verify
@@ -175,8 +190,6 @@ sub check_password
         return;
     }
 
-    warn("DEBUG: password '$plaintext'");
-
     return $user->hash_password($plaintext) eq $user->password;
 }
 
@@ -191,7 +204,7 @@ sub encrypt_rijndael_256
         return;
     }
 
-    my $api_key = decode_base64($user->site->api_key);
+    my $api_key = $user->site->api_key;
     my $cmd = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
     my $hash = qx[$cmd];
     return $hash;
@@ -208,8 +221,9 @@ sub decrypt_rijndael_256
         return;
     }
 
-    my $api_key = decode_base64($user->site->api_key);
+    my $api_key = $user->site->api_key;
     my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
+#    warn("CMD: '$cmd'\n");
     my $plaintext = qx($cmd);
     return $plaintext;
 }
