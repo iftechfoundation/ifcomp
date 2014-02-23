@@ -1,4 +1,3 @@
-[% META title = 'IFComp' %]
 <div class="jumbotron">
       <div class="container"><img alt="The 2014 IF Comp" class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp.png">
         <h1>The Interactive Fiction Competition</h1>
