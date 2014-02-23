@@ -187,7 +187,6 @@ sub auth_verify
     if ($self->auth_check_token($c))
     {
         my @users = $c->model("IFCompDB::User")->search({id => $c->req->param("user_id")})->all();
-        
         $ret = { success => 1, "user" => $users[0]->get_api_fascade };
     }
     else
@@ -201,6 +200,25 @@ sub auth_verify
 sub auth_logout
 {
     my ($self, $c) = @_;
+    
+
+    my $ret = {};
+    if ($self->auth_check_token($c))
+    {
+        my @users = $c->model("IFCompDB::User")->search({id => $c->req->param("user_id")})->all();
+        my @all = $c->model("IFCompDB::AuthToken")->search({ user_id => $users[0]->id })->all;
+        for (@all)
+        {
+            $_->delete;
+        }
+        
+        $ret = { success => 1 };
+    }
+    else
+    {
+        $ret = {"error_code" => "bad token", "error_text" => "The token passed in was invalid"};
+    }
+
     return { error_code => "NYI", error_text => "NYI - logout"}
 }
 
