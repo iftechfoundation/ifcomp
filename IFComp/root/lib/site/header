@@ -14,6 +14,7 @@
           <ul class="nav navbar-nav">
               <li><a href="/rules/">Rules</a></li>
               <li><a href="/comp/">Results</a></li>
+              <li><a href="/history/">History</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="form" action="/login" method="POST">
             <div class="form-group">
