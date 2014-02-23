@@ -218,8 +218,7 @@ sub auth_logout
     {
         $ret = {"error_code" => "bad token", "error_text" => "The token passed in was invalid"};
     }
-
-    return { error_code => "NYI", error_text => "NYI - logout"}
+    return $ret;
 }
 
 sub check_password
