@@ -299,10 +299,6 @@ __PACKAGE__->has_many(
 
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BPYZmzFuIKwM47cyTsGB3Q
-# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/User.pm' found in @INC.
-
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AxhlTomQm2e71Ty2Eb5vBA
 
 use Digest::MD5 ('md5_hex');
 

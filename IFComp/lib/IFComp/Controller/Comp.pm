@@ -3,7 +3,6 @@ use Moose;
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
-use JSON::Any;
 
 =head1 NAME
 
