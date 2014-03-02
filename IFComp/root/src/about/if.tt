@@ -16,7 +16,7 @@
 
 <p>As with any healthy genre, the meaning of &#8220;interactive fiction&#8221; is subject to changing context and culture. While the Interactive Fiction Competition <a href="[% c.uri_for_action( '/history/index' ) %]">was founded with a certain kind of game in mind</a>, it&#8217;s always avoided taking a prescriptive stance as to what is and isn&#8217;t IF, instead allowing itself to act as an expression of the whole community&#8217;s evolving definition of this term.</p>
 
-<p>Since the beginning of the comp, however, a few key agreed-upon facets of IF have never changed. Generally speaking, <strong>IFComp entries are videogames whose interactive interface centers on text</strong>. They communicate to their players primarily by displaying text, and players respond in turn by pushing text back at them, one way or another.</p>
+<p>Since the beginning of the comp, however, a few key agreed-upon facets of IF have never changed. Generally speaking, <strong>IFComp entries are videogames whose player interactions center on text</strong>. They communicate to their players primarily by displaying text, and players respond in turn by pushing text back at them, one way or another.</p>
 
 <p>Much IF takes the form of a story told in second-person perspective, with the player in control (to one degree or another) of that story&#8217;s main character. Experimental works may vary this template, but the key point about focusing the games&#8217; interaction around text tends to stay stable.</p>
 
