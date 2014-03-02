@@ -14,7 +14,16 @@
           <ul class="nav navbar-nav">
               <li><a href="/rules/">Rules</a></li>
               <li><a href="/comp/">Results</a></li>
-              <li><a href="/history/">History</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">How the IFComp works</a></li>
+                  <li><a href="/about/if">About IF</a></li>
+                  <li><a href="/history/">History of the IFComp</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </li>
+              
           </ul>
           <form class="navbar-form navbar-right" role="form" action="/login" method="POST">
             <div class="form-group">
