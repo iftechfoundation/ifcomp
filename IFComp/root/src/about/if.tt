@@ -137,17 +137,17 @@
 <h1 id="otherifgamestotry">Other IF games to try</h1>
 </div>
 
-<ul>
-<li><p>The People&#8217;s Republic of Interactive Fiction, a Boston-based IF interest group, hosts <a href="http://pr-if.org/play/">a handpicked shortlist of IF works suitable for newcomers</a> &#8211; either because they&#8217;re specifically designed that way, or because they&#8217;re widely considered to be good examples of the form. All the games on the list are playable in a web browser.</p></li>
-<li><p>Naturally, you can browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="http://ifdb.tads.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p></li>
-</ul>
+<p>The People&#8217;s Republic of Interactive Fiction, a Boston-based IF interest group, hosts <a href="http://pr-if.org/play/">a handpicked shortlist of IF works suitable for newcomers</a> &#8211; either because they&#8217;re specifically designed that way, or because they&#8217;re widely considered to be good examples of the form. All the games on the list are playable in a web browser.</p>
 
+<p>Naturally, we also invite you to browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="http://ifdb.tads.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p>
 <div class="page-header">
-<h1 id="elsewhereontheweb">Elsewhere on the web</h1>
+<h1 id="elsewhereontheweb">IF resources around the web</h1>
 </div>
 
-<ul>
-<li><p><a href="http://ifdb.tads.org">The Interactive Fiction Database</a>, created by Mike Roberts, is the web&#8217;s clearinghouse for all things IF. It lists most every work of IF since the birth of the medium, and invites users to contribute new entries, reviews, and other commentary. By working with other online resources, it&#8217;s able to offer download links </p></li>
-<li><p><a href="http://www.intfiction.org/forum/">The Interactive Fiction Community Forum</a>, acts as the central web-based discussion space for the IF community. A glance at <a href="http://www.intfiction.org/forum/search.php?search_id=active_topics&amp;sid=90a13e9f3b01c9f4845075f7fa2c2250">its &#8220;view active topics&#8221; page</a> shows the what folks are talking about at the moment, but the whole board is worth exploring, and fresh topics are always welcome. The forum is maintained by Mike Snyder and moderated by a team of community volunteers.</p></li>
-</ul>
+
+<p><a href="http://ifdb.tads.org">The Interactive Fiction Database</a>, created by Mike Roberts, is the web&#8217;s clearinghouse for all things IF. It lists most every work of IF since the birth of the medium, and invites users to contribute new entries, reviews, and other commentary. It provides assistance for downloading and playing most of the games it knows about, and also offers in-browser play when available.</p>
+
+<p><a href="http://www.intfiction.org/forum/">The Interactive Fiction Community Forum</a> acts as the central web-based discussion space for the IF community. A glance at <a href="http://www.intfiction.org/forum/search.php?search_id=active_topics&amp;sid=90a13e9f3b01c9f4845075f7fa2c2250">its &#8220;view active topics&#8221; page</a> shows the what folks are talking about at the moment, but the whole board is worth exploring, and fresh topics are always welcome. The forum is maintained by Mike Snyder and moderated by a team of community volunteers.</p>
+
+<p>When the comp is in full swing &#8211; especially during September and October of every year &#8211; discussion of comp entries blooms across the web, not just on the above forums but on a variety of review sites and personal blogs. By following <a href="http://ifcomp.tumblr.com">the IFComp blog</a> or <a href="http://twitter.com/ifcomp">Twitter account</a>, you can stay abreast of new comp-related links. (And if you know about a link that we ought to share, please feel free to <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x69;&#x66;&#x63;&#111;&#109;&#x70;&#64;&#x69;&#102;&#99;&#x6f;&#109;&#x70;&#46;&#111;&#114;&#103;">&#x73;&#104;&#97;&#x72;&#101; &#x69;&#x74; &#119;&#x69;&#x74;&#104; &#117;&#x73;</a>.)</p>
 </div>
