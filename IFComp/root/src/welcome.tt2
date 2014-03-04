@@ -54,5 +54,5 @@
     </div>
     -->
 </div>
-    [% PROCESS site/footer %]
+
 <!-- END of welcome -->
