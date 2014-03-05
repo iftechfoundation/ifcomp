@@ -28,7 +28,17 @@ sub if :Path('if') :Args(0) {
 
 }
 
+sub contact :Path('contact') :Args(0) {
+    my ( $self, $c ) = @_;
 
+    $c->stash->{ template } = 'about/contact.tt';
+}
+
+sub comp :Path('comp') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{ template } = 'about/comp.tt';
+}
 
 =encoding utf8
 

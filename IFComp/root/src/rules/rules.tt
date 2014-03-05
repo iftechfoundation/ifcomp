@@ -32,7 +32,7 @@ any ambiguities in the rules listed below.</p>
 <a href="mailto:ifcomp@ifcomp.org">contact the organizer</a>.</p>
 
 <div class="page-header">
-<h1>Rules for Judges <small>which authors should know too</small></h1>
+<h1 id="judges">Rules for Judges <small>which authors should know too</small></h1>
 </div>
 
 <ol>
@@ -78,7 +78,7 @@ entries. You may freely use the intfiction.org forum set aside for public comp d
 </ol>
 
 <div class="page-header">
-<h1>Rules for Authors</h1>
+<h1 id="authors">Rules for Authors</h1>
 </div>
 
 <ol>

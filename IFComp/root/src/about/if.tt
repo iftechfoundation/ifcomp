@@ -5,7 +5,7 @@
 }
 </style>
 
-[% meta.title = 'IFComp - History' %]
+[% meta.title = 'IFComp - About IF' %]
 <div class="container">
 <div class="jumbotron">
 <h1 style="text-align:center;">About Interactive Fiction</h1>
