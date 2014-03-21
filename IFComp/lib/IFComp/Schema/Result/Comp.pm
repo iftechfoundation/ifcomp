@@ -78,20 +78,6 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
-=head1 UNIQUE CONSTRAINTS
-
-=head2 C<year>
-
-=over 4
-
-=item * L</year>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("year", ["year"]);
-
 =head1 RELATIONS
 
 =head2 entries
@@ -125,9 +111,15 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-08 12:39:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lX7PPQSNGK7EURDUacpK6w
-
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WgZV4UUZHMSCWgSuoJF1SQ
+# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Comp.pm' found in @INC.
+# They are now part of the custom portion of this file
+# for you to hand-edit.  If you do not either delete
+# this section or remove that file from @INC, this section
+# will be repeated redundantly when you re-create this
+# file again via Loader!  See skip_load_external to disable
+# this feature.
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

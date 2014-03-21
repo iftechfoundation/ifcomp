@@ -17,7 +17,6 @@ Catalyst Controller.
 
 =cut
 
-
 sub comp :Path :Args(0) {
     my ( $self, $c ) = @_;
 

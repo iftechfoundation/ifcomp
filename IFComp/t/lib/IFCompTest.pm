@@ -71,10 +71,18 @@ sub init_schema
     $schema->deploy( undef, $db_dir );
 
     $schema->populate(
+        'FederatedSite',
+        [
+         [ 'id', 'name', 'api_key', 'hashing_method' ],
+         [ 1, 'ifcomp.org', 'fD0TDnRsQQlTLB/LXMPkkpYDsQXFRVDpFqFqIb//c6s=', 'rijndael-256' ],
+        ],
+    );
+
+    $schema->populate(
         'User',
         [
-            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url'], 
-            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/' ],
+            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url', 'site_id'], 
+            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/', 1 ],
         ],
         );
 

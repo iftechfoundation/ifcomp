@@ -1,12 +1,12 @@
 use utf8;
-package IFComp::Schema::Result::Role;
+package IFComp::Schema::Result::FederatedSite;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-IFComp::Schema::Result::Role
+IFComp::Schema::Result::FederatedSite
 
 =cut
 
@@ -30,11 +30,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<role>
+=head1 TABLE: C<federated_site>
 
 =cut
 
-__PACKAGE__->table("role");
+__PACKAGE__->table("federated_site");
 
 =head1 ACCESSORS
 
@@ -47,10 +47,33 @@ __PACKAGE__->table("role");
 
 =head2 name
 
-  data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
-  size: 8
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 api_key
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 created
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 updated
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 hashing_method
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
 
 =cut
 
@@ -63,7 +86,23 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "name",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 8 },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "api_key",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
+  "created",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "updated",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "hashing_method",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
 );
 
 =head1 PRIMARY KEY
@@ -80,25 +119,25 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
-=head2 user_roles
+=head2 users
 
 Type: has_many
 
-Related object: L<IFComp::Schema::Result::UserRole>
+Related object: L<IFComp::Schema::Result::User>
 
 =cut
 
 __PACKAGE__->has_many(
-  "user_roles",
-  "IFComp::Schema::Result::UserRole",
-  { "foreign.role" => "self.id" },
+  "users",
+  "IFComp::Schema::Result::User",
+  { "foreign.site_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KY6p+XEFjCQe44teXH0kBg
-# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Role.pm' found in @INC.
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CBtXnF6OOGcBcqYrfXyZSQ
+# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/FederatedSite.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
 # this section or remove that file from @INC, this section
