@@ -10,5 +10,7 @@ unless (eval q{use Test::WWW::Mechanize::Catalyst 0.55; 1}) {
 
 ok( my $mech = Test::WWW::Mechanize::Catalyst->new(catalyst_app => 'IFComp'), 'Created mech object' );
 
-$mech->get_ok( 'http://localhost/about' );
+$mech->get_ok( 'http://localhost/about/if' );
+$mech->get_ok( 'http://localhost/about/comp' );
+$mech->get_ok( 'http://localhost/about/contact' );
 done_testing();
