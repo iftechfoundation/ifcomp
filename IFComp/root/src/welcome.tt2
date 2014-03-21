@@ -1,4 +1,3 @@
-[% META title = 'IFComp' %]
 <div class="jumbotron">
       <div class="container"><img alt="The 2014 IF Comp" class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp.png">
         <h1>The Interactive Fiction Competition</h1>
@@ -34,7 +33,7 @@
     <div class="col-sm-4">
         <h2>Stay comp-informed</h2>
     <p>
-        For news and updates, please <a href="http://blog.ifcomp.org">visit our blog</a> or <a href="twitter.com/ifcomp">follow us on Twitter</a>. We'll post updates throughout the runup to the June kickoff while this new website comes online, bit by bit.
+        For news and updates, please <a href="http://ifcomp.tumblr.com">visit our blog</a> or <a href="http://twitter.com/ifcomp">follow us on Twitter</a>. We'll post updates throughout the runup to the June kickoff while this new website comes online, bit by bit.
     </p>
     
       </div>
@@ -55,5 +54,5 @@
     </div>
     -->
 </div>
-    [% PROCESS site/footer %]
+
 <!-- END of welcome -->

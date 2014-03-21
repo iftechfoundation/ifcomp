@@ -1,0 +1,153 @@
+<style>
+.fake-link {
+    color: blue;
+    font-weight: bold;    
+}
+</style>
+
+[% meta.title = 'IFComp - About IF' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">About Interactive Fiction</h1>
+</div>
+<div class="page-header">
+<h1 id="whatifissmallasfaraswereconcernedsmall">What IF is <small>as far as we&#8217;re concerned</small></h1>
+</div>
+
+<p>As with any healthy genre, the meaning of &#8220;interactive fiction&#8221; is subject to changing context and culture. While the Interactive Fiction Competition <a href="[% c.uri_for_action( '/history/index' ) %]">was founded with a certain kind of game in mind</a>, it&#8217;s always avoided taking a prescriptive stance as to what is and isn&#8217;t IF, instead allowing itself to act as an expression of the whole community&#8217;s evolving definition of this term.</p>
+
+<p>Since the beginning of the comp, however, a few key agreed-upon facets of IF have never changed. Generally speaking, <strong>IFComp entries are videogames whose player interactions center on text</strong>. They communicate to their players primarily by displaying text, and players respond in turn by pushing text back at them, one way or another.</p>
+
+<p>Much IF takes the form of a story told in second-person perspective, with the player in control (to one degree or another) of that story&#8217;s main character. Experimental works may vary this template, but the key point about focusing the games&#8217; interaction around text tends to stay stable.</p>
+
+<p>One tends to find three main varieties of this interaction among IFComp entries (and, indeed, IF in general): parser IF, CYOA, and hypertext. Let&#8217;s take a closer look at each of these. We&#8217;ll then present a brief discussion about playing parser IF entries in particular, and finally share some links to some representative IF works, as well as related resources around the web.</p>
+
+<h2 id="parserif">Parser IF</h2>
+
+<p><strong>Parser IF</strong> represents the medium&#8217;s most venerable form. These are games in the mode of the text adventures that rose to prominence among early personal computer users of the 1970s and 1980s. Their most telling feature involves a natural-language parser that accepts typed-in instructions from the player for what the main character ought to do next.</p>
+
+<p>A scene in a parser IF game might look like this:</p>
+
+<blockquote>
+<p><strong>Front Steps</strong></p>
+
+<p>Well, here we are, back home again. The battered front door leads north into the lobby.</p>
+
+<p>The cat is out here with you, parked directly in front of the door and looking up at you expectantly.</p>
+
+<p>&gt;_</p>
+</blockquote>
+
+<p>That &#8220;&gt;_&#8221; is a text prompt, with a cursor awaiting the player&#8217;s typed-in command. Perhaps the player will type GO NORTH, or LOOK AT THE CAT, or ASK THE CAT ABOUT THE DOOR. A well-made (and thoroughly tested) game will accept many reasonable inputs, and respond appropriately:</p>
+
+<blockquote>
+<p>&gt; <strong>PET THE CAT</strong></p>
+
+<p>The cat aggressively butts her head against your hand as you reach for her, and you take a moment to scratch her behind the ears.</p>
+
+<p>&gt; <strong>ASK THE CAT ABOUT THE WEATHER</strong></p>
+
+<p>She looks up at the sound of your voice, but deigns no further reply.</p>
+<p>&gt;_</p>
+
+</blockquote>
+
+<p>On the other hand, if you&#8217;ve never played a parser IF before, you&#8217;d probably have no idea what to type there. Typing SEE IF WE GOT ANY MAIL or WHOSE CAT IS THAT may seem like a perfectly reasonable things to try, but the game will almost certainly respond to these with <code>&quot;That's not a verb I recognize&quot;</code> or something similarly disappointing. </p>
+
+<p>As with many other styles of specialized videogame input &#8211; such as a thumbstick-and-button-festooned console controller, or a WASD-plus-mouse PC setup &#8211; the parser demands a bit of acquired skill through practice before a player can use it effectively. Fortunately, the IF community has produced many great introductions to the parser, <a href="#playingparserif">which we explore further below</a>. </p>
+
+<p>While the 2010s have started to see a greater variety in the style of IFComp entries, the vast majority of <a href="[% c.uri_for_action( '/comp/comp' ) %]">past entries to the IFComp</a> have been parser-based. Once a new player has gotten the hang of the parser with any single game, the whole rich and many-storied world of parser IF, both within and without the Comp, becomes available to play and explore.</p>
+
+<p>And indeed, parser games done well can excel at creating a sense of open, player-directed exploration &#8211; whether through physical geographies, abstract conceptual spaces, or complex conversations. <small>(Don&#8217;t look to our example-cat as a role model for that last one.)</small></p>
+
+<h2 id="cyoa">CYOA</h2>
+
+<p>Choice-based IF &#8211; also called <em>CYOA</em>, after <a href="http://en.wikipedia.org/wiki/Choose_Your_Own_Adventure">a certain series of fondly remembered game books</a> &#8211; does not use a text parser. It instead gives the player, after certain key passages of story text, a list of possible actions the player&#8217;s character might take in response. The player chooses one of these actions, and the story continues, taking that choice into account.</p>
+
+<p>A scene in a choice-based game might look like this:</p>
+
+<blockquote>
+<p>Well, here we are, back home again. The battered front door leads into the lobby.</p>
+
+<p>The cat is out here with you, parked directly in front of the door and looking up at you expectantly.</p>
+
+<ul>
+<li><p><strong>Step purposefully over the cat and into the lobby</strong></p></li>
+<li><p><strong>Return the cat&#8217;s stare</strong></p></li>
+<li><p><strong>&#8220;Howdy, Mittens.&#8221;</strong></p></li>
+<li><p><strong>&#8220;Ah, your majesty, welcome. Your coat looks especially lustrous this evening.&#8221;</strong></p></li>
+</ul>
+</blockquote>
+
+<p>This arrangement may seem familiar to more experienced videogame players, who have encountered something quite like it time and again in the &#8220;conversation trees&#8221; and other narrative mechanics of modern commercial games. CYOA games stand apart from these works by allowing this style of player choice to act as their core driving force, rather than just one of many secondary game mechanics.</p>
+
+<p>Choice-based games tend to be less about free exploration through a space, and more about keeping up a sense of momentum through a story, with most choices carrying the tale forward a little bit more. Done deftly, a CYOA game can provide the uniquely satisfying experience of reading a story while feeling uncannily invested in its outcome. &#8220;Interactive fiction&#8221; in its most direct interpretation, perhaps.</p>
+
+<h2 id="hypertextif">Hypertext IF</h2>
+
+<p><strong>Hypertext IF</strong> is related to choice-based games in that it makes the player&#8217;s next possible actions an explicit list, but separates itself through presentation. A hypertext game invites the player to direct interaction with its own story text, clicking on highlighted words or phrases &#8211; rather like one navigates around a website. (Indeed, modern hypertext IF is usually played in a web browser.)</p>
+
+<p>A scene in a hypertext IF might look like this:</p>
+
+<blockquote>
+<p>Well, here we are, back <span class="fake-link">home</span> again. The <span class="fake-link">battered front door</span> leads into the lobby.</p>
+
+<p><span class="fake-link">The cat</span> is out here with you, parked directly in front of the door and <span class="fake-link">looking up at you expectantly</span>.</p>
+
+<p>You&#8217;re <span class="fake-link">hungry</span>.</p>
+</blockquote>
+
+<p>Each of those bold-weight phrases might, with a click, take the player to a new scene or location, expand in-place to reveal new text (and perhaps new choices), or accomplish other effects. In this example, clicking the link in the last paragraph might transform it to this:</p>
+
+<blockquote>
+<p>You&#8217;re hungry. Staying focused on dinner plans keeps your mind off <span class="fake-link">what happened this afternoon</span>.</p>
+</blockquote>
+
+<p>A well-crafted hypertext game can offer a feeling of exploration of a different sort than that found in parser IF &#8211; trading the parser&#8217;s intentional ambiguity for a labyrinth of clearly marked passageways winding through the work.</p>
+
+<p>While the concept of hypertext fiction is not new, this particular style of IF began to enjoy a renaissance in the 2010s by way of <a href="http://twinery.org">Twine</a>, a popular tool for their creation. Recent IFComp years have seen a significant portion of Twine-enabled hypertext entries.</p>
+
+<div class="page-header">
+<h1 id="playingparserif">Playing Parser IF</h1>
+</div>
+
+<p>Wiser fans of parser IF are under no illusions that learning to play these games can prove more than a little tricky to newcomers. Without knowledge of the parser&#8217;s conventions, otherwise interested new players find themselves faced with a text prompt that invites them to type in anything &#8211; and which then proceeds to offhandedly reject most of it. Not the most welcoming experience.</p>
+
+<p>As such, some of the most talented writers of modern parser IF have put as much work into creating tools, guides, and other player-aids as they have actually creating games. More than one have created games which themselves act as tutorials for first-time players of parser IF. The following list includes some better examples of each.</p>
+
+<p>Please note that many of these resources refer to parser IF as simply &#8220;IF&#8221;, reflecting how these terms really were interchangeable before the recent prominence of tools like Twine and <a href="http://www.choiceofgames.com/make-your-own-games/choicescript-intro/">ChoiceScript</a> made high-quality non-parser IF more common. While the IF tent has widened since they were written, these guides&#8217; advice remains as valid as ever for parser-based games.</p>
+
+<h2 id="shortguidessmallfornewparserjockeyssmall">Short guides <small>for new parser jockeys</small></h2>
+
+<ul>
+<li><p>Lea Albaugh and Andrew Plotkin created <a href="http://pr-if.org/doc/play-if-card/">this pocket-sized reference for parser interaction</a>, including a list of common commands, and advice on how to read a parser game&#8217;s text for cues on what things in the game world bear further exploration.</p></li>
+<li><p><a href="http://inform7.com/learn/eg/dm/IntroductionToIF.pdf"><em>Welcome to Interactive Fiction</em> is a longer-form and attractively formatted pamphlet</a> towards the same goal, written by Emily Short. Some of the content has fallen out of date, particularly as regards to online resources, but the advice for actually playing parser games remains on-point.</p></li>
+<li><p>Adam Cadre wrote <a href="http://adamcadre.ac/content/if.txt">a short and punchy textfile laying out some basic parser advice</a>.</p></li>
+<li><p>Jason McIntosh produced <a href="http://www.youtube.com/watch?v=GifZWBxBDn8">a ten-minute video about IF</a>, including a short walkthrough of the first few turns of a real game.</p></li>
+</ul>
+
+<h2 id="gameswithtutorialelements">Games with tutorial elements</h2>
+
+<ul>
+<li><p><a href="http://zarfhome.com/dreamhold/">Andrew Plotkin&#8217;s <em>The Dreamhold</em></a> and <a href="http://ifdb.tads.org/viewgame?id=9p8kh3im2j9h2881">Emily Short&#8217;s <em>Bronze</em></a> both present rich fantasy adventures that feature a companion &#8220;tutorial voice&#8221;, which the player is free to switch on and off at will.</p></li>
+<li><p><a href="http://www.lacunastory.com">Aaron Reed&#8217;s <em>Blue Lacuna</em></a> and <a href="http://ifdb.tads.org/viewgame?id=aearuuxv83plclpl">Emily Short&#8217;s <em>Counterfeit Monkey</em></a> are both very long and complex stories nonetheless written to accomodate new players. They both begin with smaller prologues, allowing new players to get comfortable with the parser before things start to open up. They also allow players to choose whether to fill the game world with puzzles to solve, or focus instead on story.</p></li>
+</ul>
+
+<div class="page-header">
+<h1 id="otherifgamestotry">Other IF games to try</h1>
+</div>
+
+<p>The People&#8217;s Republic of Interactive Fiction, a Boston-based IF interest group, hosts <a href="http://pr-if.org/play/">a handpicked shortlist of IF works suitable for newcomers</a> &#8211; either because they&#8217;re specifically designed that way, or because they&#8217;re widely considered to be good examples of the form. All the games on the list are playable in a web browser.</p>
+
+<p>Naturally, we also invite you to browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="http://ifdb.tads.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p>
+<div class="page-header">
+<h1 id="elsewhereontheweb">IF resources around the web</h1>
+</div>
+
+
+<p><a href="http://ifdb.tads.org">The Interactive Fiction Database</a>, created by Mike Roberts, is the web&#8217;s clearinghouse for all things IF. It lists most every work of IF since the birth of the medium, and invites users to contribute new entries, reviews, and other commentary. It provides assistance for downloading and playing most of the games it knows about, and also offers in-browser play when available.</p>
+
+<p><a href="http://www.intfiction.org/forum/">The Interactive Fiction Community Forum</a> acts as the central web-based discussion space for the IF community. A glance at <a href="http://www.intfiction.org/forum/search.php?search_id=active_topics&amp;sid=90a13e9f3b01c9f4845075f7fa2c2250">its &#8220;view active topics&#8221; page</a> shows the what folks are talking about at the moment, but the whole board is worth exploring, and fresh topics are always welcome. The forum is maintained by Mike Snyder and moderated by a team of community volunteers.</p>
+
+<p>When the comp is in full swing &#8211; especially during September and October of every year &#8211; discussion of comp entries blooms across the web, not just on the above forums but on a variety of review sites and personal blogs. By following <a href="http://ifcomp.tumblr.com">the IFComp blog</a> or <a href="http://twitter.com/ifcomp">Twitter account</a>, you can stay abreast of new comp-related links. (And if you know about a link that we ought to share, please feel free to <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x69;&#x66;&#x63;&#111;&#109;&#x70;&#64;&#x69;&#102;&#99;&#x6f;&#109;&#x70;&#46;&#111;&#114;&#103;">&#x73;&#104;&#97;&#x72;&#101; &#x69;&#x74; &#119;&#x69;&#x74;&#104; &#117;&#x73;</a>.)</p>
+</div>

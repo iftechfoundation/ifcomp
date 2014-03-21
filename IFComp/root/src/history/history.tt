@@ -1,0 +1,82 @@
+[% meta.title = 'IFComp - History' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">History of the Competition</h1>
+</div>
+<div class="page-header">
+<h1>The IFComp, past and present</h1>
+</div>
+<h2 id="thebeginning">The beginning</h2>
+<p>Way back in 1995, Graham Nelson had recently released <a href="http://inform-fiction.org/introduction/index.html">Inform</a>, a language for creating parser-based interactive fiction &#8211; games in the mode of Infocom&#8217;s classic text adventures from the 1980s. The idea appealed to plenty of people, but they faced a problem: they lacked the large pool of example code to learn from that users of other languages had.</p>
+
+<p>Enter Kevin Wilson, an undergraduate at Berkeley. He was a fan of text adventures, and was hard at work on a game of his own, <em>Avalon</em> (aka <a href="http://ifdb.tads.org/viewgame?id=vlsvsfinckq930o5"><em>Once and Future</em></a>). When <a href="http://groups.google.com/groups?selm=799497853snz%40mdown.demon.co.uk&amp;oe=UTF-8&amp;output=gplain">the idea of a competition to encourage new short Inform games</a> came up on <code>rec.arts.int-fiction</code> &#8211; the pre-web, Usenet-based forum central to the IF community during the 1990s &#8211; he <a href="http://groups.google.com/groups?selm=3ooj7h%24lhv%40agate.berkeley.edu&amp;oe=UTF-8&amp;output=gplain">ran with it</a>. After a fair amount of debate on that forum, Kevin planned a simple competition with <a href="https://groups.google.com/forum/#!msg/rec.arts.int-fiction/T4rl08f6Qrg/O25HJke0KpMJ">one rule</a>: every entry had to be &#8220;winnable in under two hours.&#8221; He divided the competition into two categories, one for Inform games, the other for <a href="http://tads.org">TADS</a> games.</p>
+
+<p>The judging rules were as simple as the entry rule. Anyone could vote. All they had to do was play every game in a division and then vote for their top three choices.</p>
+
+<p>A total of twelve games were entered in <a href="[% c.uri_for_action( '/comp/index', [ 1995 ] ) %]">that first competition</a>. The response was remarkable. After the votes had been counted, discussion of all the games went on for weeks. Traffic on <code>rec.arts.int-fiction</code> took a dramatic upswing, and the flood didn&#8217;t slow to a trickle for some time. </p>
+
+<p>There was no question that this was a competition worth running again.</p>
+
+<p>For its second year, Kevin instituted a few changes. The divisions were eliminated; each game was judged against all others, regardless of the language used to create it. Instead of voting for the top three games, judges ranked each game on a scale of one to ten. This format has stayed the same since.</p>
+
+<h2 id="timepasses">Time passes&#8230;</h2>
+
+<p>After three years of running the competition, Kevin stepped down. David Dyte organized the fourth comp, and passed the job in turn to Stephen Granade in 1999. Stephen would proceed to run the next 15 competitions, right through 2013.</p>
+
+<p>During this time, the annual event that the Usenet-based community nicknamed <em>the IFComp</em> gradually evolved in its purpose. What began as a way to encourage hobbyists to generate new works with interesting new tools became a slow but steady heartbeat for an ongoing creative community of text-game authors and enthusiasts. Since the mid&#8211;1990s the locus of IF discussion has changed, appropriately, from the primordial Usenet newsgroups to <a href="http://intfiction.org/forum">a web-based forum</a>, supported by other web resources like <a href="http://ifdb.tads.org">the IFDB</a>, <a href="http://ifwiki.org">the IF Wiki</a>, and the distributed, deep-memory <a href="http://ifarchive.org">IF Archive</a>, all run by passionate volunteers. Eileen Mullin launched <a href="http://xyzzyawards.org">the XYZZY Awards</a>, an annual online gala which has long complemented the IFComp by recognizing efforts in the wider world of text-game innovation.</p>
+
+<p>And every year the IFComp would cycle again, releasing right on schedule another several dozen brand-new games into the world, reinvigorating a community always hungry to continue growing and maturing through critical play and discussion of fresh work.</p>
+
+<p>Meanwhile, the larger digital-games world experienced its own level of startling growth and change. The early 21st century saw not just the ascent of digital games as an increasingly important facet of human culture, but a great deal of democratization in the tools for their creation. PCs kept getting faster and cheaper, and the advent of ubiquitous mobile technology exploded the everyday exposure to digital games far beyond the comfortable realm of desktop hobbyists. Tools like <a href="http://unity3d.com">Unity</a> and <a href="https://www.yoyogames.com/studio">GameMaker</a> appeared, giving anyone with a home computer and the will to explore the potential to create highly polished videogames. A global movement of independent game creation started to form, with new communities coming together to complement the commercially focused &#8220;triple-A&#8221; games industry and challenge one another to continue exploring new directions to take digital games.</p>
+
+<p>This constant pace of tools-driven innovation carried back into the specific realm of text-driven games, too. Graham Nelson returned &#8211; working with Emily Short, Andrew Hunter, and other collaborators &#8211; to release <a href="http://inform7.com">Inform 7</a>, a complete reimagining of Inform with a natural-language syntax meant to appeal especially to prose stylists. Chris Klimas created <a href="http://twinery.org">Twine</a>, which has achieved critical acclaim and a diverse, energetic community from its enabling people to create rich hypertext-based IF without the need to write code. </p>
+
+<p>By 2013, Inform 7 and Twine had become the dominant tools for creating IFComp entries. Meanwhile, the larger independent-games community had long since discovered for itself the value of competitions for catalyzing the creation and discussion of new work. As it neared its third decade, the IFComp had become just one of many regular competitions found across the new indie-games landscape, from scrappy events like the <a href="http://www.ludumdare.com">Ludum Dare</a> to polished, press-friendly affairs like the <a href="http://www.igf.com">Independent Games Festival</a>. </p>
+
+<p>Amidst all this, the comp&#8217;s heartbeat has carried on, adding more new interactive fiction to an increasingly games-focused world.</p>
+
+<h2 id="andhowdoyoudo">And how do you do</h2>
+
+<p>In 2014, for the Interactive Fiction Competition&#8217;s 20th year, Stephen passed along the organizer role to Jason McIntosh. Despite significant changes to its website and a few updates to <a href="[% c.uri_for('/rules/') %]">its rules</a>, the IFComp retains the same spirit with which it was founded, way back before it (or most anything else) had a website at all.</p>
+
+<p>The IFComp began with enthusiasts with clear memory and aching fondness for the brief era when those strange and unforgettable text adventures, <em>Zork</em> and <em>Wishbringer</em> and all the rest of them, dominated the field of computer games. It grew to become a central catalyst for innovation in the field of text-driven videogames, and has for a long time now driven creators to explore and invent entirely new directions with interactive text &#8211; and, in the process, with digital media in general.</p>
+
+<p>We hope you&#8217;ll join us in looking forward to what the next 20 years will bring.</p>
+
+<div class="page-header">
+<h1 id="winners">A list of IFComp winners</h1>
+</div>
+<p>The following list includes every game to take first prize in the IFComp over the years. The competition&#8217;s legacy embraces far more than merely its first-place winners, of course. To browse all entries by year, <a href="[% c.uri_for( '/comp/' ) %]">visit the results page</a>.</p>
+[% last_year_seen = 0 %]
+[% FOREACH entry IN winners %]
+<div class="row">
+    <div class="col-sm-12">
+    [% IF entry.comp.year != last_year_seen %]        
+        [% last_year_seen = entry.comp.year %]
+        <hr />
+        <h2><span class="label label-info">[% entry.comp.year %]</span></h2>
+    [% END %]
+    <h2>[% entry.title %]</h2>
+    </div>
+</div>
+<div class="row">
+    [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
+        <div class="col-xs-4">
+            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+        </div>
+    [% END %]    
+    <div class="col-xs-8">
+    [% IF entry.subtitle %]
+        <h3>[% entry.subtitle %]</h3>
+    [% END %]
+        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
+        <p>[% entry.blurb %]</p>
+        <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
+        </p>
+        <p><a href="[% c.uri_for_action( '/comp/index', [ entry.comp.year ] ) %]"><cite>Browse all IFComp entries from [% entry.comp.year %]</cite></a></p>
+
+    </div>
+</div>
+[% END %]
+
+</div>

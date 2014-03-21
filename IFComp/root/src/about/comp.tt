@@ -1,0 +1,46 @@
+[% meta.title = 'IFComp - About the Competition' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">About the Competition</h1>
+</div>
+<div class="page-header">
+<h1 id="thecompinanutshell">The comp in a nutshell</h1>
+</div>
+
+<p>The Interactive Fiction Competition is <a href="[% c.uri_for_action( '/history/index' ) %]">an annual event begun by passionate hobbyists in 1995</a> to encourage both the creation and the discussion of new interactive fiction works (also known as <em>IF</em>). While <a href="[% c.uri_for_action( '/about/if' ) %]">the definition of IF has evolved in the years since then</a>, the IFComp&#8217;s format and schedule have remained stable since the 1990s. Anyone can judge the entries on a one-to-ten scale, and the laurels go to the entries receiving the best average rating.</p>
+
+<p>The people who participate in the IFComp include:</p>
+
+<ul>
+<li><p><strong>Authors</strong>, who write the best IF works they can, and then submit them to the comp before the September 28 deadline (see the full schedule below). There is no entry fee, and anyone&#8217;s allowed to submit up to three entries.</p>
+
+<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full rules for authors.</a></p></li>
+<li><p><strong>Judges</strong>, who, over a six-week period in October and November, play as many entries as they can, and give each one they play a score between 1 and 10. Higher numbers mean a better score; judges are otherwise free to use any scoring rubric they wish. A game&#8217;s final score is simply the average of all scores it has received.</p>
+
+<p>Judging is open to the public (competition authors and organizers excluded); becoming a judge simply means creating an account on this website, and proceeding to submit scores for at least five entries during the judging period.</p>
+
+<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#judges">See the full rules for judges.</a></p></li>
+<li><p><strong>Donors</strong>, who kindly donate prizes to each year&#8217;s prize pool. At the end of the competition, and starting with the first-place winner, authors take turns choosing a prize from the pool, which the donor will then deliver to the author via whatever medium is appropriate for it. (Donors are most certainly allowed to be judges as well.)</p>
+
+<p>Prizes can be (and have been) anything from cash to books to food to professional services, and more. Donors declare their intent by <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#x66;&#99;&#x6f;&#x6d;&#112;&#64;&#x69;&#x66;&#x63;&#x6f;&#x6d;&#112;&#46;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#x6c;&#105;&#x6e;&#103; &#116;&#104;&#101; &#x6f;&#114;&#103;&#x61;&#x6e;&#x69;&#122;&#x65;&#x72;</a>.</p></li>
+</ul>
+
+<div class="page-header">
+<h1 id="competitionschedule">Competition schedule</h1>
+</div>
+
+<ul>
+<li><p><strong>July 1:</strong> The competition website is open for authors to declare their intent to enter this year&#8217;s competition.</p></li>
+<li><p><strong>September 1:</strong> The last date that authors can register their intent to enter.</p></li>
+<li><p><strong>September 28:</strong> The last date that authors can upload their games to the competition site. Judges start sharpening their silverware.</p></li>
+<li><p><strong>October 1:</strong> The games are released to the public, and the judging period begins.</p></li>
+<li><p><strong>November 15:</strong> All votes must be submitted by the end of the day. The competition results are announced shortly afterwards. Prize choosing and distribution begins.</p></li>
+</ul>
+
+<div>
+<h1 id="misscongenialityawards">Miss Congeniality Awards</h1>
+</div>
+
+<p>Since <a href="[% c.uri_for_action( '/comp/comp', 1998 ) %]">the 1998 competition</a>, the IFComp has every year held a secondary contest allowing the authors of that years&#8217; games to vote on one anothers&#8217; entries, using a ballot similar to the one that the public uses to vote in the main competition. The three most highly ranked entries by this vote become the winners of the Miss Congeniality Awards, an honor permanently recorded in <a href="[% c.uri_for_action( '/comp/comp' ) %]">that year&#8217;s results listing</a>.</p>
+
+</div>

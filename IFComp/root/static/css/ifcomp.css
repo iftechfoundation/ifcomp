@@ -17,3 +17,9 @@
 .label-enth-place {
     background-color: #999
 }
+
+// Override Bootstrap
+code {
+    background: none;
+    color: black;
+}
