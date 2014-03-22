@@ -20,7 +20,7 @@
         Welcome to IFComp.org! If you've visited before, you might notice things look quite a bit different. We're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year!
         </p>
         <p>
-        For a brief rundown on the IFComp and its schedule this year, see <a href="http://localhost:3000/about/comp">our About the Competition page</a>.
+        For a brief rundown on the IFComp and its schedule this year, see <a href="[% c.uri_for('about/comp') %]">our About the Competition page</a>.
         </p>
     </div>
     
