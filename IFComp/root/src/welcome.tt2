@@ -17,23 +17,31 @@
         <h2>You're here early!</h2>
 
         <p>
-        Welcome to IFComp.org! If you've visited before, you might notice things look quite a bit different. We're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year, by golly!
+        Welcome to IFComp.org! If you've visited before, you might notice things look quite a bit different. We're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year!
+        </p>
+        <p>
+        For a brief rundown on the IFComp and its schedule this year, see <a href="http://localhost:3000/about/comp">our About the Competition page</a>.
         </p>
     </div>
     
     <div class="col-sm-4">
         <h2>What's here now?</h2>
         
-        [%# XXX Make the year here not hardcoded, and make this a proper
-            uri_for_action() call. 
-        %]
-        <p>Not much yet, but you can <a href="[% c.uri_for('/comp/2013/') %]">browse past competition results</a>. These revamped pages contain more information about every past comp game, including links to their IFDB pages &mdash; which each feature online-play and download links, collected reviews, and other goodies.</p>
+        <p>The revamped <a href="[% c.uri_for('/comp/') %]">competition results</a> list every past comp game, including links to their IFDB pages &mdash; which let you download, play, or learn more about each.</p>
+        <p>We&rsquo;ve also revised <a href="[% c.uri_for('/rules') %]">the comp rules</a>, and created new pages about <a href="[% c.uri_for('/history') %]">the comp&rsquo;s history</a>, <a href="[% c.uri_for('/about/guidelines') %]">guidelines for comp authors</a>, and <a href="[% c.uri_for('/about/if') %]">a summary of what &ldquo;IF&rdquo; means in 2014</a>.
+        </p>
     </div>
     
     <div class="col-sm-4">
         <h2>Stay comp-informed</h2>
     <p>
-        For news and updates, please <a href="http://ifcomp.tumblr.com">visit our blog</a> or <a href="http://twitter.com/ifcomp">follow us on Twitter</a>. We'll post updates throughout the runup to the June kickoff while this new website comes online, bit by bit.
+        For news and updates:
+    </p>
+    <ul>
+    <li><a href="http://blog.ifcomp.org">Visit our blog</a></li>
+    <li><a href="http://twitter.com/ifcomp">Follow us on Twitter</a></li>
+    </ul>
+    <p>We'll post updates throughout the runup to the June kickoff while this new website comes online, bit by bit.
     </p>
     
       </div>
