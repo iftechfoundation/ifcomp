@@ -1,0 +1,100 @@
+[% meta.title = 'IFComp - Best practices for authors' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">Guidelines for IFComp authors</h1>
+</div>
+
+<p>This is a page of advice, not rules. (<a href="/rules/">We do have rules</a>, and you should read those too, but they&#8217;re not this.) </p>
+
+<p>Following these guidelines will make it more likely that your game will earn a certain basic level of respect and interest among the IFComp&#8217;s judges and reviewers. Even if your game doesn&#8217;t take a major prize home, it will still be better positioned to receive positive attention and discussion during the comp and beyond, and in so doing will make your own participation in the comp as an author more worthwhile.</p>
+
+<div class="page-header">
+<h1 id="testing">Beta-test your game <small>and credit your testers</small></h1>
+</div>
+
+<p>If you apply no other guideline on this page to your IFComp entry, please consider applying this one.</p>
+
+<p>Every work of interactive fiction, no matter the format, style, or experience level of the author, benefits enormously from beta-testing prior to its first public release. We <em>strongly</em> recommend that authors <em>always</em> send their work through at least a round or two of testing &#8211; and subsequent improvement, based on feedback &#8211; before submitting it as entries to the IFComp.</p>
+
+<p>What &#8220;testing&#8221; means varies depending upon the nature of the IF at hand. A complex, puzzle-laden work in a classic text-adventure mode might best benefit from weeks of rigorous, iterative testing, fixing, tuning and re-testing as a volunteer quality-assurance team scrambles all over the game, trying to break it as much as trying to solve it. On the other end of the spectrum, testing a story-focused work would likely focus more on the quality of the prose than on the underlying mechanics, scrutinizing the narrative branching and providing feedback about how meaningful the choices felt.</p>
+
+<p>However you choose to test, the mere act of it will all but guarantee that the work you submit to the competition shall be immeasurably more polished and ready for public scrutiny than a wholly untested work.</p>
+
+<p>You can recruit testers from your friends and family, or use resources like <a href="http://if.game-testing.org">game-testing.org</a> or <a href="http://www.intfiction.org/forum/viewforum.php?f=19&amp;sid=de0d73806ede2352bad579d28ec84b4a">the intfiction.org forum</a> to find helpful volunteers from the IF community. </p>
+
+<p>Once they become active, please <em>credit your testers within your game</em>. Conspicuously display their names in a manner appropriate to the work, such as in a &#8220;Credits&#8221; link in a hypertext game, or via the ABOUT command in a parser IF. Not only is it the right and proper way to acknowledge all the time and attention they spent to help improve your work, but it clearly communicates to players that you cared enough about the game to have it properly beta-tested. Some IFComp judges will refuse to play or review games that don&#8217;t clearly identify any beta-testers, dismissing them &#8211; and not without justification &#8211; as not worth their time.</p>
+
+<p>And finally, please <em>do not</em> just post your would-be comp entry someplace public and invite the whole internet to come test it &#8211; we consider that a release, and <a href="/rules#authors">released works are disqualified from entry in the IFComp</a>. As long as you know exactly who played your game prior to its competition entry, then all is well.</p>
+
+<p>A few additional thoughts related to testing: </p>
+
+<ul>
+<li><p><strong>In a text game, spelling and grammar mistakes are bugs.</strong> Worse, since they&#8217;re sitting right there on the surface, they can signal a level of carelessness that can make players lose faith in your game quickly. The author may have truly poured their soul into a work, but if they spell <em>its</em> wrong three times on the first screen, players become less likely to dig deep enough to find it.</p></li>
+<li><p><strong>Playing your game yourself does not count as beta testing.</strong> As the author, you willingly forego the ability to see your work with the same perspective as a reader approaching it with no foreknowledge. Of course you&#8217;ll &#8220;play&#8221; your game quite a bit while developing it, and you will find and fix plenty of flaws on your own. But you need people who are not you to play the game precisely because they lack your knowledge and expectations about it. They will uncover subtle confusions, unintentional surprises, and other problems that you would have never spotted by dint of being so close to the creation. </p></li>
+<li><p><strong>All this counts double for parser games.</strong> Because they accept free-form input from players, parser-based IF works should be subject to especially rigorous testing. Good testers will find suggested directions that don&#8217;t work, valid actions that produce incorrect results, and unimplemented scenery objects. Good authors will fold this feedback into a new release, which they will re-submit to further testing, and again, and again.</p>
+
+<p>A thoroughly tested parser game can provide a uniquely sublime interactive fiction experience to new players. It gracefully anticipates and guides player action, and responds to most any reasonable player command, thanks to the hard work of its beta testers (and, perhaps, initial rounds of post-release players) &#8211; combined with an author diligent enough to continually improve the work based on all that feedback. Players will respond with surprise and delight.</p>
+
+<p>The very same parser-game concept released without any testing at all, however, will very likely only frustrate and stymie players who will, without exception, quickly wander from the author&#8217;s expected path and encounter countless undescribed objects, broken exits, and missing synonyms. These players are unlikely to think highly of the experience.</p></li>
+</ul>
+
+<p>No matter the style of your work, before submitting it to the competition, please do take the effort to have it beta-tested.</p>
+
+<div class="page-header">
+<h1 id="includeawalkthrough">Include a walkthrough</h1>
+</div>
+
+<p>If your work contains puzzles or other game-elements where a reasonable player might get stuck and not know how to keep playing, please include a walkthrough alongside your IFComp entry.</p>
+
+<p>While you of course <em>want</em> all players of your game to work through the whole thing on their own, providing a walkthrough lets judges who do get stuck continue playing through your game, instead of helplessly giving up partway through. (Keep in mind the <a href="/rules#judges">two-hour time limit</a> that every judge has to form their official opinion on each game.) </p>
+
+<p>You may wish to include a built-in hint system, should that suit the style and scope of your game. Thorough beta-testing can reveal ways your game might subtly guide players to find puzzle solutions by themselves. But even in these cases, pairing your entry with a simple walkthrough file remains an effective way to guarantee that all judges will be able to play through your entire entry.</p>
+
+<div class="page-header">
+<h1 id="writeastrongblurb">Write a strong blurb</h1>
+</div>
+
+<p>Every IFComp entry has a <em>blurb</em>: a short paragraph or two of text displayed as part of its basic description on every comp year&#8217;s list of entries. After the game&#8217;s title and cover art, the blurb is the very first part of your game that a player will experience, prior to their actually playing it. </p>
+
+<p>Like the relationship a film trailer has with its movie, a good IFComp blurb exists outside of the game&#8217;s story, but offers a taste of what players will experience through it. The best comp blurbs pique judges&#8217; interest, putting them into a positive, receptive attitude as they begin playing.</p>
+
+<p>Good blurbs can also act as epigrams that tie the whole play-experience together. Judges are likely to revisit a game&#8217;s blurb after they&#8217;re done playing it &#8211; as they return to the website to vote, say, or to choose their next entry. A good blurb can in this way function as a parting summary as well as an introductory teaser, helping judges remember and reflect upon their experience with the game right as they&#8217;re ready to submit its ranking.</p>
+
+<p>Feel free to <a href="/comp/">browse past years&#8217; blurbs</a>, noting the various approaches that high-ranking games&#8217; authors have taken. They include pithy one-sentence teasers, evocative quotes from history or literature, and short summaries in the style of a paperback novel&#8217;s back cover, among others. Blurbs have no set format, other than brevity.</p>
+
+<p>Get creative and craft a blurb appropriate to your game that will draw players in, making them hungry to see more, and suggesting its worthiness as an investment of those players&#8217; time.</p>
+
+<div class="page-header">
+<h1 id="useanifauthoringtool">Use an IF authoring tool</h1>
+</div>
+
+<p>The most well received and best remembered entries to the IFComp, almost without exception, make use of software specialized for creating IF works, such as Twine or Inform. The various tools aren&#8217;t all means to identical ends; different authoring systems are tuned for making different varieties of IF. You should choose a tool based on the kind of experience you want your game&#8217;s players to have.</p>
+
+<ul>
+<li><p>If you want to make a <a href="/about/if#parserif">parser-based game</a>, look at systems like <a href="http://inform7.com">Inform</a> or <a href="http://tads.org">TADS</a>. </p></li>
+<li><p><a href="/about/if#hypertextif">Hypertext</a> designs can use systems such as <a href="http://twinery.org">Twine</a> or <a href="http://undum.com">Undum</a>.</p></li>
+<li><p>For <a href="/about/if#cyoa">choice-based</a> designs outside of hypertext, consider something like <a href="http://www.choiceofgames.com/make-your-own-games/choicescript-intro/">ChoiceScript</a> or <a href="http://www.inklestudios.com/inklewriter/">inklewriter</a>.</p></li>
+</ul>
+
+<p>For a more detailed summary of the relative strengths of several popular IF authoring tools, please consult <a href="http://www.getmewriting.com/interactive-fiction/interactive-fiction-authoring-tools-2/">this comparison by Matty Gibbons</a>.</p>
+
+<p>If you wish to submit a work that you created from scratch, please do! We only suggest you keep in mind that giving the player of an interactive story a good basic experience is <em>hard</em>, a software design problem at least as difficult as &#8211; and, in many circumstances, entirely separate from &#8211; the creative challenge of communicating an engaging story. Using an existing IF tool allows authors to worry less about the technology and focus more on the fiction.</p>
+
+<div class="page-header">
+<h1 id="submitonlyfinishedwork">Submit only finished work</h1>
+</div>
+
+<p>It&#8217;s true that the IFComp has a deadline for entry, but do not confuse this deadline with an impassable point of make-or-break failure. If October approaches and your project feels like it still has miles to go, consider aiming for a later competition instead &#8211; the <a href="http://springthing.net">Spring Thing</a>, perhaps, or even the following year&#8217;s IFComp.</p>
+
+<p>Not finishing your project when you first meant to, and watching the year&#8217;s parade of comp games march past without yours among them, can feel disappointing. However, the satisfaction of seeing that same project finally completed more than makes up for it. </p>
+
+<p>Resist the temptation to either submit an entry you know is unready, or abandon it as a failure simply because the year&#8217;s deadline passed. Take the time you need to finish your work before submission, even if it means holding it for the next go-round. You&#8217;ll feel prouder for it, and the judges will appreciate the better game, too.</p>
+
+<div class="page-header">
+<h1 id="furtherreading">Further reading</h1>
+</div>
+
+<ul>
+<li><p><a href="http://www.ifwiki.org/index.php/IF_Theory_Reader"><em>The IF Theory Reader</em></a>, edited by Kevin Jackson-Mead and J. Robinson Wheeler, collects several essays from the IF community circa 2000&#8211;2010. Most of its content dates from before the Twine-led resurgence of hypertext IF, so it concerns itself largely with parser IF. However, anyone interested in deep discussion and analysis of interactive text might be interested in spending some time with this book, which is available as both <a href="http://www.lulu.com/shop/kevin-jackson-mead-and-j-robinson-wheeler/if-theory-reader/ebook/product-17551190.html">a free PDF</a> or <a href="http://www.lulu.com/shop/kevin-jackson-mead-and-j-robinson-wheeler/if-theory-reader/paperback/product-15325304.html">a paperback</a> via lulu.com.</p></li>
+<li><p>The 2012 intfiction.org forum thread <a href="http://www.intfiction.org/forum/viewtopic.php?f=32&amp;t=6205">&#8220;How to win the IFComp&#8221;</a>, started by Sam Kabo Ashwell, served as the inspiration for the page of advice you have just read. It goes on for several pages, among many contributors, and through varying levels of credibility. We&#8217;ve tried to distill its best advice here, but those wishing a deeper dive might like to visit the source.</p></li>
+</ul>

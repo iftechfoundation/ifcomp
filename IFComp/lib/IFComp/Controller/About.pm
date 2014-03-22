@@ -40,6 +40,13 @@ sub comp :Path('comp') :Args(0) {
     $c->stash->{ template } = 'about/comp.tt';
 }
 
+sub guidelines :Path('guidelines') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{ template } = 'about/guidelines.tt';
+}
+
+
 =encoding utf8
 
 =head1 AUTHOR
