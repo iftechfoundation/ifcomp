@@ -266,7 +266,15 @@ sub encrypt_rijndael_256
         return;
     }
 
-    my $api_key = $user->site->api_key;
+    my $site_id = $c->req->param("site_id") || 1;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
+    unless ($site[0])
+    {
+      warn("No site '$site_id'\n");
+      return;
+    }
+
+    my $api_key = $site[0]->api_key;
     my $cmd = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
     my $hash = qx[$cmd];
     return $hash;
@@ -283,7 +291,16 @@ sub decrypt_rijndael_256
         return;
     }
 
-    my $api_key = $user->site->api_key;
+    my $site_id = $c->req->param("site_id") || 1;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
+    unless ($site[0])
+    {
+      warn("No site '$site_id'\n");
+      return;
+    }
+
+    my $api_key = $site[0]->api_key;
+
     my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
 #    warn("CMD: '$cmd'\n");
     my $plaintext = qx($cmd);

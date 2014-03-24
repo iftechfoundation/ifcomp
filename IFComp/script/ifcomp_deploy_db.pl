@@ -5,9 +5,10 @@ use FindBin;
 use lib ("$FindBin::Bin/../lib");
 use Time::HiRes;
 use Getopt::Std;
+use FindBin;
 
 my %Opts;
-getopts('dh?', \%Opts);
+getopts('udh?', \%Opts);
 
 if ($Opts{'?'} || $Opts{'h'})
 {
@@ -37,7 +38,26 @@ if ($Opts{'d'})
     $sql_args{'add_drop_table'} = 1;
 }
 
-IFComp->component("IFComp::Model::IFCompDB")->schema->deploy(\%sql_args);
+my $S = IFComp->component("IFComp::Model::IFCompDB")->schema->connect();
+
+if ($Opts{u})
+{
+    my $dir = "$FindBin::Bin/../sql";
+    unless (-e $dir)
+    {
+	die("Cannot find upgrade director $dir\n");
+    }
+    
+    print "Upgrading schema\n";
+    
+    $S->upgrade_directory($dir);
+    $S->upgrade();
+}
+else
+{
+    print "Deploying schema\n";
+    $S->deploy(\%sql_args);
+}
 
 my $end = Time::HiRes::time();
 printf("Deploy took %.2f seconds\n", ($end - $start));
@@ -55,5 +75,6 @@ OPTIONS:
  ?        This screen
  h        This screen
  d        Adds 'DROP TABLE' statements before 'CREATE TABLE' statements
+ u        Upgrade schema, if possible
 ];
 }

@@ -103,13 +103,6 @@ __PACKAGE__->table("user");
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
-=head2 site_id
-
-  data_type: 'integer'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 verified
 
   data_type: 'tinyint'
@@ -151,13 +144,6 @@ __PACKAGE__->add_columns(
     data_type => "timestamp",
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
-  },
-  "site_id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
   },
   "verified",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
@@ -251,21 +237,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 site
-
-Type: belongs_to
-
-Related object: L<IFComp::Schema::Result::FederatedSite>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "site",
-  "IFComp::Schema::Result::FederatedSite",
-  { id => "site_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
 =head2 user_roles
 
 Type: has_many
@@ -297,8 +268,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BPYZmzFuIKwM47cyTsGB3Q
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-24 12:31:34
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SOhvFWIGfZwTDWV8rdrUvA
 
 use Digest::MD5 ('md5_hex');
 
