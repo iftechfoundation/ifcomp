@@ -105,7 +105,7 @@ sub auth_login
     my $client_ip = $c->req->param("ip");
 
     # Look up site by name
-    my $site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id});
+    my $site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id});
     unless ($site)
     {
         return { 
@@ -235,7 +235,7 @@ sub check_password
         return;
     }
 
-    my $hashing_method = $args{override} || $user->site->hashing_method;
+    my $hashing_method = $args{override} || 'rijndael-256';
     my $plaintext;
     if ($hashing_method eq 'rijndael-256')
     {
@@ -267,7 +267,7 @@ sub encrypt_rijndael_256
     }
 
     my $site_id = $c->req->param("site_id") || 1;
-    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id})->all;
     unless ($site[0])
     {
       warn("No site '$site_id'\n");
@@ -292,7 +292,7 @@ sub decrypt_rijndael_256
     }
 
     my $site_id = $c->req->param("site_id") || 1;
-    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id})->all;
     unless ($site[0])
     {
       warn("No site '$site_id'\n");
@@ -302,8 +302,9 @@ sub decrypt_rijndael_256
     my $api_key = $site[0]->api_key;
 
     my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
-#    warn("CMD: '$cmd'\n");
+    #warn("CMD: '$cmd'\n");
     my $plaintext = qx($cmd);
+warn("password '$plaintext'");
     return $plaintext;
 }
 
