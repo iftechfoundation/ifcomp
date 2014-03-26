@@ -268,8 +268,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-24 12:31:34
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SOhvFWIGfZwTDWV8rdrUvA
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-24 14:35:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uHugc/y7Z8QKd1w+UL4g/g
 
 use Digest::MD5 ('md5_hex');
 
