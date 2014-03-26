@@ -4,7 +4,7 @@ use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
-    schema_class => 'IFCompDB::Schema',
+    schema_class => 'IFComp::Schema',
 );
 
 =head1 NAME
