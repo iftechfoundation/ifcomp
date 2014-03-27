@@ -64,7 +64,7 @@ sub auth_check_token {
                    ->search(
                     {
                         token => $token,
-                        user_id => $user_id
+                        user => $user_id
                     },
                     {
                         order_by => { -desc => "created" }
@@ -144,7 +144,7 @@ sub auth_login {
     chomp(my $token_key = encode_base64(time()^$$));
 
     # Delete old tokens for this user
-    my @all = $c->model("IFCompDB::AuthToken")->search({ user_id => $user->id })->all;
+    my @all = $c->model("IFCompDB::AuthToken")->search({ user => $user->id })->all;
     for (@all)
     {
         $_->delete;
@@ -152,7 +152,7 @@ sub auth_login {
 
     my $token = $c->model("IFCompDB::AuthToken")->create(
         {
-            user_id => $user->id,
+            user => $user->id,
             token => $token_key,
             created => "CURRENT_TIMESTAMP",
         });
@@ -188,7 +188,7 @@ sub auth_logout {
     my $ret = {};
     if ($self->auth_check_token($c)) {
         my @users = $c->model("IFCompDB::User")->search({id => $c->req->param("user_id")})->all();
-        my @all = $c->model("IFCompDB::AuthToken")->search({ user_id => $users[0]->id })->all;
+        my @all = $c->model("IFCompDB::AuthToken")->search({ user => $users[0]->id })->all;
         for (@all) {
             $_->delete;
         }
