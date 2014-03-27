@@ -50,16 +50,11 @@ __PACKAGE__->table("user");
   data_type: 'char'
   default_value: (empty string)
   is_nullable: 0
-  size: 64
+  size: 128
+
+User's real name
 
 =head2 password
-
-  data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
-  size: 64
-
-=head2 salt
 
   data_type: 'char'
   default_value: (empty string)
@@ -72,6 +67,8 @@ __PACKAGE__->table("user");
   default_value: (empty string)
   is_nullable: 0
   size: 64
+
+Email doubles as login ID
 
 =head2 email_is_public
 
@@ -91,6 +88,12 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 32
 
+=head2 salt
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 16
+
 =head2 created
 
   data_type: 'datetime'
@@ -106,8 +109,7 @@ __PACKAGE__->table("user");
 =head2 verified
 
   data_type: 'tinyint'
-  default_value: 0
-  is_nullable: 0
+  is_nullable: 1
 
 =cut
 
@@ -120,10 +122,8 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "name",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
   "password",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
-  "salt",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
   "email",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
@@ -133,6 +133,8 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 128 },
   "twitter",
   { data_type => "char", is_nullable => 1, size => 32 },
+  "salt",
+  { data_type => "char", is_nullable => 1, size => 16 },
   "created",
   {
     data_type => "datetime",
@@ -146,7 +148,7 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
   },
   "verified",
-  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
+  { data_type => "tinyint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -161,20 +163,6 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
-=head1 UNIQUE CONSTRAINTS
-
-=head2 C<email>
-
-=over 4
-
-=item * L</email>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("email", ["email"]);
-
 =head1 RELATIONS
 
 =head2 auth_tokens
@@ -188,7 +176,7 @@ Related object: L<IFComp::Schema::Result::AuthToken>
 __PACKAGE__->has_many(
   "auth_tokens",
   "IFComp::Schema::Result::AuthToken",
-  { "foreign.user_id" => "self.id" },
+  { "foreign.user" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
@@ -268,8 +256,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-24 14:35:01
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uHugc/y7Z8QKd1w+UL4g/g
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:50:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4kagqAHEihBoie55amR97g
 
 use Digest::MD5 ('md5_hex');
 

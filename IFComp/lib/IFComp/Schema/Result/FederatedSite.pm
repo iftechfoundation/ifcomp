@@ -117,26 +117,9 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
-=head1 RELATIONS
 
-=head2 users
-
-Type: has_many
-
-Related object: L<IFComp::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->has_many(
-  "users",
-  "IFComp::Schema::Result::User",
-  { "foreign.site_id" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CBtXnF6OOGcBcqYrfXyZSQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:50:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i7nM+TI1r6c1+aJ8pfKHqw
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/FederatedSite.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
