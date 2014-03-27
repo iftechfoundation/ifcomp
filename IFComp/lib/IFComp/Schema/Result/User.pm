@@ -103,13 +103,6 @@ __PACKAGE__->table("user");
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
-=head2 site_id
-
-  data_type: 'integer'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
-  is_nullable: 0
-
 =head2 verified
 
   data_type: 'tinyint'
@@ -151,13 +144,6 @@ __PACKAGE__->add_columns(
     data_type => "timestamp",
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
-  },
-  "site_id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
   },
   "verified",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
@@ -251,21 +237,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 site
-
-Type: belongs_to
-
-Related object: L<IFComp::Schema::Result::FederatedSite>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "site",
-  "IFComp::Schema::Result::FederatedSite",
-  { id => "site_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
 =head2 user_roles
 
 Type: has_many
@@ -297,46 +268,35 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BPYZmzFuIKwM47cyTsGB3Q
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-24 14:35:01
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uHugc/y7Z8QKd1w+UL4g/g
 
 use Digest::MD5 ('md5_hex');
 
-sub hash_password
-{
+sub hash_password {
     my ($self, $plaintext) = (shift, shift);
 
-    my $salt = $self->salt || $self->legacy_salt;
-    my $hash = md5_hex($salt . $plaintext);
-    $self->salt($salt);
-    $self->update;
+    my $salt = $self->salt;
+    my $hash = md5_hex( $plaintext . $salt );
 
     return $hash;
 }
 
-sub legacy_salt
-{
-    return  "SWaBB1@#z!";
-}
-
-sub is_verified
-{
+sub is_verified {
     my ($self) = @_;
     return $self->verified > 0;
 }
 
-sub save_password
-{
+sub save_password {
     my ($self, $clear_password) = @_;
 
-    my $hash = md5_hex(($self->salt || $self->legacy_salt) .  $clear_password);
+    my $hash = md5_hex( $clear_password . $self->salt );
     $self->password($hash);
     $self->update;
 }
 
 # a sanitize hash suitable for publishing on the legacy API
-sub get_api_fascade
-{
+sub get_api_fascade {
     my ($self) = @_;
 
     return {
