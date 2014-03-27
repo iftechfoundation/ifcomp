@@ -78,6 +78,20 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<year>
+
+=over 4
+
+=item * L</year>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("year", ["year"]);
+
 =head1 RELATIONS
 
 =head2 entries
@@ -111,8 +125,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WgZV4UUZHMSCWgSuoJF1SQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:48:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SzC7KEUQjmm19hims0uAVA
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Comp.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
