@@ -40,7 +40,12 @@ The competition's very first run in 1995 split the entries into two categories: 
         <h2><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
         [% IF there_is_a_tie_for.$place %](tie)[% END %]
         </span></h2>
-    <h2>[% entry.title %]</h2>
+    <h2>
+        [% entry.title %]
+        [% IF entry.subtitle %]
+            <br /><small>[% entry.subtitle %]</small>
+        [% END %]
+    </h2>
     </div>
 </div>
 <div class="row">
@@ -52,9 +57,6 @@ The competition's very first run in 1995 split the entries into two categories: 
     [% END %]
     
     <div class="col-xs-8">
-    [% IF entry.subtitle %]
-        <h3>[% entry.subtitle %]</h3>
-    [% END %]
         <p><strong>[% INCLUDE author_name.tt %]</strong></p>
         [% FILTER html_para %]
         	[% entry.blurb %]
