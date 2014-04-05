@@ -32,7 +32,9 @@ sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
     my $comp = $c->model( 'IFCompDB::Comp' )->search( { year => $comp_year } )->single;
 
     unless ( $comp ) {
-        $c->res->redirect( $c->uri_for_action( '/' ) );
+        $c->res->redirect( $c->uri_for_action( '/index' ) );
+        $c->detach;
+        return;
     }
 
     $c->stash->{ comp } = $comp;

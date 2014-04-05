@@ -81,8 +81,8 @@ sub init_schema
     $schema->populate(
         'User',
         [
-            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url', 'site_id'], 
-            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/', 1 ],
+            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url' ],
+            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/' ],
         ],
         );
 
