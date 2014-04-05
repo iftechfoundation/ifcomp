@@ -24,6 +24,8 @@ use Catalyst qw/
     Session
     Session::Store::FastMmap
     Session::State::Cookie
+    Cache
+    PageCache
 /;
 
 extends 'Catalyst';
@@ -72,6 +74,22 @@ __PACKAGE__->config(
     },
     'Model::Covers' => {
         root_dir => __PACKAGE__->path_to('file_store')
+    },
+    'Plugin::Cache' => {
+        'backend' => {
+            class   => "Cache::FastMmap",
+        },
+    },
+    'Plugin::PageCache' => {
+        disable_index => 1,
+        auto_cache => [
+            '/rules/?',
+            '/comp',
+            '/comp/.*',
+            '/history/?',
+            '/about/.*',
+            '/',
+        ],
     },
 );
 
