@@ -1,0 +1,6 @@
+<h2>
+    [% entry.title %]
+    [% IF entry.subtitle %]
+        <br /><small>[% entry.subtitle %]</small>
+    [% END %]
+</h2>

@@ -56,27 +56,10 @@
         <hr />
         <h2><span class="label label-info">[% entry.comp.year %]</span></h2>
     [% END %]
-    <h2>[% entry.title %]</h2>
+    [% INCLUDE _entry_title.tt %]
     </div>
 </div>
-<div class="row">
-    [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
-        <div class="col-xs-4">
-            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
-        </div>
-    [% END %]    
-    <div class="col-xs-8">
-    [% IF entry.subtitle %]
-        <h3>[% entry.subtitle %]</h3>
-    [% END %]
-        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
-        <p>[% entry.blurb %]</p>
-        <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
-        </p>
-        <p><a href="[% c.uri_for_action( '/comp/index', [ entry.comp.year ] ) %]"><cite>Browse all IFComp entries from [% entry.comp.year %]</cite></a></p>
-
-    </div>
-</div>
+[% INCLUDE _entry_row.tt link_to_year = 1 %]
 [% END %]
 
 </div>
