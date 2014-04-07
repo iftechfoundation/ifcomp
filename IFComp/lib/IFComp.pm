@@ -83,8 +83,7 @@ __PACKAGE__->config(
         disable_index => 1,
         auto_cache => [
             '/rules/?',
-            '/comp',
-            '/comp/.*',
+            '/comp/.+',
             '/history/?',
             '/about/.*',
             '/',
