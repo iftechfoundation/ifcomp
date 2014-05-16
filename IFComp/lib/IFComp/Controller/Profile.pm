@@ -7,6 +7,9 @@ BEGIN { extends 'Catalyst::Controller'; }
 use JSON::Any;
 use MIME::Base64;
 
+use Readonly;
+Readonly my $DEFAULT_SITE => 'ifcomp.org';
+
 =head1 NAME
 
 IFComp::Controller::Profile - Catalyst Controller
@@ -56,6 +59,8 @@ sub auth_check_token {
     my $token = $c->req->param("token");
     my $user_id = $c->req->param("user_id");
 
+    $token = $self->decrypt_rijndael_256($c, $token );
+
     unless ($token && $user_id) {
         return;
     }
@@ -70,6 +75,8 @@ sub auth_check_token {
                         order_by => { -desc => "created" }
                     },
                     )->all;
+
+    $c->log->debug("Token is $token. User ID is $user_id. I found these: @tokens");
 
     return unless @tokens;
 
@@ -89,12 +96,12 @@ sub auth_login {
 
     my $email     = $c->req->param("email");
     my $password  = $c->req->param("password");
-    my $site_id   = $c->req->param("site_id") || 1;
+    my $site_id   = $c->req->param("site_id") || $DEFAULT_SITE;
     my $client_id = $c->req->param("client_id") || "";
     my $client_ip = $c->req->param("ip");
 
     # Look up site by name
-    my $site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id});
+    my $site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id});
     unless ($site) {
         return {
             error_code => "UNKNOWN SITE",
@@ -231,7 +238,7 @@ sub check_password {
 }
 
 sub encrypt_rijndael_256 {
-    my ($self, $c, $plaintext, $user) = @_;
+    my ($self, $c, $plaintext ) = @_;
 
     my $crypt_bin = $c->config->path_to("script", "encrypt-rijndael-256.php")->stringify;
     unless (-e $crypt_bin) {
@@ -239,8 +246,8 @@ sub encrypt_rijndael_256 {
         return;
     }
 
-    my $site_id = $c->req->param("site_id") || 1;
-    my @site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id})->all;
+    my $site_id = $c->req->param("site_id") || $DEFAULT_SITE;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
     unless ($site[0]) {
       $c->log->debug("No site '$site_id'\n");
       return;
@@ -253,15 +260,15 @@ sub encrypt_rijndael_256 {
 }
 
 sub decrypt_rijndael_256 {
-    my ($self, $c, $hash, $user) = @_;
+    my ($self, $c, $hash ) = @_;
 
     my $crypt_bin = $c->path_to("script", "decrypt-rijndael-256.php")->stringify;
     unless (-e $crypt_bin) {
         die "Cannot find '$crypt_bin'\n";
     }
 
-    my $site_id = $c->req->param("site_id") || 1;
-    my @site = $c->model("IFCompDB::FederatedSite")->search({ id => $site_id})->all;
+    my $site_id = $c->req->param("site_id") || $DEFAULT_SITE;
+    my @site = $c->model("IFCompDB::FederatedSite")->search({ name => $site_id})->all;
     unless ($site[0]) {
         die "No site '$site_id'\n";
     }
