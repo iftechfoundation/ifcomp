@@ -52,12 +52,13 @@ __PACKAGE__->config(
         default => {
             credential => {
                 class => "Password",
-                #password_field => "password",
+                password_field => "password",
                 password_type => "self_check",
             },
             store => {
                 class => "DBIx::Class",
                 user_model => "IFCompDB::User",
+                store_user_class => 'IFComp::UserStore',
             },
         },
     },
