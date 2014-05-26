@@ -1,0 +1,9 @@
+Greetings, [% user.name %],
+
+Someone (probably you) requested a password reset of your account at ifcomp.org. In order to reset your password, please follow this link, which will take you to a webpage allowing you to enter a new password.
+
+http://ifcomp.org/user/reset_password/[% user.id %]/[% user.access_token %]
+
+Your account's password will remain unchanged if you don't visit the above link. 
+
+If you have any questions or concerns about this email or your account at ifcomp.org, feel free to reply to this mail (or otherwise contact ifcomp@ifcomp.org directly).

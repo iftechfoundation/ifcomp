@@ -11,7 +11,8 @@ our @EXPORT_OK = qw( elt );
 
 use FindBin;
 
-$ENV{IFCOMP_SITE_CONFIG} = "$FindBin::Bin/conf/ifcomp.conf";
+$ENV{CATALYST_CONFIG} = "$FindBin::Bin/conf/ifcomp.conf";
+$ENV{EMAIL_SENDER_TRANSPORT} = 'Test';
 
 use utf8;
 use Carp qw(croak);
@@ -24,36 +25,24 @@ my $db_dir    = "$FindBin::Bin/db";
 my $db_file   = "$db_dir/IFComp.db";
 my $dsn       = "dbi:SQLite:$db_file";
 
-# XXX It's perhaps not ideal to read the config file, just to grab twitter keys, which
-#     in turn are only for connecting to the Twitter API and testing the current length
-#     of shortened URLs. But the alternative if just faking that API call, and I dunno
-#     if that's much better...
-# use Config::Any;
-# my $config = Config::Any->load_files({
-#     files => [
-#         "$FindBin::Bin/conf/ifconf.conf",
-#     ],
-#     use_ext => 1,
-#     flatten_to_hash => 1,
-#                                      });
 sub connect_info
 {
     my ($self) = shift;
-    return ($dsn, 
-            '', 
-            '', 
+    return ($dsn,
+            '',
+            '',
             {
                 sqlite_unicode => 1,
                 on_connect_call => 'use_foreign_keys',
             });
 }
 
-sub init_schema 
+sub init_schema
 {
     my $self = shift;
     my %args = @_;
 
-    if (-e $db_file) 
+    if (-e $db_file)
     {
         unless (unlink $db_file)
         {
@@ -81,8 +70,8 @@ sub init_schema
     $schema->populate(
         'User',
         [
-            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url' ],
-            [ 1, 'user1', '', '123456', 'testing@example.com', 1, 'http://example.com/' ],
+            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url', 'verified' ],
+            [ 1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33', '123456', 'nobody@example.com', 1, 'http://example.com/', 1 ],
         ],
         );
 
@@ -108,8 +97,8 @@ IFCompTest
 =head1 DESCRIPTION
 
 This module provides the basic utilities to write tests against
-IFComp. Shamelessly stolen from SpoilerificTest (itself stolen from 
-DBICTest in the DBIx::Class test suite -- actually it's stolen from a 
+IFComp. Shamelessly stolen from SpoilerificTest (itself stolen from
+DBICTest in the DBIx::Class test suite -- actually it's stolen from a
 consulting colleague of Jason's, who stole it in turn from DBIC...)
 
 =head1 METHODS

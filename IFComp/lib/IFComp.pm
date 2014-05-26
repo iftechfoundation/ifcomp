@@ -82,6 +82,7 @@ __PACKAGE__->config(
     },
     'Plugin::PageCache' => {
         disable_index => 1,
+        auto_check_user => 1,
         auto_cache => [
             '/rules/?',
             '/comp/.+',
