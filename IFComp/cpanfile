@@ -22,5 +22,14 @@ requires 'MooseX::NonMoose';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'SQL::Translator';
 
+requires 'MooseX::ClassAttribute';
+requires 'Email::Sender::Simple';
+requires 'Email::MIME::Kit';
+requires 'Data::GUID';
+requires 'HTML::FormHandler::Moose';
+requires 'DateTime::Format::SQLite';
+requires 'Email::MIME::Kit::Renderer::TT';
+
+
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
