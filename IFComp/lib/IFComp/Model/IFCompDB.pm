@@ -7,6 +7,17 @@ __PACKAGE__->config(
     schema_class => 'IFComp::Schema',
 );
 
+
+sub ACCEPT_CONTEXT {
+    my $self = shift;
+    my ( $c ) = @_;
+
+    $self->schema->email_template_basedir( $c->path_to( 'mail' ) );
+
+    return $self;
+
+}
+
 =head1 NAME
 
 IFComp::Model::IFCompDB - Catalyst DBIC Schema Model

@@ -1,0 +1,5 @@
+<div class="container">
+<h1>Registration complete!</h1>
+<p><strong>Excellent!</strong> Thanks for registering.</p>
+<p><a href="/auth/login">You can go ahead and log in now.</a> Enjoy!</p>
+</div>

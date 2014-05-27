@@ -17,7 +17,6 @@ use Catalyst::Runtime 5.80;
 #                 directory
 
 use Catalyst qw/
-    -Debug
     ConfigLoader
     Static::Simple
     Authentication
@@ -53,12 +52,13 @@ __PACKAGE__->config(
         default => {
             credential => {
                 class => "Password",
-                #password_field => "password",
+                password_field => "password",
                 password_type => "self_check",
             },
             store => {
                 class => "DBIx::Class",
                 user_model => "IFCompDB::User",
+                store_user_class => 'IFComp::UserStore',
             },
         },
     },
@@ -82,10 +82,10 @@ __PACKAGE__->config(
     },
     'Plugin::PageCache' => {
         disable_index => 1,
+        auto_check_user => 1,
         auto_cache => [
             '/rules/?',
-            '/comp',
-            '/comp/.*',
+            '/comp/.+',
             '/history/?',
             '/about/.*',
             '/',

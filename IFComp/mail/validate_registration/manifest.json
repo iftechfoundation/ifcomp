@@ -1,0 +1,17 @@
+{
+    "renderer": [
+        "TT",
+        { "strict": 0 }
+    ],
+    "header": [
+        { "From": "IFComp Organizer <ifcomp@ifcomp.org>" },
+        { "Subject": "Please confirm your new ifcomp.org account" },
+        { "To": "[% user.email %]" }
+    ],
+    "alternatives": [
+        { 
+            "type": "text/plain",
+            "path": "body.tt"
+        }
+    ]
+}

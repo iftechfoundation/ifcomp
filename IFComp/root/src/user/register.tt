@@ -1,0 +1,34 @@
+<div class="container">
+<h1>IFComp.org user registration</h1>
+
+<p>Registering a user account here will let you actively participate in the Interactive Fiction Competition, either as an author or as a judge. It will also let you vote on the XYZZY Awards, and enter or vote on the Introcomp.</p>
+
+<p>You may freely change any of this information after you register.</p>
+
+<form method="post" action="/user/register">
+<div class="row">
+<div class="col-sm-6">
+<h2>Required information</h2>
+[% form.field( 'email' ).render %]
+[% form.field( 'name' ).render %]
+[% form.field( 'password' ).render %]
+[% form.field( 'password_confirmation' ).render %]
+</div>
+<div class="col-sm-6">
+<h2>Optional stuff for authors</h2>
+<p>If you enter games into the IFComp, setting these fields will display additional links and information about you to other visitors of this website.</p>
+[% form.field( 'email_is_public' ).render %]
+[% form.field( 'url' ).render %]
+[% form.field( 'twitter' ).render %]
+</div>
+</div>
+
+[% form.field( 'submit' ).render %]
+
+</form>
+
+<p>
+<strong>Privacy / Security Policy:</strong> We store your password encrypted. Nobody can learn your password by reading it from the IFComp database, even if they have direct access to it.</p>
+<p>We won't share your login information with anyone. While you can use this login with certain other IF community websites (i.e. the XYZZY Awards and Introcomp), these websites do not have direct access to your ifcomp.org login information.</p>
+<p>We may contact you by email in the case of important administrative matters, but will otherwise not email you unexpectedly.
+</div>

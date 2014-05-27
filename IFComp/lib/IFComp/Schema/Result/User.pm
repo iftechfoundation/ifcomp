@@ -111,6 +111,12 @@ Email doubles as login ID
   data_type: 'tinyint'
   is_nullable: 1
 
+=head2 access_token
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 36
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -149,6 +155,8 @@ __PACKAGE__->add_columns(
   },
   "verified",
   { data_type => "tinyint", is_nullable => 1 },
+  "access_token",
+  { data_type => "char", is_nullable => 1, size => 36 },
 );
 
 =head1 PRIMARY KEY
@@ -256,10 +264,36 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:50:10
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4kagqAHEihBoie55amR97g
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-05-25 13:04:40
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Bu82efJ6G1zmHMpExtaO0g
 
 use Digest::MD5 ('md5_hex');
+use Email::Sender::Simple qw/ sendmail /;
+use Email::MIME::Kit;
+use Data::GUID;
+use DateTime;
+
+has 'password_needs_hashing' => (
+    isa => 'Bool',
+    is => 'rw',
+    default => '0',
+);
+
+sub reset_access_token {
+    my $self = shift;
+
+    my $new_code = Data::GUID->new->as_string;
+
+    $self->access_token( $new_code );
+    $self->update;
+}
+
+sub clear_access_token {
+    my $self = shift;
+
+    $self->access_token( undef );
+    $self->update;
+}
 
 sub hash_password {
     my ($self, $plaintext) = (shift, shift);
@@ -275,14 +309,6 @@ sub is_verified {
     return $self->verified > 0;
 }
 
-sub save_password {
-    my ($self, $clear_password) = @_;
-
-    my $hash = md5_hex( $clear_password . $self->salt );
-    $self->password($hash);
-    $self->update;
-}
-
 # a sanitize hash suitable for publishing on the legacy API
 sub get_api_fascade {
     my ($self) = @_;
@@ -293,6 +319,107 @@ sub get_api_fascade {
         email => $self->email,
         token => $self->auth_tokens->first->token,
     };
+}
+
+sub send_validation_email {
+    my $self = shift;
+
+    $self->_send_email_and_reset_token( 'validate_registration' );
+}
+
+sub send_password_reset_email {
+    my $self = shift;
+
+    $self->_send_email_and_reset_token( 'reset_password' );
+}
+
+sub _send_email_and_reset_token {
+    my $self = shift;
+    my ( $subdir ) = @_;
+
+    my $kit = Email::MIME::Kit->new( {
+        source => $self->_path_to_email_subdir( $subdir ),
+    } );
+
+    $self->reset_access_token;
+    my $access_token = $self->access_token;
+
+    my $email = $kit->assemble( {
+        user => $self,
+    } );
+
+    # XXX TODO: Check the return value of sendmail(); log errors.
+    my $success = sendmail( $email );
+}
+
+
+sub validate_token {
+    my $self = shift;
+
+    my ( $token_to_validate ) = @_;
+
+    if ( defined $self->access_token && $self->access_token eq $token_to_validate ) {
+        $self->clear_access_token;
+        $self->verified( 1 );
+        $self->update;
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+sub _build_template_dir {
+    my $self = shift;
+
+    my $base_dir = $self->result_source->schema->email_template_basedir;
+
+    return File::Spec->catdir( $base_dir, $self->Email_template_subdir );
+}
+
+around 'new' => sub {
+    my $orig = shift;
+    my $class = shift;
+
+    my ( $args_ref ) = @_;
+    my $password_needs_hashing = 0;
+    if ( $args_ref->{ password_needs_hashing } ) {
+        delete $args_ref->{ password_needs_hashing };
+        $password_needs_hashing = 1;
+    }
+
+    my $self = $class->$orig( @_ );
+
+    $self->password_needs_hashing( 1 );
+
+    return $self;
+};
+
+around 'insert' => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    unless ( $self->salt ) {
+        $self->salt( Data::GUID->new );
+    }
+
+    if ( $self->password_needs_hashing ) {
+        $self->password_needs_hashing( 0 );
+        $self->password( $self->hash_password( $self->password ) );
+    }
+
+    unless ( $self->created ) {
+        $self->created( DateTime->now );
+    }
+
+    return $self->$orig( @_ );
+};
+
+sub _path_to_email_subdir {
+    my $self = shift;
+    my ( $subdir ) = @_;
+
+    return $self->result_source->schema->email_template_basedir->subdir( $subdir );
 }
 
 __PACKAGE__->meta->make_immutable;

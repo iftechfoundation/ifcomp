@@ -5,14 +5,8 @@
 <h1 style="text-align:center;">Winners of the [% comp.year %] IFComp</h1>
 </div>
 
-<ul class="pager">
-  [% IF previous_year %]
-  <li class="previous"><a href="[% c.uri_for_action('/comp/index', [ previous_year ] ) %]">&larr; [% previous_year %]</a></li>
-  [% END %]
-  [% IF next_year %]
-  <li class="next"><a href="[% c.uri_for_action('/comp/index', [ next_year ] ) %]">[% next_year %] &rarr;</a></li>
-  [% END %]
-</ul>
+[% INCLUDE next_prev %]
+
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-info">
@@ -40,42 +34,27 @@ The competition's very first run in 1995 split the entries into two categories: 
         <h2><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
         [% IF there_is_a_tie_for.$place %](tie)[% END %]
         </span></h2>
-    <h2>
-        [% entry.title %]
-        [% IF entry.subtitle %]
-            <br /><small>[% entry.subtitle %]</small>
-        [% END %]
-    </h2>
+    [% INCLUDE _entry_title.tt %]
     </div>
 </div>
-<div class="row">
-
-    [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
-        <div class="col-xs-4">
-            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
-        </div>
-    [% END %]
-    
-    <div class="col-xs-8">
-        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
-        [% FILTER html_para %]
-        	[% entry.blurb %]
-        [% END %]
-        [% IF entry.miss_congeniality_place %]
-        <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="#">Miss Congeniality Awards</a></em>.</p>
-        [% END %]
-        <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
-        </p>
-    </div>
-
-</div>
-
+[% INCLUDE _entry_row.tt %]
 [% END %]
 
 [% BLOCK pager %]
 <ul class="pagination pagination-sm" style="margin-bottom:0">
   [% FOREACH year IN comp_years %]
       <li [% IF year == comp.year %]class="active"[% END %]><a href="[% c.uri_for_action('/comp/index', [ year ] ) %]">[% year %]</a></li>
+  [% END %]
+</ul>
+[% END %]
+
+[% BLOCK next_prev %]
+<ul class="pager">
+  [% IF previous_year %]
+  <li class="previous"><a href="[% c.uri_for_action('/comp/index', [ previous_year ] ) %]">&larr; See [% previous_year %] results</a></li>
+  [% END %]
+  [% IF next_year %]
+  <li class="next"><a href="[% c.uri_for_action('/comp/index', [ next_year ] ) %]">See [% next_year %] results &rarr;</a></li>
   [% END %]
 </ul>
 [% END %]
