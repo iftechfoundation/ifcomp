@@ -36,13 +36,11 @@ END;
               
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
-            [% IF c.user %]
-            <div class="form-group">
-            <p>Welcome, [% c.user.name %]</p>
-            </div>
-            [% END %]
             <button type="submit" class="btn btn-success">[% button_label %]</button> 
           </form>
+          [% IF c.user %]
+          <p class="navbar-text navbar-right">Welcome, [% c.user.name %]</p>
+          [% END %]
         </div><!--/.navbar-collapse -->
       </div>
     </div>

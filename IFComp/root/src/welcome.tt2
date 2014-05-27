@@ -2,9 +2,6 @@
       <div class="container"><img alt="The 2014 IF Comp" class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp.png">
         <h1>The Interactive Fiction Competition</h1>
         <h2>An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
-        [% IF username %]
-        <p>Welcome, [% username %]</p>
-        [% END %]
       </div>
 
  </div>[%# end of jumbotron %]
@@ -53,21 +50,6 @@
     
       </div>
     </div>
-<!--
-    <div class="col-xs-12">
-        <h1>Well, you're here early! <small>Please pardon our dust...</small></h1>
-
-    <p>
-        Welcome to IFComp.org! As you can see, we're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year, by golly!
-    </p>
-    
-    <p>
-        For news and updates, please <a href="http://blog.ifcomp.org">visit our blog</a> or <a href="twitter.com/ifcomp">follow us on Twitter</a>. In the runup to the comp kickoff this June, we plan to post several pages of interest to competition contestants and judges, as well as anyone wishing to learn more about the grand traditions  
-    </p>
-
-      </div>
-    </div>
-    -->
 </div>
 
 <!-- END of welcome -->

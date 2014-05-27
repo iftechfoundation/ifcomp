@@ -10,7 +10,7 @@ requires 'Catalyst::Test';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Plugin::Authentication';
-requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
 requires 'Catalyst::View::TT';
 requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Cache';
@@ -21,6 +21,16 @@ requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'SQL::Translator';
+
+requires 'MooseX::ClassAttribute';
+requires 'Email::Sender::Simple';
+requires 'Email::MIME::Kit';
+requires 'Data::GUID';
+requires 'HTML::FormHandler::Moose';
+requires 'DateTime::Format::SQLite';
+requires 'DateTime::Format::MySQL';
+requires 'Email::MIME::Kit::Renderer::TT';
+
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
