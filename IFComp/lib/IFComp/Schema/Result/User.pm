@@ -91,8 +91,9 @@ Email doubles as login ID
 =head2 salt
 
   data_type: 'char'
+  default_value: (empty string)
   is_nullable: 1
-  size: 16
+  size: 36
 
 =head2 created
 
@@ -140,7 +141,7 @@ __PACKAGE__->add_columns(
   "twitter",
   { data_type => "char", is_nullable => 1, size => 32 },
   "salt",
-  { data_type => "char", is_nullable => 1, size => 16 },
+  { data_type => "char", default_value => "", is_nullable => 1, size => 36 },
   "created",
   {
     data_type => "datetime",
@@ -264,8 +265,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-05-25 13:04:40
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Bu82efJ6G1zmHMpExtaO0g
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-05-27 10:42:22
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8YAe3SJA5wrnwYErh5MeIA
 
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;
