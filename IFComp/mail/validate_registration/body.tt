@@ -1,9 +1,11 @@
 Greetings, [% user.name %],
 
-Thank you for registering a new account with the IFComp website! In order to log in with your account, you must validate your email address with us by following this link:
+Thank you for creating a new account with the IFComp website! In order to complete registration and log in, you must verify your email address by following this link:
 
 http://ifcomp.org/user/validate/[% user.id %]/[% user.access_token %]
 
-Validating will log you into ifcomp.org, and allow you to sign on freely in the future. Once validated, you may also use this account with the XYZZY Awards and Introcomp websites.
+Verifying your email address this way will allow you to log you into ifcomp.org, both now and at any time in the future. This will let you vote on competition entries, or enter games into the competition yourself.
+
+You'll also be able to use this account with the XYZZY Awards and Introcomp websites.
 
 See you online!
