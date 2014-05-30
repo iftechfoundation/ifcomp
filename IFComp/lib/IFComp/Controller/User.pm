@@ -19,6 +19,7 @@ Catalyst Controller.
 use IFComp::Form::Register;
 use IFComp::Form::ResetPassword;
 use IFComp::Form::RequestPasswordReset;
+use IFComp::Form::EditAccount;
 
 sub register :Path('register') :Args(0) {
     my ( $self, $c ) = @_;
@@ -38,6 +39,9 @@ sub register :Path('register') :Args(0) {
             email => $form->field( 'email' )->value,
             name  => $form->field( 'name' )->value,
             password => $form->field( 'password' )->value,
+            twitter => $form->field( 'twitter' )->value,
+            url => $form->field( 'url' )->value,
+            email_is_public => $form->field( 'email_is_public' )->value,
             password_needs_hashing => 1,
         } );
 
@@ -133,6 +137,34 @@ sub _handle_bad_access_token {
 
     $c->flash->{ bad_access_token } = 1;
     $c->res->redirect( '/' );
+}
+
+sub edit_account :Path('edit_account') {
+    my $self = shift;
+    my ( $c ) = @_;
+
+    unless ( $c->user ) {
+        $c->res->redirect( '/auth/login' );
+    }
+
+    my $user = $c->user->get_object;
+    my $form = IFComp::Form::EditAccount->new( {
+        user   => $user,
+    } );
+
+    $c->stash(
+        form => $form,
+        template => 'user/edit_account.tt',
+    );
+
+    if ( $form->process( params => $c->req->parameters, item => $user ) ) {
+        $c->stash->{ edit_successful } = 1;
+        $user->password(
+            $user->hash_password( $form->field( 'password' )->value )
+        );
+        $user->update;
+    }
+
 }
 
 =encoding utf8
