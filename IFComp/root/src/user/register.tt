@@ -28,7 +28,7 @@
 </form>
 
 <p>
-<strong>Privacy / Security Policy:</strong> We store your password encrypted. Nobody can learn your password by reading it from the IFComp database, even if they have direct access to it.</p>
-<p>We won't share your login information with anyone. While you can use this login with certain other IF community websites (i.e. the XYZZY Awards and Introcomp), these websites do not have direct access to your ifcomp.org login information.</p>
+<strong>Privacy / Security Policy:</strong> We store your password via one-way encryption. Nobody can learn your password by reading it from the IFComp database, even if they have direct access to it.</p>
+<p>We won't share your login information with anyone, other than the handful of IF community websites that allow ifcomp.org-based logins (i.e. the XYZZY Awards and Introcomp). Logging into these websites will expose your ifcomp.org account name and email address to them, but not your password or any other account information. This information is sent to these sites only upon your voluntarily logging into them.</p>
 <p>We may contact you by email in the case of important administrative matters, but will otherwise not email you unexpectedly.
 </div>
