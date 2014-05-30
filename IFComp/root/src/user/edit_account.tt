@@ -1,0 +1,13 @@
+<div class="container">
+<h1>Update your account info</h1>
+[% IF edit_successful %]
+<div class="alert alert-success">
+<p>User information updated successfully.</p>
+</div>
+[% END %]
+<div class="row">
+<div class="col-sm-6">
+[% form.render %]
+</div>
+</div>
+</div>
