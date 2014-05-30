@@ -39,6 +39,9 @@ sub register :Path('register') :Args(0) {
             email => $form->field( 'email' )->value,
             name  => $form->field( 'name' )->value,
             password => $form->field( 'password' )->value,
+            twitter => $form->field( 'twitter' )->value,
+            url => $form->field( 'url' )->value,
+            email_is_public => $form->field( 'email_is_public' )->value,
             password_needs_hashing => 1,
         } );
 
