@@ -18,6 +18,11 @@
     background-color: #999
 }
 
+img.author-link {
+    width: 20px;
+    vertical-align: top;
+}
+
 // Override Bootstrap
 code {
     background: none;
