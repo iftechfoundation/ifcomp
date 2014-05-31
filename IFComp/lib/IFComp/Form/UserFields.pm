@@ -3,7 +3,7 @@ package IFComp::Form::UserFields;
 use HTML::FormHandler::Moose::Role;
 with 'IFComp::Form::PasswordFields';
 
-use HTML::FormHandlerX::Field::URI::HTTP;
+use Regexp::Common qw( URI );
 
 has_field 'email' => (
     type => 'Email',
@@ -27,7 +27,7 @@ has_field 'twitter' => (
 );
 
 has_field 'url' => (
-    type => 'URI::HTTP',
+    type => 'Text',
     label => 'Homepage (or other URL)',
 );
 
@@ -44,7 +44,7 @@ sub validate_twitter {
     my ( $field ) = @_;
 
     my $handle = $field->value;
-    return 1 unless $handle;
+    return unless $handle;
 
     $handle =~ s/^\s*@?//;
     $handle =~ s/\s*$//;
@@ -54,11 +54,25 @@ sub validate_twitter {
     my $MAX_LENGTH = 15;
     if ( ( length $handle <= $MAX_LENGTH ) && ( $handle =~ /^[\w\d]+$/ ) ) {
         $field->value( $handle );
-        return 1;
     }
     else {
         $field->add_error( "This doesn't look like a valid Twitter handle." );
     }
+}
+
+sub validate_url {
+    my $self = shift;
+    my ( $field ) = @_;
+
+    if ( my $url = $field->value ) {
+        unless ( $url =~ /^$RE{URI}$/ ) {
+            $url = $field->value( "http://$url" );
+        }
+        unless ( $url =~ /^$RE{URI}$/ ) {
+            $field->add_error( "This doesn't look like a valid URL." );
+        }
+    }
+
 }
 
 1;
