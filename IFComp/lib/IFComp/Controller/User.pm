@@ -145,6 +145,7 @@ sub edit_account :Path('edit_account') {
 
     unless ( $c->user ) {
         $c->res->redirect( '/auth/login' );
+        return;
     }
 
     my $user = $c->user->get_object;
