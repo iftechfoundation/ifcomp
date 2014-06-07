@@ -30,11 +30,11 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash->{template} = 'welcome.tt2';
-    if ($c->user)
-    {
-        $c->stash("username" => $c->user->name);
-    }
+    $c->stash->{ template } = 'welcome.tt2';
+
+    my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
+    $c->stash->{ current_comp } = $current_comp;
+
 }
 
 =head2 default

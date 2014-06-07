@@ -19,7 +19,6 @@ requires 'DateTime::Moonpig';
 requires 'JSON::Any';
 requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';
-requires 'MooseX::Enumeration';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'SQL::Translator';
 

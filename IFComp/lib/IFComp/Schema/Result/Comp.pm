@@ -168,8 +168,6 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-06-06 22:37:19
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ebZT91k4+Fe5FTsBinTkKQ
 
-use MooseX::Enumeration;
-use Time::Zone;
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
 
@@ -177,6 +175,7 @@ enum 'CompStatus', [qw(
     not_begun
     accepting_intents
     closed_to_intents
+    closed_to_entries
     open_for_judging
     over
 ) ];
@@ -184,16 +183,12 @@ enum 'CompStatus', [qw(
 has 'status' => (
     is => 'ro',
     isa => 'CompStatus',
-    traits => [ 'Enumeration' ],
-    handles => [qw/
-                    is_not_begun
-                    is_accepting_intents
-                    is_closed_to_intents
-                    is_closed_to_entries
-                    is_open_for_judging
-                    is_over
-                / ],
+    lazy_build => 1,
+);
 
+has 'winners' => (
+    is => 'ro',
+    isa => 'ArrayRef',
     lazy_build => 1,
 );
 
@@ -219,6 +214,12 @@ sub _build_status {
     else {
         return 'over';
     }
+}
+
+sub _build_winners {
+    my $self = shift;
+
+    return [ $self->entries->search( { place => 1 } )->all ];
 }
 
 __PACKAGE__->meta->make_immutable;
