@@ -20,10 +20,8 @@ Catalyst Controller.
 sub comp :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    # XXX A low-quality hack that just grabs last calendar-year and forwards us there.
-    #     It ought to instead send us to the most recent closed-down comp, specifically.
-    my $last_year = DateTime->now->year - 1;
-    $c->res->redirect( $c->uri_for_action( '/comp/index', [ $last_year ] ) );
+    my $last_comp = $c->model( 'IFCompDB::Comp' )->last_comp;
+    $c->res->redirect( $c->uri_for_action( '/comp/index', [ $last_comp->year ] ) );
 }
 
 sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
