@@ -15,7 +15,7 @@ requires 'Catalyst::View::TT';
 requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Cache';
 requires 'Cache::FastMmap';
-requires 'DateTime';
+requires 'DateTime::Moonpig';
 requires 'JSON::Any';
 requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';

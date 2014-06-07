@@ -52,6 +52,36 @@ __PACKAGE__->table("comp");
   is_nullable: 0
   size: 4
 
+=head2 intents_open
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 intents_close
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 entries_due
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 judging_begins
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 judging_ends
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -64,6 +94,16 @@ __PACKAGE__->add_columns(
   },
   "year",
   { data_type => "char", default_value => "", is_nullable => 0, size => 4 },
+  "intents_open",
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  "intents_close",
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  "entries_due",
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  "judging_begins",
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  "judging_ends",
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -125,16 +165,62 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:48:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SzC7KEUQjmm19hims0uAVA
-# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Comp.pm' found in @INC.
-# They are now part of the custom portion of this file
-# for you to hand-edit.  If you do not either delete
-# this section or remove that file from @INC, this section
-# will be repeated redundantly when you re-create this
-# file again via Loader!  See skip_load_external to disable
-# this feature.
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-06-06 22:37:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ebZT91k4+Fe5FTsBinTkKQ
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+use DateTime::Moonpig;
+use Moose::Util::TypeConstraints;
+
+enum 'CompStatus', [qw(
+    not_begun
+    accepting_intents
+    closed_to_intents
+    closed_to_entries
+    open_for_judging
+    over
+) ];
+
+has 'status' => (
+    is => 'ro',
+    isa => 'CompStatus',
+    lazy_build => 1,
+);
+
+has 'winners' => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    lazy_build => 1,
+);
+
+sub _build_status {
+    my $self = shift;
+
+    my $now = DateTime::Moonpig->now( time_zone => 'local' );
+    if ( $now < $self->intents_open ) {
+        return 'not_begun';
+    }
+    elsif ( $now < $self->intents_close ) {
+        return 'accepting_intents';
+    }
+    elsif ( $now < $self->entries_due ) {
+        return 'closed_to_intents';
+    }
+    elsif ( $now < $self->judging_begins ) {
+        return 'closed_to_entries';
+    }
+    elsif ( $now < $self->judging_ends ) {
+        return 'open_for_judging';
+    }
+    else {
+        return 'over';
+    }
+}
+
+sub _build_winners {
+    my $self = shift;
+
+    return [ $self->entries->search( { place => 1 } )->all ];
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
