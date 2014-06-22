@@ -21,5 +21,11 @@ class_has 'email_template_basedir' => (
     isa => 'Path::Class::Dir',
 );
 
+class_has 'entry_directory' => (
+    is => 'rw',
+    isa => 'Path::Class::Dir',
+    default => sub { Path::Class::Dir->new( '', 'tmp', 'comp_entries' ) },
+);
+
 __PACKAGE__->meta->make_immutable(inline_constructor => 0);
 1;

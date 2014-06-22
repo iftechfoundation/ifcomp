@@ -1,0 +1,53 @@
+<div class="container">
+<h1>Manage your [% current_comp.year %] entries</h1>
+
+[% IF c.flash.entry_withdrawn %]
+<div class="alert alert-success">You have withdrawn the entry titled <em>[% c.flash.entry_withdrawn %]</em>.</div>
+[% END %]
+
+<p>This year's competition is open for new intents through [% current_comp.intents_close.ymd %]. Authors must have their games uploaded by [% current_comp.entries_due.ymd %].</p>
+
+[% UNLESS entries.size %]
+<div class="alert alert-info">
+<p>So you want to enter the IF Comp? <em>Excellent.</em></p>
+<p><a href="/about/how_to_enter">Complete instructions for entering are here.</a> But here's what you absolutely need to know before you enter:</p>
+<ul>
+<li><a href="/rules">Read the competition rules.</a></li>
+<li><a href="/about/guidelines">Read the guidelines for authors.</a></li>
+<li><a href="http://www.intfiction.org/forum/">Visit the intfiction.org forums</a> to discuss the comp and ask questions, or <a href="/about/contact">contact the organizer.</a></li>
+</ul>
+<p>That's it. Good luck!</p>
+</ul>
+</div>
+[% END %]
+
+<h2>Your current entries</h2>
+[% IF entries.size %]
+<ul>
+[% FOR entry IN entries %]
+<li>
+<a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> &mdash;
+[% IF entry.main_filename %]
+Ready for entry
+[% ELSE %]
+Not ready for entry yet (No game file)
+[% END %]
+</li>
+[% END %]
+</ul>
+[% ELSE %]
+<p>You have not declared any entries yet.</p>
+[% END %]
+
+<h2>Register an entry</h2>
+[% IF current_comp.status == 'accepting_intents' %]
+    [% IF entries.size < 3 %]
+        <p><a href="[% c.uri_for_action( '/entry/create' ) %]">Add a new entry.</a></p>
+    [% ELSE %]
+        <p>You can't declare any further entries this year, since you've reached the annual limit of three.</p>
+    [% END %]
+[% ELSE %]
+<p>The competition is closed to new entries.</p>
+[% END %]
+</h2>
+</div>

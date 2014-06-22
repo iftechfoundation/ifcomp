@@ -22,7 +22,15 @@ END;
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
               <li><a href="/rules/">Rules</a></li>
-              <li><a href="/comp/">Results</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Participate <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/about/how_to_enter">How to Enter</a></li>
+                  <li><a href="/entry">Register or manage your entries</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/about/how_to_dontate">How to Donate Prizes</a></li>
+                </ul>
+              </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -30,6 +38,7 @@ END;
                   <li><a href="/about/guidelines">Guidelines for authors</a></li>
                   <li><a href="/about/if">About IF</a></li>
                   <li><a href="/history/">History of the IFComp</a></li>
+                  <li><a href="/comp/">Results (2013 and earlier)</a></li>
                   <li><a href="/about/contact">Contact / Credits</a></li>
                 </ul>
               </li>

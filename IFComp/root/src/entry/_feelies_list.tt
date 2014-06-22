@@ -1,0 +1,16 @@
+[% IF entry.feelies %]
+<p>This entry's feelies:</p>
+<ul>
+[% current_index = 0 %]
+[% FOR file IN entry.feelies %]
+<li>[% file.basename %]
+    [% IF add_deletion_links %]
+        <a href="[% c.uri_for_action( '/entry/delete_feelie', [ entry.id, current_index ] ) %]">Delete</a>
+    [% END %]
+    [% current_index = current_index + 1 %]
+</li>
+[% END %]
+</ul>
+[% ELSE %]
+<p>This entry has no feelies attached.</p>
+[% END %]

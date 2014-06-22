@@ -1,0 +1,134 @@
+<form method="post" enctype="multipart/form-data">
+<div class="row">
+<div class="col-sm-12">
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Title and subtitle</h2></div>
+<div class="panel-body">
+<p>Your game must have a title. (Indeed, the title is the only required field on this form.)</p>
+[% form.field('title').render %]
+<p>It can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
+[% form.field('subtitle').render %]
+[% UNLESS entry.id %]
+<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just the title. That will serve as your intent, and you'll be able to update your entry as much as you please through the Sept. 28 deadline.</p>
+[% form.field('submit').render %]
+<p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
+[% END %]
+</div>
+</div>
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Blurb and cover art</h2></div>
+<div class="panel-body">
+<p>
+<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/">browse past entries</a> to see examples of both.</p>
+<p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
+
+[% form.field('blurb').render %]
+<p>The cover art can be an image file in .png format, and can be up to 2 MB in size.</p>
+[% form.field('cover_upload').render %]
+[% IF entry.id && entry.uploaded_cover_art_file_exists %]
+<div class="row">        <div class="col-xs-4">
+            <p>Current cover image:<br />
+            <img class="img-responsive" src="[% c.uri_for_action( '/entry/uploaded_cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            </p>
+        </div>
+        </div>
+[% form.field('cover_delete').render %]
+[% ELSE %]
+<p>This entry has no cover image attached yet.</p>
+[% END %]
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Pseudonym and contact info</h2></div>
+<div class="panel-body">
+<p>If you wish, you can enter your game under a pseudonym, instead of the name this website knows you by ([% c.user.name %]). If you do choose a pseudonym, you can can choose whether you want to have your real identity revealed after the judging period is over.</p>
+
+[% form.field('pseudonym').render %]
+[% form.field('reveal_pseudonym').render %]
+<p>Whether or not you use a pseudonym, you may also specify an email address that players can use to contact you during the competition.
+[% IF c.user.email_is_public %]
+If you specify neither a pseudonym nor a contact email, then this website will display your login email address ([% c.user.email %]) as the contact address for this game, since you've chosen to make your login email public.
+[% ELSE %]
+If you don't specify an email address here, then this website will not display any contact information for this game, since your account preferences prevent us from sharing your login email address.
+[% END %]
+(You can change this behavior by visiting <a href="/user/edit_account">your account preferences page</a>.)</p>
+[% form.field('email').render %]
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Main game files</h2></div>
+<div class="panel-body">
+<p>You must upload, by September 28, exactly one file representing your actual game in order for it to qualify for entry. (If your game includes supplementary "feelies" or requires additional data files, you can upload them elsewhere in this form.)</p>
+<p>The nature of this file depends on the system you used to create your game. Some common cases:
+<ul>
+<li>If you used a parser-oriented system like Inform or TADS, then this is the file that someone would load into an IF interpreter to play your game.</li>
+<li>If you used a hypertext system that outputs only a browser-playable game, such as Twine or Undum, then this is the file that someone would open in a web browser in order to begin playing the game.</li>
+<li>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must create an HTML file that links to that game, and upload that file here. This file can contain any style or content you like, so long as it clearly links to the game. (<em>Special case:</em> if you used Playfic to make the game, then you should be able to download the game's file and upload it here.)</li>
+</ul>
+[% form.field('main_upload').render %]
+[% IF entry.main_file %]
+<p><strong>Current main file:</strong> [% entry.main_file.basename %]</p>
+[% form.field('main_delete').render %]
+[% ELSE %]
+<p>You haven't added a main file yet.</p>
+[% END %]
+<hr />
+<p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
+
+<p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file.</p>
+
+[% form.field('online_play_upload').render %]
+[% IF entry.online_play_file %]
+<p><strong>Current online-play file:</strong> [% entry.online_play_file.basename %]</p>
+[% form.field('online_play_delete').render %]
+[% ELSE %]
+<p>You haven't added an online-play file yet.</p>
+[% END %]
+<hr />
+<p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
+
+[% form.field('walkthrough_upload').render %]
+[% IF entry.walkthrough_file %]
+<p><strong>Current walkthrough file:</strong> [% entry.walkthrough_file.basename %]</p>
+[% form.field('walkthrough_delete').render %]
+[% ELSE %]
+<p>You haven't added a walkthrough file yet.</p>
+[% END %]
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Feelies and data files</h2></div>
+<div class="panel-body">
+[% IF entry.id %]
+<h3>Feelies</h3>
+
+<p>In this context, <strong>feelies</strong> are multimedia files included with your entry that its players may browse separately, perhaps before playing the game. They can help set the mood of the work, or provide external materials that the game text can refer to during play. These files might include maps, newspaper clippings, voice-mail messages, et cetera. (For a history of the term, <a href="http://www.ifwiki.org/index.php/Feelies">see the IF Wiki</a>.)</p>
+
+<p>Feelies, if present, will all go into a subdirectory of your game's folder labeled <code>feelies</code>.</p> 
+
+[% INCLUDE entry/_feelies_list.tt %]
+
+<p><a href="[% c.uri_for_action( '/entry/feelies', [ entry.id ] ) %]">Add or remove feelies</a></p>
+
+<h3>Data files</h3>
+
+<p>All files required or linked to by your main game file (other than feelies) will go into a folder labeled <code>data</code>. This might include code libraries, stylesheets, or in-game sound or image files loaded during play.</p>
+
+[% INCLUDE entry/_data_files_list.tt %]
+
+<p><a href="[% c.uri_for_action( '/entry/data_files', [ entry.id ] ) %]">Add or remove data files</a></p>
+[% ELSE %]
+<p>If you feelies or supplemental data files to upload, you may do so after you've declared your intent to enter by submitting this form.</p>
+[% END %]
+
+</div>
+</div>
+[% form.field( 'submit' ).render %]
+
+</form>

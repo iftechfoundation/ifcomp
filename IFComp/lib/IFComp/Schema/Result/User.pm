@@ -423,6 +423,16 @@ sub _path_to_email_subdir {
     return $self->result_source->schema->email_template_basedir->subdir( $subdir );
 }
 
+sub current_comp_entries {
+    my $self = shift;
+
+    my $current_comp =
+        $self->result_source->schema->resultset( 'Comp' )->current_comp;
+
+    my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
+    return $entries_rs->all;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

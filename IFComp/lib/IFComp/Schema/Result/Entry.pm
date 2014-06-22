@@ -71,35 +71,10 @@ __PACKAGE__->table("entry");
   is_nullable: 1
   size: 64
 
-=head2 archive_url
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 128
-
-=head2 feelies_url
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 128
-
-=head2 hints_url
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 128
-
-=head2 play_url
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 128
-
 =head2 ifdb_id
 
   data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
+  is_nullable: 1
   size: 16
 
 =head2 comp
@@ -136,6 +111,12 @@ __PACKAGE__->table("entry");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 email
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 64
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -159,16 +140,8 @@ __PACKAGE__->add_columns(
   },
   "author_pseudonym",
   { data_type => "char", is_nullable => 1, size => 64 },
-  "archive_url",
-  { data_type => "char", is_nullable => 1, size => 128 },
-  "feelies_url",
-  { data_type => "char", is_nullable => 1, size => 128 },
-  "hints_url",
-  { data_type => "char", is_nullable => 1, size => 128 },
-  "play_url",
-  { data_type => "char", is_nullable => 1, size => 128 },
   "ifdb_id",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 16 },
+  { data_type => "char", is_nullable => 1, size => 16 },
   "comp",
   {
     data_type => "integer",
@@ -190,6 +163,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "miss_congeniality_place",
   { data_type => "integer", is_nullable => 1 },
+  "email",
+  { data_type => "char", is_nullable => 1, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -281,10 +256,95 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 22:08:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BKQiIEz7bSfLR8f8J5tPOQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-06-21 18:32:27
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xGA5Wl9WH3YXdxIu9jkiAg
 
 use Lingua::EN::Numbers::Ordinate;
+use Path::Class::Dir;
+use File::Copy qw( move );
+
+has 'directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+    clearer => 'clear_directory',
+);
+
+has 'directory_name' => (
+    is => 'ro',
+    isa => 'Maybe[Str]',
+    lazy_build => 1,
+    clearer => 'clear_directory_name',
+);
+
+has 'main_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+    clearer => 'clear_main_file',
+);
+
+has 'walkthrough_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+    clearer => 'clear_walkthrough_file',
+);
+
+has 'online_play_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+    clearer => 'clear_online_play_file',
+);
+
+has 'feelies_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+    handles => {
+        feelies => 'children',
+    },
+);
+
+has 'data_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+    handles => {
+        data_files => 'children',
+    },
+);
+
+has 'main_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+);
+
+has 'online_play_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+);
+
+has 'walkthrough_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+);
+
+
+has 'uploaded_cover_art_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
+has 'previous_title' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
 
 sub place_as_ordinate {
     my $self = shift;
@@ -295,6 +355,208 @@ sub miss_congeniality_place_as_ordinate {
     my $self = shift;
     return ordinate( $self->miss_congeniality_place );
 }
+
+sub is_complete {
+    my $self = shift;
+
+}
+
+sub delete_feelie_with_index {
+    my $self = shift;
+    my ( $index_to_delete ) = @_;
+
+    my $current_index = 0;
+    for my $feelie ( $self->feelies ) {
+        if ( $current_index == $index_to_delete ) {
+            $feelie->remove;
+            last;
+        }
+        $current_index++;
+    }
+}
+
+sub delete_data_file_with_index {
+    my $self = shift;
+    my ( $index_to_delete ) = @_;
+
+    my $current_index = 0;
+    for my $file ( $self->data_files ) {
+        if ( $current_index == $index_to_delete ) {
+            $file->remove;
+            last;
+        }
+        $current_index++;
+    }
+}
+
+# If an entry's DB record gets deleted, then so does all its files.
+after delete => sub {
+    my $self = shift;
+    return $self->directory->rmtree;
+};
+
+before title => sub {
+    my $self = shift;
+    if ( @_ ) {
+        $self->previous_title( $self->title );
+    }
+};
+
+around update => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    if ( $self->is_column_changed( 'title' ) ) {
+        my $old_dir = $self->_directory_name_from( $self->previous_title );
+        my $new_dir = $self->_directory_name_from( $self->title );
+
+        my $old_path = Path::Class::Dir->new(
+            '',
+            $self->result_source->schema->entry_directory,
+            $old_dir,
+        );
+        my $new_path = Path::Class::Dir->new(
+            '',
+            $self->result_source->schema->entry_directory,
+            $new_dir,
+        );
+
+        move ( $old_path, $new_path )
+            or die "Failed to move $old_path to $new_path: $!";
+        $self->previous_title( undef );
+        $self->clear_directory_name;
+        $self->clear_directory;
+    }
+
+    for my $file_type ( qw( main walkthrough online_play ) ) {
+        my $column = "${file_type}_filename";
+        if ( $self->is_column_changed( $column ) && not $self->$column  ) {
+            my $file_method = "${file_type}_file";
+            my $file = $self->$file_method;
+            unless ( $file->remove ) {
+                die "Failed to remove $file. And: $file_method.";
+            }
+        }
+    }
+
+    return $self->$orig( @_ );
+
+};
+
+sub _build_directory_name {
+    my $self = shift;
+
+    my $title;
+    if ( defined $self->previous_title ) {
+        $title = $self->previous_title;
+    }
+    else {
+        $title = $self->title;
+    }
+
+    return $self->_directory_name_from( $title );
+}
+
+sub _directory_name_from {
+    my $self = shift;
+    my ( $name ) = @_;
+
+    $name =~ s/\s+/_/g;
+    $name =~ s/[^\w\d]//g;
+
+    return $name;
+}
+
+sub _build_directory {
+    my $self = shift;
+
+    my $dir_name = $self->directory_name;
+    my $dir_path = Path::Class::Dir->new(
+        '',
+        $self->result_source->schema->entry_directory,
+        $dir_name,
+    );
+
+    unless ( -e $dir_path ) {
+        mkdir ( $dir_path );
+    }
+
+    return $dir_path;
+
+}
+
+sub _build_main_file {
+    my $self = shift;
+
+    return ($self->main_directory->children)[0];
+}
+
+sub _build_walkthrough_file {
+    my $self = shift;
+
+    return ($self->walkthrough_directory->children)[0];
+}
+
+sub _build_online_play_file {
+    my $self = shift;
+
+    return ($self->online_play_directory->children)[0];
+}
+
+sub _build_uploaded_cover_art_file {
+    my $self = shift;
+
+    return $self->directory->file( 'cover.png' );
+}
+
+sub _build_feelies_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'feelies' );
+}
+
+sub _build_data_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'data' );
+}
+
+sub _build_main_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'main' );
+}
+
+sub _build_online_play_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'online_play' );
+}
+
+sub _build_walkthrough_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'walkthrough' );
+}
+
+sub _build_subdir_named {
+    my $self = shift;
+    my ( $subdir_name ) = @_;
+
+    my $path = $self->directory->subdir( $subdir_name );
+    unless ( -e $path ) {
+        mkdir( $path );
+    }
+
+    return $path;
+}
+
+sub uploaded_cover_art_file_exists {
+    my $self = shift;
+
+    return -e $self->uploaded_cover_art_file;
+}
+
 
 __PACKAGE__->meta->make_immutable;
 
