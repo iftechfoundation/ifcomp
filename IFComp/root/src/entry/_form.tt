@@ -6,7 +6,7 @@
 <div class="panel-body">
 <p>Your game must have a title. (Indeed, the title is the only required field on this form.)</p>
 [% form.field('title').render %]
-<p>It can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
+<p>It can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
 [% form.field('subtitle').render %]
 [% UNLESS entry.id %]
 <p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just the title. That will serve as your intent, and you'll be able to update your entry as much as you please through the Sept. 28 deadline.</p>
@@ -21,7 +21,7 @@
 <div class="panel-heading"><h2>Blurb and cover art</h2></div>
 <div class="panel-body">
 <p>
-<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/">browse past entries</a> to see examples of both.</p>
+<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/" target="_blank">browse past entries</a> to see examples of both.</p>
 <p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
 
 [% form.field('blurb').render %]
@@ -55,7 +55,7 @@ If you specify neither a pseudonym nor a contact email, then this website will d
 [% ELSE %]
 If you don't specify an email address here, then this website will not display any contact information for this game, since your account preferences prevent us from sharing your login email address.
 [% END %]
-(You can change this behavior by visiting <a href="/user/edit_account">your account preferences page</a>.)</p>
+(You can change this behavior by visiting <a href="/user/edit_account" target="_blank">your account preferences page</a>.)</p>
 [% form.field('email').render %]
 </div>
 </div>
@@ -109,13 +109,13 @@ If you don't specify an email address here, then this website will not display a
 [% IF entry.id %]
 <h3>Feelies</h3>
 
-<p>In this context, <strong>feelies</strong> are multimedia files included with your entry that its players may browse separately, perhaps before playing the game. They can help set the mood of the work, or provide external materials that the game text can refer to during play. These files might include maps, newspaper clippings, voice-mail messages, et cetera. (For a history of the term, <a href="http://www.ifwiki.org/index.php/Feelies">see the IF Wiki</a>.)</p>
+<p>In this context, <strong>feelies</strong> are multimedia files included with your entry that its players may browse separately, perhaps before playing the game. They can help set the mood of the work, or provide external materials that the game text can refer to during play. These files might include maps, newspaper clippings, voice-mail messages, et cetera. (For a history of the term, <a href="http://www.ifwiki.org/index.php/Feelies" target="_blank">see the IF Wiki</a>.)</p>
 
 <p>Feelies, if present, will all go into a subdirectory of your game's folder labeled <code>feelies</code>.</p> 
 
 [% INCLUDE entry/_feelies_list.tt %]
 
-<p><a href="[% c.uri_for_action( '/entry/feelies', [ entry.id ] ) %]">Add or remove feelies</a></p>
+<p><a href="[% c.uri_for_action( '/entry/feelies', [ entry.id ] ) %]" target="feelies">Add or remove feelies</a></p>
 
 <h3>Data files</h3>
 
@@ -123,7 +123,7 @@ If you don't specify an email address here, then this website will not display a
 
 [% INCLUDE entry/_data_files_list.tt %]
 
-<p><a href="[% c.uri_for_action( '/entry/data_files', [ entry.id ] ) %]">Add or remove data files</a></p>
+<p><a href="[% c.uri_for_action( '/entry/data_files', [ entry.id ] ) %]" target="data_files">Add or remove data files</a></p>
 [% ELSE %]
 <p>If you feelies or supplemental data files to upload, you may do so after you've declared your intent to enter by submitting this form.</p>
 [% END %]
