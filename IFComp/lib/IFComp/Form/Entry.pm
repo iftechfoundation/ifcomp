@@ -39,7 +39,7 @@ has_field 'reveal_pseudonym' => (
 );
 
 has_field 'email' => (
-    type => 'Text',
+    type => 'Email',
     label => 'Contact email to display for this game',
 );
 
