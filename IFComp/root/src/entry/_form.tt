@@ -107,6 +107,7 @@ If you don't specify an email address here, then this website will not display a
 <div class="panel-heading"><h2>Feelies and data files</h2></div>
 <div class="panel-body">
 [% IF entry.id %]
+<p>These links will open in a new tab.</p>
 <h3>Feelies</h3>
 
 <p>In this context, <strong>feelies</strong> are multimedia files included with your entry that its players may browse separately, perhaps before playing the game. They can help set the mood of the work, or provide external materials that the game text can refer to during play. These files might include maps, newspaper clippings, voice-mail messages, et cetera. (For a history of the term, <a href="http://www.ifwiki.org/index.php/Feelies" target="_blank">see the IF Wiki</a>.)</p>
