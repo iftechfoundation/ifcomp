@@ -25,7 +25,7 @@
 <p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
 
 [% form.field('blurb').render %]
-<p>The cover art can be an image file in .png format, and can be up to 2 MB in size.</p>
+<p>The cover art can be an image file in .png format, and can be up to 10 MB in size.</p>
 [% IF entry.id && entry.uploaded_cover_art_file_exists %]
 <div class="row">        <div class="col-xs-4">
             <p>Current cover image:<br />
