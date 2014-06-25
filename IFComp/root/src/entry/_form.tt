@@ -4,12 +4,11 @@
 <div class="panel panel-default">
 <div class="panel-heading"><h2>Title and subtitle</h2></div>
 <div class="panel-body">
-<p>Your game must have a title. (Indeed, the title is the only required field on this form.)</p>
 [% form.field('title').render %]
-<p>It can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
+<p>Your game can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
 [% form.field('subtitle').render %]
 [% UNLESS entry.id %]
-<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just the title. That will serve as your intent, and you'll be able to update your entry as much as you please through the Sept. 28 deadline.</p>
+<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the Sept. 28 deadline.</p>
 [% form.field('submit').render %]
 <p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
 [% END %]
