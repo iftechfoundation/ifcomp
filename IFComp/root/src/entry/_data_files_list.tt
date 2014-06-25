@@ -1,5 +1,5 @@
 [% IF entry.data_files %]
-<p>This entry's data_files:</p>
+<p>This entry's data files:</p>
 <ul>
 [% current_index = 0 %]
 [% FOR file IN entry.data_files %]
