@@ -68,7 +68,7 @@ sub root :Chained('/') :PathPart('entry') :CaptureArgs(0) {
 
 }
 
-sub fetch_entry :Chained('/') :PathPart('entry') :CaptureArgs(1) {
+sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
     my $entry = $c->model( 'IFCompDB::Entry' )->find( $id );

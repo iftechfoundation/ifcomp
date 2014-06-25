@@ -30,8 +30,8 @@
 <div class="panel panel-danger">
 <div class="panel-heading"><h2>Withdraw this entry</h2></div>
 <div class="panel-body">
-<p>If you want to withdraw this entry from the competition, check the checkbox below and then tap the button. <strong>This action is irreversible.</strong></p>
-<p>(Note that any entry without a main game file uploaded by [% current_comp.entries_due.ymd %] will be effectively withdrawn automatically.)</p>
+<p>If you want to withdraw this entry from the competition, check the checkbox below and then tap the button. [% IF current_comp.status != 'accepting_intents' %] <strong>Please note that this year's competition is now closed to new intents. If you withdraw this entry, you won't be able to re-enter it this year.</strong>[% ELSE %]You'll have until [% current_comp.intents_close.ymd %] to re-enter it, if you change your mind.[% END %]</p>
+<p>Note that any entry without a main game file uploaded by [% current_comp.entries_due.ymd %] will be effectively withdrawn automatically.</p>
 [% withdrawal_form.render %]
 
 </div>
