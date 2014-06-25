@@ -341,11 +341,6 @@ has 'uploaded_cover_art_file' => (
     lazy_build => 1,
 );
 
-has 'previous_title' => (
-    is => 'rw',
-    isa => 'Maybe[Str]',
-);
-
 sub place_as_ordinate {
     my $self = shift;
     return ordinate( $self->place );
@@ -395,38 +390,10 @@ after delete => sub {
     return $self->directory->rmtree;
 };
 
-before title => sub {
-    my $self = shift;
-    if ( @_ ) {
-        $self->previous_title( $self->title );
-    }
-};
 
 around update => sub {
     my $orig = shift;
     my $self = shift;
-
-    if ( $self->is_column_changed( 'title' ) ) {
-        my $old_dir = $self->_directory_name_from( $self->previous_title );
-        my $new_dir = $self->_directory_name_from( $self->title );
-
-        my $old_path = Path::Class::Dir->new(
-            '',
-            $self->result_source->schema->entry_directory,
-            $old_dir,
-        );
-        my $new_path = Path::Class::Dir->new(
-            '',
-            $self->result_source->schema->entry_directory,
-            $new_dir,
-        );
-
-        move ( $old_path, $new_path )
-            or die "Failed to move $old_path to $new_path: $!";
-        $self->previous_title( undef );
-        $self->clear_directory_name;
-        $self->clear_directory;
-    }
 
     for my $file_type ( qw( main walkthrough online_play ) ) {
         my $column = "${file_type}_filename";
@@ -446,15 +413,7 @@ around update => sub {
 sub _build_directory_name {
     my $self = shift;
 
-    my $title;
-    if ( defined $self->previous_title ) {
-        $title = $self->previous_title;
-    }
-    else {
-        $title = $self->title;
-    }
-
-    return $self->_directory_name_from( $title );
+    return $self->_directory_name_from( $self->title );
 }
 
 sub _directory_name_from {
@@ -470,11 +429,10 @@ sub _directory_name_from {
 sub _build_directory {
     my $self = shift;
 
-    my $dir_name = $self->directory_name;
     my $dir_path = Path::Class::Dir->new(
         '',
         $self->result_source->schema->entry_directory,
-        $dir_name,
+        $self->id,
     );
 
     unless ( -e $dir_path ) {

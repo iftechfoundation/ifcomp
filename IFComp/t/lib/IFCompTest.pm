@@ -21,6 +21,9 @@ use File::Path qw(make_path remove_tree);
 
 use IFComp::Schema;
 
+use Readonly;
+Readonly my $SALT => '123456';
+
 my $db_dir    = "$FindBin::Bin/db";
 my $db_file   = "$db_dir/IFComp.db";
 my $dsn       = "dbi:SQLite:$db_file";
@@ -71,11 +74,37 @@ sub init_schema
         'User',
         [
             ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url', 'verified' ],
-            [ 1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33', '123456', 'nobody@example.com', 1, 'http://example.com/', 1 ],
+            [ 1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'nobody@example.com', 1, 'http://example.com/', 1 ],
+            [ 2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'author@example.com', 1, undef, 1]
         ],
-        );
+    );
+
+    # There's only one comp, and it's for this year. And enterable all year.
+    my $this_year = DateTime->now->year;
+    my $start_of_year = "$this_year-01-01";
+    my $end_of_year = "$this_year-12-31";
+    $schema->populate(
+        'Comp',
+        [
+            [ 'id', 'year', 'intents_open', 'intents_close', 'entries_due', 'judging_begins', 'judging_ends',],
+            [ 1, $this_year, $start_of_year, $end_of_year, $end_of_year, $end_of_year, $end_of_year ],
+        ],
+    );
 
     return $schema;
+}
+
+sub log_in_as_author {
+    my ( $mech ) = @_;
+    $mech->get_ok( 'http://localhost/auth/login' );
+    $mech->submit_form_ok( {
+        fields => {
+            email => 'author@example.com',
+            password => 'fool',
+        },
+    }, 'Submitted the login form' );
+
+    $mech->content_like( qr/Alice Author/, 'Login successful' );
 }
 
 1;

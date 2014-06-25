@@ -27,7 +27,7 @@
 [% FOR entry IN entries %]
 <li>
 <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> &mdash;
-[% IF entry.main_filename %]
+[% IF entry.main_file %]
 Ready for entry
 [% ELSE %]
 Not ready for entry yet (No game file)

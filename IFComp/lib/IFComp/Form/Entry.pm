@@ -45,25 +45,25 @@ has_field 'email' => (
 
 has_field 'main_upload' => (
     type => 'Upload',
-    label => 'Main game file',
+    label => 'Upload a new main game file',
     max_size => $MAX_FILE_SIZE,
 );
 
 has_field 'cover_upload' => (
     type => 'Upload',
-    label => 'Cover art',
+    label => 'Upload new cover art',
     max_size => $MAX_FILE_SIZE,
 );
 
 has_field 'walkthrough_upload' => (
     type => 'Upload',
-    label => 'Main walkthrough or hint file',
+    label => 'Upload a new main walkthrough or hint file',
     max_size => $MAX_FILE_SIZE,
 );
 
 has_field 'online_play_upload' => (
     type => 'Upload',
-    label => 'Online play file (if different from main game file)',
+    label => 'Uplaod a new online-play file',
     max_size => $MAX_FILE_SIZE,
 );
 

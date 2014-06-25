@@ -14,6 +14,10 @@ sub ACCEPT_CONTEXT {
 
     $self->schema->email_template_basedir( $c->path_to( 'mail' ) );
 
+    unless ( $self->schema->entry_directory ) {
+        $self->schema->entry_directory( $c->path_to( 'entries' ) );
+    }
+
     return $self;
 
 }

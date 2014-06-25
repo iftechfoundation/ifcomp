@@ -26,7 +26,6 @@
 
 [% form.field('blurb').render %]
 <p>The cover art can be an image file in .png format, and can be up to 2 MB in size.</p>
-[% form.field('cover_upload').render %]
 [% IF entry.id && entry.uploaded_cover_art_file_exists %]
 <div class="row">        <div class="col-xs-4">
             <p>Current cover image:<br />
@@ -38,6 +37,7 @@
 [% ELSE %]
 <p>This entry has no cover image attached yet.</p>
 [% END %]
+[% form.field('cover_upload').render %]
 
 </div>
 </div>
@@ -70,35 +70,36 @@ If you don't specify an email address here, then this website will not display a
 <li>If you used a hypertext system that outputs only a browser-playable game, such as Twine or Undum, then this is the file that someone would open in a web browser in order to begin playing the game.</li>
 <li>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must create an HTML file that links to that game, and upload that file here. This file can contain any style or content you like, so long as it clearly links to the game. (<em>Special case:</em> if you used Playfic to make the game, then you should be able to download the game's file and upload it here.)</li>
 </ul>
-[% form.field('main_upload').render %]
-[% IF entry.main_file %]
+[% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% entry.main_file.basename %]</p>
 [% form.field('main_delete').render %]
 [% ELSE %]
 <p>You haven't added a main file yet.</p>
 [% END %]
+[% form.field('main_upload').render %]
 <hr />
 <p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
 
 <p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file.</p>
 
-[% form.field('online_play_upload').render %]
-[% IF entry.online_play_file %]
+[% IF entry.id && entry.online_play_file %]
 <p><strong>Current online-play file:</strong> [% entry.online_play_file.basename %]</p>
 [% form.field('online_play_delete').render %]
 [% ELSE %]
 <p>You haven't added an online-play file yet.</p>
 [% END %]
+[% form.field('online_play_upload').render %]
+
 <hr />
 <p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
 
-[% form.field('walkthrough_upload').render %]
-[% IF entry.walkthrough_file %]
+[% IF entry.id && entry.walkthrough_file %]
 <p><strong>Current walkthrough file:</strong> [% entry.walkthrough_file.basename %]</p>
 [% form.field('walkthrough_delete').render %]
 [% ELSE %]
 <p>You haven't added a walkthrough file yet.</p>
 [% END %]
+[% form.field('walkthrough_upload').render %]
 </div>
 </div>
 

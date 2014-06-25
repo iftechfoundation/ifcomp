@@ -9,6 +9,7 @@
     [% END %]
   </li>
 </ol>
+<p>If you have questions about this form (or any other part of the entry process), please <a href="mailto:ifcomp@ifcomp.org">mail the organizer</a>.</p>
 [% IF entry.id %]
 <h1>Update entry: [% entry.title %]</h1>
 [% INCLUDE error_div %]
