@@ -18,7 +18,6 @@ Catalyst Controller.
 
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
-use IFComp::Form::SupplementalUpload;
 
 has 'form' => (
     is => 'ro',
@@ -29,18 +28,6 @@ has 'form' => (
 has 'withdrawal_form' => (
     is => 'ro',
     isa => 'IFComp::Form::WithdrawEntry',
-    lazy_build => 1,
-);
-
-has 'feelies_form' => (
-    is => 'ro',
-    isa => 'IFComp::Form::SupplementalUpload',
-    lazy_build => 1,
-);
-
-has 'data_form' => (
-    is => 'ro',
-    isa => 'IFComp::Form::SupplementalUpload',
     lazy_build => 1,
 );
 
@@ -107,64 +94,6 @@ sub update :Chained('fetch_entry') :PathPart('update') :Args(0) {
     $self->_process_withdrawal_form( $c );
 }
 
-sub feelies :Chained('fetch_entry') :PathPart('feelies') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->stash->{ form } = $self->feelies_form;
-
-    if ( $c->req->method eq 'POST' ) {
-        my $upload = $c->req->upload( 'upload' );
-        if ( $self->feelies_form->process( { upload => $upload } ) ) {
-            $upload->copy_to(
-                $c->stash->{ entry }->feelies_directory->file( $upload->filename )
-            );
-        }
-    }
-
-}
-
-sub delete_feelie :Chained('fetch_entry') :PathPart('delete_feelie') :Args(1) {
-    my ( $self, $c, $index ) = @_;
-
-    my $result = $c->stash->{ entry }->delete_feelie_with_index( $index );
-    if ( $result ) {
-        $c->flash->{ feelie_deleted } = 1;
-    }
-
-    $c->res->redirect(
-        $c->uri_for_action( '/entry/feelies', [ $c->stash->{ entry }->id ] )
-    );
-}
-
-sub data_files :Chained('fetch_entry') :PathPart('data_files') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->stash->{ form } = $self->data_form;
-
-    if ( $c->req->method eq 'POST' ) {
-        my $upload = $c->req->upload( 'upload' );
-        if ( $self->data_form->process( { upload => $upload } ) ) {
-            $upload->copy_to(
-                $c->stash->{ entry }->data_directory->file( $upload->filename )
-            );
-        }
-    }
-
-}
-
-sub delete_data_file :Chained('fetch_entry') :PathPart('delete_data_file') :Args(1) {
-    my ( $self, $c, $index ) = @_;
-
-    my $result = $c->stash->{ entry }->delete_data_file_with_index( $index );
-    if ( $result ) {
-        $c->flash->{ data_file_deleted } = 1;
-    }
-
-    $c->res->redirect(
-        $c->uri_for_action( '/entry/data_files', [ $c->stash->{ entry }->id ] )
-    );
-}
-
 sub uploaded_cover :Chained('fetch_entry') :PathPart('uploaded_cover') :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -187,23 +116,6 @@ sub _build_form {
 sub _build_withdrawal_form {
     return IFComp::Form::WithdrawEntry->new;
 };
-
-sub _build_feelies_form {
-    my $self = shift;
-
-    return IFComp::Form::SupplementalUpload->new( {
-        directory => $self->entry->feelies_directory,
-    } );
-}
-
-sub _build_data_form {
-    my $self = shift;
-
-    return IFComp::Form::SupplementalUpload->new( {
-        directory => $self->entry->data_directory,
-    } );
-}
-
 
 sub _process_form {
     my ( $self, $c ) = @_;
