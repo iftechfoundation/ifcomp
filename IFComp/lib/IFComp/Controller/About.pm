@@ -46,6 +46,9 @@ sub guidelines :Path('guidelines') :Args(0) {
     $c->stash->{ template } = 'about/guidelines.tt';
 }
 
+sub how_to_enter :Path('how_to_enter') :Args(0) {
+}
+
 
 =encoding utf8
 
