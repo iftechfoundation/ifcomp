@@ -13,6 +13,7 @@ has '+html_prefix' => ( default => 1 );
 
 use Readonly;
 Readonly my $MAX_FILE_SIZE = 10485760;
+Readonly my $MAX_GAME_SIZE = 26214400;
 
 has_field 'title' => (
     required => 1,
@@ -46,7 +47,7 @@ has_field 'email' => (
 has_field 'main_upload' => (
     type => 'Upload',
     label => 'Upload a new main game file',
-    max_size => $MAX_FILE_SIZE,
+    max_size => $MAX_GAME_SIZE,
 );
 
 has_field 'cover_upload' => (

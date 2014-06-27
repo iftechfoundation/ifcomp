@@ -298,24 +298,6 @@ has 'online_play_file' => (
     clearer => 'clear_online_play_file',
 );
 
-has 'feelies_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-    handles => {
-        feelies => 'children',
-    },
-);
-
-has 'data_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-    handles => {
-        data_files => 'children',
-    },
-);
-
 has 'main_directory' => (
     is => 'ro',
     isa => 'Path::Class::Dir',
@@ -354,34 +336,6 @@ sub miss_congeniality_place_as_ordinate {
 sub is_complete {
     my $self = shift;
 
-}
-
-sub delete_feelie_with_index {
-    my $self = shift;
-    my ( $index_to_delete ) = @_;
-
-    my $current_index = 0;
-    for my $feelie ( $self->feelies ) {
-        if ( $current_index == $index_to_delete ) {
-            $feelie->remove;
-            last;
-        }
-        $current_index++;
-    }
-}
-
-sub delete_data_file_with_index {
-    my $self = shift;
-    my ( $index_to_delete ) = @_;
-
-    my $current_index = 0;
-    for my $file ( $self->data_files ) {
-        if ( $current_index == $index_to_delete ) {
-            $file->remove;
-            last;
-        }
-        $current_index++;
-    }
 }
 
 # If an entry's DB record gets deleted, then so does all its files.
@@ -465,18 +419,6 @@ sub _build_uploaded_cover_art_file {
     my $self = shift;
 
     return $self->directory->file( 'cover.png' );
-}
-
-sub _build_feelies_directory {
-    my $self = shift;
-
-    return $self->_build_subdir_named( 'feelies' );
-}
-
-sub _build_data_directory {
-    my $self = shift;
-
-    return $self->_build_subdir_named( 'data' );
 }
 
 sub _build_main_directory {

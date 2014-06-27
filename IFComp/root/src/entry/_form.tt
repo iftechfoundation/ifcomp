@@ -62,13 +62,9 @@ If you don't specify an email address here, then this website will not display a
 <div class="panel panel-default">
 <div class="panel-heading"><h2>Main game files</h2></div>
 <div class="panel-body">
-<p>You must upload, by September 28, exactly one file representing your actual game in order for it to qualify for entry. (If your game includes supplementary "feelies" or requires additional data files, you can upload them elsewhere in this form.)</p>
-<p>The nature of this file depends on the system you used to create your game. Some common cases:
-<ul>
-<li>If you used a parser-oriented system like Inform or TADS, then this is the file that someone would load into an IF interpreter to play your game.</li>
-<li>If you used a hypertext system that outputs only a browser-playable game, such as Twine or Undum, then this is the file that someone would open in a web browser in order to begin playing the game.</li>
-<li>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must create an HTML file that links to that game, and upload that file here. This file can contain any style or content you like, so long as it clearly links to the game. (<em>Special case:</em> if you used Playfic to make the game, then you should be able to download the game's file and upload it here.)</li>
-</ul>
+<p>You must upload, by September 28, exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
+<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
+<p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% entry.main_file.basename %]</p>
 [% form.field('main_delete').render %]
@@ -77,9 +73,11 @@ If you don't specify an email address here, then this website will not display a
 [% END %]
 [% form.field('main_upload').render %]
 <hr />
-<p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
+<p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. If you do, then this website will make that file available to visitors as a way to play your game online, without the need to download anything.</p>
 
-<p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file.</p>
+<p>For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
+
+<p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file; this website will present an online-play link from your game just as it is.</p>
 
 [% IF entry.id && entry.online_play_file %]
 <p><strong>Current online-play file:</strong> [% entry.online_play_file.basename %]</p>
@@ -90,7 +88,9 @@ If you don't specify an email address here, then this website will not display a
 [% form.field('online_play_upload').render %]
 
 <hr />
-<p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
+<p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
+
+<p>This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
 
 [% IF entry.id && entry.walkthrough_file %]
 <p><strong>Current walkthrough file:</strong> [% entry.walkthrough_file.basename %]</p>
@@ -102,34 +102,7 @@ If you don't specify an email address here, then this website will not display a
 </div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Feelies and data files</h2></div>
-<div class="panel-body">
-[% IF entry.id %]
-<p>These links will open in a new tab.</p>
-<h3>Feelies</h3>
 
-<p>In this context, <strong>feelies</strong> are multimedia files included with your entry that its players may browse separately, perhaps before playing the game. They can help set the mood of the work, or provide external materials that the game text can refer to during play. These files might include maps, newspaper clippings, voice-mail messages, et cetera. (For a history of the term, <a href="http://www.ifwiki.org/index.php/Feelies" target="_blank">see the IF Wiki</a>.)</p>
-
-<p>Feelies, if present, will all go into a subdirectory of your game's folder labeled <code>feelies</code>.</p> 
-
-[% INCLUDE entry/_feelies_list.tt %]
-
-<p><a href="[% c.uri_for_action( '/entry/feelies', [ entry.id ] ) %]" target="feelies">Add or remove feelies</a></p>
-
-<h3>Data files</h3>
-
-<p>All files required or linked to by your main game file (other than feelies) will go into a folder labeled <code>data</code>. This might include code libraries, stylesheets, or in-game sound or image files loaded during play.</p>
-
-[% INCLUDE entry/_data_files_list.tt %]
-
-<p><a href="[% c.uri_for_action( '/entry/data_files', [ entry.id ] ) %]" target="data_files">Add or remove data files</a></p>
-[% ELSE %]
-<p>If you feelies or supplemental data files to upload, you may do so after you've declared your intent to enter by submitting this form.</p>
-[% END %]
-
-</div>
-</div>
 [% form.field( 'submit' ).render %]
 
 </form>
