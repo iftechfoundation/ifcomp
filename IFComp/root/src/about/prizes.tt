@@ -1,0 +1,42 @@
+[% meta.title = 'IFComp - Donating Prizes' %]
+<div class="container">
+    <div class="jumbotron">
+    <h1 style="text-align:center;">The IFComp prize pool</h1>
+    </div>
+
+<h1 id="aboutifcompprizes">About IFComp prizes</h1>
+
+<p>Since 1998, the Interactive Fiction Competition has every year distributed a variety of prizes to the authors of games that score well in <a href="/comp">the annual rankings</a>. These prizes <a href="#donatingprizes">come from the IF community</a>, and vary in shape from cash to books to food to professional services. </p>
+
+<p><a href="/about/past_prizes">You can browse a list of the last few years&#8217; prizes and donors here.</a></p>
+
+<p>Donors hang onto their prizes until the competition ends, at which point they ship them to the authors who claim them. Most prizes each year gather into a pool, which ends up distributed among authors as described below &#8211; but donors have the option of creating special prizes with extra conditions attached.</p>
+
+<h2 id="theprizepool">The prize pool</h2>
+
+<p>Starting with the author of the first-place game, authors take turns choosing prizes from the pool. After the first-place winner picks a prize, then the second-place winner gets a chance to choose from the remaining list, followed by the third-place winner, and so on. </p>
+
+<p>This continues until all prizes have been claimed. As authors claim prizes, donors receive notification to contact their prizes&#8217; claimants and arrange shipment.</p>
+
+<p>Most years, enough prizes float in the pool to allow more than half of all the comp&#8217;s participants to receive at least one prize.</p>
+
+<h2 id="specialprizes">Special prizes</h2>
+
+<p>Donors can declare that a prize should not go into the pool, but will instead automatically go to the author of a game that, once the competition is over, meets certain conditions. Examples of this in the past have included:</p>
+
+<ul>
+<li>Physical trophies for the top three games</li>
+<li>Cash awards for the three highest-ranking games that open-source their code by a certain deadline</li>
+<li>A handmade <a href="http://www.ifwiki.org/index.php/Golden_Banana_of_Discord">&#8220;golden banana of discord&#8221;</a> toy for the single game with the hightest standard deviation among its received scores</li>
+</ul>
+
+<p>Special prizes, when present, are the gravy on top of the normal prize pool. Authors whose work land them one or more special prizes will still get their pick from the pool according to the usual rules.</p>
+
+<h1 id="donatingprizes">Donating prizes</h1>
+
+<p>To donate prizes to this year&#8217;s competition, please <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#x66;&#99;&#x6f;&#x6d;&#x70;&#64;&#x69;&#x66;&#99;&#111;&#x6d;&#x70;&#x2e;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#108; &#116;&#104;&#101; &#111;&#x72;&#103;&#x61;&#110;&#x69;&#122;&#x65;&#x72;</a> with a description of what you&#8217;d like to put forward. </p>
+
+<p>We&#8217;ll accept pretty much any suggestion; from simple tokens to useful things and objects of value, no prize is too humble or too grand. Feel free to <a href="/about/past_prizes">browse past years&#8217; prize lists</a> for inspiration. You are free to donate as many prizes per year as you&#8217;d like; in all cases, these prizes stay with you until the competition ends.</p>
+
+<p>Please note in your email whether your donation should go into the general prize pool, or whether it&#8217;s a special prize with extra conditions attached. (Most prizes go into the pool.) Note also whether you&#8217;d need to put any restrictions on who can receive it or where you can ship it. (This usually isn&#8217;t the case.)</p>
+</div>

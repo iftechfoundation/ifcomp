@@ -28,7 +28,7 @@ END;
                   <li><a href="/about/how_to_enter">How to Enter</a></li>
                   <li><a href="/entry">Register or manage your entries</a></li>
                   <li class="divider"></li>
-                  <li><a href="/about/how_to_dontate">How to Donate Prizes</a></li>
+                  <li><a href="/about/prizes">Donate prizes</a></li>
                 </ul>
               </li>
               <li class="dropdown">
