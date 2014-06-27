@@ -12,8 +12,8 @@ has '+name' => ( default => 'entry' );
 has '+html_prefix' => ( default => 1 );
 
 use Readonly;
-Readonly my $MAX_FILE_SIZE = 10485760;
-Readonly my $MAX_GAME_SIZE = 26214400;
+Readonly my $MAX_FILE_SIZE => 10485760;
+Readonly my $MAX_GAME_SIZE => 26214400;
 
 has_field 'title' => (
     required => 1,
