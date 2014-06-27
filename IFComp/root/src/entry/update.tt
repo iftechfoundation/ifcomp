@@ -17,6 +17,7 @@
 <div class="alert alert-success">
 <p>Entry updated.</p>
 </div>
+[% c.flash.entry_updated = 0 %]
 [% END %]
 [% ELSE %]
 <h1>Enter a game into the [% current_comp.year %] competition</h1>
