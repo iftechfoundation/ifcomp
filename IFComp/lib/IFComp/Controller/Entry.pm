@@ -75,8 +75,12 @@ sub list :Chained('root') :PathPart('') :Args(0) {
 sub create :Chained('root') :PathPart('create') :Args(0) {
     my ( $self, $c ) = @_;
 
+    unless ( $c->stash->{ current_comp }->status eq 'accepting_intents' ) {
+        $c->res->redirect( $c->uri_for_action( '/entry/list' ) );
+    }
+
     my %new_result_args = (
-        comp => $c->model( 'IFCompDB::Comp' )->current_comp->id,
+        comp => $c->stash->{ current_comp },
         author => $c->user->get_object->id,
     );
 

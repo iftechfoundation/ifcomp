@@ -5,9 +5,13 @@
 <div class="alert alert-success">You have withdrawn the entry titled <em>[% c.flash.entry_withdrawn %]</em>.</div>
 [% END %]
 
-<p>This year's competition is open for new intents through [% current_comp.intents_close.ymd %]. Authors must have their games uploaded by [% current_comp.entries_due.ymd %].</p>
+<p>This year's competition is open for new intents from [% current_comp.intents_open.ymd %] through [% current_comp.intents_close.ymd %]. Authors must have their games uploaded by [% current_comp.entries_due.ymd %]. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
 
-[% UNLESS entries.size %]
+[% IF current_comp.status == 'not_begun' %]
+<div class="alert alert-warning">
+<p><strong>We're not open for entries yet!</strong> While we appreciate your enthusiasm, we're sorry to say you won't be able to do much on this page prior to July 1st. Come back on or after that date to enter the competition!</p>
+</div>
+[% ELSIF entries.size == 0 %]
 <div class="alert alert-info">
 <p>So you want to enter the IF Comp? <em>Excellent.</em></p>
 <p><a href="/about/how_to_enter">Complete instructions for entering are here.</a> But here's what you absolutely need to know before you enter:</p>
@@ -47,7 +51,7 @@ Not ready for entry yet (No game file)
         <p>You can't declare any further entries this year, since you've reached the annual limit of three.</p>
     [% END %]
 [% ELSE %]
-<p>The competition is closed to new entries.</p>
+<p>The competition is not currently open to new entries.</p>
 [% END %]
 </h2>
 </div>
