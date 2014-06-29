@@ -27,7 +27,15 @@ sub comp :Path :Args(0) {
 sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
     my ( $self, $c, $comp_year ) = @_;
 
-    my $comp = $c->model( 'IFCompDB::Comp' )->search( { year => $comp_year } )->single;
+    my $comp = $c->model( 'IFCompDB::Comp' )->search(
+        {
+            year         => $comp_year,
+            judging_ends => {
+                '<',
+                DateTime->now( time_zone => 'US/Eastern' )->ymd,
+            },
+        }
+    )->single;
 
     unless ( $comp ) {
         $c->res->redirect( $c->uri_for_action( '/index' ) );
@@ -50,7 +58,12 @@ sub index :Chained('fetch_comp') :PathPart('') :Args(0) {
     $c->stash->{ template } = 'comp/index.tt';
 
     my @comp_years = $c->model( 'IFCompDB::Comp' )->search(
-        {},
+        {
+            judging_ends => {
+                '<',
+                DateTime->now( time_zone => 'US/Eastern' )->ymd,
+            },
+        },
         { order_by => 'year' },
     )->get_column( 'year' )->all;
 
