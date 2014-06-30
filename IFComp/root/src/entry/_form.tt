@@ -32,6 +32,7 @@
             </p>
         </div>
         </div>
+<p>[% INCLUDE stat_summary file=entry.uploaded_cover_art_file %]</p>
 [% form.field('cover_delete').render %]
 [% ELSE %]
 <p>This entry has no cover image attached yet.</p>
@@ -66,7 +67,7 @@ If you don't specify an email address here, then this website will not display a
 <p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
-<p><strong>Current main file:</strong> [% entry.main_file.basename %]</p>
+<p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
 [% form.field('main_delete').render %]
 [% ELSE %]
 <p>You haven't added a main file yet.</p>
@@ -80,7 +81,7 @@ If you don't specify an email address here, then this website will not display a
 <p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file; this website will present an online-play link from your game just as it is.</p>
 
 [% IF entry.id && entry.online_play_file %]
-<p><strong>Current online-play file:</strong> [% entry.online_play_file.basename %]</p>
+<p><strong>Current online-play file:</strong> [% INCLUDE stat_summary file=entry.online_play_file %]</p>
 [% form.field('online_play_delete').render %]
 [% ELSE %]
 <p>You haven't added an online-play file yet.</p>
@@ -93,7 +94,7 @@ If you don't specify an email address here, then this website will not display a
 <p>This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
 
 [% IF entry.id && entry.walkthrough_file %]
-<p><strong>Current walkthrough file:</strong> [% entry.walkthrough_file.basename %]</p>
+<p><strong>Current walkthrough file:</strong> [% INCLUDE stat_summary file=entry.walkthrough_file %]</p>
 [% form.field('walkthrough_delete').render %]
 [% ELSE %]
 <p>You haven't added a walkthrough file yet.</p>
@@ -106,3 +107,10 @@ If you don't specify an email address here, then this website will not display a
 [% form.field( 'submit' ).render %]
 
 </form>
+
+[% BLOCK stat_summary %]
+[% stat = file.stat %]
+[% USE date = DateTime( from_epoch = stat.mtime, time_zone = 'local' ) %]
+[% USE Comma %]
+[% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
+[% END %]
