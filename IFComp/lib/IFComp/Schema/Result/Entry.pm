@@ -316,8 +316,13 @@ has 'walkthrough_directory' => (
     lazy_build => 1,
 );
 
+has 'cover_directory' => (
+    is => 'ro',
+    isa => 'Path::Class::Dir',
+    lazy_build => 1,
+);
 
-has 'uploaded_cover_art_file' => (
+has 'cover_file' => (
     is => 'ro',
     isa => 'Maybe[Path::Class::File]',
     lazy_build => 1,
@@ -415,10 +420,10 @@ sub _build_online_play_file {
     return ($self->online_play_directory->children)[0];
 }
 
-sub _build_uploaded_cover_art_file {
+sub _build_cover_file {
     my $self = shift;
 
-    return $self->directory->file( 'cover.png' );
+    return ($self->cover_directory->children)[0];
 }
 
 sub _build_main_directory {
@@ -439,6 +444,12 @@ sub _build_walkthrough_directory {
     return $self->_build_subdir_named( 'walkthrough' );
 }
 
+sub _build_cover_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named( 'cover' );
+}
+
 sub _build_subdir_named {
     my $self = shift;
     my ( $subdir_name ) = @_;
@@ -451,10 +462,10 @@ sub _build_subdir_named {
     return $path;
 }
 
-sub uploaded_cover_art_file_exists {
+sub cover_exists {
     my $self = shift;
 
-    return -e $self->uploaded_cover_art_file;
+    return -e $self->cover_file;
 }
 
 
