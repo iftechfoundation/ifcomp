@@ -24,15 +24,15 @@
 <p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
 
 [% form.field('blurb').render %]
-<p>The cover art can be an image file in .png format, and can be up to 10 MB in size.</p>
-[% IF entry.id && entry.uploaded_cover_art_file_exists %]
+<p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
+[% IF entry.id && entry.cover_file %]
 <div class="row">        <div class="col-xs-4">
             <p>Current cover image:<br />
-            <img class="img-responsive" src="[% c.uri_for_action( '/entry/uploaded_cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            <img class="img-responsive" src="[% c.uri_for_action( '/entry/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
             </p>
         </div>
         </div>
-<p>[% INCLUDE stat_summary file=entry.uploaded_cover_art_file %]</p>
+<p>[% INCLUDE stat_summary file=entry.cover_file %]</p>
 [% form.field('cover_delete').render %]
 [% ELSE %]
 <p>This entry has no cover image attached yet.</p>

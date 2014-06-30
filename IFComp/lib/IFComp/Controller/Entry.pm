@@ -98,13 +98,18 @@ sub update :Chained('fetch_entry') :PathPart('update') :Args(0) {
     $self->_process_withdrawal_form( $c );
 }
 
-sub uploaded_cover :Chained('fetch_entry') :PathPart('uploaded_cover') :Args(0) {
+sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $file = $c->stash->{ entry }->uploaded_cover_art_file;
+    my $file = $c->stash->{ entry }->cover_file;
     if ( -e $file ) {
         my $image_data = $file->slurp;
-        $c->res->content_type( 'image/png' );
+        if ( $file->basename =~ /png$/ ) {
+            $c->res->content_type( 'image/png' );
+        }
+        else {
+            $c->res->content_type( 'image/jpeg' );
+        }
         $c->res->body( $image_data );
     }
     else {
@@ -140,17 +145,7 @@ sub _process_form {
     my $entry = $c->stash->{ entry };
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
         # Handle files
-        if ( my $cover_file = $params_ref->{ 'entry.cover_upload' } ) {
-            my $result = $cover_file->copy_to( $entry->uploaded_cover_art_file );
-            unless ( $result ) {
-                die "Failed to write the cover image.";
-            }
-        }
-        elsif ( $params_ref->{ 'entry.cover_delete' } ) {
-            $entry->uploaded_cover_art_file->remove;
-        }
-
-        for my $upload_type ( qw( main online_play walkthrough ) ) {
+        for my $upload_type ( qw( main online_play walkthrough cover ) ) {
             my $upload_param = "entry.${upload_type}_upload";
             if ( my $upload = $params_ref->{ $upload_param } ) {
                 my $file_method = "${upload_type}_file";

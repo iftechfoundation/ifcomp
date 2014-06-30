@@ -110,8 +110,8 @@ sub validate_cover_upload {
     my $self = shift;
     my ( $field ) = @_;
 
-    if ( $field->value && not $field->value->filename =~ /\.png$/ ) {
-        $field->add_error( "This doesn't appear to be a .png file.");
+    if ( $field->value && not $field->value->filename =~ /\.(pn|jpe?)g$/ ) {
+        $field->add_error( "This doesn't appear to be a PNG or JPEG file.");
     }
 }
 
