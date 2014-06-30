@@ -1,0 +1,116 @@
+<form method="post" enctype="multipart/form-data">
+<div class="row">
+<div class="col-sm-12">
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Title and subtitle</h2></div>
+<div class="panel-body">
+[% form.field('title').render %]
+<p>Your game can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
+[% form.field('subtitle').render %]
+[% UNLESS entry.id %]
+<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the Sept. 28 deadline.</p>
+[% form.field('submit').render %]
+<p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
+[% END %]
+</div>
+</div>
+
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Blurb and cover art</h2></div>
+<div class="panel-body">
+<p>
+<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/" target="_blank">browse past entries</a> to see examples of both.</p>
+<p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
+
+[% form.field('blurb').render %]
+<p>The cover art can be an image file in .png format, and can be up to 10 MB in size.</p>
+[% IF entry.id && entry.uploaded_cover_art_file_exists %]
+<div class="row">        <div class="col-xs-4">
+            <p>Current cover image:<br />
+            <img class="img-responsive" src="[% c.uri_for_action( '/entry/uploaded_cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            </p>
+        </div>
+        </div>
+<p>[% INCLUDE stat_summary file=entry.uploaded_cover_art_file %]</p>
+[% form.field('cover_delete').render %]
+[% ELSE %]
+<p>This entry has no cover image attached yet.</p>
+[% END %]
+[% form.field('cover_upload').render %]
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Pseudonym and contact info</h2></div>
+<div class="panel-body">
+<p>If you wish, you can enter your game under a pseudonym, instead of the name this website knows you by ([% c.user.name %]). If you do choose a pseudonym, you can can choose whether you want to have your real identity revealed after the judging period is over.</p>
+
+[% form.field('pseudonym').render %]
+[% form.field('reveal_pseudonym').render %]
+<p>Whether or not you use a pseudonym, you may also specify an email address that players can use to contact you during the competition.
+[% IF c.user.email_is_public %]
+If you specify neither a pseudonym nor a contact email, then this website will display your login email address ([% c.user.email %]) as the contact address for this game, since you've chosen to make your login email public.
+[% ELSE %]
+If you don't specify an email address here, then this website will not display any contact information for this game, since your account preferences prevent us from sharing your login email address.
+[% END %]
+(You can change this behavior by visiting <a href="/user/edit_account" target="_blank">your account preferences page</a>.)</p>
+[% form.field('email').render %]
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Main game files</h2></div>
+<div class="panel-body">
+<p>You must upload, by September 28, exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
+<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
+<p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
+[% IF entry.id && entry.main_file %]
+<p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
+[% form.field('main_delete').render %]
+[% ELSE %]
+<p>You haven't added a main file yet.</p>
+[% END %]
+[% form.field('main_upload').render %]
+<hr />
+<p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. If you do, then this website will make that file available to visitors as a way to play your game online, without the need to download anything.</p>
+
+<p>For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
+
+<p>If your game file is already in HTML (e.g. it's a Twine game), then your game is already playable online! You need not upload a separate online-play file; this website will present an online-play link from your game just as it is.</p>
+
+[% IF entry.id && entry.online_play_file %]
+<p><strong>Current online-play file:</strong> [% INCLUDE stat_summary file=entry.online_play_file %]</p>
+[% form.field('online_play_delete').render %]
+[% ELSE %]
+<p>You haven't added an online-play file yet.</p>
+[% END %]
+[% form.field('online_play_upload').render %]
+
+<hr />
+<p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
+
+<p>This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
+
+[% IF entry.id && entry.walkthrough_file %]
+<p><strong>Current walkthrough file:</strong> [% INCLUDE stat_summary file=entry.walkthrough_file %]</p>
+[% form.field('walkthrough_delete').render %]
+[% ELSE %]
+<p>You haven't added a walkthrough file yet.</p>
+[% END %]
+[% form.field('walkthrough_upload').render %]
+</div>
+</div>
+
+
+[% form.field( 'submit' ).render %]
+
+</form>
+
+[% BLOCK stat_summary %]
+[% stat = file.stat %]
+[% USE date = DateTime( from_epoch = stat.mtime, time_zone = 'local' ) %]
+[% USE Comma %]
+[% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
+[% END %]

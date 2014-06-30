@@ -8,6 +8,7 @@ __PACKAGE__->config({
         IFComp->path_to( 'root', 'src' ),
         IFComp->path_to( 'root', 'lib' )
     ],
+    TEMPLATE_EXTENSION => '.tt',
     PRE_PROCESS  => 'config/main',
     WRAPPER      => 'site/wrapper',
     ERROR        => 'error.tt2',
