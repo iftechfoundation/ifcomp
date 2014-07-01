@@ -91,7 +91,7 @@ If you don't specify an email address here, then this website will not display a
 <hr />
 <p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
 
-<p>This file can be in any format, but we recommend using a plain textfile, an HTML file, or a PDF document.</p>
+<p>This file can be in any format, but for the sake of both simplicity and compatibility we recommend using plain text, HTML, or PDF. You may design the walkthrough file's content and style however you like.</p>
 
 [% IF entry.id && entry.walkthrough_file %]
 <p><strong>Current walkthrough file:</strong> [% INCLUDE stat_summary file=entry.walkthrough_file %]</p>
