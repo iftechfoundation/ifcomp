@@ -51,10 +51,10 @@ The competition's very first run in 1995 split the entries into two categories: 
 [% BLOCK next_prev %]
 <ul class="pager">
   [% IF previous_year %]
-  <li class="previous"><a href="[% c.uri_for_action('/comp/index', [ previous_year ] ) %]">&larr; See [% previous_year %] results</a></li>
+  <li class="previous"><a href="[% c.uri_for_action('/comp/index', [ previous_year ] ) %]">&larr; [% previous_year %] results</a></li>
   [% END %]
   [% IF next_year %]
-  <li class="next"><a href="[% c.uri_for_action('/comp/index', [ next_year ] ) %]">See [% next_year %] results &rarr;</a></li>
+  <li class="next"><a href="[% c.uri_for_action('/comp/index', [ next_year ] ) %]">[% next_year %] results &rarr;</a></li>
   [% END %]
 </ul>
 [% END %]
