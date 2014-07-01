@@ -35,7 +35,7 @@ has_field 'pseudonym' => (
 
 has_field 'reveal_pseudonym' => (
     default => 1,
-    label => 'Reveal your identity after the comp ends (if using a pseuodym)?',
+    label => 'Reveal your identity after the comp ends (if using a pseuodym)',
     type => 'Checkbox',
 );
 
@@ -46,7 +46,7 @@ has_field 'email' => (
 
 has_field 'main_upload' => (
     type => 'Upload',
-    label => 'Upload a new main game file',
+    label => 'Upload a new game file',
     max_size => $MAX_GAME_SIZE,
 );
 
@@ -58,7 +58,7 @@ has_field 'cover_upload' => (
 
 has_field 'walkthrough_upload' => (
     type => 'Upload',
-    label => 'Upload a new main walkthrough or hint file',
+    label => 'Upload a new walkthrough or hint file',
     max_size => $MAX_FILE_SIZE,
 );
 
