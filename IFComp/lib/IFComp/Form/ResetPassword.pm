@@ -14,7 +14,7 @@ has 'schema' => (
 
 has_field 'submit' => (
     type => 'Submit',
-    value => 'Register',
+    value => 'Submit',
     element_attr => {
         class => 'btn btn-success',
     },
