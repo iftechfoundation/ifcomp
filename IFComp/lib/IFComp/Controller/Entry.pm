@@ -19,6 +19,9 @@ Catalyst Controller.
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
 
+use Readonly;
+Readonly my $MAX_ENTRIES => 3;
+
 has 'form' => (
     is => 'ro',
     isa => 'IFComp::Form::Entry',
@@ -76,6 +79,15 @@ sub create :Chained('root') :PathPart('create') :Args(0) {
     my ( $self, $c ) = @_;
 
     unless ( $c->stash->{ current_comp }->status eq 'accepting_intents' ) {
+        $c->res->redirect( $c->uri_for_action( '/entry/list' ) );
+    }
+
+    unless (
+        $c->model( 'IFCompDB::Entry' )->search( {
+            author => $c->user->get_object->id,
+            comp   => $c->stash->{ current_comp }->id,
+        } )->count < $MAX_ENTRIES
+    ) {
         $c->res->redirect( $c->uri_for_action( '/entry/list' ) );
     }
 
