@@ -20,10 +20,10 @@
  <div class="row">
  
      <div class="col-sm-4">
-        <h2>You're here early!</h2>
+        <h2>IFComp's 20th year!</h2>
 
         <p>
-        Welcome to IFComp.org! If you've visited before, you might notice things look quite a bit different. We're doing a bit of remodeling for the 2014 season &mdash; the comp's 20th year!
+        Welcome to IFComp.org! If you've visited in years past, you might notice things look quite a bit different. We've done a little remodeling for the 2014 season &mdash; the comp's 20th year!
         </p>
         <p>
         For a brief rundown on the IFComp and its schedule this year, see <a href="[% c.uri_for('about/comp') %]">our About the Competition page</a>.
@@ -31,11 +31,13 @@
     </div>
     
     <div class="col-sm-4">
-        <h2>What's here now?</h2>
-        
-        <p>The revamped <a href="[% c.uri_for('/comp/') %]">competition results</a> list every past comp game, including links to their IFDB pages &mdash; which let you download, play, or learn more about each.</p>
-        <p>We&rsquo;ve also revised <a href="[% c.uri_for('/rules') %]">the comp rules</a>, and created new pages about <a href="[% c.uri_for('/history') %]">the comp&rsquo;s history</a>, <a href="[% c.uri_for('/about/guidelines') %]">guidelines for comp authors</a>, and <a href="[% c.uri_for('/about/if') %]">a summary of what &ldquo;IF&rdquo; means in 2014</a>.
-        </p>
+        <h2>What's going on?</h2>
+        <p>A few things you can do on this site, right now:</p>
+        <ul>
+        <li>Learn about <a href="[% c.uri_for('/about/comp') %]">the competition</a>, or about <a href="[% c.uri_for('/about/if') %]">interactive fiction</a> in general</li>
+        <li>Read <a href="[% c.uri_for('/about/how_to_enter') %]">how to enter a game into the competition</a></li>
+        <li>Donate to <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
+        <li>Browse <a href="[% c.uri_for('/comp/') %]">past IFComp entries</a></li>
     </div>
     
     <div class="col-sm-4">
@@ -47,7 +49,7 @@
     <li><a href="http://blog.ifcomp.org">Visit our blog</a></li>
     <li><a href="http://twitter.com/ifcomp">Follow us on Twitter</a></li>
     </ul>
-    <p>We'll post updates throughout the runup to the July kickoff while this new website comes online, bit by bit.
+    <p>We'll post updates to both throughout the year, as the competition (as well as this new website) develops.
     </p>
     
       </div>

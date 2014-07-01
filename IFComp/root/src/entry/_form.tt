@@ -61,9 +61,10 @@ If you don't specify an email address here, then this website will not display a
 </div>
 
 <div class="panel panel-default">
-<div class="panel-heading"><h2>Main game files</h2></div>
+<div class="panel-heading"><h2>Files</h2></div>
 <div class="panel-body">
-<p>You must upload, by September 28, exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
+<h3>Game file</h3>
+<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
 <p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
@@ -74,6 +75,7 @@ If you don't specify an email address here, then this website will not display a
 [% END %]
 [% form.field('main_upload').render %]
 <hr />
+<h3>Online-play HTML file (optional)</h3>
 <p>If your game has a <em>separate</em> online-play file in HTML format, then you may upload it here. If you do, then this website will make that file available to visitors as a way to play your game online, without the need to download anything.</p>
 
 <p>For example, if you developed this game in Inform, then you can here include the HTML file that results from compiling the game with the <code>Release along with an interpeter</code> option. You may modify the content and style of this HTML file however you like.</p>
@@ -89,7 +91,8 @@ If you don't specify an email address here, then this website will not display a
 [% form.field('online_play_upload').render %]
 
 <hr />
-<p>If your game involves puzzles of any sort -- or any other way for players to get "stuck" and require a hint in order to continue -- then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
+<h3>Walkthrough (optional)</h3>
+<p>If your game involves puzzles of any sort &mdash; or any other way for players to get "stuck" and require a hint in order to continue &mdash; then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
 
 <p>This file can be in any format, but for the sake of both simplicity and compatibility we recommend using plain text, HTML, or PDF. You may design the walkthrough file's content and style however you like.</p>
 
