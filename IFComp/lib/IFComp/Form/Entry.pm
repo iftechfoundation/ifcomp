@@ -28,7 +28,7 @@ has_field 'blurb' => (
     type => 'TextArea',
 );
 
-has_field 'pseudonym' => (
+has_field 'author_pseudonym' => (
     type => 'Text',
     label => 'Your pseudonym (if using one for this entry)',
 );
@@ -100,7 +100,7 @@ sub validate_reveal_pseudonym {
     my $self = shift;
     my ( $field ) = @_;
 
-    if ( $field->value && not $self->field( 'pseudonym' )->value ) {
+    if ( $field->value && not $self->field( 'author_pseudonym' )->value ) {
         $field->add_error( "This setting makes sense only if you're setting "
                            . "a pseudonym." );
     }

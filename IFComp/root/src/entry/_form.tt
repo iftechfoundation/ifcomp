@@ -47,7 +47,7 @@
 <div class="panel-body">
 <p>If you wish, you can enter your game under a pseudonym, instead of the name this website knows you by ([% c.user.name %]). If you do choose a pseudonym, you can can choose whether you want to have your real identity revealed after the judging period is over.</p>
 
-[% form.field('pseudonym').render %]
+[% form.field('author_pseudonym').render %]
 [% form.field('reveal_pseudonym').render %]
 <p>Whether or not you use a pseudonym, you may also specify an email address that players can use to contact you during the competition.
 [% IF c.user.email_is_public %]
