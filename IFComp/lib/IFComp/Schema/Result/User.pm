@@ -204,7 +204,7 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 prize_donors
+=head2 prizes
 
 Type: has_many
 
@@ -213,22 +213,7 @@ Related object: L<IFComp::Schema::Result::Prize>
 =cut
 
 __PACKAGE__->has_many(
-  "prize_donors",
-  "IFComp::Schema::Result::Prize",
-  { "foreign.donor" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
-=head2 prize_recipients
-
-Type: has_many
-
-Related object: L<IFComp::Schema::Result::Prize>
-
-=cut
-
-__PACKAGE__->has_many(
-  "prize_recipients",
+  "prizes",
   "IFComp::Schema::Result::Prize",
   { "foreign.recipient" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -265,8 +250,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-05-27 10:42:22
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8YAe3SJA5wrnwYErh5MeIA
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-07-11 01:27:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZzjqBzk4bGIBq0TsCWeEqw
 
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;
@@ -435,4 +420,9 @@ sub current_comp_entries {
 
 __PACKAGE__->meta->make_immutable( inline_constructor => 0 );
 
+1;
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
+__PACKAGE__->meta->make_immutable;
 1;

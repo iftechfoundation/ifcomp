@@ -54,10 +54,17 @@ __PACKAGE__->table("prize");
 
 =head2 donor
 
-  data_type: 'integer'
-  extra: {unsigned => 1}
-  is_foreign_key: 1
+  data_type: 'char'
+  default_value: (empty string)
   is_nullable: 0
+  size: 64
+
+=head2 donor_email
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 64
 
 =head2 name
 
@@ -71,18 +78,25 @@ __PACKAGE__->table("prize");
   data_type: 'text'
   is_nullable: 1
 
-=head2 donor_pseudonym
-
-  data_type: 'char'
-  is_nullable: 1
-  size: 64
-
 =head2 recipient
 
   data_type: 'integer'
   extra: {unsigned => 1}
   is_foreign_key: 1
   is_nullable: 1
+
+=head2 url
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 128
+
+=head2 category
+
+  data_type: 'enum'
+  default_value: 'misc'
+  extra: {list => ["money","expertise","food","apparel","games","hardware","software","books","av","misc","special"]}
+  is_nullable: 0
 
 =cut
 
@@ -102,24 +116,42 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "donor",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
+  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  "donor_email",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
   "name",
   { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
   "notes",
   { data_type => "text", is_nullable => 1 },
-  "donor_pseudonym",
-  { data_type => "char", is_nullable => 1, size => 64 },
   "recipient",
   {
     data_type => "integer",
     extra => { unsigned => 1 },
     is_foreign_key => 1,
     is_nullable => 1,
+  },
+  "url",
+  { data_type => "char", is_nullable => 1, size => 128 },
+  "category",
+  {
+    data_type => "enum",
+    default_value => "misc",
+    extra => {
+      list => [
+        "money",
+        "expertise",
+        "food",
+        "apparel",
+        "games",
+        "hardware",
+        "software",
+        "books",
+        "av",
+        "misc",
+        "special",
+      ],
+    },
+    is_nullable => 0,
   },
 );
 
@@ -152,21 +184,6 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
-=head2 donor
-
-Type: belongs_to
-
-Related object: L<IFComp::Schema::Result::User>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "donor",
-  "IFComp::Schema::Result::User",
-  { id => "donor" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
-
 =head2 recipient
 
 Type: belongs_to
@@ -188,8 +205,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:o7beWMguwGhNv/6K2bCRnA
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-07-11 01:27:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cOsPgJbiijLFlvOwphnhRg
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Prize.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete

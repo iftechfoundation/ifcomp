@@ -1,0 +1,47 @@
+[%
+ordered_categories = [
+    'money',
+    'expertise',
+    'food',
+    'apparel',
+    'games',
+    'hardware',
+    'software',
+    'books',
+    'av',
+    'misc',
+    'special',
+];
+
+full_name_for = {
+    'money' => 'Money and gift certificates',
+    'expertise' => 'Expert services',
+    'books' => 'Books and magazines',
+    'food' => 'Food',
+    'av' => 'Music and movies',
+    'apparel' => 'Apparel',
+    'games' => 'Games',
+    'software' => 'Non-game software',
+    'hardware' => 'Computer hardware and other electronics',
+    'stuff' => 'Other stuff',
+    'special' => 'Special prizes',
+};
+
+USE Markdown;
+%]
+
+[% FOR category IN ordered_categories %]
+    [% IF prizes_in_category.$category.size %]
+        <h2>[% full_name_for.$category %]</h2>
+        <ul>
+        [% FOR prize IN prizes_in_category.$category %]
+            <li>
+            <p>[% IF prize.url %]<a href="[% prize.url %]">[% END %]<strong>[% prize.name | markdown | remove('</?p>') %]</strong>[% IF prize.url %]</a>[% END %]
+            [% IF prize.notes %]<br />[% prize.notes | markdown | remove('</?p>') %][% END %]
+            <br /><em>Donated by [% prize.donor %]</em>
+            </p>
+            </li>
+        [% END %]
+        </ul>
+    [% END %]
+[% END %]
