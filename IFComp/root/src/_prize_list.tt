@@ -23,7 +23,7 @@ full_name_for = {
     'games' => 'Games',
     'software' => 'Non-game software',
     'hardware' => 'Computer hardware and other electronics',
-    'stuff' => 'Other stuff',
+    'misc' => 'Other stuff',
     'special' => 'Special prizes',
 };
 
