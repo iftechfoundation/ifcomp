@@ -43,13 +43,19 @@
 </div>
 
 <div class="panel panel-default">
-<div class="panel-heading"><h2>Pseudonym and contact info</h2></div>
+<div class="panel-heading"><h2>Displayed name(s) and contact info</h2></div>
 <div class="panel-body">
-<p>If you wish, you can enter your game under a pseudonym, instead of the name this website knows you by ([% c.user.name %]). If you do choose a pseudonym, you can can choose whether you want to have your real identity revealed after the judging period is over.</p>
+<p>If you wish, you can enter your game under a name (or a list of names) other than the name this website knows you by ([% c.user.name %]). Do this if you wish to enter your game under a pseudonym, or if your game has more than one author and you wish to equally credit all of them.</p>
+
+<p><strong>To credit multiple co-authors:</strong> Enter the authors' names into this field, formatted and ordered however you like. Alphabetized and comma-separated (e.g. <em>Charlie Andrews, Bonnie Baker and Alice Chang</em>) works well. Consider also setting a contact email for the game, below.</p>
+
+<p><strong>For a pseudonym:</strong> Enter your pen-name of choice into the field below, and check the checkbox underneath it if you'd like your real identity revealed after the judging period is over.</p>
+
+<p><strong>To enter as "[% c.user.name %]":</strong> simply leave this field blank.</p>
 
 [% form.field('author_pseudonym').render %]
 [% form.field('reveal_pseudonym').render %]
-<p>Whether or not you use a pseudonym, you may also specify an email address that players can use to contact you during the competition.
+<p>You may also specify an email address that players can use to contact you during the competition.
 [% IF c.user.email_is_public %]
 If you specify neither a pseudonym nor a contact email, then this website will display your login email address ([% c.user.email %]) as the contact address for this game, since you've chosen to make your login email public.
 [% ELSE %]
