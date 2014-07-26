@@ -29,6 +29,8 @@ END;
                   <li><a href="/entry">Register or manage your entries</a></li>
                   <li class="divider"></li>
                   <li><a href="/about/prizes">View / donate prizes</a></li>
+                  <li class="divider"></li>
+                  <li><a href="/about/faq">Frequently Asked Questions</a></li>
                 </ul>
               </li>
               <li class="dropdown">
