@@ -18,7 +18,7 @@ has_field 'confirm' => (
 
 has_field 'submit' => (
     type => 'Submit',
-    value => 'Permanently withdraw this entry',
+    value => 'Withdraw this entry',
     element_attr => {
         class => 'btn btn-danger',
     },
