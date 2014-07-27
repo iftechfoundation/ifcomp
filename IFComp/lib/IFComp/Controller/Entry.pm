@@ -19,6 +19,8 @@ Catalyst Controller.
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
 
+use MIME::Types;
+
 use Readonly;
 Readonly my $MAX_ENTRIES => 3;
 
@@ -128,6 +130,40 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
         $c->res->code( 404 );
         $c->res->body( '' );
     }
+}
+
+sub current_comp_test :Chained('fetch_entry') :PathPart('test') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
+sub download :Chained('fetch_entry') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $self->_serve_file( $c, 'main_file' );
+}
+
+sub play_online :Chained('fetch_entry') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $self->_serve_file( $c, 'effective_online_play_file' );
+}
+
+sub walkthrough :Chained('fetch_entry') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $self->_serve_file( $c, 'walkthrough_file' );
+}
+
+sub _serve_file {
+    my ( $self, $c, $method ) = @_;
+
+    my $file = $c->stash->{ entry }->$method;
+
+    my $mime_type = MIME::Types->mimeTypeOf( $file );
+
+    $c->res->content_type( $mime_type->type );
+    $c->res->body( $file->open );
+
 }
 
 sub _build_form {

@@ -328,6 +328,14 @@ has 'cover_file' => (
     lazy_build => 1,
 );
 
+# effective_online_play_file: Either the online file (if present), or the main
+# file (if present and an HTML file), or nothing.
+has 'effective_online_play_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
 sub place_as_ordinate {
     my $self = shift;
     return ordinate( $self->place );
@@ -462,12 +470,25 @@ sub _build_subdir_named {
     return $path;
 }
 
+sub _build_effective_online_play_file {
+    my $self = shift;
+
+    if ( $self->online_play_file ) {
+        return $self->online_play_file;
+    }
+    elsif ( $self->main_file =~ /html?/i ) {
+        return $self->main_file;
+    }
+    else {
+        return undef;
+    }
+}
+
 sub cover_exists {
     my $self = shift;
 
     return -e $self->cover_file;
 }
-
 
 __PACKAGE__->meta->make_immutable;
 
