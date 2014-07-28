@@ -10,7 +10,7 @@
 <h1 id="enteringgames">Entering games</h1>
 </div>
 
-<h2 id="cananentrybewrittenbyateam">Can an entry be written by a team?</h2>
+<h3 id="cananentrybewrittenbyateam">Can an entry be written by a team?</h3>
 
 <p>Absolutely! While most IFComp entries have individual authors, collaborations are not uncommon, and have appeared among <a href="/comp/results">the top ten finishers</a> several times.</p>
 
@@ -18,7 +18,7 @@
 
 <p>Collaborations are still entered into the competition under a single ifcomp.org account. The game&#8217;s author-pseudonym field can be set to the list of authors&#8217; names.</p>
 
-<h2 id="ihaveanunfinishedgameimadeforaclassorforadifferenteventorjustasapastcreativeproject.canifinishitandenteritintothecompetition">I have an unfinished game I made for a class (or for a different event, or just as a past creative project). Can I finish it and enter it into the competition?</h2>
+<h3 id="ihaveanunfinishedgameimadeforaclassorforadifferenteventorjustasapastcreativeproject.canifinishitandenteritintothecompetition">I have an unfinished game I made for a class (or for a different event, or just as a past creative project). Can I finish it and enter it into the competition?</h3>
 
 <p>It all depends on whether or not the game&#8217;s earlier version has been released to the public.</p>
 
@@ -26,7 +26,7 @@
 
 <p>However, if the game was available on the public internet, where anyone could find and play it, then the IFComp considers that a release &#8211; even if the game wasn&#8217;t finished yet. This would be the case if, for example, you linked to the game from a public forum.</p>
 
-<h2 id="arethereanyrestrictionsoncontentsuchascoarselanguageordepictionsofsexorviolencedoineedtowarnplayersaboutthesethingsifiincludetheminmygame">Are there any restrictions on content, such as coarse language, or depictions of sex or violence? Do I need to warn players about these things if I include them in my game?</h2>
+<h3 id="arethereanyrestrictionsoncontentsuchascoarselanguageordepictionsofsexorviolencedoineedtowarnplayersaboutthesethingsifiincludetheminmygame">Are there any restrictions on content, such as coarse language, or depictions of sex or violence? Do I need to warn players about these things if I include them in my game?</h3>
 
 <p>The IFComp places no restrictions on the elements that make up its entries&#8217; stories.</p>
 
@@ -34,19 +34,19 @@
 
 <p>As with all other aspects of your game, think about the experience you want your player to have &#8211; knowing that your player might be anyone at all &#8211; and act appropriately.</p>
 
-<h2 id="canienteragamethatonlyrunsonwindowsorotherwiserequiressomespecificoperatingsystemordevicetoplay">Can I enter a game that only runs on Windows, or otherwise requires some specific operating system or device to play?</h2>
+<h3 id="canienteragamethatonlyrunsonwindowsorotherwiserequiressomespecificoperatingsystemordevicetoplay">Can I enter a game that only runs on Windows, or otherwise requires some specific operating system or device to play?</h3>
 
 <p>You certainly may, if it keeps to <a href="/rules/#authors">all the rules for entries</a>. Just be aware that such games by definition have a smaller potential audience than games that work across many platforms. In the IFComp, the fewer technological restrictions for play that an entry has, the more votes, reviews, and overall attention it tends to receive.</p>
 
 <p>The IF community has a long-lived tradition for cross-platform works, with its roots back in the heyday of commercial text adventures from the 1980s. <a href="/about/guidelines#useanifauthoringtool">The most popular tools for IF game creation</a> keep this tradition alive by making it easier to create a single game that works on a variety of computing environments. It may be worth your time to examine these tools, if you haven&#8217;t already.</p>
 
-<h2 id="whatshouldidoifisubmittedanintenttoenteragamebutihaventfinisheditbythefinaldeadlineshouldijustenterwhatihave">What should I do if I submitted an intent to enter a game, but I haven&#8217;t finished it by the final deadline? Should I just enter what I have?</h2>
+<h3 id="whatshouldidoifisubmittedanintenttoenteragamebutihaventfinisheditbythefinaldeadlineshouldijustenterwhatihave">What should I do if I submitted an intent to enter a game, but I haven&#8217;t finished it by the final deadline? Should I just enter what I have?</h3>
 
 <p>While nothing in the rules stops you from entering an unfinished work, <a href="/about/guidelines#submitonlyfinishedwork">we strongly recommend that you don&#8217;t</a>. </p>
 
 <p>There is no penalty for <em>not</em> submitting a final entry, even if you earlier declared an intent to enter. If the deadline has arrived and you know that your entry is unfinished (or finished but <a href="/about/guidelines#testing">untested</a>), please consider withdrawing your entry. Submitting a complete, tested work to a future competition will almost certainly reward you with more pride and satisfaction than submitting an incomplete work today.</p>
 
-<h2 id="iveenteredagameamiallowedtotalkabouttheifcompinpublic">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h2>
+<h3 id="iveenteredagameamiallowedtotalkabouttheifcompinpublic">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
 
 <p>Yes, so long as you follow <a href="http://www.ifcomp.org/rules/#authors">author rule #4</a>, which restricts authors from publicly asking for votes or discussing the games in detail before the competition is over.</p>
 
@@ -76,7 +76,7 @@
 <h1 id="donatingprizes">Donating prizes</h1>
 </div>
 
-<h2 id="canistilldonateaprizeforthisyearscompetition">Can I still donate a prize for this year&#8217;s competition?</h2>
+<h3 id="canistilldonateaprizeforthisyearscompetition">Can I still donate a prize for this year&#8217;s competition?</h3>
 
 <p>Probably! Since authors don&#8217;t choose their prizes until the competition wraps up, we gratefully welcome prize donations right up until the judging period ends in mid-November. </p>
 
