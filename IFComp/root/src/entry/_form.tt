@@ -20,8 +20,7 @@
 <div class="panel-heading"><h2>Blurb and cover art</h2></div>
 <div class="panel-body">
 <p>
-<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/" target="_blank">browse past entries</a> to see examples of both.</p>
-<p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
+<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. It pays to be thoughtful here. <a href="/comp/" target="_blank">Browse past entries</a> to see some good examples of both, and <a href="/about/guidelines#writeastrongblurb" target="_blank">consult the guidelines</a> to learn more about writing strong blurbs.</p>
 
 [% form.field('blurb').render %]
 <p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
