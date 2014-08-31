@@ -136,36 +136,6 @@ sub current_comp_test :Chained('fetch_entry') :PathPart('test') :Args(0) {
     my ( $self, $c ) = @_;
 }
 
-sub download :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'main_file' );
-}
-
-sub play_online :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'effective_online_play_file' );
-}
-
-sub walkthrough :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'walkthrough_file' );
-}
-
-sub _serve_file {
-    my ( $self, $c, $method ) = @_;
-
-    my $file = $c->stash->{ entry }->$method;
-
-    my $mime_type = MIME::Types->mimeTypeOf( $file );
-
-    $c->res->content_type( $mime_type->type );
-    $c->res->body( $file->open );
-
-}
-
 sub _build_form {
     return IFComp::Form::Entry->new;
 };
@@ -183,7 +153,7 @@ sub _process_form {
     );
 
     my $params_ref = $c->req->parameters;
-    foreach ( qw( main_upload walkthrough_upload cover_upload online_play_upload ) ) {
+    foreach ( qw( main_upload walkthrough_upload cover_upload ) ) {
         my $param = "entry.$_";
         if ( $params_ref->{ $param } ) {
             $params_ref->{ $param } = $c->req->upload( $param );
@@ -193,7 +163,7 @@ sub _process_form {
     my $entry = $c->stash->{ entry };
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
         # Handle files
-        for my $upload_type ( qw( main online_play walkthrough cover ) ) {
+        for my $upload_type ( qw( main walkthrough cover ) ) {
             my $upload_param = "entry.${upload_type}_upload";
             if ( my $upload = $params_ref->{ $upload_param } ) {
                 my $file_method = "${upload_type}_file";
@@ -209,6 +179,10 @@ sub _process_form {
                 }
                 my $clearer = "clear_${upload_type}_file";
                 $entry->$clearer;
+
+                if ( $upload_type eq 'main' ) {
+                    $entry->update_content_directory;
+                }
             }
 
             my $deletion_param = "entry.${upload_type}_delete";

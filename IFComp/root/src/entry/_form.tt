@@ -81,30 +81,7 @@ If you don't specify an email address here, then this website will not display a
 [% END %]
 [% form.field('main_upload').render %]
 <hr />
-<!--
-<h3>Online-play file(s) (optional)</h3>
-<p>
-We recommend (but do not require) that your game be playable in a web browser, if possible. If you need to upload additional files representing an in-browser edition of your game, you can accomplish that here. As with your main game file, you can upload either a single file of any type, or several files compressed as a <code>.zip</code> archive.
-</p>
 
-<p>If you upload one file here, a player's browser will attempt to open it when they click your game's "Play Online" button. If you upload a zipped archive, then this website will either serve them its top-level <code>index.html</code> file (if the archive contains such a thing) or a bare listing of its contents (if it doesn't).</p>
-
-<p>For example, if you developed this game in Inform, then you can here include &mdash; compressed into a zip archive &mdash; the files from the <code>Release</code> directory that results from compiling the game with the <code>Release along with an interpeter</code> option. (You may, of course, modify the generated HTML and CSS files to taste prior to upload.)</p>
-
-<p>If your game already takes the form of a single HTML file (as is the case with most Twine games, for example), then your game is already playable online! You need not upload a separate online-play file; this website will present an online-play link from your game just as it is.</p>
-
-<p>If you plan to host a web-playable version of the game running elsewhere on the internet during the competition, then you can upload here an HTML file linking to it.</p>
-
-[% IF entry.id && entry.online_play_file %]
-<p><strong>Current online-play file:</strong> [% INCLUDE stat_summary file=entry.online_play_file %]</p>
-[% form.field('online_play_delete').render %]
-[% ELSE %]
-<p>You haven't added an online-play file yet.</p>
-[% END %]
-[% form.field('online_play_upload').render %]
-
-<hr />
--->
 <h3>Walkthrough (optional)</h3>
 <p>If your game involves puzzles of any sort &mdash; or any other way for players to get "stuck" and require a hint in order to continue &mdash; then we strongly recommend including a walkthrough or hint file of some sort. If you do, then this website will present this file to visitors under a "Walkthrough" link attached to your game's listing.</p>
 
