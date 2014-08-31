@@ -50,11 +50,26 @@ sub how_to_enter :Path('how_to_enter') :Args(0) {
 }
 
 sub prizes :Path('prizes') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
+    $c->stash->{ current_comp } = $current_comp;
+
+    my %prizes_in_category;
+    for my $prize ( $current_comp->prizes->search( {}, { order_by => 'name' } )->all ) {
+        $prizes_in_category{ $prize->category } ||= [];
+        push @{ $prizes_in_category{ $prize->category } }, $prize;
+    }
+
+    $c->stash->{ prizes_in_category } = \%prizes_in_category;
+
 }
 
 sub past_prizes :Path('past_prizes') :Args(0) {
 }
 
+sub faq :Path('faq') :Args(0) {
+}
 
 =encoding utf8
 

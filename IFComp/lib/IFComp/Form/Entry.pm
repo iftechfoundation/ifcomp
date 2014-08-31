@@ -28,14 +28,14 @@ has_field 'blurb' => (
     type => 'TextArea',
 );
 
-has_field 'pseudonym' => (
+has_field 'author_pseudonym' => (
     type => 'Text',
-    label => 'Your pseudonym (if using one for this entry)',
+    label => 'Displayed pseudonym or author-list (if different from your registered name)',
 );
 
 has_field 'reveal_pseudonym' => (
     default => 1,
-    label => 'Reveal your identity after the comp ends (if using a pseuodym)',
+    label => 'Reveal your identity after the comp ends (if using a pseudonym)',
     type => 'Checkbox',
 );
 
@@ -100,7 +100,7 @@ sub validate_reveal_pseudonym {
     my $self = shift;
     my ( $field ) = @_;
 
-    if ( $field->value && not $self->field( 'pseudonym' )->value ) {
+    if ( $field->value && not $self->field( 'author_pseudonym' )->value ) {
         $field->add_error( "This setting makes sense only if you're setting "
                            . "a pseudonym." );
     }

@@ -1,0 +1,6 @@
+<div class="container">
+    <div class="well">
+    [% INCLUDE _entry_title.tt %]
+    [% INCLUDE _current_entry_row.tt %]
+    </div>
+</div>

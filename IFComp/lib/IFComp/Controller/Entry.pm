@@ -19,6 +19,8 @@ Catalyst Controller.
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
 
+use MIME::Types;
+
 use Readonly;
 Readonly my $MAX_ENTRIES => 3;
 
@@ -130,6 +132,10 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
     }
 }
 
+sub current_comp_test :Chained('fetch_entry') :PathPart('test') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub _build_form {
     return IFComp::Form::Entry->new;
 };
@@ -147,7 +153,7 @@ sub _process_form {
     );
 
     my $params_ref = $c->req->parameters;
-    foreach ( qw( main_upload walkthrough_upload cover_upload online_play_upload ) ) {
+    foreach ( qw( main_upload walkthrough_upload cover_upload ) ) {
         my $param = "entry.$_";
         if ( $params_ref->{ $param } ) {
             $params_ref->{ $param } = $c->req->upload( $param );
@@ -157,7 +163,7 @@ sub _process_form {
     my $entry = $c->stash->{ entry };
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
         # Handle files
-        for my $upload_type ( qw( main online_play walkthrough cover ) ) {
+        for my $upload_type ( qw( main walkthrough cover ) ) {
             my $upload_param = "entry.${upload_type}_upload";
             if ( my $upload = $params_ref->{ $upload_param } ) {
                 my $file_method = "${upload_type}_file";
@@ -173,6 +179,10 @@ sub _process_form {
                 }
                 my $clearer = "clear_${upload_type}_file";
                 $entry->$clearer;
+
+                if ( $upload_type eq 'main' ) {
+                    $entry->update_content_directory;
+                }
             }
 
             my $deletion_param = "entry.${upload_type}_delete";

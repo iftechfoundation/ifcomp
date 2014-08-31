@@ -1,0 +1,47 @@
+<div class="row">
+
+    [% IF entry.cover_exists %]
+        <div class="col-xs-4">
+            <img class="img-responsive" src="[% c.uri_for_action( '/entry/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+        </div>
+    [% END %]
+    
+    <div class="col-xs-8">
+        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
+        [% FILTER html_para %]
+        	[% entry.blurb %]
+        [% END %]
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-2">
+        <form action="[% c.uri_for_action( '/play/download', [ entry.id ] ) %]">
+        <button type="submit" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-cloud-download"></span> Download
+        </button>
+        </form>
+        </div>
+        
+        [% IF entry.platform != 'other' %]
+        <div class="col-sm-2">
+        <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]">        
+        <button type="submit" class="btn btn-default btn-lg">
+           <span class="glyphicon glyphicon-chevron-right"></span> Play online
+        </button>
+        </form>
+        </div>
+        [% END %]
+        
+        [% IF entry.walkthrough_file %]
+        <div class="col-sm-2">
+        <form action="[% c.uri_for_action( '/play/walkthrough', [ entry.id ] ) %]">        
+
+        <button type="submit" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-question-sign"></span> Walkthrough
+        </button>
+        </form>
+        </div>
+        [% END %]        
+
+    </div>
+</div>

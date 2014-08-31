@@ -240,6 +240,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 transcripts
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Transcript>
+
+=cut
+
+__PACKAGE__->has_many(
+  "transcripts",
+  "IFComp::Schema::Result::Transcript",
+  { "foreign.entry" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 votes
 
 Type: has_many
@@ -256,12 +271,17 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-06-21 18:32:27
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xGA5Wl9WH3YXdxIu9jkiAg
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-08-26 18:15:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lxzKmlz6iM3KFmmM13W2Nw
 
+use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
 use Path::Class::Dir;
 use File::Copy qw( move );
+use Archive::Zip;
+
+use Readonly;
+Readonly my $I7_REGEX => qr/\.z\d$|\.[gw]?blorb$|\.ulx$/i;
 
 has 'directory' => (
     is => 'ro',
@@ -291,26 +311,19 @@ has 'walkthrough_file' => (
     clearer => 'clear_walkthrough_file',
 );
 
-has 'online_play_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-    clearer => 'clear_online_play_file',
-);
-
 has 'main_directory' => (
     is => 'ro',
     isa => 'Path::Class::Dir',
     lazy_build => 1,
 );
 
-has 'online_play_directory' => (
+has 'walkthrough_directory' => (
     is => 'ro',
     isa => 'Path::Class::Dir',
     lazy_build => 1,
 );
 
-has 'walkthrough_directory' => (
+has 'content_directory' => (
     is => 'ro',
     isa => 'Path::Class::Dir',
     lazy_build => 1,
@@ -325,6 +338,20 @@ has 'cover_directory' => (
 has 'cover_file' => (
     is => 'ro',
     isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
+enum 'Platform', [qw(
+    html
+    website
+    parchment
+    inform
+    other
+) ];
+
+has 'platform' => (
+    is => 'ro',
+    isa => 'Platform',
     lazy_build => 1,
 );
 
@@ -354,7 +381,7 @@ around update => sub {
     my $orig = shift;
     my $self = shift;
 
-    for my $file_type ( qw( main walkthrough online_play ) ) {
+    for my $file_type ( qw( main walkthrough ) ) {
         my $column = "${file_type}_filename";
         if ( $self->is_column_changed( $column ) && not $self->$column  ) {
             my $file_method = "${file_type}_file";
@@ -414,12 +441,6 @@ sub _build_walkthrough_file {
     return ($self->walkthrough_directory->children)[0];
 }
 
-sub _build_online_play_file {
-    my $self = shift;
-
-    return ($self->online_play_directory->children)[0];
-}
-
 sub _build_cover_file {
     my $self = shift;
 
@@ -432,10 +453,10 @@ sub _build_main_directory {
     return $self->_build_subdir_named( 'main' );
 }
 
-sub _build_online_play_directory {
+sub _build_content_directory {
     my $self = shift;
 
-    return $self->_build_subdir_named( 'online_play' );
+    return $self->_build_subdir_named( 'content' );
 }
 
 sub _build_walkthrough_directory {
@@ -462,12 +483,214 @@ sub _build_subdir_named {
     return $path;
 }
 
+sub _build_platform {
+    my $self = shift;
+
+    my $file = $self->main_file;
+    if ( $self->main_file =~ /\.html?$/i ) {
+        return 'html';
+    }
+
+    if ( $self->main_file =~ $I7_REGEX ) {
+        return 'inform';
+    }
+
+    my @content_files = map { $_->basename } $self->content_directory->children;
+    if (
+        ( grep { $I7_REGEX } @content_files )
+        && ( grep { /^index\.html?$/i } @content_files )
+        && ( grep { /^play\.html?$/i } @content_files )
+    ) {
+        return 'parchment';
+    }
+
+    if ( grep { /\.html?$/i } @content_files ) {
+        return 'website';
+    }
+
+    return 'other';
+
+}
+
 sub cover_exists {
     my $self = shift;
 
-    return -e $self->cover_file;
+    if ( $self->cover_file ) {
+        return -e $self->cover_file;
+    }
+    else {
+        return 0;
+    }
 }
 
+# update_content_directory: Clean up (and possibly create) the content directory,
+#                           then populate it with the main .zip, if there is one.
+sub update_content_directory {
+    my $self = shift;
+
+    my $content_directory = $self->content_directory;
+    $content_directory->rmtree;
+    $content_directory->mkpath;
+
+    if ( $self->main_file =~ /\.zip$/i ) {
+        my $zip = Archive::Zip->new;
+        $zip->read( $self->main_file->stringify );
+        $zip->extractTree( { zipName => $content_directory } );
+
+        # If the result is a single subdir, move all its contents up a level,
+        # then erase it.
+        if (
+            ( $content_directory->children == 1 )
+            && ( ($content_directory->children)[0]->is_dir )
+        ) {
+            my $sole_dir = ($content_directory->children)[0];
+            for my $child ( $sole_dir->children ) {
+                my $destination;
+                if ( $child->is_dir ) {
+                    $destination =
+                        $content_directory->subdir( $child->basename );
+                }
+                else {
+                    $destination =
+                        $content_directory->file( $child->basename );
+                }
+                move( $child => $destination->stringify ) or die $!;
+            }
+            $sole_dir->rmtree;
+        }
+    }
+    else {
+        $self->main_file->copy_to( $self->content_directory );
+    }
+
+    if ( $self->platform eq 'inform' ) {
+        $self->_create_parchment_page;
+    }
+    elsif ( $self->platform eq 'parchment' ) {
+        $self->_mangle_parchment_head;
+    }
+}
+
+sub _create_parchment_page {
+    my $self = shift;
+
+    my $title = $self->title;
+    my $main_file = $self->main_file->basename;
+    my $entry_id = $self->id;
+
+    my $html = <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IFComp — $title — Play</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="../../static/interpreter/jquery.min.js"></script>
+<script src="../../static/interpreter/parchment.min.js"></script>
+<script src="../../static/interpreter/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+<script>
+parchment_options = {
+default_story: [ "$main_file" ],
+lib_path: '../../static/interpreter/',
+lock_story: 1,
+page_title: 0
+};
+
+ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.story.name = "$title";
+ifRecorder.story.version = "1";
+</script>
+
+ </head>
+<body class="play">
+<div class="container">
+
+<div id="gameport">
+<div id="about">
+<h1>Parchment</h1>
+<p>is an interpreter for Interactive Fiction. <a href="http://parchment.googlecode.com">Find out more.</a></p>
+<noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
+</div>
+<div id="parchment"></div>
+</div>
+
+</div>
+<div class="interpretercredit"><a href="http://parchment.googlecode.com">Parchment for Inform 7</a></div>
+</body>
+</html>
+
+EOF
+    ;
+
+    my $html_file = $self->content_directory->file( 'index.html' );
+    my $html_fh = $html_file->openw;
+
+    print $html_fh $html;
+
+}
+
+sub _mangle_parchment_head {
+    my $self = shift;
+
+    my $title = $self->title;
+    my $entry_id = $self->id;
+
+    my $game_file;
+    foreach ( map { $_->basename } $self->content_directory->children ) {
+        if ( /$I7_REGEX/ ) {
+            $game_file = $_;
+            last;
+        }
+    }
+
+    my $play_file = $self->content_directory->file( 'play.html' );
+
+    unless ( ( -e $play_file ) && $game_file ) {
+        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
+        # so we won't do anything.
+        return;
+    }
+
+    my $play_html = $play_file->slurp;
+
+    # Discard all invocations of interpreter/.
+    $play_html =~ s{<script src="interpreter/.*?</script>}{}g;
+    $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
+
+    # Add new head tags.
+    my $head_html = <<EOF;
+<script src="../../static/interpreter/jquery.min.js"></script>
+<script src="../../static/interpreter/parchment.min.js"></script>
+<script src="../../static/interpreter/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+<script>
+parchment_options = {
+default_story: [ "$game_file" ],
+lib_path: '../../static/interpreter/',
+lock_story: 1,
+page_title: 0
+};
+
+ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.story.name = "$title";
+ifRecorder.story.version = "1";
+</script>
+
+EOF
+    ;
+
+    $play_html =~ s{</head>}{$head_html\n</head>};
+
+    $play_file->spew( $play_html );
+
+}
 
 __PACKAGE__->meta->make_immutable;
 

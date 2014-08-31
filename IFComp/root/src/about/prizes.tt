@@ -1,10 +1,20 @@
-[% meta.title = 'IFComp - Donating Prizes' %]
+[% meta.title = 'IFComp - Prizes' %]
 <div class="container">
     <div class="jumbotron">
     <h1 style="text-align:center;">The IFComp prize pool</h1>
     </div>
+    
+<div class="page-header">
+<h1>Prizes for the [% current_comp.year %] competition</h1>
+</div>
 
+<p>The following competition prizes have been generously donated by members of the interactive fiction community. <a href="#aboutifcompprizes">See below</a> to learn how the prize pool works, or <a href="#donatingprizes">how you can add to it</a>.</p>
+
+[% INCLUDE _prize_list.tt %]
+
+<div class="page-header">
 <h1 id="aboutifcompprizes">About IFComp prizes</h1>
+</div>
 
 <p>Since 1998, the Interactive Fiction Competition has every year distributed a variety of prizes to the authors of games that score well in <a href="/comp">the annual rankings</a>. These prizes <a href="#donatingprizes">come from the IF community</a>, and vary in shape from cash to books to food to professional services. </p>
 
@@ -32,7 +42,9 @@
 
 <p>Special prizes, when present, are the gravy on top of the normal prize pool. Authors whose work land them one or more special prizes will still get their pick from the pool according to the usual rules.</p>
 
+<div class="page-header">
 <h1 id="donatingprizes">Donating prizes</h1>
+</div>
 
 <p>To donate prizes to this year&#8217;s competition, please <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#x66;&#99;&#x6f;&#x6d;&#x70;&#64;&#x69;&#x66;&#99;&#111;&#x6d;&#x70;&#x2e;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#108; &#116;&#104;&#101; &#111;&#x72;&#103;&#x61;&#110;&#x69;&#122;&#x65;&#x72;</a> with a description of what you&#8217;d like to put forward. </p>
 

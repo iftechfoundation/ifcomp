@@ -36,7 +36,7 @@
         <ul>
         <li>Learn about <a href="[% c.uri_for('/about/comp') %]">the competition</a>, or about <a href="[% c.uri_for('/about/if') %]">interactive fiction</a> in general</li>
         <li>Read <a href="[% c.uri_for('/about/how_to_enter') %]">how to enter a game into the competition</a></li>
-        <li>Donate to <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
+        <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
         <li>Browse <a href="[% c.uri_for('/comp/') %]">past IFComp entries</a></li>
     </div>
     

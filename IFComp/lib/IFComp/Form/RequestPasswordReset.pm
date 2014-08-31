@@ -11,12 +11,13 @@ has 'schema' => (
 
 has_field 'email' => (
     type => 'Email',
+    label => "Your ifcomp.org account's email address",
     required => 1,
 );
 
 has_field 'submit' => (
     type => 'Submit',
-    value => 'Register',
+    value => 'Send request',
     element_attr => {
         class => 'btn btn-success',
     },
