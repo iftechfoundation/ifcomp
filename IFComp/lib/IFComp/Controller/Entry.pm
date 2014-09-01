@@ -77,6 +77,10 @@ sub list :Chained('root') :PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
 }
 
+sub preview :Chained('root') :PathPart('preview') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub create :Chained('root') :PathPart('create') :Args(0) {
     my ( $self, $c ) = @_;
 
