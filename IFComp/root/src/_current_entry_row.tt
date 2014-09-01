@@ -6,15 +6,16 @@
         </div>
     [% END %]
     
-    <div class="col-xs-8">
+    <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
         <p><strong>[% INCLUDE author_name.tt %]</strong></p>
         [% FILTER html_para %]
         	[% entry.blurb %]
         [% END %]
     </div>
     
-    <div class="row">
-        <div class="col-sm-2">
+    <div>
+        
+        <div class="play-button">
         <form action="[% c.uri_for_action( '/play/download', [ entry.id ] ) %]">
         <button type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
@@ -23,7 +24,7 @@
         </div>
         
         [% IF entry.platform != 'other' %]
-        <div class="col-sm-2">
+        <div class="play-button">
         <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]">        
         <button type="submit" class="btn btn-default btn-lg">
            <span class="glyphicon glyphicon-chevron-right"></span> Play online
@@ -33,7 +34,7 @@
         [% END %]
         
         [% IF entry.walkthrough_file %]
-        <div class="col-sm-2">
+        <div class="play-button">
         <form action="[% c.uri_for_action( '/play/walkthrough', [ entry.id ] ) %]">        
 
         <button type="submit" class="btn btn-default btn-lg">
@@ -45,3 +46,7 @@
 
     </div>
 </div>
+
+<style>
+.play-button { display: inline-block }
+</style>
