@@ -106,7 +106,8 @@ Delete main game file
 <div class="checkbox"><label for="entry.walkthrough_delete"><input type="checkbox" name="entry.walkthrough_delete" id="entry.walkthrough_delete" value="1" />
 Delete walkthrough file
 </label></div></div>
-</div>[% ELSE %]
+</div>
+[% ELSE %]
 <p>You haven't added a walkthrough file yet.</p>
 [% END %]
 [% form.field('walkthrough_upload').render %]
