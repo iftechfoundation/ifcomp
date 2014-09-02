@@ -71,6 +71,14 @@ __PACKAGE__->config(
         dirs => [
             'static',
         ],
+        include_path => [
+            IFComp->config->{root} . '/../entries',
+            IFComp->config->{root},
+        ],
+        ignore_extensions => [
+            'tt2',
+            'tt',
+        ],
     },
     'Model::Covers' => {
         root_dir => __PACKAGE__->path_to('file_store')

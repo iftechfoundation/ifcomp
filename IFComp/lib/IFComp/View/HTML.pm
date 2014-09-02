@@ -6,7 +6,7 @@ use base 'Catalyst::View::TT';
 __PACKAGE__->config({
     INCLUDE_PATH => [
         IFComp->path_to( 'root', 'src' ),
-        IFComp->path_to( 'root', 'lib' )
+        IFComp->path_to( 'root', 'lib' ),
     ],
     TEMPLATE_EXTENSION => '.tt',
     PRE_PROCESS  => 'config/main',

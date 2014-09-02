@@ -1,0 +1,37 @@
+<div class="container">
+<ol class="breadcrumb">
+  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+  <li class="active">Preview entries</li>
+</ol>
+
+<h1>Preview [% current_comp.year %] entries</h1>
+
+<p>This is what your entries will look like to visitors of the IFComp website during the judging period this year. <a href="#help">See below</a> for an explanation of what controls should appear, and how they ought to work.</p>
+
+[% IF entries.size %]
+
+[% FOR entry IN entries %]
+    <div class="well">
+    [% INCLUDE _entry_title.tt %]
+    [% INCLUDE _current_entry_row.tt current_comp = 1 %]
+    </div>
+[% END %]
+
+[% ELSE %]
+<p>You haven't declared any entries this year, yet.</p>
+[% END %]
+
+<h1 id="help">What the buttons do</h1>
+<p><b>Download</b> is always available, and will simply let the player download a copy of the game file you uploaded to ifcomp.org. (If the game is a single HTML file, then it'll open in the player's browser instead.)</p>
+
+<p><b>Walkthrough</b> appears if you've added a separate walkthrough file to your entry via the entry form. It's a simple link to whatever that file is.</p>
+
+<p>The <b>Play Online</b> button appears if any one of the following is true about your uploaded entry file:
+<ul>
+<li><p>It's a single HTML file (as is typically the case with Twine games, for example).</p></li>
+<li><p>It's a Zip archive containing a file named "index.html" at its top level. (This includes website directories output by Inform while using the "Release along with an interpreter" option.)</p></li>
+<li><p>It's a single z-code or Glulx file as output by Inform.</p></li>
+</ul>
+</p>
+
+<p>If something doesn't seem to be working like you'd expect, please <a href="mailto:ifcomp@ifcomp.org">contact the organizer</a>.</p>

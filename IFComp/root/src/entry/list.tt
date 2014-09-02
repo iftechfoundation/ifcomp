@@ -39,6 +39,7 @@ Not ready for entry yet (No game file)
 </li>
 [% END %]
 </ul>
+<p><a href="[% c.uri_for_action( '/entry/preview' ) %]">Preview these entries.</a></p>
 [% ELSE %]
 <p>You have not declared any entries yet.</p>
 [% END %]
