@@ -33,8 +33,13 @@
         </div>
         </div>
 <p>[% INCLUDE stat_summary file=entry.cover_file %]</p>
-[% form.field('cover_delete').render %]
-[% ELSE %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.cover_delete"><input type="checkbox" name="entry.cover_delete" id="entry.cover_delete" value="1" />
+Delete cover art file
+</label></div></div>
+</div>[% ELSE %]
 <p>This entry has no cover image attached yet.</p>
 [% END %]
 [% form.field('cover_upload').render %]
@@ -75,7 +80,13 @@ If you don't specify an email address here, then this website will not display a
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
-[% form.field('main_delete').render %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.main_delete"><input type="checkbox" name="entry.main_delete" id="entry.main_delete" value="1" />
+Delete main game file
+</label></div></div>
+</div>
 [% ELSE %]
 <p>You haven't added a main file yet.</p>
 [% END %]
@@ -89,8 +100,13 @@ If you don't specify an email address here, then this website will not display a
 
 [% IF entry.id && entry.walkthrough_file %]
 <p><strong>Current walkthrough file:</strong> [% INCLUDE stat_summary file=entry.walkthrough_file %]</p>
-[% form.field('walkthrough_delete').render %]
-[% ELSE %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.walkthrough_delete"><input type="checkbox" name="entry.walkthrough_delete" id="entry.walkthrough_delete" value="1" />
+Delete walkthrough file
+</label></div></div>
+</div>[% ELSE %]
 <p>You haven't added a walkthrough file yet.</p>
 [% END %]
 [% form.field('walkthrough_upload').render %]
