@@ -13,7 +13,7 @@
 [% FOR entry IN entries %]
     <div class="well">
     [% INCLUDE _entry_title.tt %]
-    [% INCLUDE _current_entry_row.tt %]
+    [% INCLUDE _current_entry_row.tt current_comp = 1 %]
     </div>
 [% END %]
 
