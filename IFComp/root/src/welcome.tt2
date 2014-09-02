@@ -64,7 +64,7 @@ The [% current_comp.year %] comp will open for entry registration and prize dona
 [% ELSIF current_comp.status == 'accepting_intents' %]
 The [% current_comp.year %] comp is now accepting entries! Authors have until [% current_comp.intents_close.month_name %] [% current_comp.intents_open.day %] to register their intent to enter.
 [% ELSIF current_comp.status == 'closed_to_intents' %]
-It's the final stretch for [% current_comp.year %] comp authors! All entries are due by [% current_comp.entries_due.month_name %] [% current_comp.entries_due.day %].
+It's the final stretch for [% current_comp.year %] comp authors! All entries are due by [% current_comp.entries_due.subtract( days => 1 ).strftime( '%{month_name} %{day}' ) %].
 [% ELSIF current_comp.status == 'closed_to_entries' %]
 All entries are in and being prepared for release. The judging period begins on [% current_comp.judging_begins.month_name %] [% current_comp.judging_begins.day %].
 [% ELSIF current_comp.status == 'open_for_judging' %]
