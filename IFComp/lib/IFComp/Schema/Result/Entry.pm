@@ -281,7 +281,7 @@ use File::Copy qw( move );
 use Archive::Zip;
 
 use Readonly;
-Readonly my $I7_REGEX => qr/\.z\d$|\.[gw]?blorb$|\.ulx$/i;
+Readonly my $I7_REGEX => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 
 has 'directory' => (
     is => 'ro',
