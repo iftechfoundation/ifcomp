@@ -590,7 +590,7 @@ sub _create_parchment_page {
   <script src="../../static/interpreter/jquery.min.js"></script>
 <script src="../../static/interpreter/parchment.min.js"></script>
 <script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
 <script>
@@ -667,7 +667,7 @@ sub _mangle_parchment_head {
 <script src="../../static/interpreter/jquery.min.js"></script>
 <script src="../../static/interpreter/parchment.min.js"></script>
 <script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
 <script>
