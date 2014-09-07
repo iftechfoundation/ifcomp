@@ -281,7 +281,7 @@ use File::Copy qw( move );
 use Archive::Zip;
 
 use Readonly;
-Readonly my $I7_REGEX => qr/\.z\d$|\.[gw]?blorb$|\.ulx$/i;
+Readonly my $I7_REGEX => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 
 has 'directory' => (
     is => 'ro',
@@ -432,19 +432,19 @@ sub _build_directory {
 sub _build_main_file {
     my $self = shift;
 
-    return ($self->main_directory->children)[0];
+    return ($self->main_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_walkthrough_file {
     my $self = shift;
 
-    return ($self->walkthrough_directory->children)[0];
+    return ($self->walkthrough_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_cover_file {
     my $self = shift;
 
-    return ($self->cover_directory->children)[0];
+    return ($self->cover_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_main_directory {
@@ -590,7 +590,7 @@ sub _create_parchment_page {
   <script src="../../static/interpreter/jquery.min.js"></script>
 <script src="../../static/interpreter/parchment.min.js"></script>
 <script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
 <script>
@@ -667,7 +667,7 @@ sub _mangle_parchment_head {
 <script src="../../static/interpreter/jquery.min.js"></script>
 <script src="../../static/interpreter/parchment.min.js"></script>
 <script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
 <script>

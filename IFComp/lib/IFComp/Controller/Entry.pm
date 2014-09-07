@@ -168,6 +168,16 @@ sub _process_form {
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
         # Handle files
         for my $upload_type ( qw( main walkthrough cover ) ) {
+            my $deletion_param = "entry.${upload_type}_delete";
+            if ( $params_ref->{ $deletion_param } ) {
+                my $method = "${upload_type}_file";
+                if ( my $file = $entry->$method ) {
+                    $entry->$method->remove;
+                    my $clearer = "clear_${upload_type}_file";
+                    $entry->$clearer;
+                }
+            }
+
             my $upload_param = "entry.${upload_type}_upload";
             if ( my $upload = $params_ref->{ $upload_param } ) {
                 my $file_method = "${upload_type}_file";
@@ -189,15 +199,6 @@ sub _process_form {
                 }
             }
 
-            my $deletion_param = "entry.${upload_type}_delete";
-            if ( $params_ref->{ $deletion_param } ) {
-                my $method = "${upload_type}_file";
-                if ( my $file = $entry->$method ) {
-                    $entry->$method->remove;
-                    my $clearer = "clear_${upload_type}_file";
-                    $entry->$clearer;
-                }
-            }
         }
 
         $c->flash->{ entry_updated } = 1;

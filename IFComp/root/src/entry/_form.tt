@@ -20,8 +20,7 @@
 <div class="panel-heading"><h2>Blurb and cover art</h2></div>
 <div class="panel-body">
 <p>
-<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. Competition judges will see them again when they return to the website to rate your game. It pays to be thoughtful here. Do <a href="/comp/" target="_blank">browse past entries</a> to see examples of both.</p>
-<p>A blurb should be a short paragraph or two that intrigues and entices, and (like the cover art) helps set the game's mood and the player's positive expectations for what they'll find when they begin playing. Think of the blurb as the text on the back cover, if your game were a paperback book.</p>
+<p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. It pays to be thoughtful here. <a href="/comp/" target="_blank">Browse past entries</a> to see some good examples of both, and <a href="/about/guidelines#writeastrongblurb" target="_blank">consult the guidelines</a> to learn more about writing strong blurbs.</p>
 
 [% form.field('blurb').render %]
 <p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
@@ -33,8 +32,13 @@
         </div>
         </div>
 <p>[% INCLUDE stat_summary file=entry.cover_file %]</p>
-[% form.field('cover_delete').render %]
-[% ELSE %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.cover_delete"><input type="checkbox" name="entry.cover_delete" id="entry.cover_delete" value="1" />
+Delete cover art file
+</label></div></div>
+</div>[% ELSE %]
 <p>This entry has no cover image attached yet.</p>
 [% END %]
 [% form.field('cover_upload').render %]
@@ -75,7 +79,13 @@ If you don't specify an email address here, then this website will not display a
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
-[% form.field('main_delete').render %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.main_delete"><input type="checkbox" name="entry.main_delete" id="entry.main_delete" value="1" />
+Delete main game file
+</label></div></div>
+</div>
 [% ELSE %]
 <p>You haven't added a main file yet.</p>
 [% END %]
@@ -89,7 +99,13 @@ If you don't specify an email address here, then this website will not display a
 
 [% IF entry.id && entry.walkthrough_file %]
 <p><strong>Current walkthrough file:</strong> [% INCLUDE stat_summary file=entry.walkthrough_file %]</p>
-[% form.field('walkthrough_delete').render %]
+<div class="form-group">
+
+<div>
+<div class="checkbox"><label for="entry.walkthrough_delete"><input type="checkbox" name="entry.walkthrough_delete" id="entry.walkthrough_delete" value="1" />
+Delete walkthrough file
+</label></div></div>
+</div>
 [% ELSE %]
 <p>You haven't added a walkthrough file yet.</p>
 [% END %]

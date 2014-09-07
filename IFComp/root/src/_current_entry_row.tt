@@ -2,7 +2,7 @@
 
     [% IF entry.cover_exists %]
         <div class="col-xs-4">
-            <img class="img-responsive" src="[% c.uri_for_action( '/entry/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
         </div>
     [% END %]
     
@@ -14,7 +14,8 @@
     </div>
     
     <div>
-        
+    
+        [% IF entry.main_file %]    
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/download', [ entry.id ] ) %]">
         <button type="submit" class="btn btn-default btn-lg">
@@ -32,6 +33,7 @@
         </form>
         </div>
         [% END %]
+        [% END %]
         
         [% IF entry.walkthrough_file %]
         <div class="play-button">
@@ -45,6 +47,7 @@
         [% END %]        
 
     </div>
+    
 </div>
 
 <style>

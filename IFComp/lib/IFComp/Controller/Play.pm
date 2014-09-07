@@ -94,6 +94,27 @@ sub transcribe :Chained('fetch_entry') :Args(0) {
 
 }
 
+sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $file = $c->stash->{ entry }->cover_file;
+    if ( -e $file ) {
+        $c->log->debug( "Yo let's send the image at $file." );
+        my $image_data = $file->slurp;
+        if ( $file->basename =~ /png$/ ) {
+            $c->res->content_type( 'image/png' );
+        }
+        else {
+            $c->res->content_type( 'image/jpeg' );
+        }
+        $c->res->body( $image_data );
+    }
+    else {
+        $c->res->code( 404 );
+        $c->res->body( '' );
+    }
+}
+
 sub _serve_file {
     my ( $self, $c, $method ) = @_;
 

@@ -1,7 +1,10 @@
-[% IF entry.reveal_pseudonym %]
+[% IF entry.reveal_pseudonym && !current_comp %]
     [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym %]”)
 [% ELSIF entry.author_pseudonym %]
     <strong>[% entry.author_pseudonym %]</strong>
+    [% IF entry.email %]
+        <a href="mailto:[% entry.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email %]" /></a>
+    [% END %]
 [% ELSE %]
     [% INCLUDE name_and_links %]
 [% END %]
@@ -11,7 +14,7 @@
     [% IF entry.author.twitter %]
         <a href="http://twitter.com/[% entry.author.twitter %]"><img src="/static/images/twitter.png" class="author-link" alt="@[% entry.author.twitter %]" /></a>
     [% END %]
-    [% IF entry.author.email_is_public %]
-        <a href="mailto:[% entry.author.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.author.email %]" /></a>
+    [% IF entry.email || entry.author.email_is_public %]
+        <a href="mailto:[% entry.email || entry.author.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email || entry.author.email %]" /></a>
     [% END %]
 [% END %]
