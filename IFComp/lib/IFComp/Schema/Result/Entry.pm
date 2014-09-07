@@ -432,19 +432,19 @@ sub _build_directory {
 sub _build_main_file {
     my $self = shift;
 
-    return ($self->main_directory->children)[0];
+    return ($self->main_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_walkthrough_file {
     my $self = shift;
 
-    return ($self->walkthrough_directory->children)[0];
+    return ($self->walkthrough_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_cover_file {
     my $self = shift;
 
-    return ($self->cover_directory->children)[0];
+    return ($self->cover_directory->children( no_hidden => 1 ) )[0];
 }
 
 sub _build_main_directory {
