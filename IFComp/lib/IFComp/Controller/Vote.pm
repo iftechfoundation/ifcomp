@@ -39,7 +39,7 @@ sub index :Path :Args(2) {
         },
     )->single;
 
-    unless ( $entry ) {
+    unless ( $entry && $entry->is_qualified ) {
         $c->res->code( 404 );
         $c->res->body( "Invalid entry ID." );
         return;

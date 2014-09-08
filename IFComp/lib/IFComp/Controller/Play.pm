@@ -99,7 +99,6 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
 
     my $file = $c->stash->{ entry }->cover_file;
     if ( -e $file ) {
-        $c->log->debug( "Yo let's send the image at $file." );
         my $image_data = $file->slurp;
         if ( $file->basename =~ /png$/ ) {
             $c->res->content_type( 'image/png' );

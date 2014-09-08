@@ -56,11 +56,13 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 <p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]">Shuffle them up!</a></p>
 
 [% WHILE (entry = entries_rs.next) %]
-    <div class="well">
-    [% INCLUDE _entry_title.tt %]
-    [% IF c.user %] [% INCLUDE _rating_controls.tt %] [% END %]
-    [% INCLUDE _current_entry_row.tt %]
-    </div>
+    [% IF entry.is_qualified %]
+        <div class="well">
+        [% INCLUDE _entry_title.tt %]
+        [% IF c.user %] [% INCLUDE _rating_controls.tt %] [% END %]
+        [% INCLUDE _current_entry_row.tt %]
+        </div>
+    [% END %]
 [% END %]
 
 <script>

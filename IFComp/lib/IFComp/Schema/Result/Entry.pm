@@ -117,6 +117,12 @@ __PACKAGE__->table("entry");
   is_nullable: 1
   size: 64
 
+=head2 is_disqualified
+
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -165,6 +171,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "email",
   { data_type => "char", is_nullable => 1, size => 64 },
+  "is_disqualified",
+  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -271,8 +279,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-08-26 18:15:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lxzKmlz6iM3KFmmM13W2Nw
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-09-07 21:13:24
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pLmktcp0S77P2Ti8LOp+2g
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
@@ -352,6 +360,12 @@ enum 'Platform', [qw(
 has 'platform' => (
     is => 'ro',
     isa => 'Platform',
+    lazy_build => 1,
+);
+
+has 'is_qualified' => (
+    is => 'ro',
+    isa => 'Bool',
     lazy_build => 1,
 );
 
@@ -510,6 +524,20 @@ sub _build_platform {
 
     return 'other';
 
+}
+
+sub _build_is_qualified {
+    my $self = shift;
+
+    if ( $self->is_disqualified ) {
+        return 0;
+    }
+    elsif ( $self->main_file ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 sub cover_exists {
