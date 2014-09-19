@@ -41,7 +41,7 @@
 <p>No matter the style of your work, before submitting it to the competition, please do take the effort to have it playtested.</p>
 
 <div class="page-header">
-<h1 id="includeawalkthrough">Include a walkthrough</h1>
+<h1 id="includeawalkthrough">Include a walkthrough <small>if your game is puzzly</small></h1>
 </div>
 
 <p>If your work contains puzzles or other game-elements where a reasonable player might get stuck and not know how to keep playing, please include a walkthrough alongside your IFComp entry.</p>
