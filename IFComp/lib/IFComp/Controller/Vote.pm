@@ -32,6 +32,12 @@ sub index :Path :Args(2) {
         return;
     }
 
+    unless ( $current_comp->status eq 'open_for_judging' ) {
+        $c->res->code( 404 );
+        $c->res->body( "The competition is not accepting votes at this time." );
+        return;
+    }
+
     my $entry = $c->model( 'IFCompDB::Entry' )->search(
         {
             id => $entry_id,

@@ -38,12 +38,6 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
     }
 }
 
-sub download :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'main_file' );
-}
-
 sub play_online :Chained('fetch_entry') :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -59,12 +53,6 @@ sub play_online :Chained('fetch_entry') :Args(0) {
 
     my $redirection_path = "/$entry_id/content/$redirection_target";
     $c->res->redirect( $c->uri_for( $redirection_path ) );
-}
-
-sub walkthrough :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'walkthrough_file' );
 }
 
 sub transcribe :Chained('fetch_entry') :Args(0) {
@@ -112,18 +100,6 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
         $c->res->code( 404 );
         $c->res->body( '' );
     }
-}
-
-sub _serve_file {
-    my ( $self, $c, $method ) = @_;
-
-    my $file = $c->stash->{ entry }->$method;
-
-    my $mime_type = MIME::Types->mimeTypeOf( $file );
-
-    $c->res->content_type( $mime_type->type );
-    $c->res->body( $file->open );
-
 }
 
 

@@ -27,6 +27,11 @@ sub index :Path :Args(0) {
     my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
     $c->stash->{ current_comp } = $current_comp;
 
+    unless ( $current_comp->status eq 'open_for_judging' ) {
+        $c->res->redirect( $c->uri_for( '/' ) );
+        return;
+    }
+
     my $order_by;
     if ( $c->req->params->{ shuffle } ) {
         $order_by = 'rand()';
