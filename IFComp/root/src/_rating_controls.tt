@@ -1,0 +1,18 @@
+
+[% IF c.user.get_object.id != entry.author.id %]
+
+    <div class="rating-controls">
+        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">
+            <option value="0">None</option>
+            [% number = 1 %]
+            [% WHILE number <= 10 %]
+                <option value="[% number %]" [% IF rating_for_entry.${entry.id} == number %] selected="1" [% END %] >[% number %]</option>
+                [% number = number + 1 %]
+            [% END %]
+        </select>
+        <span id="rating-status-[% entry.id %]-spinner" class="label label-default waiting" style="display:none">Submitting...</span>
+        <span id="rating-status-[% entry.id %]-success" class="label label-success success" style="display:none">Rating recorded!</span>
+        <span id="rating-status-[% entry.id %]-failure" class="label label-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>
+        </p>
+    </div>
+    [% END %]

@@ -38,12 +38,6 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
     }
 }
 
-sub download :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'main_file' );
-}
-
 sub play_online :Chained('fetch_entry') :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -61,20 +55,27 @@ sub play_online :Chained('fetch_entry') :Args(0) {
     $c->res->redirect( $c->uri_for( $redirection_path ) );
 }
 
-sub walkthrough :Chained('fetch_entry') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $self->_serve_file( $c, 'walkthrough_file' );
-}
-
 sub transcribe :Chained('fetch_entry') :Args(0) {
     my ( $self, $c ) = @_;
 
     my $entry = $c->stash->{ entry };
 
-    my $data_ref = decode_json( $c->req->body_data->{ data } );
+
+    my $data_ref = $c->req->body_data->{ data };
+    unless ( ref $data_ref ) {
+        $data_ref = decode_json( $data_ref );
+    }
+
+    my $data_list_ref;
+    if ( ref $data_ref eq 'ARRAY' ) {
+        $data_list_ref = $data_ref;
+    }
+    else {
+        $data_list_ref = [ $data_ref ];
+    }
+
     my $now = DateTime->now( time_zone => 'UTC' );
-    for my $transcript ( @$data_ref ) {
+    for my $transcript ( @$data_list_ref ) {
         $c->model( 'IFCompDB::Transcript' )->create( {
             session => $transcript->{ session },
             inputcount => $transcript->{ log }->{ inputcount },
@@ -94,16 +95,24 @@ sub transcribe :Chained('fetch_entry') :Args(0) {
 
 }
 
-sub _serve_file {
-    my ( $self, $c, $method ) = @_;
+sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
+    my ( $self, $c ) = @_;
 
-    my $file = $c->stash->{ entry }->$method;
-
-    my $mime_type = MIME::Types->mimeTypeOf( $file );
-
-    $c->res->content_type( $mime_type->type );
-    $c->res->body( $file->open );
-
+    my $file = $c->stash->{ entry }->cover_file;
+    if ( -e $file ) {
+        my $image_data = $file->slurp;
+        if ( $file->basename =~ /png$/ ) {
+            $c->res->content_type( 'image/png' );
+        }
+        else {
+            $c->res->content_type( 'image/jpeg' );
+        }
+        $c->res->body( $image_data );
+    }
+    else {
+        $c->res->code( 404 );
+        $c->res->body( '' );
+    }
 }
 
 

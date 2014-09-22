@@ -1,0 +1,98 @@
+<div class="container">
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<div class="jumbotron">
+<h2 style="text-align:center;">Download, Play, and Rate</h2>
+<h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
+</div>
+
+[% IF c.user %]
+    [% IF c.user.get_object.current_comp_entries %]
+    <div class="alert alert-info" >
+    <p><strong>Welcome, author!</strong> Because you have at least one game in the running this year, any ratings you submit via this ballot will apply not towards the main competition, but instead towards the Miss Congeniality side-contest, where competition authors rate one anothers' works. Please do participate!</p>
+    
+    <p>(Yes, your own game(s) appear on this ballot, with the voting controls conspicuously absent.)</p>
+    </div>
+    [% END %]
+[% ELSE %]
+<div class="alert alert-warning">
+<p>
+<strong>Welcome, visitor!</strong> You are not logged in, so while you are free to browse, download, and play this year's entries, you can't currently rate them.
+</p>
+<p>
+We'd love to have you join us as a judge! It's as easy as logging in, creating a free account first if you don't already have one. Hit that jolly green button in the upper-right corner of the screen to get started.
+</p>
+
+</div>
+[% END %]
+
+
+<div class="well">
+<div class="row">
+<div class="col-sm-9">
+<h1>Download all the games</h1>
+<p>You can <a href="#">download a .zip archive</a> containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
+
+<p>When you're ready to rate some games, return to this webpage and use the rating controls below.</p>
+</div>
+<div class="col-sm-3">
+<a href="#"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/download_all.png' ) %]" alt="Download all the entries" /></a>
+</div>
+</div> <!-- .row -->
+</div>
+
+<h1 id="browse">Browse and rate the games</h1>
+<p>All of this year's entries are listed below. You may download any of them individually; some of them offer online play as well.</p>
+
+[% IF c.user %]
+<p>To rate a game, simply select a value between 1 and 10 from that game's <em>Your rating</em> pull-down menu. (Higher numbers represent a better score.) If you haven't played a game (or otherwise choose not to submit a rating for it), leave its rating as <em>None</em>.</p>
+
+<p><strong>Please read the guidelines for judges,</strong> especially if you're new to the IFComp. If nothing else, remember that <em>your rating for any one game must reflect no more than its first two hours of play</em>. If you hit the two-hour mark with any entry, you must submit a rating for it before playing that game any further, and not change your rating based on further play with it.</p>
+[% ELSE %]
+<p><strong>You need to log in before you can rate any of the entries.</strong> Hit the green button at the top of the screen to log in, creating a free account first if necessary.</p>
+[% END %]
+
+<p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]">Shuffle them up!</a></p>
+
+[% WHILE (entry = entries_rs.next) %]
+    [% IF entry.is_qualified %]
+        <div class="well">
+        [% INCLUDE _entry_title.tt %]
+        [% IF c.user %] [% INCLUDE _rating_controls.tt %] [% END %]
+        [% INCLUDE _current_entry_row.tt %]
+        </div>
+    [% END %]
+[% END %]
+
+<script>
+$( '.rating-select' ).change( function() {
+    var entry_id = $(this).data( 'entry' );
+    var spinner = $( '#rating-status-' + entry_id + '-spinner' );
+    var success = $( '#rating-status-' + entry_id + '-success' );
+    var failure = $( '#rating-status-' + entry_id + '-failure' );
+    var uri = 
+        '[% c.uri_for( '/vote' ) %]'
+        + '/'
+        + entry_id
+        + '/'
+        + $(this).val()
+    ;
+        
+    spinner.show();
+    $.get( uri, function() {} )
+        .done( function() {
+            success.show();
+        })
+        .fail( function() {
+            failure.show();
+        })
+        .always( function() {
+            spinner.hide();
+        })
+    ;
+    
+} );
+</script>
+
+</div> <!-- .container -->

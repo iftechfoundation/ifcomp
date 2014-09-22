@@ -170,41 +170,6 @@ var ifRecorder = {
 			if( !self.collectTranscripts() ) {
 				return false;
 			}
-			
-			var browserString = jQuery.browser.name+' '+jQuery.browser.version+' '+jQuery.os.name; 
-
-			// there doesn't seem to be an easy way to find out which engine
-			// is or will be running at this point. 
-			/* var engine = '';
-			if( typeof( ENGINE_DESCRIPTION ) != 'undefined' ) {
-				engine = ENGINE_DESCRIPTION;
-			} */
-			
-			var initString = {
-					'session': self.sessionId,
-					'start': {
-						'story': self.story.name,
-						'version': self.story.version,
-                        'info': self.info,
-						'interpreter': self.interpreter,
-						'browser': browserString
-					}
-				};
-			
-			jQuery.ajax( {
-				type: 'POST',
-				url: self.saveUrl,
-				data: { data: initString },
-				// check what the server returns, flag it offline if not ok
-				error: function() {
-					self.serverOffline = true;
-				},
-				success: function( data ) {
-					if( data.toLowerCase() != 'ok' ) {
-						self.serverOffline = true;
-					}
-				}
-			} );
 				
 			return true;
 		},

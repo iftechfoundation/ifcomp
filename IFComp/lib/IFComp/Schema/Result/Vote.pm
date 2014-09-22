@@ -64,6 +64,19 @@ __PACKAGE__->table("vote");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 time
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 ip
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 15
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -90,6 +103,14 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable => 0,
   },
+  "time",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
+  "ip",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 15 },
 );
 
 =head1 PRIMARY KEY
@@ -103,6 +124,22 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("id");
+
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<user>
+
+=over 4
+
+=item * L</user>
+
+=item * L</entry>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("user", ["user", "entry"]);
 
 =head1 RELATIONS
 
@@ -137,15 +174,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I8iorZ9dvM5osDlSxqozCQ
-# These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Vote.pm' found in @INC.
-# They are now part of the custom portion of this file
-# for you to hand-edit.  If you do not either delete
-# this section or remove that file from @INC, this section
-# will be repeated redundantly when you re-create this
-# file again via Loader!  See skip_load_external to disable
-# this feature.
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-09-06 19:19:53
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:g4UITRzNezx1Jjn4tJklmg
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

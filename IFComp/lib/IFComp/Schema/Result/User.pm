@@ -415,7 +415,7 @@ sub current_comp_entries {
         $self->result_source->schema->resultset( 'Comp' )->current_comp;
 
     my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
-    return $entries_rs->all;
+    return grep { $_->is_qualified } $entries_rs->all;
 }
 
 __PACKAGE__->meta->make_immutable( inline_constructor => 0 );
