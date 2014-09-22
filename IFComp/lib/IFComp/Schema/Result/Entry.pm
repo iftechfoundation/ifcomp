@@ -289,7 +289,8 @@ use File::Copy qw( move );
 use Archive::Zip;
 
 use Readonly;
-Readonly my $I7_REGEX => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $ZCODE_REGEX => qr/\.z\d$|\.zblorb$/i;
 
 has 'directory' => (
     is => 'ro',
@@ -364,6 +365,18 @@ has 'platform' => (
 );
 
 has 'is_qualified' => (
+    is => 'ro',
+    isa => 'Bool',
+    lazy_build => 1,
+);
+
+has 'parchment_tag_text' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy_build => 1,
+);
+
+has 'is_zcode' => (
     is => 'ro',
     isa => 'Bool',
     lazy_build => 1,
@@ -511,7 +524,7 @@ sub _build_platform {
 
     my @content_files = map { $_->basename } $self->content_directory->children;
     if (
-        ( grep { $I7_REGEX } @content_files )
+        ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^play\.html?$/i } @content_files )
     ) {
@@ -606,6 +619,8 @@ sub _create_parchment_page {
     my $main_file = $self->main_file->basename;
     my $entry_id = $self->id;
 
+    my $zcode_subdir = $self->is_zcode? 'zcode/' : '';
+    my $tag_text = $self->parchment_tag_text;
     my $html = <<EOF
 <!DOCTYPE html>
 <html>
@@ -613,18 +628,11 @@ sub _create_parchment_page {
   <title>IFComp — $title — Play</title>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no">
-  <link rel="stylesheet" href="style.css">
-
-  <script src="../../static/interpreter/jquery.min.js"></script>
-<script src="../../static/interpreter/parchment.min.js"></script>
-<script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+$tag_text
 <script>
 parchment_options = {
 default_story: [ "$main_file" ],
-lib_path: '../../static/interpreter/',
+lib_path: '../../static/interpreter/$zcode_subdir',
 lock_story: 1,
 page_title: 0
 };
@@ -691,17 +699,14 @@ sub _mangle_parchment_head {
     $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
 
     # Add new head tags.
+    my $tag_text = $self->parchment_tag_text;
+    my $zcode_subdir = $self->is_zcode? 'zcode/' : '';
     my $head_html = <<EOF;
-<script src="../../static/interpreter/jquery.min.js"></script>
-<script src="../../static/interpreter/parchment.min.js"></script>
-<script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+$tag_text
 <script>
 parchment_options = {
 default_story: [ "$game_file" ],
-lib_path: '../../static/interpreter/',
+lib_path: '../../static/interpreter/$zcode_subdir',
 lock_story: 1,
 page_title: 0
 };
@@ -718,6 +723,49 @@ EOF
 
     $play_file->spew( $play_html );
 
+}
+
+sub _build_parchment_tag_text {
+    my $self = shift;
+
+    if ( $self->is_zcode ) {
+        return <<EOF;
+<script src="../../static/interpreter/zcode/jquery.min.js"></script>
+<script src="../../static/interpreter/zcode/parchment.min.js"></script>
+<script src="../../static/interpreter/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/zcode/parchment.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/zcode/style.css">
+EOF
+        ;
+    }
+    else {
+        return <<EOF;
+<script src="../../static/interpreter/jquery.min.js"></script>
+<script src="../../static/interpreter/parchment.min.js"></script>
+<script src="../../static/interpreter/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
+<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+EOF
+        ;
+    }
+}
+
+sub _build_is_zcode {
+    my $self = shift;
+
+    if ( $self->platform eq 'inform' ) {
+        if ( $self->main_file =~ $ZCODE_REGEX ) {
+            return 1;
+        }
+    }
+    elsif ( $self->platform eq 'parchment' ) {
+        if ( grep { /$ZCODE_REGEX/ } $self->content_directory->children ) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

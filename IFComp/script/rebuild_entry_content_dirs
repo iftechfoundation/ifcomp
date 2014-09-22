@@ -1,0 +1,23 @@
+#!/usr/env perl
+
+# This script rebuilds the 'content' directory for every entry.
+# Useful if you change what's stored in those directories while
+# a comp is underway.
+
+use warnings;
+use strict;
+use FindBin;
+use Path::Class;
+
+use lib "$FindBin::Bin/../lib";
+use IFComp::Schema;
+
+my $schema = IFComp::Schema->connect( 'dbi:mysql:IFComp', 'root', '' );
+$schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
+
+my $current_comp = $schema->resultset( 'Comp' )->current_comp;
+
+for my $entry ( $current_comp->entries ) {
+    print "Updating " . $entry->title . " by " . $entry->author->name . "...\n";
+    $entry->update_content_directory;
+}
