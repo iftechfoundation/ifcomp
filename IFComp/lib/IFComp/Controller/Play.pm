@@ -60,9 +60,22 @@ sub transcribe :Chained('fetch_entry') :Args(0) {
 
     my $entry = $c->stash->{ entry };
 
-    my $data_ref = decode_json( $c->req->body_data->{ data } );
+
+    my $data_ref = $c->req->body_data->{ data };
+    unless ( ref $data_ref ) {
+        $data_ref = decode_json( $data_ref );
+    }
+
+    my $data_list_ref;
+    if ( ref $data_ref eq 'ARRAY' ) {
+        $data_list_ref = $data_ref;
+    }
+    else {
+        $data_list_ref = [ $data_ref ];
+    }
+
     my $now = DateTime->now( time_zone => 'UTC' );
-    for my $transcript ( @$data_ref ) {
+    for my $transcript ( @$data_list_ref ) {
         $c->model( 'IFCompDB::Transcript' )->create( {
             session => $transcript->{ session },
             inputcount => $transcript->{ log }->{ inputcount },
