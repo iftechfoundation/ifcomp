@@ -12,12 +12,13 @@ use Path::Class;
 use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
 
-my $schema = IFComp::Schema->connect( 'dbi:mysql:IFComp', 'root', '' );
+my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
 $schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
 
 my $current_comp = $schema->resultset( 'Comp' )->current_comp;
 
 for my $entry ( $current_comp->entries ) {
+    next unless $entry->main_file;
     print "Updating " . $entry->title . " by " . $entry->author->name . "...\n";
     $entry->update_content_directory;
 }

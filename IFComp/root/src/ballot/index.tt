@@ -53,6 +53,13 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 <p><strong>You need to log in before you can rate any of the entries.</strong> Hit the green button at the top of the screen to log in, creating a free account first if necessary.</p>
 [% END %]
 
+
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#browse-view" data-toggle="tab">Browse all entries</a></li>
+  <li><a href="#ballot-view" data-toggle="tab">View simple ballot</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="browse-view">
 <p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]">Shuffle them up!</a></p>
 
 [% WHILE (entry = entries_rs.next) %]
@@ -64,6 +71,21 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
         </div>
     [% END %]
 [% END %]
+</div> <!-- browse-view -->
+<div class="tab-pane" id="ballot-view">
+[% blah = entries_rs.reset %]
+<table class="table">
+[% WHILE (entry = entries_rs.next) %]
+<tr>
+    [% IF entry.is_qualified %]
+    <td><strong>[% entry.title %]</strong> by [% entry.author.name %]</td>
+    <td>[% IF c.user %] [% INCLUDE _rating_controls.tt %] [% END %]</td>
+    [% END %]
+</tr>
+[% END %]
+</table>
+</div> <!-- ballot-view -->
+</div> <!-- tab-content -->
 
 <script>
 $( '.rating-select' ).change( function() {
