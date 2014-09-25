@@ -46,6 +46,10 @@
 
 <p>There is no penalty for <em>not</em> submitting a final entry, even if you earlier declared an intent to enter. If the deadline has arrived and you know that your entry is unfinished (or finished but <a href="/about/guidelines#testing">untested</a>), please consider withdrawing your entry. Submitting a complete, tested work to a future competition will almost certainly reward you with more pride and satisfaction than submitting an incomplete work today.</p>
 
+
+<h3 id="online-only">I created my game on an entirely online platform; it's not something people can download to play. What should I upload as my entry's main file?</h3>
+<p>Create an HTML file that links to your game, and upload that. It can contain any style or content you like, so long as it clearly links to (or embeds?) your entry.</p>
+
 <h3 id="iveenteredagameamiallowedtotalkabouttheifcompinpublic">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
 
 <p>Yes, so long as you follow <a href="http://www.ifcomp.org/rules/#authors">author rule #4</a>, which restricts authors from publicly asking for votes or discussing the games in detail before the competition is over.</p>
