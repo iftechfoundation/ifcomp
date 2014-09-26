@@ -13,6 +13,8 @@
 <h1 class="page-header">Download all the games</h1>
 <p>You can <a href="#">download a .zip archive</a> containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
 
+<p>Alternately, you can <a href="#browse">browse and download the games individually, below</a>.</p>
+
 </div>
 <div class="col-sm-3">
 <a href="#"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/download_all.png' ) %]" alt="Download all the entries" /></a>
