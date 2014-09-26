@@ -34,6 +34,8 @@
 
 <p>As with all other aspects of your game, think about the experience you want your player to have &#8211; knowing that your player might be anyone at all &#8211; and act appropriately.</p>
 
+<p>If you think your game might need a content warning but you're not sure how to express it, consider simply suggesting that the game may not be suitable for young children. (Parents who enjoy playing IF with their kids would likely appreciate the warning, for one.)</p>
+
 <h3 id="canienteragamethatonlyrunsonwindowsorotherwiserequiressomespecificoperatingsystemordevicetoplay">Can I enter a game that only runs on Windows, or otherwise requires some specific operating system or device to play?</h3>
 
 <p>You certainly may, if it keeps to <a href="/rules/#authors">all the rules for entries</a>. Just be aware that such games by definition have a smaller potential audience than games that work across many platforms. In the IFComp, the fewer technological restrictions for play that an entry has, the more votes, reviews, and overall attention it tends to receive.</p>
@@ -45,6 +47,10 @@
 <p>While nothing in the rules stops you from entering an unfinished work, <a href="/about/guidelines#submitonlyfinishedwork">we strongly recommend that you don&#8217;t</a>. </p>
 
 <p>There is no penalty for <em>not</em> submitting a final entry, even if you earlier declared an intent to enter. If the deadline has arrived and you know that your entry is unfinished (or finished but <a href="/about/guidelines#testing">untested</a>), please consider withdrawing your entry. Submitting a complete, tested work to a future competition will almost certainly reward you with more pride and satisfaction than submitting an incomplete work today.</p>
+
+
+<h3 id="online-only">I created my game on an entirely online platform; it's not something people can download to play. What should I upload as my entry's main file?</h3>
+<p>Create an HTML file that links to your game, and upload that. It can contain any style or content you like, so long as it clearly links to (or embeds?) your entry.</p>
 
 <h3 id="iveenteredagameamiallowedtotalkabouttheifcompinpublic">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
 

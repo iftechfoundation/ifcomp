@@ -96,6 +96,7 @@ __PACKAGE__->config(
             '/comp/.+',
             '/history/?',
             '/about/.*',
+            '/ballot.*',
             '/',
         ],
     },
