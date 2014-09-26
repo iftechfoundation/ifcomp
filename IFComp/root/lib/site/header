@@ -30,6 +30,7 @@ END;
                 <ul class="dropdown-menu">
                   [% IF current_comp.status == 'open_for_judging' %]
                     <li><a href="/ballot/vote">Rate the entries</a></li>
+                    <li class="divider"></li>
                   [% END %]
                   <li><a href="/about/how_to_enter">How to enter</a></li>
                   <li><a href="/entry">Register or manage your entries</a></li>
