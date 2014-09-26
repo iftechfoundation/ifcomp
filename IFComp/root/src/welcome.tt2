@@ -34,8 +34,13 @@
         <h2>What's going on?</h2>
         <p>A few things you can do on this site, right now:</p>
         <ul>
+        [% IF current_comp.status == 'open_for_judging' %]
+            <li><a href="[% c.uri_for('/ballot') %]">Browse and play this year's entires</a>, and then <a href="[% c.uri_for('/ballot/vote') %]">rate them</a></li>
+        [% END %]
         <li>Learn about <a href="[% c.uri_for('/about/comp') %]">the competition</a>, or about <a href="[% c.uri_for('/about/if') %]">interactive fiction</a> in general</li>
-        <li>Read <a href="[% c.uri_for('/about/how_to_enter') %]">how to enter a game into the competition</a></li>
+        [% UNLESS current_comp.status == 'open_for_judging' %]
+            <li>Read <a href="[% c.uri_for('/about/how_to_enter') %]">how to enter a game into the competition</a></li>
+        [% END %]
         <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
         <li>Browse <a href="[% c.uri_for('/comp/') %]">past IFComp entries</a></li>
     </div>
@@ -68,7 +73,7 @@ It's the final stretch for [% current_comp.year %] comp authors! All entries are
 [% ELSIF current_comp.status == 'closed_to_entries' %]
 All entries are in and being prepared for release. The judging period begins on [% current_comp.judging_begins.month_name %] [% current_comp.judging_begins.day %].
 [% ELSIF current_comp.status == 'open_for_judging' %]
-The games of the [% current_comp.year %] are ready for judging! <em>Anyone can be a judge</em>: just play and rate at least five games before [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %]
+<a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games before [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %].
 [% ELSE %]
 The [% current_comp.year %] comp is over. Congratulations to the first-place winner[% IF winners.size > 1 %]s[% END %], [% INCLUDE winners_desc %]. Check out the <a href="[% c.uri_for('/comp/') %]">full results</a>!
 [% END %]

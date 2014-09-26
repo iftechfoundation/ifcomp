@@ -47,6 +47,12 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
         }
     );
 
+    my $user_is_author = 0;
+    if ( $c->user && $c->user->get_object->current_comp_entries ) {
+        $user_is_author = 1;
+    }
+    $c->stash->{ user_is_author } = $user_is_author;
+
 }
 
 sub index :Chained('root') :PathPart('') :Args(0) {

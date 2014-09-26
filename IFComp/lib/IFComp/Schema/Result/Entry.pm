@@ -578,6 +578,19 @@ sub update_content_directory {
         $zip->read( $self->main_file->stringify );
         $zip->extractTree( { zipName => $content_directory } );
 
+        # Clean up any Mac OS indexing folders that might have gotten caught in the
+        # amber.
+        my @dirs_to_delete;
+        $content_directory->recurse( callback => sub {
+            my ( $subdir ) = @_;
+            if ( $subdir->basename eq '__MACOSX' ) {
+                push @dirs_to_delete, $subdir;
+            }
+        } );
+        for my $deletable_dir ( @dirs_to_delete ) {
+            $deletable_dir->rmtree if -e $deletable_dir;
+        }
+
         # If the result is a single subdir, move all its contents up a level,
         # then erase it.
         if (

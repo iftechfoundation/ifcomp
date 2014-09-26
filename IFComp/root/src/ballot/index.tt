@@ -5,15 +5,12 @@
 <h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
 </div>
 
-<h1>Welcome, judge! <small>You are judging, right?</small></h1>
+<h1 class="page-header">Welcome, [% IF user_is_author %]author![% ELSE %]judge! <small>You are judging, right?</small>[% END %]</h1>
 <p>From this page, you can download and play all of this year's IFComp entries — either browsing them as a list, or downloading the whole set at once.</p>
 
-<p>If you intend to join us as a judge this year — and we hope you do — please take a moment to <a href="/about/rules#judges">read the rules for judges</a> before digging into the games. (They're short and simple, we promise.) When you're ready to vote on any entry, <a href="/ballot/vote/">visit the ballot</a>. You have through November 15 to vote for at least five games.</p>
-
-<div>
 <div class="row">
 <div class="col-sm-9">
-<h1>Download all the games</h1>
+<h1 class="page-header">Download all the games</h1>
 <p>You can <a href="#">download a .zip archive</a> containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
 
 </div>
@@ -21,11 +18,27 @@
 <a href="#"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/download_all.png' ) %]" alt="Download all the entries" /></a>
 </div>
 </div> <!-- .row -->
+
+<h1 class="page-header">Judge the games</h1>
+
+<div class="row">
+<div class="col-sm-2">
+<a href="/ballot/vote"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/judge.png' ) %]" alt="Judge the entries" /></a>
 </div>
 
-<h1 id="browse">Browse and play the games</h1>
+<div class="col-sm-10">
 
-<p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]">Shuffle them up!</a></p>
+<p>If you intend to join us as a judge this year — and we hope you do — please take a moment to <a href="/about/rules#judges">read the rules for judges</a> before digging into the games. (They're short and simple, we promise.) When you're ready to vote on any entry, <a href="/ballot/vote/">visit the ballot</a>. You have through November 15 to vote for at least five games.</p>
+
+[% IF user_is_author %]
+<p>(Because you have entries in this year's competition, your votes won't count towards the main IFComp scores, but rather towards the Miss Congeniality side-contest.)</p>
+[% END %]
+</div>
+</div>
+
+<h1 id="browse" class="page-header">Browse and play the games</h1>
+
+<p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse">Shuffle them up!</a></p>
 
 [% WHILE (entry = entries_rs.next) %]
     [% IF entry.is_qualified %]
