@@ -1,0 +1,87 @@
+<div class="container">
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<div class="jumbotron">
+<h2 style="text-align:center;"></h2>
+<h1 style="text-align:center;">Rate the [% current_comp.year %] IFComp Games</h1>
+</div>
+
+<noscript>
+<div class="alert alert-danger">
+<p>You need to enable JavaScript in order to rate IFComp entries through this webpage.</p>
+</div>
+</noscript>
+
+[% IF c.user %]
+    [% IF c.user.get_object.current_comp_entries %]
+    <div class="alert alert-info" >
+    <p><strong>Welcome, author!</strong> Because you have at least one game in the running this year, any ratings you submit via this ballot will apply not towards the main competition, but instead towards the Miss Congeniality side-contest, where competition authors rate one anothers' works. Please do participate!</p>
+    
+    <p>(Yes, your own game(s) appear on this ballot, with the voting controls conspicuously absent.)</p>
+    </div>
+    [% END %]
+[% ELSE %]
+<div class="alert alert-warning">
+<p>
+<strong>Welcome, visitor!</strong> You are not logged in, so while you are free to browse, download, and play this year's entries, you can't currently rate them.
+</p>
+<p>
+We'd love to have you join us as a judge! It's as easy as logging in, creating a free account first if you don't already have one. Hit that jolly green button in the upper-right corner of the screen to get started.
+</p>
+
+</div>
+[% END %]
+
+<p>You can browse, download and play the games on <a href="/ballot">the games page</a>.</p>
+
+
+
+[% IF c.user %]
+<p>Thanks for helping to judge the competition! Please <a href="/rules#judges">read the rules for judges</a> before rating any games. You may also wish to read the <a href="#">guidelines for judges</a>, or <a href="#">the FAQ</a>.</p>
+[% ELSE %]
+<p><strong>You need to log in before you can rate any of the entries.</strong> Hit the green button at the top of the screen to log in, creating a free account first if necessary.</p>
+[% END %]
+
+<table class="table">
+[% WHILE (entry = entries_rs.next) %]
+<tr>
+    [% IF entry.is_qualified %]
+    <td><strong>[% entry.title %]</strong> by [% entry.author.name %]</td>
+    <td style="text-align:left; width:40%">[% IF c.user %] [% INCLUDE _rating_controls.tt %] [% END %]</td>
+    [% END %]
+</tr>
+[% END %]
+</table>
+
+<script>
+$( '.rating-select' ).change( function() {
+    var entry_id = $(this).data( 'entry' );
+    var spinner = $( '#rating-status-' + entry_id + '-spinner' );
+    var success = $( '#rating-status-' + entry_id + '-success' );
+    var failure = $( '#rating-status-' + entry_id + '-failure' );
+    var uri = 
+        '[% c.uri_for( '/vote' ) %]'
+        + '/'
+        + entry_id
+        + '/'
+        + $(this).val()
+    ;
+        
+    spinner.show();
+    $.get( uri, function() {} )
+        .done( function() {
+            success.show();
+        })
+        .fail( function() {
+            failure.show();
+        })
+        .always( function() {
+            spinner.hide();
+        })
+    ;
+    
+} );
+</script>
+
+</div>
