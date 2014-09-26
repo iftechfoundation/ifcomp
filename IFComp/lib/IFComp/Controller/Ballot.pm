@@ -21,7 +21,7 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(0) {
+sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
     my ( $self, $c ) = @_;
 
     my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
@@ -47,13 +47,22 @@ sub index :Path :Args(0) {
         }
     );
 
+}
+
+sub index :Chained('root') :PathPart('') :Args(0) {
+    my ( $self, $c ) = @_;
+
+}
+
+sub vote :Chained('root') :PathPart('vote') :Args(0) {
+    my ( $self, $c ) = @_;
 
     my %rating_for_entry;
     if ( $c->user ) {
         my $rating_rs = $c->model( 'IFCompDB::Vote' )->search(
             {
                 user => $c->user->id,
-                comp => $current_comp->id,
+                comp => $c->stash->{ current_comp }->id,
             },
             {
                 join => { entry => 'comp' },
