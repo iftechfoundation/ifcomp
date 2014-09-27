@@ -50,6 +50,9 @@
     [% ELSE %]
         Not ready for entry yet (No game file)
     [% END %]
+    [% IF current_comp.status == 'open_for_judging' && ( entry.platform == 'inform' || entry.platform == 'parchment' ) %]
+        <a href="[% c.uri_for_action( '/entry/transcript', [ entry.id ] ) %]">View transcripts</a>
+    [% END %]
     </li>
 [% END %]
 </ul>
