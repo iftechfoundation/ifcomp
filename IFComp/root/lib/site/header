@@ -45,6 +45,7 @@ END;
                 <ul class="dropdown-menu">
                   <li><a href="/about/comp">How the IFComp works</a></li>
                   <li><a href="/about/guidelines">Guidelines for authors</a></li>
+                  <li><a href="/about/judging">Guidelines for judges</a></li>
                   <li><a href="/about/if">About IF</a></li>
                   <li><a href="/history/">History of the IFComp</a></li>
                   <li><a href="/comp/">Results (2013 and earlier)</a></li>

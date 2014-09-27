@@ -1,0 +1,40 @@
+[% meta.title = 'IFComp - Best practices for judges' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">Guidelines for IFComp judges</h1>
+</div>
+
+<p>Anyone in the world is welcome to judge the IFComp&#8217;s games, and judges can score games according to whatever criteria they feel comfortable with. That said, <a href="/history">the competition&#8217;s been around a long time</a>, and we do ask that judges have an awareness of ways that IFComp voting tends to differ from other internet-based contests or rating systems.</p>
+
+<h1 id="useallthenumbers">Use all the numbers</h1>
+
+<p>Unlike with rating behavior seen in, say, app stores or movie-streaming services, this competition&#8217;s judges tend to not simply award the highest possible scores to games they like and dump the lowest scores on all the rest. Instead, an experienced IFComp judge will often have developed, over time, a scoring rubric where each number from 1 through 10 has a specific meaning assigned to it, and will carefully consider where on this spectrum each game they play falls.</p>
+
+<p>Here&#8217;s an example of a very simple rubric:</p>
+
+<ul>
+<li><p><strong>10:</strong> This game epitomizes what interactive fiction can do, perhaps breaking new ground in the process. It dazzles and delights. People interested in the form will be talking about and studying this game for years to come.</p></li>
+<li><p><strong>7, 8, 9:</strong> A good/great/excellent game you&#8217;re pleased to have played, and which you&#8217;d recommend to others (with three gradations of enthusiasm).</p></li>
+<li><p><strong>5, 6:</strong> A respectably crafted work that didn&#8217;t necessarily move you one way or another, but which you might recommend with reservations. (A 6 offered more to hold your interest than a 5 did.)</p></li>
+<li><p><strong>3, 4:</strong> A flawed project that doesn&#8217;t manage to live up to promise, and which you wouldn&#8217;t generally recommend playing. (A 4 has more going for it than a 3 does.)</p></li>
+<li><p><strong>2:</strong> A work that technically qualifies as IF, but seriously misses the mark for one reason or another (or several).</p></li>
+<li><p><strong>1:</strong> This work is inappropriate for the competition. Grossly buggy to the point of unplayability, perhaps, or maybe it&#8217;s not interactive fiction even by a generous definition of the term.</p></li>
+</ul>
+
+<p>Several long-time members of the community have also publicly shared their own IFComp rating systems. See, for exmample, <a href="http://heterogenoustasks.wordpress.com/what-my-if-comp-votes-mean/">Sam Kabo Ashwell&#8217;s</a> or <a href="http://allthingsjacq.com/intficreview_methods.html">Jacqueline Lott&#8217;s</a> scoring philosophies.</p>
+
+<p>In this way, an IFComp judge might legitimately enjoy a game, feeling happy with the time they spent with it, and assign it a score of 6. The judge may have liked the game, but found that it simply wasn&#8217;t in the same league as the best that the competition has to offer. Similarly, judges are often quite shy about assigning the perfect score of 10 to any game, reserving them only for truly outstanding gems. It&#8217;s not unknown for a judge to not assign any 10s at all on a given competition year.</p>
+
+<p>Ultimately, you are free to develop your own scoring system, and we indeed encourage you to do so. <strong>Score games according to your own experience, taste, and instincts.</strong> So long as you rate entries with thoughtfulness and in good faith, you can&#8217;t do it wrong.</p>
+
+<h1 id="ratethegamesyouplaysmallandnottheonesyoudontsmall">Rate the games you play <small>and not the ones you don&#8217;t</small></h1>
+
+<p>Every year the IFComp <a href="/comp/">releases a lot of games</a>, and offers judges <a href="/about/comp#competitionschedule">a limited amount of time to score them</a>. While we encourage judges to play and rate as many games as they can, we certainly don&#8217;t expect every judge to chew through the entire ballot before the six-week deadline. It is more fair to judges and authors alike when judges restrict their ratings only to those games they have played and thoughtfully scored, without feeling pressured to push through the whole list.</p>
+
+<p>If you are unable or unwilling to play a certain IFComp for any reason &#8211; it&#8217;s Windows-only and you&#8217;re on a Mac, for example, or you simply ran out of time before you had a chance to get to it &#8211; please don&#8217;t rate that game at all. Just leave its rating on the ballot screen as <em>None</em>.</p>
+
+<p>(If you try in good faith to play an entry but find it unplayable for some reason inherent to the entry istelf, then that&#8217;s a different matter, and one you can choose to reflect in the score you assign that game.)</p>
+
+<p>Even if you manage to play only a handful of games and your ballot looks like a sea of <em>None</em> votes, as long as you get at least five ratings in your votes will be counted &#8211; and very much appreciated.</p>
+
+</div>

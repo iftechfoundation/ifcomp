@@ -46,6 +46,10 @@ sub guidelines :Path('guidelines') :Args(0) {
     $c->stash->{ template } = 'about/guidelines.tt';
 }
 
+sub judging :Path('judging') :Args(0) {
+    my ( $self, $c ) = @_;
+}
+
 sub how_to_enter :Path('how_to_enter') :Args(0) {
 }
 
