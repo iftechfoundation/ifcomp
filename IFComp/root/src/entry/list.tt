@@ -6,6 +6,7 @@
 [% END %]
 
 <p>This year's competition is open for new intents from [% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %] through [% current_comp.intents_close.subtract( days => 1 ).strftime( '%{month_name} %{day}' ) %] (inclusive, Eastern time). Authors must have their games uploaded by 11:59 PM (Eastern time) on [% current_comp.entries_due.subtract( days => 1 ).strftime( '%{month_name} %{day}' ) %]. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
+YO: [% current_comp.status %]
 
 [% IF current_comp.status == 'not_begun' %]
 <div class="alert alert-warning">
