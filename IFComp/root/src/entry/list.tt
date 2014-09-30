@@ -56,7 +56,7 @@
     </li>
 [% END %]
 </ul>
-[% IF (current_comp.status == 'accepting_intents') || ( current_comp.status == 'closed_to_intents' ) %]
+[% IF (current_comp.status == 'accepting_intents') || ( current_comp.status == 'closed_to_intents' ) || ( current_comp.status = 'closed_to_entries' ) %]
 <p><a href="[% c.uri_for_action( '/entry/preview' ) %]">Preview these entries.</a></p>
 [% END %]
 [% ELSE %]
