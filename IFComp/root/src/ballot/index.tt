@@ -44,7 +44,7 @@
 
 [% WHILE (entry = entries_rs.next) %]
     [% IF entry.is_qualified %]
-        <div class="well">
+        <div class="well" id="[% entry.title | uri %]">
         [% INCLUDE _entry_title.tt %]
         [% INCLUDE _current_entry_row.tt %]
         </div>
