@@ -30,14 +30,15 @@ sub fetch_comp :Chained('/') :PathPart('comp') :CaptureArgs(1) {
     my $comp = $c->model( 'IFCompDB::Comp' )->search(
         {
             year         => $comp_year,
-            judging_ends => {
-                '<',
-                DateTime->now( time_zone => 'US/Eastern' )->ymd,
-            },
         }
     )->single;
 
-    unless ( $comp ) {
+    if ( $comp && $comp->status eq 'open_for_judging' ) {
+        $c->res->redirect( $c->uri_for_action( '/ballot/index' ) );
+        $c->detach;
+        return;
+    }
+    elsif ( not( $comp ) || $comp->status ne 'over' ) {
         $c->res->redirect( $c->uri_for_action( '/index' ) );
         $c->detach;
         return;
