@@ -14,21 +14,19 @@
 
         [% UNLESS entry.platform == 'other' %]
         <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform' %]
-            <a href="[% c.uri_for( '/about/file_formats#inform ') %]" target="file_guide">
             [% IF entry.is_zcode %]
             Inform (Z-code)
             [% ELSE %]
             Inform (Glulx)
             [% END %]
-            </a>
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
         [% ELSIF entry.platform == 'tads' %]
-            <a href="[% c.uri_for( '/about/file_formats#tads ') %]" target="file_guide">TADS</a>
+            TADS
         [% ELSIF entry.platform == 'quest' %]
-            <a href="[% c.uri_for( '/about/file_formats#quest ') %]" target="file_guide">Quest</a>
+            Quest
         [% ELSIF entry.platform == 'windows' %]
-            <a href="[% c.uri_for( '/about/file_formats#windows ') %]" target="file_guide">Windows executable</a>
+            Windows executable
         [% END %]
         </em></p>
         [% END %]
