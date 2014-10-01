@@ -289,8 +289,11 @@ use File::Copy qw( move );
 use Archive::Zip;
 
 use Readonly;
-Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
-Readonly my $ZCODE_REGEX => qr/\.z\d$|\.zblorb$/i;
+Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
+Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
+Readonly my $QUEST_REGEX   => qr/\.quest$/i;
+Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 
 has 'directory' => (
     is => 'ro',
@@ -355,6 +358,9 @@ enum 'Platform', [qw(
     website
     parchment
     inform
+    tads
+    quest
+    windows
     other
 ) ];
 
@@ -518,10 +524,6 @@ sub _build_platform {
         return 'html';
     }
 
-    if ( $self->main_file =~ $I7_REGEX ) {
-        return 'inform';
-    }
-
     my @content_files = map { $_->basename } $self->content_directory->children;
     if (
         ( grep { /$I7_REGEX/ } @content_files )
@@ -531,8 +533,27 @@ sub _build_platform {
         return 'parchment';
     }
 
+    if (
+        ( grep { /$I7_REGEX/ } @content_files )
+    ) {
+        return 'inform';
+    }
+
+
     if ( grep { /\.html?$/i } @content_files ) {
         return 'website';
+    }
+
+    if ( grep { /$TADS_REGEX/ } @content_files ) {
+        return 'tads';
+    }
+
+    if ( grep { /$QUEST_REGEX/ } @content_files ) {
+        return 'quest';
+    }
+
+    if ( grep { /$WINDOWS_REGEX/ } @content_files ) {
+        return 'windows';
     }
 
     return 'other';
@@ -629,7 +650,19 @@ sub _create_parchment_page {
     my $self = shift;
 
     my $title = $self->title;
-    my $main_file = $self->main_file->basename;
+
+    # Search the content directory for the I7 file to link to.
+    my $i7_file;
+    for my $file ( $self->content_directory->children ) {
+        if ( $file =~ /$I7_REGEX/ ) {
+            $i7_file = $file->basename;
+            last;
+        }
+    }
+    unless ( $i7_file ) {
+        die "Could not find an I7 file in this entry's content directory.";
+    }
+
     my $entry_id = $self->id;
 
     my $zcode_subdir = $self->is_zcode? 'zcode/' : '';
@@ -644,7 +677,7 @@ sub _create_parchment_page {
 $tag_text
 <script>
 parchment_options = {
-default_story: [ "$main_file" ],
+default_story: [ "$i7_file" ],
 lib_path: '../../static/interpreter/$zcode_subdir',
 lock_story: 1,
 page_title: 0

@@ -11,22 +11,45 @@
         [% FILTER html_para %]
         	[% entry.blurb %]
         [% END %]
-    </div>
-    
-    <div>
-    
-        [% IF entry.main_file %]    
+
+        [% UNLESS entry.platform == 'other' %]
+        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform' %]
+            [% IF entry.is_zcode %]
+            Inform (Z-code)
+            [% ELSE %]
+            Inform (Glulx)
+            [% END %]
+        [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
+            Web
+        [% ELSIF entry.platform == 'tads' %]
+            TADS
+        [% ELSIF entry.platform == 'quest' %]
+            Quest
+        [% ELSIF entry.platform == 'windows' %]
+            Windows executable
+        [% END %]
+        </em></p>
+        [% END %]
+            
+        [% IF entry.main_file %]
+        [%# IF entry.platform != 'html' && entry.platform != 'website' %]    
         <div class="play-button">
-        <form action="[% c.uri_for( '/' _ entry.id _ '/main/' _ entry.main_file.basename ) %]">
+        <form action="[% c.uri_for_action( '/play/download', [ entry.id] ) %]">
         <button type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
+
         </button>
         </form>
         </div>
+        [%# END %]
         
-        [% IF entry.platform != 'other' %]
+        [% IF entry.platform == 'parchment' 
+              || entry.platform == 'inform'
+              || entry.platform == 'website'
+              || entry.platform == 'html' 
+        %]
         <div class="play-button">
-        <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]">        
+        <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        
         <button type="submit" class="btn btn-default btn-lg">
            <span class="glyphicon glyphicon-chevron-right"></span> Play online
         </button>
@@ -37,7 +60,7 @@
         
         [% IF entry.walkthrough_file %]
         <div class="play-button">
-        <form action="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]">        
+        <form action="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]" target="_blank">        
 
         <button type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-question-sign"></span> Walkthrough

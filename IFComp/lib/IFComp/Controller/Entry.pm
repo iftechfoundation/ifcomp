@@ -140,6 +140,66 @@ sub current_comp_test :Chained('fetch_entry') :PathPart('test') :Args(0) {
     my ( $self, $c ) = @_;
 }
 
+sub transcript_list :Chained('fetch_entry') :PathPart('transcript') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $session_rs = $c->model( 'IFCompDB::Transcript' )->search(
+        {
+            entry => $c->stash->{ entry }->id,
+        },
+        {
+            select => [
+                'session',
+                { max => 'inputcount', -as => 'command_count' },
+                { min => 'timestamp', -as => 'start_time' },
+            ],
+            as => [ qw( session_id command_count start_time ) ],
+            group_by => 'session',
+            order_by => 'start_time',
+        },
+    );
+
+    $c->stash->{ session_rs } = $session_rs;
+
+}
+
+sub transcript :Chained('fetch_entry') :PathPart('transcript') :Args(1) {
+    my ( $self, $c, $session_id ) = @_;
+
+    my @inputs;
+    my @output_sets;
+
+    my $transcript_rs = $c->model( 'IFCompDB::Transcript' )->search(
+        {
+            session => $session_id,
+        },
+        {
+            order_by => 'timestamp',
+        },
+    );
+
+    my $current_input_count = 0;
+    my $current_output_set_ref = [];
+    while ( my $transcript = $transcript_rs->next ) {
+        if ( $current_input_count != $transcript->inputcount ) {
+            $current_input_count = $transcript->inputcount;
+            push @inputs, $transcript->input;
+            push @output_sets, $current_output_set_ref;
+            $current_output_set_ref = [];
+        }
+        else {
+            push @$current_output_set_ref, $transcript->output;
+        }
+    }
+    push @output_sets, $current_output_set_ref;
+
+    $c->stash(
+        inputs      => \@inputs,
+        output_sets => \@output_sets,
+    );
+
+}
+
 sub _build_form {
     return IFComp::Form::Entry->new;
 };

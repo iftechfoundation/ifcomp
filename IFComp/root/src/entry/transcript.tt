@@ -1,0 +1,19 @@
+<div class="container">
+<ol class="breadcrumb">
+  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+  <li><a href="[% c.uri_for_action( '/entry/transcript', [ entry.id ] ) %]">Transcripts for [% entry.title %]</a></li>
+  <li class="active">Transcript</li>
+</ol>
+[% INCLUDE output_paragraph output_set = output_sets.shift %]
+
+[% FOR input IN inputs %]
+    [% output_set = output_sets.shift %]
+    <p><strong>[% input %]</strong></p>
+    [% INCLUDE output_paragraph %]
+[% END %]
+
+</div>
+
+[% BLOCK output_paragraph %]
+    <p>[% FILTER html_line_break %][% FOR output IN output_set %][% output %][% END %][% END %]</p>
+[% END %]
