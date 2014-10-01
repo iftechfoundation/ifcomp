@@ -20,6 +20,19 @@ Catalyst Controller.
 sub comp :Path :Args(0) {
     my ( $self, $c ) = @_;
 
+    my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
+
+    if ( $current_comp->status eq 'open_for_judging' ) {
+        $c->res->redirect( $c->uri_for_action( '/ballot/index' ) );
+    }
+    else {
+        $c->res->redirect( $c->uri_for_action( '/comp/last_comp' ) );
+    }
+}
+
+sub last_comp :Path('last_comp') :Args(0) {
+    my ( $self, $c ) = @_;
+
     my $last_comp = $c->model( 'IFCompDB::Comp' )->last_comp;
     $c->res->redirect( $c->uri_for_action( '/comp/index', [ $last_comp->year ] ) );
 }

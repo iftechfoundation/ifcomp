@@ -28,7 +28,7 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
     $c->stash->{ current_comp } = $current_comp;
 
     unless ( $current_comp->status eq 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for( '/' ) );
+        $c->res->redirect( $c->uri_for( '/comp/comp' ) );
         return;
     }
 
