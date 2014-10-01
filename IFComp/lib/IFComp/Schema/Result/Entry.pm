@@ -535,7 +535,6 @@ sub _build_platform {
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
-        && not ( grep { /^index\.html?$/i } @content_files )
     ) {
         return 'inform';
     }

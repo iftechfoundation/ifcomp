@@ -1,0 +1,52 @@
+<div class="container">
+
+<h1 class="page-header">Guide to IFComp file formats</h1>
+
+<p>IFComp authors create their games using any tools they wish to use. As a result, the games run on a variety of platforms. Most of these games will work on any modern computer, but some require additional software to run. You can identify the &#8220;flavor&#8221; of an IFComp game (and know what else you need to play it) by its main file&#8217;s extension, as described below.</p>
+
+<h3 id="inform">Glulx and Z-Code games</h3>
+
+<p><strong>File extensions:</strong> <code>.gblorb</code>, <code>.zblorb</code>, <code>.ulx</code>, <code>.z5</code>, <code>.z8</code></p>
+
+<p>There are two ways to play these games, which are created using the <a href="http://inform7.com">Inform</a> IF authoring tool:</p>
+
+<ul>
+<li><p><a href="http://inform7.com/if/interpreters/">Download an appropriate interpreter for your operating system</a>, and have it load the game file that (since you&#8217;re reading this) you&#8217;ve already downloaded.</p></li>
+<li><p><a href="/comp/2014">Play the game on the ifcomp.org website</a> by locating its entry in the game list and clicking its &#8220;Play Online&#8221; button or link.</p></li>
+</ul>
+
+<p>Note that games in this format are usually <a href="http://www.ifcomp.org/about/if#parserif">parser-based IF</a>, in the mode of Infocom&#8217;s classic text adventures, the ones where you have to type in commands like <strong>GET LAMP</strong> and <strong>KILL TROLL WITH SWORD</strong> and <strong>ASK ZOE ABOUT QUANTUM PHYSICS</strong> and so on. Playing these games as intended requires knowledge of (and comfort with) parser conventions. </p>
+
+<p>Some games contain some basic instructions if you e.g. type <strong>HELP</strong> as your first command. You can also find <a href="http://www.ifcomp.org/about/if#playingparserif">links to parser primers and tutorial games</a> on the ifcomp.org website.</p>
+
+<h3 id="tads">TADS games</h3>
+
+<p><strong>File extensions:</strong> <code>.gam</code>, <code>.t3</code></p>
+
+<p><a href="http://tads.org">TADS</a> is another popular system for creating parser IF. As with Inform, it offers <a href="http://www.tads.org/tads3.htm">its own variety of free, cross-platform interpreters</a> you can use to load and play games created with it.</p>
+
+<p>As TADS games are also usually parser-based, the above links and advice regarding parser-play also apply here.</p>
+
+<h3 id="quest">Quest games</h3>
+
+<p><strong>File extension:</strong> <code>.quest</code></p>
+
+<p>Quest is another popular IF system, albeit one whose downloadable titles work only on Windows. <a href="http://www.textadventures.co.uk/quest/desktop">You can download its interpreter for free from its website.</a> Quest games are often (but not always) parser-based, as well.</p>
+
+<h3 id="web">Web games</h3>
+
+<p><strong>File extension:</strong> <code>.html</code></p>
+
+<p>Nowadays the most common single format for IFComp entries is HTML, meant to run in most any modern web browser. Just locate and open the game&#8217;s <code>.html</code> file, and your browser of choice should take it from there. (If the game is made of many HTML files, look for one named <code>index.html</code>, unless a README file in that game&#8217;s folder directs you otherwise.)</p>
+
+<p>You will probably need JavaScript enabled in your browser to let games work properly. (If you aren&#8217;t sure whether or not you have JavaScript enabled, then you probably do; it&#8217;s almost always on by default.)</p>
+
+<p>Some web-based games work completely offline, with everything you need to play in their respective download directories, but others are hosted online and require an internet connection to play.</p>
+
+<h3 id="windows">Windows executables</h3>
+
+<p><strong>File extension:</strong> <code>.exe</code></p>
+
+<p>Games with the file extension <code>.exe</code> are native Windows programs. If you&#8217;re running Windows, just run them like any other program.</p>
+
+</div>

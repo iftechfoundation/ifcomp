@@ -40,6 +40,8 @@
 
 <h1 id="browse" class="page-header">Browse and play the games</h1>
 
+<p>Have a look at our <a href="[% c.uri_for('/about/file_formats') %]" target="_blank">guide to IF formats</a> for some additional information on the various download-flavors you'll find below.</p>
+
 <p>Need a fresh look at the field of contenders? <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse">Shuffle them up!</a></p>
 
 [% WHILE (entry = entries_rs.next) %]

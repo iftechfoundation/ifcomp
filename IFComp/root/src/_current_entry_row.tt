@@ -11,20 +11,45 @@
         [% FILTER html_para %]
         	[% entry.blurb %]
         [% END %]
-    </div>
-    
-    <div>
-    
-        [% IF entry.main_file %]    
+
+        [% UNLESS entry.platform == 'other' %]
+        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform' %]
+            <a href="[% c.uri_for( '/about/file_formats#inform ') %]" target="file_guide">
+            [% IF entry.is_zcode %]
+            Inform (Z-code)
+            [% ELSE %]
+            Inform (Glulx)
+            [% END %]
+            </a>
+        [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
+            Web
+        [% ELSIF entry.platform == 'tads' %]
+            <a href="[% c.uri_for( '/about/file_formats#tads ') %]" target="file_guide">TADS</a>
+        [% ELSIF entry.platform == 'quest' %]
+            <a href="[% c.uri_for( '/about/file_formats#quest ') %]" target="file_guide">Quest</a>
+        [% ELSIF entry.platform == 'windows' %]
+            <a href="[% c.uri_for( '/about/file_formats#windows ') %]" target="file_guide">Windows executable</a>
+        [% END %]
+        </em></p>
+        [% END %]
+            
+        [% IF entry.main_file %]
+        [%# IF entry.platform != 'html' && entry.platform != 'website' %]    
         <div class="play-button">
-        <form action="[% c.uri_for( '/' _ entry.id _ '/main/' _ entry.main_file.basename ) %]">
+        <form action="[% c.uri_for_action( '/play/download', [ entry.id] ) %]">
         <button type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
+
         </button>
         </form>
         </div>
+        [%# END %]
         
-        [% IF entry.platform != 'other' %]
+        [% IF entry.platform == 'parchment' 
+              || entry.platform == 'inform'
+              || entry.platform == 'website'
+              || entry.platform == 'html' 
+        %]
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        
         <button type="submit" class="btn btn-default btn-lg">

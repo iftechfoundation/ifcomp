@@ -55,6 +55,28 @@ sub play_online :Chained('fetch_entry') :Args(0) {
     $c->res->redirect( $c->uri_for( $redirection_path ) );
 }
 
+# download: If the main file is a single HTML file, serve it ourselves with a proper
+#           content-disposition header. Else, redirect it so that the webserver handles
+#           this as a static file.
+sub download :Chained('fetch_entry') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $entry = $c->stash->{ entry };
+    my $filename = $entry->main_file->basename;
+    if ( $entry->platform eq 'html' ) {
+        my $body = $entry->main_file->slurp;
+        $c->res->header( 'Content-Disposition' => "attachment; filename=$filename" );
+        $c->res->content_type( 'text/html' );
+        $c->res->code( 200 );
+        $c->res->body( $body );
+    }
+    else {
+        $c->res->redirect(
+            $c->uri_for( '/' . $entry->id . "/main/$filename" )
+        );
+    }
+}
+
 sub transcribe :Chained('fetch_entry') :Args(0) {
     my ( $self, $c ) = @_;
 
