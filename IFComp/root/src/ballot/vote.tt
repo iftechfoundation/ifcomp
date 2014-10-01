@@ -38,7 +38,7 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 
 
 [% IF c.user %]
-<p>Thanks for helping to judge the competition! Please <a href="/rules#judges">read the rules for judges</a> before rating any games. You may also wish to read the <a href="#">guidelines for judges</a>, or <a href="#">the FAQ</a>.</p>
+<p>Thanks for helping to judge the competition! Please <a href="/rules#judges">read the rules for judges</a> before rating any games. You may also wish to read the <a href="/about/judging">guidelines for judges</a>, or <a href="/about/faq#judginggames">the FAQ</a>.</p>
 [% ELSE %]
 <p><strong>You need to log in before you can rate any of the entries.</strong> Hit the green button at the top of the screen to log in, creating a free account first if necessary.</p>
 [% END %]
