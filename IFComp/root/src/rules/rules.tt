@@ -127,14 +127,14 @@ canvass for votes. However, authors are free to link to or write about the exist
 </ol>
 
 <div class="page-header">
-<h1>Rules for Everyone</h1>
+<h1 id="code">Rules for Everyone <small>including a Code of Conduct</small></h1>
 </div>
 
 <ol>
 <li><p><strong>Anyone who impersonates a contest official in any capacity related
 to the contest will be immediately disqualified</strong> and will be banned
 permanently from future involvement in the competition.</p></li>
+<li><p>The Interactive Fiction Competition strives to provide a safe and welcoming environment to IF creators and players of every kind. <strong>Participants who personally harass other participants may have their votes or entries disqualified from the competition</strong>, and may also be banned from further participation in the IFComp, at the organizers' discretion.</p></li>
 </ol>
-
 
 </div>
