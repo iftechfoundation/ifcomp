@@ -51,7 +51,7 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 [% WHILE (entry = entries_rs.next) %]
 <tr>
     [% IF entry.is_qualified %]
-    <td><strong><a href="/ballot#[% entry.title | uri %]">[% entry.title %]</a></strong> by [% INCLUDE author_name.tt %]</td>
+    <td><strong><a href="/ballot#entry-[% entry.id %]">[% entry.title %]</a></strong> by [% INCLUDE author_name.tt %]</td>
     <td style="text-align:left; width:40%">[% IF c.user %] [% INCLUDE _rating_controls.tt %] <noscript><span class="label label-danger">Enable JavaScript to rate!</span></noscript>[% ELSE %] <span class="label label-default">Log in to rate!</span>[% END %]</td>
     [% END %]
 </tr>
