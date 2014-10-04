@@ -19,6 +19,9 @@
             [% ELSE %]
             Inform (Glulx)
             [% END %]
+            [% IF entry.has_extra_content %]
+            — Download includes extra content
+            [% END %]
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
         [% ELSIF entry.platform == 'tads' %]

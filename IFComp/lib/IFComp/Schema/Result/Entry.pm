@@ -287,6 +287,7 @@ use Lingua::EN::Numbers::Ordinate;
 use Path::Class::Dir;
 use File::Copy qw( move );
 use Archive::Zip;
+use List::Compare;
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
@@ -294,6 +295,18 @@ Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
 Readonly my $QUEST_REGEX   => qr/\.quest$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
+
+Readonly my @DEFAULT_PARCHMENT_CONTENT => (
+    'Cover.jpg',
+    'index.html',
+    'interpreter',
+    'play.html',
+    'Small Cover.jpg',
+    'style.css',
+);
+Readonly my @DEFAULT_INFORM_CONTENT => qw(
+    index.html
+);
 
 has 'directory' => (
     is => 'ro',
@@ -388,6 +401,12 @@ has 'is_zcode' => (
     lazy_build => 1,
 );
 
+has 'has_extra_content' => (
+    is => 'ro',
+    isa => 'Bool',
+    lazy_build => 1,
+);
+
 sub place_as_ordinate {
     my $self = shift;
     return ordinate( $self->place );
@@ -396,11 +415,6 @@ sub place_as_ordinate {
 sub miss_congeniality_place_as_ordinate {
     my $self = shift;
     return ordinate( $self->miss_congeniality_place );
-}
-
-sub is_complete {
-    my $self = shift;
-
 }
 
 # If an entry's DB record gets deleted, then so does all its files.
@@ -812,6 +826,37 @@ sub _build_is_zcode {
     }
 
     return 0;
+}
+
+sub _build_has_extra_content {
+    my $self = shift;
+
+    my @default_list;
+    if ( $self->platform eq 'inform' ) {
+        @default_list = @DEFAULT_INFORM_CONTENT;
+    }
+    elsif ( $self->platform eq 'parchment' ) {
+        @default_list = @DEFAULT_PARCHMENT_CONTENT;
+    }
+    else {
+        return 0;
+    }
+
+    my $lc = List::Compare->new(
+        [
+            map
+                { $_->basename }
+                $self->content_directory->children( no_hidden => 1 )
+        ],
+        \@default_list,
+    );
+
+    if ( $lc->get_unique > 1 ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
