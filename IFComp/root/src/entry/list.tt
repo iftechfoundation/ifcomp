@@ -13,10 +13,10 @@
 </div>
 [% ELSIF (current_comp.status == 'closed_to_entries') || ( current_comp.status == 'open_for_judging' ) %]
 <div class="alert alert-warning">
-<p><strong>The deadline for entries has passed.</strong> You can no longer update any of your entries for this year's competition via this website.
+<p><strong>The deadline for entries has passed.</strong>
 </p>
 [% IF c.user.get_object.current_comp_entries %]
-<p>If you need to update one of your entries while the voting period is active, please <a href="mailto:ifcomp@ifcomp.org">contact the organizer</a>. (Note that updating an entry does not oblige judges to play an updated version of your entry if they have already downloaded or played an older one.)</p>
+<p>If you need to update one of your entries while the voting period is active, you may do so here. Note that updating an entry does not oblige judges to play an updated version of your entry if they have already downloaded or played an older one.</p>
 [% ELSE %]
 <p>You do not have any entries in this year's competition (and therefore you are free to judge the games, instead).</p>
 [% END %]
@@ -40,7 +40,7 @@
 <ul>
 [% FOR entry IN entries %]
     <li>
-    [% IF (current_comp.status == 'accepting_intents') || ( current_comp.status == 'closed_to_intents' ) %]
+    [% IF current_comp.status != 'over' %]
         <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> &mdash;
     [% ELSE %]
         <em>[% entry.title %]</em> &mdash;

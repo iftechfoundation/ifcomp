@@ -416,8 +416,8 @@ sub current_comp_entries {
 
     my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
 
-    if ( ( $current_comp->status == 'accepting_intents' )
-         || ( $current_comp->status == 'closed_to_intents' ) )
+    if ( ( $current_comp->status eq 'accepting_intents' )
+         || ( $current_comp->status eq 'closed_to_intents' ) )
     {
         return $entries_rs->all;
     }

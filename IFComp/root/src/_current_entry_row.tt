@@ -19,6 +19,9 @@
             [% ELSE %]
             Inform (Glulx)
             [% END %]
+            [% IF entry.has_extra_content %]
+            — Download includes extra content
+            [% END %]
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
         [% ELSIF entry.platform == 'tads' %]
@@ -29,6 +32,10 @@
             Windows executable
         [% END %]
         </em></p>
+        [% END %]
+    
+        [% IF entry.latest_update %]
+            <p><em><strong>Updated:</strong> [% entry.latest_update.time.strftime( '%{month_name} %{day}, %{hour_12}:%{minute} %{am_or_pm} (UTC)' ) %]</p>
         [% END %]
             
         [% IF entry.main_file %]
