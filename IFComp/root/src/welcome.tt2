@@ -42,7 +42,7 @@
             <li>Read <a href="[% c.uri_for('/about/how_to_enter') %]">how to enter a game into the competition</a></li>
         [% END %]
         <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
-        <li>Browse <a href="[% c.uri_for('/comp/') %]">past IFComp entries</a></li>
+        <li>Browse <a href="[% c.uri_for('/comp/last_comp/') %]">past IFComp entries</a></li>
     </div>
     
     <div class="col-sm-4">

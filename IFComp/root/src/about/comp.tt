@@ -43,6 +43,6 @@
 <h1 id="misscongenialityawards">Miss Congeniality Awards</h1>
 </div>
 
-<p>Since <a href="[% c.uri_for_action( '/comp/comp', 1998 ) %]">the 1998 competition</a>, the IFComp has every year held a secondary contest allowing the authors of that year&#8217;s games to vote on one another&#8217;s entries, using a ballot similar to the one that the public uses to vote in the main competition. The three most highly ranked entries by this vote become the winners of the Miss Congeniality Awards, an honor permanently recorded in <a href="[% c.uri_for_action( '/comp/comp' ) %]">that year&#8217;s results listing</a>.</p>
+<p>Since <a href="[% c.uri_for_action( '/comp/comp', 1998 ) %]">the 1998 competition</a>, the IFComp has every year held a secondary contest allowing the authors of that year&#8217;s games to vote on one another&#8217;s entries, using a ballot similar to the one that the public uses to vote in the main competition. The three most highly ranked entries by this vote become the winners of the Miss Congeniality Awards, an honor permanently recorded in <a href="[% c.uri_for_action( '/comp/last_comp' ) %]">that year&#8217;s results listing</a>.</p>
 
 </div>
