@@ -172,6 +172,7 @@ sub transcript :Chained('fetch_entry') :PathPart('transcript') :Args(1) {
     my $transcript_rs = $c->model( 'IFCompDB::Transcript' )->search(
         {
             session => $session_id,
+            window  => 0,
         },
         {
             order_by => 'timestamp',
@@ -179,19 +180,15 @@ sub transcript :Chained('fetch_entry') :PathPart('transcript') :Args(1) {
     );
 
     my $current_input_count = 0;
-    my $current_output_set_ref = [];
+    @output_sets = ( [] );
     while ( my $transcript = $transcript_rs->next ) {
         if ( $current_input_count != $transcript->inputcount ) {
             $current_input_count = $transcript->inputcount;
             push @inputs, $transcript->input;
-            push @output_sets, $current_output_set_ref;
-            $current_output_set_ref = [];
+            push @output_sets, [];
         }
-        else {
-            push @$current_output_set_ref, $transcript->output;
-        }
+        push @{ $output_sets[ -1 ] }, $transcript->output;
     }
-    push @output_sets, $current_output_set_ref;
 
     $c->stash(
         inputs      => \@inputs,
