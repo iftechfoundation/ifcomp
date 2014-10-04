@@ -253,6 +253,12 @@ sub _process_form {
 
                 if ( $upload_type eq 'main' ) {
                     $entry->update_content_directory;
+                    if ( my $note = $self->form->field( 'note' )->value ) {
+                        $entry->add_to_entry_updates( {
+                            note => $note,
+                            time => DateTime->now( time_zone => 'UTC' ),
+                        } );
+                    }
                 }
             }
 

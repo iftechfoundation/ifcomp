@@ -88,6 +88,11 @@ has_field 'cover_delete' => (
     label => 'Delete cover art file',
 );
 
+has_field 'note' => (
+    type => 'TextArea',
+    label => 'Reason for this update',
+);
+
 has_field 'submit' => (
     type => 'Submit',
     value => 'Submit game information',
@@ -112,6 +117,23 @@ sub validate_cover_upload {
 
     if ( $field->value && not $field->value->filename =~ /\.(pn|jpe?)g$/ ) {
         $field->add_error( "This doesn't appear to be a PNG or JPEG file.");
+    }
+}
+
+sub validate_main_upload {
+    my $self = shift;
+    my ( $field ) = @_;
+
+    if (
+        $self->item
+        && $self->item->id
+        && (
+            ( $self->item->comp->status eq 'closed_to_entries' )
+            || ( $self->item->comp->status eq 'open_for_judging' )
+        )
+        && not $self->field( 'note' )->input
+    ) {
+        $field->add_error( "You must provide a reason for this update." );
     }
 }
 

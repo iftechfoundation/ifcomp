@@ -407,6 +407,12 @@ has 'has_extra_content' => (
     lazy_build => 1,
 );
 
+has 'latest_update' => (
+    is => 'ro',
+    isa => 'Maybe[IFComp::Schema::Result::EntryUpdate]',
+    lazy_build => 1,
+);
+
 sub place_as_ordinate {
     my $self = shift;
     return ordinate( $self->place );
@@ -857,6 +863,16 @@ sub _build_has_extra_content {
     else {
         return 0;
     }
+}
+
+sub _build_latest_update {
+    my $self = shift;
+
+    my $updates_rs = $self->entry_updates->search(
+        {},
+        { order_by => 'time desc', }
+    );
+    return $updates_rs->next;
 }
 
 __PACKAGE__->meta->make_immutable;

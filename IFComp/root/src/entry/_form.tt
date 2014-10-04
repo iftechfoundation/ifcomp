@@ -81,11 +81,16 @@ If you don't specify an email address here, then this website will not display a
 <p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
 <div class="form-group">
 
+[% IF ( entry.comp.status == 'closed_to_entries' || entry.comp.status == 'open_for_judging' ) %]
+<p>Because this competition is underway, if you are updating your game's main file, you must provide a reason for this update below.</p>
+[% form.field('note').render %]
+[% ELSE %]
 <div>
 <div class="checkbox"><label for="entry.main_delete"><input type="checkbox" name="entry.main_delete" id="entry.main_delete" value="1" />
 Delete main game file
 </label></div></div>
 </div>
+[% END %]
 [% ELSE %]
 <p>You haven't added a main file yet.</p>
 [% END %]
