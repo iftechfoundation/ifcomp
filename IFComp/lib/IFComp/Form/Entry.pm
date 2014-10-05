@@ -101,6 +101,22 @@ has_field 'submit' => (
     },
 );
 
+before 'validate_form' => sub {
+    my $self = shift;
+
+    if (
+        $self->item
+        && $self->item->id
+        && (
+            ( $self->item->comp->status eq 'closed_to_entries' )
+            || ( $self->item->comp->status eq 'open_for_judging' )
+        )
+    ) {
+        $self->field( 'title' )->inactive( 1 );
+        $self->field( 'title' )->required( 0 );
+    }
+};
+
 sub validate_reveal_pseudonym {
     my $self = shift;
     my ( $field ) = @_;
