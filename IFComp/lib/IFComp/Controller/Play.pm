@@ -137,5 +137,18 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
     }
 }
 
+sub updates :Chained('fetch_entry') :PathPart('updates') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    my @updates = $c->stash->{ entry }->entry_updates->search(
+        {},
+        { order_by => 'time asc', },
+    )->all;
+
+    $c->stash(
+        template => 'ballot/updates.tt',
+        updates  => \@updates,
+    );
+}
 
 1;

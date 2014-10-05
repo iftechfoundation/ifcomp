@@ -90,7 +90,7 @@ has_field 'cover_delete' => (
 
 has_field 'note' => (
     type => 'TextArea',
-    label => 'Reason for this update',
+    label => 'Reason for this update (Will be player-visible; avoid spoilers)',
 );
 
 has_field 'submit' => (
