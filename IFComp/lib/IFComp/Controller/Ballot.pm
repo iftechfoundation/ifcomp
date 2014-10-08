@@ -34,7 +34,13 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
 
     my $order_by;
     if ( $c->req->params->{ shuffle } ) {
-        $order_by = 'rand()';
+        $c->stash->{ is_shuffled } = 1;
+        my $seed = '';
+        if ( $c->user && $c->req->params->{ personalize } ) {
+            $seed = $c->user->get_object->id;
+            $c->stash->{ is_personalized } = 1;
+        }
+        $order_by = "rand($seed)";
     }
     else {
         $order_by = 'title asc';
