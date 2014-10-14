@@ -35,7 +35,7 @@
         <p>A few things you can do on this site, right now:</p>
         <ul>
         [% IF current_comp.status == 'open_for_judging' %]
-            <li><a href="[% c.uri_for('/ballot') %]">Browse and play this year's entires</a>, and then <a href="[% c.uri_for('/ballot/vote') %]">rate them</a></li>
+            <li><a href="[% c.uri_for('/ballot') %]">Browse and play this year's entries</a>, and then <a href="[% c.uri_for('/ballot/vote') %]">rate them</a></li>
         [% END %]
         <li>Learn about <a href="[% c.uri_for('/about/comp') %]">the competition</a>, or about <a href="[% c.uri_for('/about/if') %]">interactive fiction</a> in general</li>
         [% UNLESS current_comp.status == 'open_for_judging' %]
