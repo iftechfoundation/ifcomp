@@ -64,7 +64,9 @@ sub index :Chained('fetch_comp') :PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->stash->{ entries } = [ $c->stash->{ comp }->entries->search(
-        {},
+        {
+            is_disqualified => 0,
+        },
         {
             order_by => 'place',
         },
