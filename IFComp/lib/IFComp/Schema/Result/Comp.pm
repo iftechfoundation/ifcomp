@@ -56,31 +56,37 @@ __PACKAGE__->table("comp");
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 intents_close
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 entries_due
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 judging_begins
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
 
 =head2 judging_ends
 
   data_type: 'date'
   datetime_undef_if_invalid: 1
-  is_nullable: 0
+  is_nullable: 1
+
+=head2 comp_closes
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
 
 =cut
 
@@ -95,15 +101,21 @@ __PACKAGE__->add_columns(
   "year",
   { data_type => "char", default_value => "", is_nullable => 0, size => 4 },
   "intents_open",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "intents_close",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "entries_due",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "judging_begins",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "judging_ends",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 0 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  "comp_closes",
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -165,8 +177,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-06-06 22:37:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ebZT91k4+Fe5FTsBinTkKQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-10-31 14:03:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kQVmwAfXs/g9HC5BjfZDmQ
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
@@ -177,6 +189,7 @@ enum 'CompStatus', [qw(
     closed_to_intents
     closed_to_entries
     open_for_judging
+    processing_votes
     over
 ) ];
 
@@ -210,6 +223,9 @@ sub _build_status {
     }
     elsif ( $now < $self->judging_ends ) {
         return 'open_for_judging';
+    }
+    elsif ( $now < $self->comp_closes ) {
+        return 'processing_votes';
     }
     else {
         return 'over';

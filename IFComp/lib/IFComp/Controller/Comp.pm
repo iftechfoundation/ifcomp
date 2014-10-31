@@ -22,7 +22,9 @@ sub comp :Path :Args(0) {
 
     my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
 
-    if ( $current_comp->status eq 'open_for_judging' ) {
+    if ( $current_comp->status eq 'open_for_judging'
+         || $current_comp->status eq 'processing_votes'
+    ) {
         $c->res->redirect( $c->uri_for_action( '/ballot/index' ) );
     }
     else {

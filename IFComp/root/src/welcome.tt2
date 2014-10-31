@@ -74,6 +74,8 @@ It's the final stretch for [% current_comp.year %] comp authors! All entries are
 All entries are in and being prepared for release. The judging period will begin on <!-- [% current_comp.judging_begins.month_name %] [% current_comp.judging_begins.day %] --> October 1.
 [% ELSIF current_comp.status == 'open_for_judging' %]
 <a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] Interactive Fiction Competition are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games before [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %].
+[% ELSIF current_comp.status == 'processing_votes' %]
+Voting has closed! We're tallying up the results now. Final results will be posted within 24 hours. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
 [% ELSE %]
 The [% current_comp.year %] comp is over. Congratulations to the first-place winner[% IF winners.size > 1 %]s[% END %], [% INCLUDE winners_desc %]. Check out the <a href="[% c.uri_for('/comp/') %]">full results</a>!
 [% END %]

@@ -27,8 +27,11 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
     my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
     $c->stash->{ current_comp } = $current_comp;
 
-    unless ( $current_comp->status eq 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for( '/comp/comp' ) );
+    unless (
+        $current_comp->status eq 'open_for_judging'
+        || $current_comp->status eq 'processing_votes'
+    ) {
+        $c->res->redirect( $c->uri_for_action( '/comp/comp' ) );
         return;
     }
 
@@ -68,6 +71,10 @@ sub index :Chained('root') :PathPart('') :Args(0) {
 
 sub vote :Chained('root') :PathPart('vote') :Args(0) {
     my ( $self, $c ) = @_;
+
+    if ( $c->stash->{ current_comp }->status ne 'open_for_judging' ) {
+        $c->res->redirect( $c->uri_for_action( '/comp/comp' ) );
+    }
 
     my %rating_for_entry;
     if ( $c->user ) {

@@ -30,10 +30,15 @@
 
 <div class="col-sm-10">
 
+[% IF current_comp.status == 'open_for_judging' %]
 <p>If you intend to join us as a judge this year — and we hope you do — please take a moment to <a href="/rules#judges">read the rules for judges</a> before digging into the games. (They're short and simple, we promise.) When you're ready to vote on any entry, <a href="/ballot/vote/">visit the ballot</a>. You have through November 15 to vote for at least five games.</p>
 
 [% IF user_is_author %]
 <p>(Because you have entries in this year's competition, your votes won't count towards the main IFComp scores, but rather towards the Miss Congeniality side-contest.)</p>
+[% END %]
+[% ELSE %]
+<p><strong>The ballot box has closed!</strong> The deadline for rating games has passed, and we're now tallying up the results. Results will be posted to this website within 24 hours.</p>
+<p>You can continue to download or play this year's games as much as you'd like, in the meantime!</p>
 [% END %]
 </div>
 </div>
