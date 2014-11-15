@@ -28,6 +28,7 @@ my $ifcomp_sth = $dbh->prepare( $ifcomp_sql );
 $ifcomp_sth->execute( $current_comp->id );
 
 my $current_place;
+my $entry_count;
 my $previous_average;
 while ( my $row_ref = $ifcomp_sth->fetchrow_hashref ) {
     my $entry = $schema->resultset( 'Entry' )->find( $row_ref->{ entry_id } );
@@ -42,7 +43,7 @@ while ( my $row_ref = $ifcomp_sth->fetchrow_hashref ) {
         ( not defined $previous_average )
         || ( $previous_average > $row_ref->{ average_score } )
     ) {
-        $current_place++;
+        $current_place = ++$entry_count;
     }
     $entry->place( $current_place );
     $entry->update;
