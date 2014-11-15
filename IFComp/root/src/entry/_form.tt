@@ -4,7 +4,13 @@
 <div class="panel panel-default">
 <div class="panel-heading"><h2>Title and subtitle</h2></div>
 <div class="panel-body">
-[% form.field('title').render %]
+[% IF ( entry.comp.status == 'accepting_intents' ) 
+      || ( entry.comp.status == 'closed_to_intents' )
+%]
+    [% form.field('title').render %]
+[% ELSE %]
+<p><strong>Title:</strong> [% entry.title %] <em>(Contact the organizer if you need to change this)</em></p>
+[% END %]
 <p>Your game can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
 [% form.field('subtitle').render %]
 [% UNLESS entry.id %]

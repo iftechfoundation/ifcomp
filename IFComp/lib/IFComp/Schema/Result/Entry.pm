@@ -123,6 +123,73 @@ __PACKAGE__->table("entry");
   default_value: 0
   is_nullable: 0
 
+=head2 average_score
+
+  data_type: 'decimal'
+  is_nullable: 1
+  size: [6,4]
+
+=head2 standard_deviation
+
+  data_type: 'decimal'
+  is_nullable: 1
+  size: [5,4]
+
+=head2 total_1
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_2
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_3
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_4
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_5
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_6
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_7
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_8
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_9
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 total_10
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
+=head2 votes_cast
+
+  data_type: 'integer'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -173,6 +240,32 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 64 },
   "is_disqualified",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
+  "average_score",
+  { data_type => "decimal", is_nullable => 1, size => [6, 4] },
+  "standard_deviation",
+  { data_type => "decimal", is_nullable => 1, size => [5, 4] },
+  "total_1",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_2",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_3",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_4",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_5",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_6",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_7",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_8",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_9",
+  { data_type => "tinyint", is_nullable => 1 },
+  "total_10",
+  { data_type => "tinyint", is_nullable => 1 },
+  "votes_cast",
+  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -279,8 +372,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-09-07 21:13:24
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pLmktcp0S77P2Ti8LOp+2g
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-10-30 13:38:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HGMs0NRgC3qlYwNmVs14zw
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;

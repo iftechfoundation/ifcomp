@@ -20,6 +20,30 @@
         [% IF link_to_year %]
             <p><a href="[% c.uri_for_action( '/comp/index', [ entry.comp.year ] ) %]"><cite>Browse all IFComp entries from [% entry.comp.year %]</cite></a></p>
         [% END %]    
+        
+        
+        [% IF entry.votes_cast %]
+            <div id="votes-[% entry.id %]" class="row">
+                <div class="col-sm-6">
+                    <table class="table">
+                        <tr>
+                            <th>Score</th>
+                            <td><strong>[% entry.average_score %]</td>
+                        </tr>
+                        <tr>
+                            <th>Votes Cast</th>
+                            <td>[% entry.votes_cast %]</td>
+                        </tr>
+                        <tr>
+                            <th>Standard Deviation</th>
+                            <td>[% entry.standard_deviation %]</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="vote-graph-[% entry.id %]" class="col-sm-6">
+                </div>
+            </div>
+        [% END %]
     </div>
 
 </div>
