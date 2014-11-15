@@ -1,7 +1,7 @@
-[% IF entry.reveal_pseudonym && !current_comp %]
+[% IF entry.reveal_pseudonym && (!current_comp || current_comp.status == 'over' ) %]
     [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym %]”)
 [% ELSIF entry.author_pseudonym %]
-    <strong>[% entry.author_pseudonym %]</strong>
+    [% entry.author_pseudonym %]
     [% IF entry.email %]
         <a href="mailto:[% entry.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email %]" /></a>
     [% END %]
@@ -10,7 +10,7 @@
 [% END %]
 
 [% BLOCK name_and_links %]
-    [% IF entry.author.url %]<a href="[% entry.author.url %]">[% END %]<strong>[% entry.author.name %]</strong>[% IF entry.author.url %]</a>[% END %]
+    [% IF entry.author.url %]<a href="[% entry.author.url %]">[% END %][% entry.author.name %][% IF entry.author.url %]</a>[% END %]
     [% IF entry.author.twitter %]
         <a href="http://twitter.com/[% entry.author.twitter %]"><img src="/static/images/twitter.png" class="author-link" alt="@[% entry.author.twitter %]" /></a>
     [% END %]
