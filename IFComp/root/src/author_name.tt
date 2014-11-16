@@ -5,6 +5,8 @@
     [% IF entry.email %]
         <a href="mailto:[% entry.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email %]" /></a>
     [% END %]
+[% ELSIF suppress_links %]
+    [% entry.author.name %]
 [% ELSE %]
     [% INCLUDE name_and_links %]
 [% END %]

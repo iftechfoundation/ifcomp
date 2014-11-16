@@ -77,7 +77,7 @@ All entries are in and being prepared for release. The judging period will begin
 [% ELSIF current_comp.status == 'processing_votes' %]
 Voting has closed! We're tallying up the results now. Final results will be posted within 24 hours. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
 [% ELSE %]
-The [% current_comp.year %] IFComp is over. Congratulations to the first-place winner[% IF current_comp.winners.size > 1 %]s[% END %], [% winner_count = 1 %][% FOR winner IN current_comp.winners %]<em>[% winner.title %]</em> by [% INCLUDE author_name.tt entry=winner | trim %][% IF winner_count < current_comp.winners.size %] and [% END %][% winner_count = winner_count + 1 %][% END %]!</p>
+The [% current_comp.year %] IFComp is over. Congratulations to the first-place winner[% IF current_comp.winners.size > 1 %]s[% END %], [% winner_count = 1 %][% FOR winner IN current_comp.winners %]<em>[% winner.title %]</em> by [% INCLUDE author_name.tt entry=winner suppress_links=1 | trim %][% IF winner_count < current_comp.winners.size %] and [% END %][% winner_count = winner_count + 1 %][% END %]!</p>
 
 <p>Check out <a href="[% c.uri_for('/comp/') %]">the complete results for this year's competition</a>.
 [% END %]
