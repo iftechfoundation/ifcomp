@@ -127,13 +127,13 @@ __PACKAGE__->table("entry");
 
   data_type: 'decimal'
   is_nullable: 1
-  size: [6,4]
+  size: [6,2]
 
 =head2 standard_deviation
 
   data_type: 'decimal'
   is_nullable: 1
-  size: [5,4]
+  size: [5,2]
 
 =head2 total_1
 
@@ -241,9 +241,9 @@ __PACKAGE__->add_columns(
   "is_disqualified",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "average_score",
-  { data_type => "decimal", is_nullable => 1, size => [6, 4] },
+  { data_type => "decimal", is_nullable => 1, size => [6, 2] },
   "standard_deviation",
-  { data_type => "decimal", is_nullable => 1, size => [5, 4] },
+  { data_type => "decimal", is_nullable => 1, size => [5, 2] },
   "total_1",
   { data_type => "tinyint", is_nullable => 1 },
   "total_2",
@@ -372,8 +372,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-10-30 13:38:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HGMs0NRgC3qlYwNmVs14zw
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 12:20:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iF3wtgC7dnsOjVdunwh+jA
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
