@@ -10,6 +10,7 @@ use Plack::Builder;
 use File::MimeInfo;
 
 builder {
+    enable "IFComp";
     enable "Plack::Middleware::Static",
           path => qr{^/static/}, root => "$FindBin::Bin/root";
     enable "Plack::Middleware::Static",
