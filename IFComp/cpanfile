@@ -21,7 +21,7 @@ requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'SQL::Translator';
-
+requires 'List::Compare';
 requires 'MooseX::ClassAttribute';
 requires 'Email::Sender::Simple';
 requires 'Email::MIME::Kit';
