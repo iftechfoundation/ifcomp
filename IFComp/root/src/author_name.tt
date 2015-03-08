@@ -1,4 +1,10 @@
-[% IF entry.reveal_pseudonym && (!current_comp || current_comp.status == 'over' ) %]
+[% IF entry.reveal_pseudonym 
+      && (
+        !current_comp 
+        || ( comp.year != current_comp.year ) 
+        || ( current_comp.status == 'over' ) 
+      ) 
+%]
     [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym %]”)
 [% ELSIF entry.author_pseudonym %]
     [% entry.author_pseudonym %]
