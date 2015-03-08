@@ -32,6 +32,8 @@ requires 'DateTime::Format::MySQL';
 requires 'Email::MIME::Kit::Renderer::TT';
 requires 'Template::Plugin::Comma';
 requires 'Template::Plugin::DateTime';
+requires 'Regexp::Common';
+requires 'File::MimeInfo';
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
