@@ -7,6 +7,10 @@
 
 [% INCLUDE next_prev %]
 
+<p>
+You can also <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html">download all the competition's files from the Interactive Fiction Archive</a>.
+</p>
+
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-info">
