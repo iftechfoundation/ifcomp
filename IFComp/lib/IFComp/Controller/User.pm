@@ -160,9 +160,11 @@ sub edit_account :Path('edit_account') {
 
     if ( $form->process( params => $c->req->parameters, item => $user ) ) {
         $c->stash->{ edit_successful } = 1;
-        $user->password(
-            $user->hash_password( $form->field( 'password' )->value )
-        );
+        if ( $c->req->parameters->{ password } =~ /\S/ ) {
+            $user->password(
+                $user->hash_password( $form->field( 'password' )->value )
+            );
+        }
         $user->update;
     }
 
