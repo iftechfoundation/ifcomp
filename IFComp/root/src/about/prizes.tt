@@ -1,4 +1,5 @@
 [% meta.title = 'IFComp - Prizes' %]
+[% there_are_prizes = prizes_in_category.keys.size %]
 <div class="container">
     <div class="jumbotron">
     <h1 style="text-align:center;">The IFComp prize pool</h1>
@@ -8,9 +9,19 @@
 <h1>Prizes for the [% current_comp.year %] competition</h1>
 </div>
 
+[% IF there_are_prizes %]
+
 <p>The following competition prizes have been generously donated by members of the interactive fiction community. <a href="#aboutifcompprizes">See below</a> to learn how the prize pool works, or <a href="#donatingprizes">how you can add to it</a>.</p>
 
 [% INCLUDE _prize_list.tt %]
+
+[% ELSE %]
+
+<p><em>This year's prize pool doesn't have anything in it yet!</em></p>
+
+<p>We rely on generous (or generously creative) donations from the interactive fiction community to fill each year's prize pool. Keep reading to learn how the prize pool works, and <a href="#donatingprizes">how you can add to it</a>.</p>
+
+[% END %]
 
 <div class="page-header">
 <h1 id="aboutifcompprizes">About IFComp prizes</h1>
