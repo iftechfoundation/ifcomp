@@ -117,6 +117,12 @@ Email doubles as login ID
   is_nullable: 1
   size: 36
 
+=head2 forum_handle
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 32
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -157,6 +163,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", is_nullable => 1 },
   "access_token",
   { data_type => "char", is_nullable => 1, size => 36 },
+  "forum_handle",
+  { data_type => "char", is_nullable => 1, size => 32 },
 );
 
 =head1 PRIMARY KEY
@@ -203,6 +211,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 prizes
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Prize>
+
+=cut
+
+__PACKAGE__->has_many(
+  "prizes",
+  "IFComp::Schema::Result::Prize",
+  { "foreign.recipient" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 user_roles
 
 Type: has_many
@@ -234,8 +257,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 11:38:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KxvgGKkOj3+MUyEenP0eWQ
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-05-10 11:16:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BBT/++Ap+7+u+Yf2VVYl0A
 
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;

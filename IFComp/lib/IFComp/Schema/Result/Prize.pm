@@ -78,10 +78,11 @@ __PACKAGE__->table("prize");
   data_type: 'text'
   is_nullable: 1
 
-=head2 entry
+=head2 recipient
 
   data_type: 'integer'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 1
 
 =head2 url
@@ -96,6 +97,12 @@ __PACKAGE__->table("prize");
   default_value: 'misc'
   extra: {list => ["money","expertise","food","apparel","games","hardware","software","books","av","misc","special"]}
   is_nullable: 0
+
+=head2 entry
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
 
 =cut
 
@@ -122,8 +129,13 @@ __PACKAGE__->add_columns(
   { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
   "notes",
   { data_type => "text", is_nullable => 1 },
-  "entry",
-  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
+  "recipient",
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 1,
+  },
   "url",
   { data_type => "char", is_nullable => 1, size => 128 },
   "category",
@@ -147,6 +159,8 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 0,
   },
+  "entry",
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -178,9 +192,29 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
+=head2 recipient
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 12:20:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9csXK597UhtDcutnd2ckYw
+Type: belongs_to
+
+Related object: L<IFComp::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "recipient",
+  "IFComp::Schema::Result::User",
+  { id => "recipient" },
+  {
+    is_deferrable => 1,
+    join_type     => "LEFT",
+    on_delete     => "RESTRICT",
+    on_update     => "RESTRICT",
+  },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-05-10 11:16:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qgh8a6iS2emYrap1YOyk7w
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Prize.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete

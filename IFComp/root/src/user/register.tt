@@ -16,10 +16,14 @@
 </div>
 <div class="col-sm-6">
 <h2>Optional stuff for authors</h2>
-<p>If you enter games into the IFComp, setting these fields will display additional links and information about you to other visitors of this website.</p>
+
 [% form.field( 'email_is_public' ).render %]
 [% form.field( 'url' ).render %]
 [% form.field( 'twitter' ).render %]
+
+<p>Specify your username on the intfiction.org forum to gain access to the authors-only forum during the judging period. (We won't display your forum handle on this site.)</p>
+
+[% form.field( 'forum_handle' ).render %]
 </div>
 </div>
 
