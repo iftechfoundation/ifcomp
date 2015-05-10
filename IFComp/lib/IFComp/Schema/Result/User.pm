@@ -91,7 +91,6 @@ Email doubles as login ID
 =head2 salt
 
   data_type: 'char'
-  default_value: (empty string)
   is_nullable: 1
   size: 36
 
@@ -141,7 +140,7 @@ __PACKAGE__->add_columns(
   "twitter",
   { data_type => "char", is_nullable => 1, size => 32 },
   "salt",
-  { data_type => "char", default_value => "", is_nullable => 1, size => 36 },
+  { data_type => "char", is_nullable => 1, size => 36 },
   "created",
   {
     data_type => "datetime",
@@ -204,21 +203,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 prizes
-
-Type: has_many
-
-Related object: L<IFComp::Schema::Result::Prize>
-
-=cut
-
-__PACKAGE__->has_many(
-  "prizes",
-  "IFComp::Schema::Result::Prize",
-  { "foreign.recipient" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 user_roles
 
 Type: has_many
@@ -250,8 +234,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-07-11 01:27:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZzjqBzk4bGIBq0TsCWeEqw
+# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 11:38:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KxvgGKkOj3+MUyEenP0eWQ
 
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;
