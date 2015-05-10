@@ -12,7 +12,7 @@
         	[% entry.blurb %]
         [% END %]
         [% IF entry.miss_congeniality_place %]
-        <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="#">Miss Congeniality Awards</a></em>.</p>
+        <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="[% c.uri_for( '/about/comp#misscongenialityawards' ) %]">Miss Congeniality Awards</a></em>.</p>
         [% END %]
         <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
         </p>

@@ -7,6 +7,10 @@
 
 [% INCLUDE next_prev %]
 
+<p>
+You can also <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html">download all the competition's files from the Interactive Fiction Archive</a>.
+</p>
+
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-info">
@@ -56,8 +60,25 @@ $(function () {
                 }
             }
         },
+        tooltip: {
+            formatter: function() {
+                var vote_word;
+                if ( this.y == 1 ) {
+                    vote_word = 'judge';
+                }
+                else {
+                    vote_word = 'judges';
+                }
+                return this.y 
+                       + ' ' 
+                       + vote_word 
+                       + ' gave this game a rating of ' 
+                       + this.x 
+                       + '.';
+            }
+        },
         series: [{
-            data: [[% entry.total_1 %], [% entry.total_2 %], [% entry.total_3 %], [% entry.total_4 %], [% entry.total_5 %], [% entry.total_6 %], [% entry.total_7 %], [% entry.total_8 %], [% entry.total_9 %], [% entry.total_10 %]]
+            data: [[% entry.total_1 %], [% entry.total_2 %], [% entry.total_3 %], [% entry.total_4 %], [% entry.total_5 %], [% entry.total_6 %], [% entry.total_7 %], [% entry.total_8 %], [% entry.total_9 %], [% entry.total_10 %]]         
         }]
     });
     [% END %]

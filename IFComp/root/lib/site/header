@@ -23,6 +23,8 @@ END;
           <ul class="nav navbar-nav">
             [% IF current_comp.status == 'open_for_judging' %]
               <li><a href="/ballot/">Entries</a></li>
+            [% ELSE %]
+              <li><a href="/comp/">Results</a></li>
             [% END %]
               <li><a href="/rules/">Rules</a></li>
               <li class="dropdown">

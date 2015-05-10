@@ -4,6 +4,8 @@ use Moose;
 extends 'Plack::Middleware';
 
 use IFComp::Schema;
+use Config::Any;
+use FindBin;
 
 has 'schema' => (
     is => 'ro',
@@ -11,9 +13,31 @@ has 'schema' => (
     lazy_build => 1,
 );
 
-# XXX This should read from the config. Oh well! Maybe next year!!
 sub _build_schema {
-    my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
+    my $config_ref = Config::Any->load_files(
+        {
+            files => [
+                "$FindBin::Bin/conf/ifcomp_local.conf",
+                "$FindBin::Bin/conf/ifcomp.conf",
+            ],
+            flatten_to_hash => 1,
+        },
+    );
+
+    my $connect_info_ref;
+    for my $file ( keys %$config_ref ) {
+        if ( $config_ref->{ $file }->{ 'Model::IFCompDB' } ) {
+            $connect_info_ref =
+                $config_ref->{ $file }->{ 'Model::IFCompDB' }->{ connect_info };
+            last if $connect_info_ref;
+        }
+    }
+
+    unless ( $connect_info_ref ) {
+        die "Can't find any DB connect info in the app's config files?";
+    }
+
+    my $schema = IFComp::Schema->connect( $connect_info_ref );
     return $schema;
 }
 

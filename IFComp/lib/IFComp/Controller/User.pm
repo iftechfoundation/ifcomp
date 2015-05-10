@@ -40,6 +40,7 @@ sub register :Path('register') :Args(0) {
             name  => $form->field( 'name' )->value,
             password => $form->field( 'password' )->value,
             twitter => $form->field( 'twitter' )->value,
+            forum_handle => $form->field( 'forum_handle' )->value,
             url => $form->field( 'url' )->value,
             email_is_public => $form->field( 'email_is_public' )->value,
             password_needs_hashing => 1,
@@ -160,9 +161,11 @@ sub edit_account :Path('edit_account') {
 
     if ( $form->process( params => $c->req->parameters, item => $user ) ) {
         $c->stash->{ edit_successful } = 1;
-        $user->password(
-            $user->hash_password( $form->field( 'password' )->value )
-        );
+        if ( $c->req->parameters->{ password } =~ /\S/ ) {
+            $user->password(
+                $user->hash_password( $form->field( 'password' )->value )
+            );
+        }
         $user->update;
     }
 

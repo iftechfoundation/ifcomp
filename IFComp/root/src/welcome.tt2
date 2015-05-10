@@ -20,13 +20,10 @@
  <div class="row">
  
      <div class="col-sm-4">
-        <h2>IFComp's 20th year!</h2>
+        <h2>IFComp's 21st year!</h2>
 
         <p>
-        Welcome to IFComp.org! If you've visited in years past, you might notice things look quite a bit different. We've done a little remodeling for the 2014 season &mdash; the comp's 20th year!
-        </p>
-        <p>
-        For a brief rundown on the IFComp and its schedule this year, see <a href="[% c.uri_for('about/comp') %]">our About the Competition page</a>.
+        Welcome to IFComp.org! For a brief rundown on the IFComp and its schedule this year, see <a href="[% c.uri_for('about/comp') %]">our About the Competition page</a>.
         </p>
     </div>
     

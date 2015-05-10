@@ -9,7 +9,18 @@
 <div class="row">
     <div class="col-sm-6">
         <h2>Log in</h2>
-        [% form.render %]
+        [% IF form.has_errors %]
+        <div class="alert alert-danger">
+            [% FOR error IN form.errors %]
+                <p>[% error %]</p>
+            [% END %]
+        </div>
+        [% END %]
+        <form method="post">
+        [% form.field( 'email' ).render %]
+        [% form.field( 'password' ).render %]
+        [% form.field( 'submit' ).render %]
+        </form>
         <p><a href="/user/request_password_reset">Forgot your password?</a></p>
     </div>
 

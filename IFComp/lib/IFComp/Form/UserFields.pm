@@ -28,7 +28,12 @@ has_field 'twitter' => (
 
 has_field 'url' => (
     type => 'Text',
-    label => 'Homepage (or other URL)',
+    label => 'Homepage',
+);
+
+has_field 'forum_handle' => (
+    type => 'Text',
+    label => 'Intfiction.org forum handle',
 );
 
 has_field 'submit' => (
