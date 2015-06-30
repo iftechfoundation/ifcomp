@@ -40,6 +40,12 @@ sub comp :Path('comp') :Args(0) {
     $c->stash->{ template } = 'about/comp.tt';
 }
 
+sub schedule :Path('schedule') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{ template } = 'about/schedule.tt';
+}
+
 sub guidelines :Path('guidelines') :Args(0) {
     my ( $self, $c ) = @_;
 
