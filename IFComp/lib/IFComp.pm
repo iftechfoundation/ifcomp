@@ -21,7 +21,7 @@ use Catalyst qw/
     Static::Simple
     Authentication
     Session
-    Session::Store::FastMmap
+    Session::Store::DBIC
     Session::State::Cookie
     Cache
     PageCache
@@ -64,8 +64,7 @@ __PACKAGE__->config(
     },
     'Plugin::Session' => {
         'expires' => 31536000, # Year
-        'rewrite' => 0,
-        'storage' => '/tmp/ifcomp.session',
+        'dbic_class' => 'IFCompDB::Session',
     },
     'Plugin::Static::Simple' => {
         dirs => [
