@@ -1,6 +1,5 @@
 [%
 ordered_categories = [
-    'money',
     'expertise',
     'food',
     'apparel',
@@ -9,6 +8,7 @@ ordered_categories = [
     'software',
     'books',
     'av',
+    'money',
     'misc',
     'special',
 ];

@@ -22,7 +22,7 @@
 [% ELSE %]
 <h1>Enter a game into the [% current_comp.year %] competition</h1>
 [% INCLUDE error_div %]
-<p><strong>All you need to declare an intent to enter this game is a title.</strong> Once you've submitted that, you may return to fill in the rest of this information (and upload the game's actual files) at any time on or before [% current_comp.entries_due.subtract( days => 2 ).ymd %]. You'll be free to modify any of this information (including the game's title) any time before then, as well.</p>
+<p><strong>All you need to declare an intent to enter this game is a title.</strong> Once you've submitted that, you may return to fill in the rest of this information (and upload the game's actual files) at any time on or before [% current_comp.entries_due.ymd %]. You'll be free to modify any of this information (including the game's title) any time before then, as well.</p>
 [% END %]
 
 [% INCLUDE 'entry/_form.tt' %]

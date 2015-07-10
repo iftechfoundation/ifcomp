@@ -10,50 +10,81 @@
 <h1 id="enteringgames">Entering games</h1>
 </div>
 
-<h3 id="cananentrybewrittenbyateam">Can an entry be written by a team?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can an entry be written by a team?</h3>
+  </div>
+  <div class="panel-body">
 <p>Absolutely! While most IFComp entries have individual authors, collaborations are not uncommon, and have appeared among <a href="/comp/results">the top ten finishers</a> several times.</p>
 
 <p>A collaboration can take many forms: it could be two authors co-writing the piece, or a writer and a programmer, or an author and an illustrator. (Teams of more than two people have been less common in the IFComp, but they&#8217;re not unheard of.)</p>
 
-<p>Collaborations are still entered into the competition under a single ifcomp.org account. The game&#8217;s author-pseudonym field can be set to the list of authors&#8217; names.</p>
+<p>Collaborations are still entered into the competition under a single ifcomp.org account. The game&#8217;s author-pseudonym field can be set to the list of authors&#8217; names.</p>  </div>
+</div>
 
-<h3 id="ihaveanunfinishedgameimadeforaclassorforadifferenteventorjustasapastcreativeproject.canifinishitandenteritintothecompetition">I have an unfinished game I made for a class (or for a different event, or just as a past creative project). Can I finish it and enter it into the competition?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">I have an unfinished game people have already played. Can I finish it and enter it into the competition?</h3>
+  </div>
+  <div class="panel-body">
 <p>It all depends on whether or not the game&#8217;s earlier version has been released to the public.</p>
 
 <p>If you know that a few friends, family, colleagues or classmates are the game&#8217;s only players, then you&#8217;re clear to enter it (or an improved version of it). As far as the IFComp is concerned, these people were early playtesters, and the game remains safely unreleased.</p>
 
 <p>However, if the game was available on the public internet, where anyone could find and play it, then the IFComp considers that a release &#8211; even if the game wasn&#8217;t finished yet. This would be the case if, for example, you linked to the game from a public forum.</p>
+  </div>
+</div>
 
-<h3 id="arethereanyrestrictionsoncontentsuchascoarselanguageordepictionsofsexorviolencedoineedtowarnplayersaboutthesethingsifiincludetheminmygame">Are there any restrictions on content, such as coarse language, or depictions of sex or violence? Do I need to warn players about these things if I include them in my game?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Are there any restrictions on content, such as coarse language, or depictions of sex or violence?<br /><br />Do I need to warn players about these things if I include them in my game?</h3>
+  </div>
+  <div class="panel-body">
 <p>The IFComp places no restrictions on the elements that make up its entries&#8217; stories.</p>
 
-<p>Some entrants choose to place content-warning labels on games containing potentially disturbing imagery. The competition leaves whether and how to do this entirely up to the judgment and taste of the author. </p>
+<p>Some entrants choose to place content-warning labels on games containing potentially disturbing or — for players with <a href="https://en.wikipedia.org/wiki/Posttraumatic_stress_disorder">PTSD</a> — harmful imagery. (In the latter context, these labels are sometimes called <em>trigger warnings</em>.) The competition leaves whether and how to do this entirely up to the judgment and taste of the author. </p>
 
 <p>As with all other aspects of your game, think about the experience you want your player to have &#8211; knowing that your player might be anyone at all &#8211; and act appropriately.</p>
 
-<p>If you think your game might need a content warning but you're not sure how to express it, consider simply suggesting that the game may not be suitable for young children. (Parents who enjoy playing IF with their kids would likely appreciate the warning, for one.)</p>
+<p>If you think your game might need a content warning but you're not sure how to express it, consider one of these options:</p>
 
-<h3 id="canienteragamethatonlyrunsonwindowsorotherwiserequiressomespecificoperatingsystemordevicetoplay">Can I enter a game that only runs on Windows, or otherwise requires some specific operating system or device to play?</h3>
-
+<ul>
+<li><p>Suggest — in the game's blurb, introduction, or another conspicuous place — that the game may contain material inappropriate for young children, providing further details at your own discretion. (Parents who enjoy playing IF with their kids would especially appreciate this.)</p></li>
+<li><p>Provide a list of more detailed content advisories pertinent to your game behind a special command, menu option, or other player-voluntary action. This way, players who wish to see warnings before play can easily read them, and those who don't can just as easily ignore them.</p>
+</ul>
+  </div>
+</div><div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can I enter a game that only runs on a certain OS (e.g. Windows) or device?</h3>
+  </div>
+  <div class="panel-body">
 <p>You certainly may, if it keeps to <a href="/rules/#authors">all the rules for entries</a>. Just be aware that such games by definition have a smaller potential audience than games that work across many platforms. In the IFComp, the fewer technological restrictions for play that an entry has, the more votes, reviews, and overall attention it tends to receive.</p>
 
 <p>The IF community has a long-lived tradition for cross-platform works, with its roots back in the heyday of commercial text adventures from the 1980s. <a href="/about/guidelines#useanifauthoringtool">The most popular tools for IF game creation</a> keep this tradition alive by making it easier to create a single game that works on a variety of computing environments. It may be worth your time to examine these tools, if you haven&#8217;t already.</p>
 
-<h3 id="whatshouldidoifisubmittedanintenttoenteragamebutihaventfinisheditbythefinaldeadlineshouldijustenterwhatihave">What should I do if I submitted an intent to enter a game, but I haven&#8217;t finished it by the final deadline? Should I just enter what I have?</h3>
-
+  </div>
+</div><div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">What should I do if I haven&#8217;t finished my entry by the final deadline? Should I just enter what I have?</h3>
+  </div>
+  <div class="panel-body">
 <p>While nothing in the rules stops you from entering an unfinished work, <a href="/about/guidelines#submitonlyfinishedwork">we strongly recommend that you don&#8217;t</a>. </p>
 
 <p>There is no penalty for <em>not</em> submitting a final entry, even if you earlier declared an intent to enter. If the deadline has arrived and you know that your entry is unfinished (or finished but <a href="/about/guidelines#testing">untested</a>), please consider withdrawing your entry. Submitting a complete, tested work to a future competition will almost certainly reward you with more pride and satisfaction than submitting an incomplete work today.</p>
-
-
-<h3 id="online-only">I created my game on an entirely online platform; it's not something people can download to play. What should I upload as my entry's main file?</h3>
-<p>Create an HTML file that links to your game, and upload that. It can contain any style or content you like, so long as it clearly links to (or embeds?) your entry.</p>
-
-<h3 id="iveenteredagameamiallowedtotalkabouttheifcompinpublic">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
-
+  </div>
+</div><div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">My entry runs on an online platform; it's not downloadable. What should I upload as my entry's main file?</h3>
+  </div>
+  <div class="panel-body">
+<p>Create an HTML file that links to your game, and upload that. This file can contain any style or content you like, so long as it clearly links to (or embeds?) your entry.</p>
+  </div>
+  
+</div><div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
+  </div>
+  <div class="panel-body">
 <p>Yes, so long as you follow <a href="http://www.ifcomp.org/rules/#authors">author rule #4</a>, which restricts authors from publicly asking for votes or discussing the games in detail before the competition is over.</p>
 
 <p>If you&#8217;ve submitted an entry this year, then you <strong>may</strong>:</p>
@@ -67,10 +98,22 @@
 <p>However, until the end of the judging period, you <strong>may not</strong>:</p>
 
 <ul>
-<li><p>Canvass for votes, suggesting in public that people ought to rank your game highly</p></li>
+<li><p>Canvass for votes, or otherwise suggest in public that people ought to rank your game highly</p></li>
 <li><p>Suggest in public that people rank <em>other</em> entries poorly</p></li>
 <li><p>Make public posts discussing any of the IFComp entries at all &#8211; including yours &#8211; beyond the fact of their existence (and the fact that the competition is awesome and everyone should go check it out and play its games)</p></li>
 </ul>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can I release an entry in a different venue after the competition begins?</h3>
+  </div>
+  <div class="panel-body">
+<p>We would ask that you keep entries exclusive to the IFComp until the judging period ends, after which you may do whatever you wish with your work. The organizers consider releasing an entry outside of the competition while judging is still underway to be tap-dancing a little too close to the edge of author rule #4. (See previous question.)</p> 
+</div>
+</div>
+
 
 <div class="page-header">
 <h1 id="judginggames">Judging games</h1>
@@ -78,10 +121,12 @@
 
 <p>Judges should <a href="/rules#judges">read the rules</a>, and may also wish to read <a href="/about/judging/">the judging guidelines</a> for more information about how IFComp scoring typically works.</p>
 
-<h3 id="whocanjudgetheifcomp">Who can judge the IFComp?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Who can judge the IFComp?</h3>
+  </div>
+  <div class="panel-body">
 <p>Anyone can! It&#8217;s as simple as signing up for an account on this website, and then <a href="/ballot/vote">visiting the ballot</a> (available when the competition is active). Judges have until 11:59 PM Eastern time on November 15 to rate as many games as they can.</p>
-
 <p>Exceptions:</p>
 
 <ul>
@@ -89,28 +134,52 @@
 <li><p>If you have entered any games this year, you can&#8217;t vote as a judge at all (but you can vote in the &#8220;Miss Congeniality&#8221; authors-only side-contest).</p></li>
 </ul>
 
-<h3 id="somanygamesdoihavetorateallofthem">So many games! Do I have to rate all of them?!</h3>
+</div>
+</div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">So many games! Do I have to rate all of them?!</h3>
+  </div>
+  <div class="panel-body">
 <p>No, you only need to rate at least five games in order for your votes to count. Just leave any games you haven&#8217;t played with the rating of &#8220;None&#8221;.</p>
+</div>
+</div>
 
-<h3 id="doihavetoplayagamefortwohoursevenifitsshorterthanthat">Do I have to play a game for two hours, even if it&#8217;s shorter than that?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Do I have to play a game for two hours, even if it&#8217;s shorter than that?</h3>
+  </div>
+  <div class="panel-body">
 <p>No. The two-hour rule describes a maximum, not a minimum.</p>
+</div>
+</div>
 
-<h3 id="doihavetostopplayingagameifimnotdonewithitaftertwohours">Do I have to stop playing a game if I&#8217;m not done with it after two hours?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Do I have to stop playing a game if I&#8217;m not done with it after two hours?</h3>
+  </div>
+  <div class="panel-body">
 <p>No, you can keep playing, but you do need to rate it first. According to <a href="/rules#judges">the competition rules</a>, you must rate the game based on your experiences of your first two hours with it. By all means, play the game for as long as you want after that! However, we ask that you promise to not change your rating based on your experiences after the two-hour mark. </p>
 
 <p>We have no technological way to enforce this rule, at least not without adding a lot of unpleasant complexity to the experience of playing competition games. Please keep to the honor system!</p>
+</div>
+</div>
+
 
 <div class="page-header">
 <h1 id="donatingprizes">Donating prizes</h1>
 </div>
 
-<h3 id="canistilldonateaprizeforthisyearscompetition">Can I still donate a prize for this year&#8217;s competition?</h3>
-
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can I still donate a prize for this year&#8217;s competition?</h3>
+  </div>
+  <div class="panel-body">
 <p>Probably! Since authors don&#8217;t choose their prizes until the competition wraps up, we gratefully welcome prize donations right up until the judging period ends in mid-November. </p>
 
 <p>We can never have too many prizes in the pool! Please <a href="/about/prizes#donatingprizes">refer to the prize page</a> for more information about donating.</p>
+</div>
+</div>
 
 </div>
