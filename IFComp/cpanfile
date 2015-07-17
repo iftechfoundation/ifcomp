@@ -9,7 +9,7 @@ requires 'Config::General';
 requires 'Archive::Zip';
 requires 'Catalyst::Test';
 requires 'Catalyst::Plugin::Session::State::Cookie';
-requires 'Catalyst::Plugin::Session::Store::FastMmap';
+requires 'Catalyst::Plugin::Session::Store::DBIC';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
 requires 'Catalyst::View::TT';
