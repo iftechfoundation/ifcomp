@@ -25,7 +25,7 @@ Note that the software additionally performs some goofy business involving syste
 
 ## Installing dependencies
 
-To install this project's CPAN dependencies, run the following command from the top level of your cloned repository (the directory that contains this here README file):
+To install this project's CPAN dependencies, run the following command from the IFComp/ directory of your cloned repository (the directory that contains the file called "cpanfile"):
 
     curl -fsSL https://cpanmin.us | perl - --installdeps .
     
