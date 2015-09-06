@@ -20,7 +20,7 @@
 <p>Judging is open to the public (competition authors and organizers excluded); becoming a judge simply means creating an account on this website, and proceeding to submit scores for at least five entries during the judging period.</p>
 
 <p><a href="[% c.uri_for_action( '/rules/rules' ) %]#judges">See the full rules for judges.</a></p></li>
-<li><p><strong>Donors</strong>, who kindly donate prizes to each year&#8217;s prize pool. At the end of the competition, and starting with the first-place winner, authors take turns choosing a prize from the pool, which the donor will then deliver to the author via whatever medium is appropriate for it. (Donors are most certainly allowed to be judges as well.)</p>
+<li><p><strong>Donors</strong>, who kindly donate prizes to each year&#8217;s prize pool. At the end of the competition, and starting with the first-place winner, authors take turns choosing a prize from the pool, which the donor will then deliver to the author via whatever medium is appropriate for it. (Judges or authors may most certainly act as donors, too.)</p>
 
 <p>Prizes can be (and have been) anything from cash to books to food to professional services, and more. Donors declare their intent by <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#x66;&#99;&#x6f;&#x6d;&#112;&#64;&#x69;&#x66;&#x63;&#x6f;&#x6d;&#112;&#46;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#x6c;&#105;&#x6e;&#103; &#116;&#104;&#101; &#x6f;&#114;&#103;&#x61;&#x6e;&#x69;&#122;&#x65;&#x72;</a>.</p></li>
 </ul>

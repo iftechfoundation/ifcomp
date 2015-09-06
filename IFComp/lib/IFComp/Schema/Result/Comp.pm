@@ -54,31 +54,31 @@ __PACKAGE__->table("comp");
 
 =head2 intents_open
 
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 intents_close
 
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 entries_due
 
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 judging_begins
 
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 judging_ends
 
-  data_type: 'date'
+  data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
@@ -101,15 +101,35 @@ __PACKAGE__->add_columns(
   "year",
   { data_type => "char", default_value => "", is_nullable => 0, size => 4 },
   "intents_open",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "intents_close",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "entries_due",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "judging_begins",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "judging_ends",
-  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
+  {
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
+    is_nullable => 1,
+  },
   "comp_closes",
   {
     data_type => "datetime",
@@ -177,8 +197,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-10-31 14:03:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kQVmwAfXs/g9HC5BjfZDmQ
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-09-06 15:52:29
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UG6fk276YhopPZEaN+kZvw
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
