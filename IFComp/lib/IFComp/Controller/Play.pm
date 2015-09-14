@@ -31,6 +31,12 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
 
     if ( $entry ) {
         $c->stash->{ entry } = $entry;
+        unless (
+            ( $c->stash->{ current_comp }->status eq 'open_for_judging' )
+            || ( $entry->author->id eq $c->user->id )
+        ) {
+            $c->res->redirect( $c->uri_for_action( '/comp/comp' ) );
+        }
     }
     else {
         $c->res->code( 404 );
