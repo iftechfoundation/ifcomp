@@ -55,3 +55,5 @@ $entry->discard_changes;
 is ( $entry->title, 'Super-Fun Game' );
 
 is( $comp_dir->children, 1, "Entry directory contains 1 child." );
+done_testing();
+
