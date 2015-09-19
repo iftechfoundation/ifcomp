@@ -638,10 +638,19 @@ sub _build_platform {
     }
 
     my @content_files = map { $_->basename } $self->content_directory->children;
+    my $interpreter_directory = Path::Class::Dir->new(
+        $self->content_directory,
+        'interpreter'
+    );
+    if ( -d $interpreter_directory ) {
+        push @content_files, ( map { $_->basename } $interpreter_directory->children );
+    }
+
     if (
         ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^play\.html?$/i } @content_files )
+        && ( grep { /^parchment.*js$/i } @content_files  )
     ) {
         return 'parchment';
     }
