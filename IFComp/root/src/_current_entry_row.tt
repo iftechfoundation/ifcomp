@@ -20,7 +20,7 @@
             Inform (Glulx)
             [% END %]
             [% IF entry.has_extra_content %]
-            — Download includes extra content
+            — Download includes additional content
             [% END %]
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
