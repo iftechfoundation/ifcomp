@@ -638,14 +638,10 @@ sub _build_platform {
         return 'html';
     }
 
-    my @content_files = map { $_->basename } $self->content_directory->children;
-    my $interpreter_directory = Path::Class::Dir->new(
-        $self->content_directory,
-        'interpreter'
-    );
-    if ( -d $interpreter_directory ) {
-        push @content_files, ( map { $_->basename } $interpreter_directory->children );
-    }
+    my @content_files;
+    $self->content_directory->recurse( callback => sub {
+        push @content_files, $_[0]->basename;
+    } );
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
@@ -930,7 +926,12 @@ EOF
 sub _build_is_zcode {
     my $self = shift;
 
-    if ( grep { /$ZCODE_REGEX/ } $self->content_directory->children ) {
+    my @content_files;
+    $self->content_directory->recurse( callback => sub {
+        push @content_files, $_[0]->basename;
+    } );
+
+    if ( grep { /$ZCODE_REGEX/ } @content_files ) {
         return 1;
     }
     else {
