@@ -25,6 +25,9 @@ $schema->populate(
         [ 105, 1, 'Test non-Inform website', 1 ],
         [ 106, 1, 'Test HTML page', 1 ],
         [ 107, 1, 'Test Z-code website with buried story file', 1 ],
+        [ 108, 1, 'Test Quest game', 1 ],
+        [ 109, 1, 'Test TADS game', 1 ],
+        [ 110, 1, 'Test Alan game', 1 ],
     ],
 );
 
@@ -44,5 +47,8 @@ is ( $rs->find( 105 )->platform, 'website' );
 is ( $rs->find( 106 )->platform, 'html' );
 is ( $rs->find( 107 )->platform, 'inform-website' );
 ok ( $rs->find( 107 )->is_zcode );
+is ( $rs->find( 108 )->platform, 'quest' );
+is ( $rs->find( 109 )->platform, 'tads' );
+is ( $rs->find( 110 )->platform, 'alan' );
 
 done_testing();
