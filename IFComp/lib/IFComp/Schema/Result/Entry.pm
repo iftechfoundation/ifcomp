@@ -464,6 +464,7 @@ enum 'Platform', [qw(
     website
     parchment
     inform
+    inform-website
     tads
     quest
     windows
@@ -657,14 +658,21 @@ sub _build_platform {
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
+        && ( grep { /\.html?$/i } @content_files )
     ) {
-        return 'inform';
+        return 'inform-website';
     }
-
 
     if ( grep { /\.html?$/i } @content_files ) {
         return 'website';
     }
+
+    if (
+        ( grep { /$I7_REGEX/ } @content_files )
+    ) {
+        return 'inform';
+    }
+
 
     if ( grep { /$TADS_REGEX/ } @content_files ) {
         return 'tads';
@@ -922,18 +930,12 @@ EOF
 sub _build_is_zcode {
     my $self = shift;
 
-    if ( $self->platform eq 'inform' ) {
-        if ( $self->main_file =~ $ZCODE_REGEX ) {
-            return 1;
-        }
+    if ( grep { /$ZCODE_REGEX/ } $self->content_directory->children ) {
+        return 1;
     }
-    elsif ( $self->platform eq 'parchment' ) {
-        if ( grep { /$ZCODE_REGEX/ } $self->content_directory->children ) {
-            return 1;
-        }
+    else {
+        return 0;
     }
-
-    return 0;
 }
 
 sub _build_has_extra_content {
@@ -945,6 +947,9 @@ sub _build_has_extra_content {
     }
     elsif ( $self->platform eq 'parchment' ) {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
+    }
+    elsif ( $self->platform eq 'inform-website' ) {
+        return 1;
     }
     else {
         return 0;

@@ -1,0 +1,45 @@
+use strict;
+use warnings;
+use Test::More;
+use IFComp::Schema;
+use FindBin;
+use lib ("$FindBin::Bin/lib");
+
+use IFCompTest;
+
+IFComp::Schema->entry_directory(
+    Path::Class::Dir->new( "$FindBin::Bin/platform_test_entries" )
+);
+
+my $schema = IFCompTest->init_schema();
+
+$schema->populate(
+    'Entry',
+    [
+        ['id', 'author', 'title', 'comp'],
+        [ 100, 1, 'Test Z-code game', 1 ],
+        [ 101, 1, 'Test Glulx game', 1 ],
+        [ 102, 1, 'Test Quixe game', 1 ],
+        [ 103, 1, 'Test Parchment game', 1 ],
+        [ 104, 1, 'Test Z-code website', 1 ],
+        [ 105, 1, 'Test non-Inform website', 1 ],
+        [ 106, 1, 'Test HTML page', 1 ],
+    ],
+);
+
+my $rs = $schema->resultset( 'Entry' );
+
+is ( $rs->find( 100 )->platform, 'inform' );
+ok ( $rs->find( 100 )->is_zcode );
+is ( $rs->find( 101 )->platform, 'inform' );
+ok ( ! $rs->find( 101 )->is_zcode );
+is ( $rs->find( 102 )->platform, 'inform-website' );
+ok ( ! $rs->find( 102 )->is_zcode );
+is ( $rs->find( 103 )->platform, 'parchment' );
+ok ( $rs->find( 103 )->is_zcode );
+is ( $rs->find( 104 )->platform, 'inform-website' );
+ok ( $rs->find( 104 )->is_zcode );
+is ( $rs->find( 105 )->platform, 'website' );
+is ( $rs->find( 106 )->platform, 'html' );
+
+done_testing();
