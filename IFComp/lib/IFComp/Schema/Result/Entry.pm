@@ -387,6 +387,7 @@ Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
 Readonly my $QUEST_REGEX   => qr/\.quest$/i;
+Readonly my $ALAN_REGEX   => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
@@ -468,6 +469,7 @@ enum 'Platform', [qw(
     tads
     quest
     windows
+    alan
     other
 ) ];
 
@@ -676,6 +678,10 @@ sub _build_platform {
 
     if ( grep { /$QUEST_REGEX/ } @content_files ) {
         return 'quest';
+    }
+
+    if ( grep { /$ALAN_REGEX/ } @content_files ) {
+        return 'alan';
     }
 
     if ( grep { /$WINDOWS_REGEX/ } @content_files ) {
