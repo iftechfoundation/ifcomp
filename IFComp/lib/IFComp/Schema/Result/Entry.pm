@@ -463,6 +463,7 @@ has 'cover_file' => (
 enum 'Platform', [qw(
     html
     website
+    quixe2
     parchment
     inform
     inform-website
@@ -652,6 +653,31 @@ sub _build_platform {
         && ( grep { /^parchment.*js$/i } @content_files  )
     ) {
         return 'parchment';
+    }
+
+    if (
+        ( grep { /$I7_REGEX/ } @content_files )
+        && ( grep { /^index\.html?$/i } @content_files )
+        && ( grep { /^quixe.*js?$/i } @content_files )
+    ) {
+        my $found_quixe2 = 0;
+        $self->content_directory->recurse( callback => sub {
+            my ( $file ) = @_;
+            if ( $file->basename =~ /\.js$/ ) {
+                my $filename = $file->basename;
+                $filename =~ s/\.js$//;
+                if ( $filename =~ /$I7_REGEX/ ) {
+                    my $fh = $file->openr;
+                    my $first_line = <$fh>;
+                    chomp $first_line;
+                    if ( $first_line eq q/$(document).ready(function() {/ ) {
+                        $found_quixe2 = 1;
+                        return;
+                    }
+                }
+            }
+        } );
+        return 'quixe2' if $found_quixe2;
     }
 
     if (

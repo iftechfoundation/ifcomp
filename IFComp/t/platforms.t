@@ -28,6 +28,7 @@ $schema->populate(
         [ 108, 1, 'Test Quest game', 1 ],
         [ 109, 1, 'Test TADS game', 1 ],
         [ 110, 1, 'Test Alan game', 1 ],
+        [ 111, 1, 'Test Quixe2 game', 1 ],
     ],
 );
 
@@ -50,5 +51,6 @@ ok ( $rs->find( 107 )->is_zcode );
 is ( $rs->find( 108 )->platform, 'quest' );
 is ( $rs->find( 109 )->platform, 'tads' );
 is ( $rs->find( 110 )->platform, 'alan' );
+is ( $rs->find( 111 )->platform, 'quixe2' );
 
 done_testing();
