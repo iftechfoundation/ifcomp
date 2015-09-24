@@ -460,6 +460,12 @@ has 'cover_file' => (
     lazy_build => 1,
 );
 
+has 'inform_game_js_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
 enum 'Platform', [qw(
     html
     website
@@ -660,24 +666,14 @@ sub _build_platform {
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^quixe.*js?$/i } @content_files )
     ) {
-        my $found_quixe2 = 0;
-        $self->content_directory->recurse( callback => sub {
-            my ( $file ) = @_;
-            if ( $file->basename =~ /\.js$/ ) {
-                my $filename = $file->basename;
-                $filename =~ s/\.js$//;
-                if ( $filename =~ /$I7_REGEX/ ) {
-                    my $fh = $file->openr;
-                    my $first_line = <$fh>;
-                    chomp $first_line;
-                    if ( $first_line eq q/$(document).ready(function() {/ ) {
-                        $found_quixe2 = 1;
-                        return;
-                    }
-                }
+        if ( my $js_file = $self->inform_game_js_file ) {
+            my $fh = $js_file->openr;
+            my $first_line = <$fh>;
+            chomp $first_line;
+            if ( $first_line eq q/$(document).ready(function() {/ ) {
+                return 'quixe2';
             }
-        } );
-        return 'quixe2' if $found_quixe2;
+        }
     }
 
     if (
@@ -730,6 +726,24 @@ sub _build_is_qualified {
     else {
         return 0;
     }
+}
+
+sub _build_inform_game_js_file {
+    my $self = shift;
+
+    my $js_file;
+    $self->content_directory->recurse( callback => sub {
+        my ( $file ) = @_;
+        if ( $file->basename =~ /\.js$/ ) {
+            my $filename = $file->basename;
+            $filename =~ s/\.js$//;
+            if ( $filename =~ /$I7_REGEX/ ) {
+                $js_file = $file;
+            }
+        }
+    } );
+
+    return $js_file;
 }
 
 sub cover_exists {
