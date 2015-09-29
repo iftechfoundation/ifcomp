@@ -111,6 +111,16 @@ sub create :Chained('root') :PathPart('create') :Args(0) {
 sub update :Chained('fetch_entry') :PathPart('update') :Args(0) {
     my ( $self, $c ) = @_;
 
+    my $status = $c->stash->{ current_comp }->status;
+    unless (
+        ( $status eq 'accepting_intents' )
+        || ( $status eq 'closed_to_intents' )
+        || ( $status eq 'open_for_judging' )
+    ) {
+        $c->res->redirect( $c->uri_for_action( '/entry/list' ) );
+    }
+
+
     $self->_process_form( $c );
 
     $self->_process_withdrawal_form( $c );

@@ -40,7 +40,11 @@
 <ul>
 [% FOR entry IN entries %]
     <li>
-    [% IF current_comp.status != 'over' %]
+    [% IF (
+        ( current_comp.status != 'over' ) 
+        && ( current_comp.status != 'closed_to_entries' )
+       )
+    %]
         <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> &mdash;
     [% ELSE %]
         <em>[% entry.title %]</em> &mdash;
