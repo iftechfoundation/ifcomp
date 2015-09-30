@@ -381,6 +381,7 @@ use Path::Class::Dir;
 use File::Copy qw( move );
 use Archive::Zip;
 use List::Compare;
+use MIME::Base64;
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
@@ -460,6 +461,12 @@ has 'cover_file' => (
     lazy_build => 1,
 );
 
+has 'inform_game_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
 has 'inform_game_js_file' => (
     is => 'ro',
     isa => 'Maybe[Path::Class::File]',
@@ -484,6 +491,7 @@ has 'platform' => (
     is => 'ro',
     isa => 'Platform',
     lazy_build => 1,
+    clearer => 'clear_platform',
 );
 
 has 'is_qualified' => (
@@ -669,8 +677,7 @@ sub _build_platform {
         if ( my $js_file = $self->inform_game_js_file ) {
             my $fh = $js_file->openr;
             my $first_line = <$fh>;
-            chomp $first_line;
-            if ( $first_line eq q/$(document).ready(function() {/ ) {
+            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) {/ ) {
                 return 'quixe2';
             }
         }
@@ -726,6 +733,20 @@ sub _build_is_qualified {
     else {
         return 0;
     }
+}
+
+sub _build_inform_game_file {
+    my $self = shift;
+
+    my $inform_file;
+    $self->content_directory->recurse( callback => sub {
+        my ( $file ) = @_;
+        if ( $file->basename =~ /$I7_REGEX/ ) {
+            $inform_file = $file;
+        }
+    } );
+
+    return $inform_file;
 }
 
 sub _build_inform_game_js_file {
@@ -810,12 +831,29 @@ sub update_content_directory {
         $self->main_file->copy_to( $self->content_directory );
     }
 
+    $self->clear_platform;
+
     if ( $self->platform eq 'inform' ) {
         $self->_create_parchment_page;
     }
     elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
     }
+    elsif ( $self->platform eq 'quixe2' ) {
+        $self->_repair_game_js;
+    }
+}
+
+sub _repair_game_js {
+    my $self = shift;
+
+    $self->inform_game_js_file->spew(
+            q/$(document).ready(function() {/
+            . q/  GiLoad.load_run(null, '/
+            . encode_base64( $self->inform_game_file->slurp, '' )
+            . q/', 'base64');/
+            . q/});/
+    );
 }
 
 sub _create_parchment_page {
@@ -824,16 +862,13 @@ sub _create_parchment_page {
     my $title = $self->title;
 
     # Search the content directory for the I7 file to link to.
-    my $i7_file;
-    for my $file ( $self->content_directory->children ) {
-        if ( $file =~ /$I7_REGEX/ ) {
-            $i7_file = $file->basename;
-            last;
-        }
-    }
+    my $i7_file = $self->inform_game_file;
+
     unless ( $i7_file ) {
         die "Could not find an I7 file in this entry's content directory.";
     }
+
+    $i7_file = $i7_file->basename;
 
     my $entry_id = $self->id;
 
@@ -894,13 +929,7 @@ sub _mangle_parchment_head {
     my $title = $self->title;
     my $entry_id = $self->id;
 
-    my $game_file;
-    foreach ( map { $_->basename } $self->content_directory->children ) {
-        if ( /$I7_REGEX/ ) {
-            $game_file = $_;
-            last;
-        }
-    }
+    my $game_file = $self->inform_game_file->basename;
 
     my $play_file = $self->content_directory->file( 'play.html' );
 
