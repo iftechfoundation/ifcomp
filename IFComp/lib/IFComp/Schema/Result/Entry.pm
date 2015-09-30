@@ -1018,14 +1018,11 @@ sub _build_has_extra_content {
     my $self = shift;
 
     my @default_list;
-    if ( $self->platform eq 'inform' ) {
+    if ( $self->platform =~ /^inform/ ) {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif ( $self->platform eq 'parchment' ) {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
-    }
-    elsif ( $self->platform eq 'inform-website' ) {
-        return 1;
     }
     else {
         return 0;
