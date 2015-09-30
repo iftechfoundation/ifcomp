@@ -30,6 +30,8 @@
             Quest
         [% ELSIF entry.platform == 'windows' %]
             Windows executable
+        [% ELSIF entry.platform == 'alan' %]
+            Alan
         [% END %]
         </em></p>
         [% END %]
