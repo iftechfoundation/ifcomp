@@ -13,7 +13,7 @@
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
-        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' %]
+        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             Inform (Z-code)
             [% ELSE %]
@@ -56,6 +56,7 @@
               || entry.platform == 'website'
               || entry.platform == 'html' 
               || entry.platform == 'inform-website'
+	      || entry.platform == 'quixe2'
         %]
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        
