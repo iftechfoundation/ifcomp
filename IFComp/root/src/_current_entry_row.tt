@@ -15,9 +15,9 @@
         [% UNLESS entry.platform == 'other' %]
         <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
-            Inform (Z-code)
+            Z-code
             [% ELSE %]
-            Inform (Glulx)
+            Glulx
             [% END %]
             [% IF entry.has_extra_content %]
             — Download includes additional content
