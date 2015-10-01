@@ -11,7 +11,7 @@
 <div class="row">
 <div class="col-sm-9">
 <h1 class="page-header">Download all the games</h1>
-<p>You can <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]">download a .zip archive</a> containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
+<p>You can <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]">download a .zip archive</a> ([% zip_file_mb %] MB) containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
 
 <p>Alternately, you can <a href="#browse">browse and download the games individually, below</a>. If you want to play the most recent versions of these entries, including any bug-fixes authors have added since the competition began, use those individual links. Otherwise, the all-in-one archive contains the game files as they stood when the entry deadline arrived.</p>
 
