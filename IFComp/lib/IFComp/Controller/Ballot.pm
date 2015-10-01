@@ -79,10 +79,6 @@ sub index :Chained('root') :PathPart('') :Args(0) {
         $c->stash->{ zip_file_mb }
             = sprintf ( "%.2f", ( $zip_file_size / 1000000 ) );
     }
-    else {
-        die "Nerp on $zip_file.";
-    }
-
 }
 
 sub vote :Chained('root') :PathPart('vote') :Args(0) {
