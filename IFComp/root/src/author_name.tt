@@ -1,7 +1,7 @@
 [% IF entry.reveal_pseudonym 
       && (
         !current_comp 
-        || ( comp.year != current_comp.year ) 
+        || ( comp && ( comp.year != current_comp.year ) ) 
         || ( current_comp.status == 'over' ) 
       ) 
 %]

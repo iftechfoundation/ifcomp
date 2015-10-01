@@ -6,6 +6,9 @@ extends 'Plack::Middleware';
 use IFComp::Schema;
 use Config::Any;
 use FindBin;
+use Plack::Request;
+use MIME::Base64;
+use Storable qw( thaw );
 
 has 'schema' => (
     is => 'ro',
@@ -63,6 +66,41 @@ sub call {
                   ,
                 ],
             ];
+        }
+        elsif (
+            $entry
+            && ( $entry->comp->status ne 'open_for_judging' )
+        ) {
+            # Peek into the current user's session data to make sure they're not
+            # the owner of this entry (and thus authorized to see it early)
+            # XXX This is fragile and rude. It was implemented quickly due to
+            #     a discovered security flaw. This should ideally use the same
+            #     objects used elsewhere for session & cookie management,
+            #     rather than these manual, literal peeks.
+            my $req = Plack::Request->new($env);
+            my $session_id = $req->cookies->{ ifcomp_session };
+            my $current_user_can_see_this_game = 0;
+            if ( $session_id ) {
+                my $session_row =
+                    $self->schema->resultset( 'Session' )->find( "session:$session_id" );
+                if ( $session_row ) {
+                    my $session_ref = thaw( decode_base64( $session_row->session_data ) );
+                    if ( $session_ref->{ __user } ) {
+                        my $user_id = $session_ref->{ __user }->{ id };
+                        if ( $user_id == $entry->author->id ) {
+                            $current_user_can_see_this_game = 1;
+                        }
+                    }
+                }
+            }
+
+            unless ( $current_user_can_see_this_game ) {
+                $res = [
+                    301,
+                    [ Location => '/' ],
+                    [ "<p>This work is not visible to the public at this time.</p>" ],
+                ];
+            }
         }
     }
 

@@ -2,7 +2,7 @@
 
     [% IF entry.cover_exists %]
         <div class="col-xs-4">
-            <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
         </div>
     [% END %]
     
@@ -13,14 +13,14 @@
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
-        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform' %]
+        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' %]
             [% IF entry.is_zcode %]
             Inform (Z-code)
             [% ELSE %]
             Inform (Glulx)
             [% END %]
             [% IF entry.has_extra_content %]
-            — Download includes extra content
+            — Download includes additional content
             [% END %]
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
@@ -30,6 +30,8 @@
             Quest
         [% ELSIF entry.platform == 'windows' %]
             Windows executable
+        [% ELSIF entry.platform == 'alan' %]
+            Alan
         [% END %]
         </em></p>
         [% END %]
@@ -39,7 +41,6 @@
         [% END %]
             
         [% IF entry.main_file %]
-        [%# IF entry.platform != 'html' && entry.platform != 'website' %]    
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/download', [ entry.id] ) %]">
         <button type="submit" class="btn btn-default btn-lg">
@@ -54,6 +55,7 @@
               || entry.platform == 'inform'
               || entry.platform == 'website'
               || entry.platform == 'html' 
+              || entry.platform == 'inform-website'
         %]
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        

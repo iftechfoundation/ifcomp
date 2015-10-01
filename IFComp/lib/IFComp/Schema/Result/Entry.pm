@@ -381,12 +381,14 @@ use Path::Class::Dir;
 use File::Copy qw( move );
 use Archive::Zip;
 use List::Compare;
+use MIME::Base64;
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
 Readonly my $QUEST_REGEX   => qr/\.quest$/i;
+Readonly my $ALAN_REGEX   => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
@@ -459,14 +461,29 @@ has 'cover_file' => (
     lazy_build => 1,
 );
 
+has 'inform_game_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
+has 'inform_game_js_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
 enum 'Platform', [qw(
     html
     website
+    quixe2
     parchment
     inform
+    inform-website
     tads
     quest
     windows
+    alan
     other
 ) ];
 
@@ -474,6 +491,7 @@ has 'platform' => (
     is => 'ro',
     isa => 'Platform',
     lazy_build => 1,
+    clearer => 'clear_platform',
 );
 
 has 'is_qualified' => (
@@ -637,13 +655,43 @@ sub _build_platform {
         return 'html';
     }
 
-    my @content_files = map { $_->basename } $self->content_directory->children;
+    my @content_files;
+    $self->content_directory->recurse( callback => sub {
+        push @content_files, $_[0]->basename;
+    } );
+
     if (
         ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^play\.html?$/i } @content_files )
+        && ( grep { /^parchment.*js$/i } @content_files  )
     ) {
         return 'parchment';
+    }
+
+    if (
+        ( grep { /$I7_REGEX/ } @content_files )
+        && ( grep { /^index\.html?$/i } @content_files )
+        && ( grep { /^quixe.*js?$/i } @content_files )
+    ) {
+        if ( my $js_file = $self->inform_game_js_file ) {
+            my $fh = $js_file->openr;
+            my $first_line = <$fh>;
+            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) {/ ) {
+                return 'quixe2';
+            }
+        }
+    }
+
+    if (
+        ( grep { /$I7_REGEX/ } @content_files )
+        && ( grep { /\.html?$/i } @content_files )
+    ) {
+        return 'inform-website';
+    }
+
+    if ( grep { /\.html?$/i } @content_files ) {
+        return 'website';
     }
 
     if (
@@ -653,16 +701,16 @@ sub _build_platform {
     }
 
 
-    if ( grep { /\.html?$/i } @content_files ) {
-        return 'website';
-    }
-
     if ( grep { /$TADS_REGEX/ } @content_files ) {
         return 'tads';
     }
 
     if ( grep { /$QUEST_REGEX/ } @content_files ) {
         return 'quest';
+    }
+
+    if ( grep { /$ALAN_REGEX/ } @content_files ) {
+        return 'alan';
     }
 
     if ( grep { /$WINDOWS_REGEX/ } @content_files ) {
@@ -685,6 +733,38 @@ sub _build_is_qualified {
     else {
         return 0;
     }
+}
+
+sub _build_inform_game_file {
+    my $self = shift;
+
+    my $inform_file;
+    $self->content_directory->recurse( callback => sub {
+        my ( $file ) = @_;
+        if ( $file->basename =~ /$I7_REGEX/ ) {
+            $inform_file = $file;
+        }
+    } );
+
+    return $inform_file;
+}
+
+sub _build_inform_game_js_file {
+    my $self = shift;
+
+    my $js_file;
+    $self->content_directory->recurse( callback => sub {
+        my ( $file ) = @_;
+        if ( $file->basename =~ /\.js$/ ) {
+            my $filename = $file->basename;
+            $filename =~ s/\.js$//;
+            if ( $filename =~ /$I7_REGEX/ ) {
+                $js_file = $file;
+            }
+        }
+    } );
+
+    return $js_file;
 }
 
 sub cover_exists {
@@ -751,12 +831,29 @@ sub update_content_directory {
         $self->main_file->copy_to( $self->content_directory );
     }
 
+    $self->clear_platform;
+
     if ( $self->platform eq 'inform' ) {
         $self->_create_parchment_page;
     }
     elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
     }
+    elsif ( $self->platform eq 'quixe2' ) {
+        $self->_repair_game_js;
+    }
+}
+
+sub _repair_game_js {
+    my $self = shift;
+
+    $self->inform_game_js_file->spew(
+            q/$(document).ready(function() {/
+            . q/  GiLoad.load_run(null, '/
+            . encode_base64( $self->inform_game_file->slurp, '' )
+            . q/', 'base64');/
+            . q/});/
+    );
 }
 
 sub _create_parchment_page {
@@ -765,16 +862,13 @@ sub _create_parchment_page {
     my $title = $self->title;
 
     # Search the content directory for the I7 file to link to.
-    my $i7_file;
-    for my $file ( $self->content_directory->children ) {
-        if ( $file =~ /$I7_REGEX/ ) {
-            $i7_file = $file->basename;
-            last;
-        }
-    }
+    my $i7_file = $self->inform_game_file;
+
     unless ( $i7_file ) {
         die "Could not find an I7 file in this entry's content directory.";
     }
+
+    $i7_file = $i7_file->basename;
 
     my $entry_id = $self->id;
 
@@ -808,14 +902,14 @@ ifRecorder.story.version = "1";
 <div id="gameport">
 <div id="about">
 <h1>Parchment</h1>
-<p>is an interpreter for Interactive Fiction. <a href="http://parchment.googlecode.com">Find out more.</a></p>
+<p>is an interpreter for Interactive Fiction. <a href="https://github.com/curiousdannii/parchment">Find out more.</a></p>
 <noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
 </div>
 <div id="parchment"></div>
 </div>
 
 </div>
-<div class="interpretercredit"><a href="http://parchment.googlecode.com">Parchment for Inform 7</a></div>
+<div class="interpretercredit"><a href="https://github.com/curiousdannii/parchment">Parchment for Inform 7</a></div>
 </body>
 </html>
 
@@ -835,13 +929,7 @@ sub _mangle_parchment_head {
     my $title = $self->title;
     my $entry_id = $self->id;
 
-    my $game_file;
-    foreach ( map { $_->basename } $self->content_directory->children ) {
-        if ( /$I7_REGEX/ ) {
-            $game_file = $_;
-            last;
-        }
-    }
+    my $game_file = $self->inform_game_file->basename;
 
     my $play_file = $self->content_directory->file( 'play.html' );
 
@@ -913,25 +1001,24 @@ EOF
 sub _build_is_zcode {
     my $self = shift;
 
-    if ( $self->platform eq 'inform' ) {
-        if ( $self->main_file =~ $ZCODE_REGEX ) {
-            return 1;
-        }
-    }
-    elsif ( $self->platform eq 'parchment' ) {
-        if ( grep { /$ZCODE_REGEX/ } $self->content_directory->children ) {
-            return 1;
-        }
-    }
+    my @content_files;
+    $self->content_directory->recurse( callback => sub {
+        push @content_files, $_[0]->basename;
+    } );
 
-    return 0;
+    if ( grep { /$ZCODE_REGEX/ } @content_files ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 sub _build_has_extra_content {
     my $self = shift;
 
     my @default_list;
-    if ( $self->platform eq 'inform' ) {
+    if ( $self->platform =~ /^inform/ ) {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif ( $self->platform eq 'parchment' ) {
