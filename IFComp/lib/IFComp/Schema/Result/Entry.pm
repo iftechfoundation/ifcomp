@@ -1021,7 +1021,10 @@ sub _build_has_extra_content {
     if ( $self->platform =~ /^inform/ ) {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
-    elsif ( $self->platform eq 'parchment' ) {
+    elsif (
+        ( $self->platform eq 'parchment' )
+        || ( $self->platform eq 'quixe2' )
+    ) {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
     }
     else {
