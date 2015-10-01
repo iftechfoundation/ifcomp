@@ -1,4 +1,4 @@
-#!/usr/env perl
+#!/usr/bin/env perl
 
 # This script rebuilds the 'content' directory for every entry.
 # Useful if you change what's stored in those directories while
