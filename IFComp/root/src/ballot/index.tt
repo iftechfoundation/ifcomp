@@ -60,7 +60,7 @@
         </p>
     [% ELSE %]
         <p style="text-align:center;">
-        <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
+        <a href="javascript:location.reload()" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-random"></span> Random Shuffle
         </a>
         [% IF c.user %]
