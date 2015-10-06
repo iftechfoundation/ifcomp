@@ -114,6 +114,17 @@
 </div>
 </div>
 
+<div class="panel panel-default" id="author-updates">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can I update my entry during the competition?</h3>
+  </div>
+  <div class="panel-body">
+<p>Yes, though we ask that you limit updates only to bug fixes, and not use the update facility for continued, post-deadline development of your work.</p>
+<p>In other words, if you receive feedback that makes you say “Oh dear, that wasn't supposed to happen,” please feel free to upload an update that fixes the problem. If, on the other hand, something gives you a great idea for a novel improvement or addition to your work, we'd invite you save that for a separate, post-competition release of the game.</p>
+<p>(Post-comp releases are, in fact, a long-standing tradition of the IFComp. Authors should feel free to <a href="/about/contact">contact us about updated work</a> during the off-season. We love to share fresh news about past entries!)</p>
+<p>In either case, please be aware that the competition's rules specifically free judges from any responsibility to replay updated entries that they have already played or rated, and that the competition makes available both the original and the most recently updated versions of every entry's submitted files.</p>
+</div>
+</div>
 
 <div class="page-header">
 <h1 id="judginggames">Judging games</h1>
