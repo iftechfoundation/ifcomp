@@ -26,6 +26,13 @@ sub index :Path :Args(2) {
 
     my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
 
+    my $ballot_uri = $c->uri_for_action( '/ballot/vote' );
+    unless ( $c->req->referer =~ /^$ballot_uri/ ) {
+        $c->res->code( 400 );
+        $c->res->body( "You can vote only from the ballot page ($ballot_uri)." );
+        return;
+    }
+
     unless ( $c->user ) {
         $c->res->code( 401 );
         $c->res->body( "You can't vote because you're not logged in." );
