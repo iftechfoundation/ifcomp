@@ -67,7 +67,7 @@ END;
             <button type="submit" class="btn btn-success">[% button_label %]</button> 
           </form>
           [% IF c.user %]
-          <p class="navbar-text navbar-right"><a href="/user/edit_account">Welcome, [% c.user.name %]</a></p>
+          <p class="navbar-text navbar-right"><a href="/user/edit_account">Welcome, [% c.user.name | html %]</a></p>
           [% END %]
         </div><!--/.navbar-collapse -->
       </div>
