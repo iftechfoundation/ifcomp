@@ -9,7 +9,7 @@
 %]
     [% form.field('title').render %]
 [% ELSE %]
-<p><strong>Title:</strong> [% entry.title %] <em>(Contact the organizer if you need to change this)</em></p>
+<p><strong>Title:</strong> [% entry.title %] <em>(Contact the organizers if you need to change this)</em></p>
 [% END %]
 <p>Your game can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
 [% form.field('subtitle').render %]
