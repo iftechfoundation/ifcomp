@@ -5,24 +5,24 @@
         || ( current_comp.status == 'over' ) 
       ) 
 %]
-    [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym %]”)
+    [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym | html %]”)
 [% ELSIF entry.author_pseudonym %]
-    [% entry.author_pseudonym %]
+    [% entry.author_pseudonym | html %]
     [% IF entry.email %]
         <a href="mailto:[% entry.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email %]" /></a>
     [% END %]
 [% ELSIF suppress_links %]
-    [% entry.author.name %]
+    [% entry.author.name | html %]
 [% ELSE %]
     [% INCLUDE name_and_links %]
 [% END %]
 
 [% BLOCK name_and_links %]
-    [% IF entry.author.url %]<a href="[% entry.author.url %]">[% END %][% entry.author.name %][% IF entry.author.url %]</a>[% END %]
+    [% IF entry.author.url %]<a href="[% entry.author.url | html %]">[% END %][% entry.author.name | html %][% IF entry.author.url %]</a>[% END %]
     [% IF entry.author.twitter %]
-        <a href="http://twitter.com/[% entry.author.twitter %]"><img src="/static/images/twitter.png" class="author-link" alt="@[% entry.author.twitter %]" /></a>
+        <a href="http://twitter.com/[% entry.author.twitter | html %]"><img src="/static/images/twitter.png" class="author-link" alt="@[% entry.author.twitter | html %]" /></a>
     [% END %]
     [% IF entry.email || entry.author.email_is_public %]
-        <a href="mailto:[% entry.email || entry.author.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email || entry.author.email %]" /></a>
+        <a href="mailto:[% entry.email || entry.author.email | html %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email || entry.author.email | html %]" /></a>
     [% END %]
 [% END %]

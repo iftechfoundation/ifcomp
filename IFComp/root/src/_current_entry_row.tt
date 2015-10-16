@@ -9,7 +9,7 @@
     <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
         <p><strong>[% INCLUDE author_name.tt %]</strong></p>
         [% FILTER html_para %]
-        	[% entry.blurb %]
+        	[% entry.blurb | html %]
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]

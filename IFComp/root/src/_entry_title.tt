@@ -1,9 +1,9 @@
 <h2>
-    [% entry.title %]
+    [% entry.title | html %]
     [% IF include_permalink %]
         <a href="#entry-[% entry.id %]"><small><span class="glyphicon glyphicon-link" style="float: right; margin:0; padding: 0"></span></small></a>
     [% END %]
     [% IF entry.subtitle %]
-        <br /><small>[% entry.subtitle %]</small>
+        <br /><small>[% entry.subtitle | html %]</small>
     [% END %]
 </h2>
