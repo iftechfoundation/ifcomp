@@ -66,18 +66,28 @@ sub index :Path :Args(2) {
 
     $score = undef unless $score;
 
-    $c->model( 'IFCompDB::Vote' )->update_or_create(
-        {
-            score => $score,
-            entry => $entry_id,
-            user => $c->user->id,
-            time => DateTime->now( time_zone => 'UTC' ),
-            ip   => $c->req->address,
-        },
-        {
-            key => 'user',
-        },
-    );
+    if ( $score > 1 ) {
+        $c->model( 'IFCompDB::Vote' )->update_or_create(
+            {
+                score => $score,
+                entry => $entry_id,
+                user => $c->user->id,
+                time => DateTime->now( time_zone => 'UTC' ),
+                ip   => $c->req->address,
+            },
+            {
+                key => 'user',
+            },
+        );
+    }
+    else {
+        $c->model( 'IFCompDB::Vote' )->search(
+            {
+                entry => $entry_id,
+                user => $c->user->id,
+            },
+        )->delete_all;
+    }
 
     $c->res->code( 200 );
     $c->res->body( 'OK' );
