@@ -126,6 +126,18 @@
 </div>
 </div>
 
+<div class="panel panel-default" id="author-updates">
+  <div class="panel-heading">
+    <h3 class="panel-title">How can I make sure that my entry's submitted properly?</h3>
+  </div>
+  <div class="panel-body">
+<p>If your entry's listing on <a href="/entry">your entry management page</a> says <em>Entry complete</em> beside it, then the website can see your uploaded game file, and your game is ready for the competition.</p>
+<p>If it does <em>not</em> say <em>Entry complete</em>, then the website cannot see your game file. Please confirm that you've uploaded one!</p>
+<p>You can also check <a href="/entry/preview">your preview page</a> to make sure that your games look, download, and play as you expected them to.</p>
+</div>
+</div>
+
+
 <div class="page-header">
 <h1 id="judginggames">Judging games</h1>
 </div>
