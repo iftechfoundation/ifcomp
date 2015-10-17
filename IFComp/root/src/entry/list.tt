@@ -50,7 +50,7 @@
         <em>[% entry.title %]</em> &mdash;
     [% END %]
     [% IF entry.main_file %]
-        Ready for entry
+        Entry complete
     [% ELSE %]
         Not ready for entry yet (No game file)
     [% END %]
