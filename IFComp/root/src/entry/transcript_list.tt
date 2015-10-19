@@ -8,6 +8,8 @@
 
 <p>Transcripts are provided as a free service by ifcomp.org, and will be collected for as long as your game's online-play function is hosted here; that is to say, through the end of the judging period in mid-November.</p>
 
+[% IF session_rs.count > 0 %]
+
 <h2>Play sessions</h2>
 <ul>
 [% WHILE (session = session_rs.next) %]
@@ -15,7 +17,10 @@
 [% END %]
 </ul>
 
-<p>This entry has collected no transcripts.</p>
+[% ELSE %]
 
+<p><strong>This entry has collected no transcripts.</strong></p>
+
+[% END %]
 
 </div>
