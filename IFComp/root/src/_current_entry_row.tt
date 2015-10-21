@@ -15,9 +15,9 @@
         [% UNLESS entry.platform == 'other' %]
         <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
-            Z-code
+            Z-code [% INCLUDE guide_link %]
             [% ELSE %]
-            Glulx
+            Glulx [% INCLUDE guide_link %]
             [% END %]
             [% IF entry.has_extra_content %]
             — Download includes additional content
@@ -25,13 +25,13 @@
         [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
             Web
         [% ELSIF entry.platform == 'tads' %]
-            TADS
+            TADS [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'quest' %]
-            Quest
+            Quest [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'windows' %]
             Windows executable
         [% ELSIF entry.platform == 'alan' %]
-            Alan
+            Alan [% INCLUDE guide_link %]
         [% END %]
         </em></p>
         [% END %]
@@ -86,3 +86,7 @@
 <style>
 .play-button { display: inline-block }
 </style>
+
+[% BLOCK guide_link %]
+<a href="/about/file_formats" target="_ifcomp_format_guide">(See guide)</a>
+[% END %]
