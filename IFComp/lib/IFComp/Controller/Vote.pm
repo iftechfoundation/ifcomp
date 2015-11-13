@@ -66,7 +66,7 @@ sub index :Path :Args(2) {
 
     $score = undef unless $score;
 
-    if ( $score > 1 ) {
+    if ( $score > 0 ) {
         $c->model( 'IFCompDB::Vote' )->update_or_create(
             {
                 score => $score,
