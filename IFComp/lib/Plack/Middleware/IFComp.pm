@@ -70,6 +70,8 @@ sub call {
         elsif (
             $entry
             && ( $entry->comp->status ne 'open_for_judging' )
+            && ( $entry->comp->status ne 'processing_votes' )
+            && ( $entry->comp->status ne 'over' )
         ) {
             # Peek into the current user's session data to make sure they're not
             # the owner of this entry (and thus authorized to see it early)
