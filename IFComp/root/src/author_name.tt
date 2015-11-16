@@ -8,7 +8,7 @@
     [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym | html %]”)
 [% ELSIF entry.author_pseudonym %]
     [% entry.author_pseudonym | html %]
-    [% IF entry.email %]
+    [% IF entry.email && !suppress_links %]
         <a href="mailto:[% entry.email %]"><img src="/static/images/email.png" class="author-link" alt="[% entry.email %]" /></a>
     [% END %]
 [% ELSIF suppress_links %]
