@@ -137,6 +137,15 @@
 </div>
 </div>
 
+<div class="panel panel-default" id="author-updates">
+  <div class="panel-heading">
+    <h3 class="panel-title">The competition ended, and my game got mostly good ratings, but also a few 1s and 2s that lowered its final score. That doesn't seem fair! How can I address this?</h3>
+  </div>
+  <div class="panel-body">
+<p>Since its inception, the IFComp has allowed judges to use any scoring rubric they desire, and rate games according to their own subjective taste. No matter the objective excellence of your work, some people will probably dislike it, and others might <em>really</em> dislike it, and you may never know why.</p>
+<p>For what it's worth, audiences' frustratingly inscrutable tastes represents <a href="https://en.wikipedia.org/wiki/De_gustibus_non_est_disputandum">a quandary that great artists have faced for centuries</a>. If you find yourself feeling this way too, consider yourself in vast and storied company.</p>
+</div>
+</div>
 
 <div class="page-header">
 <h1 id="judginggames">Judging games</h1>
