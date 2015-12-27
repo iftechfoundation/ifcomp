@@ -25,8 +25,10 @@ The competition's very first run in 1995 split the entries into two categories: 
 <hr />
 [% END %]
 
-[% INCLUDE pager %]
+<p>The organizer of the [% comp.year %] Annual Interactive Fiction Competition was <strong>[% comp.organizer %].</strong></p>
 
+
+[% INCLUDE pager %]
 
 </div>
 

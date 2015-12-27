@@ -88,6 +88,13 @@ __PACKAGE__->table("comp");
   datetime_undef_if_invalid: 1
   is_nullable: 1
 
+=head2 organizer
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 64
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -136,6 +143,8 @@ __PACKAGE__->add_columns(
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
   },
+  "organizer",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -197,8 +206,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-09-06 15:52:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UG6fk276YhopPZEaN+kZvw
+# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-12-27 04:55:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IYAhuBMI6CH5OD4iCQrx+w
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
