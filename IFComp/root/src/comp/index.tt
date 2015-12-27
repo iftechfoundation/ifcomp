@@ -21,7 +21,9 @@ The competition's very first run in 1995 split the entries into two categories: 
 [% END %]
 
 [% FOREACH entry IN entries %]
-[% INCLUDE entry_row %]
+    <div id="entry-[% entry.id %]">
+        [% INCLUDE entry_row %]
+    </div>
 <hr />
 [% END %]
 
