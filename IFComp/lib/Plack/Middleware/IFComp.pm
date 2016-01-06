@@ -24,6 +24,7 @@ sub _build_schema {
                 "$FindBin::Bin/conf/ifcomp.conf",
             ],
             flatten_to_hash => 1,
+            use_ext => 1,
         },
     );
 

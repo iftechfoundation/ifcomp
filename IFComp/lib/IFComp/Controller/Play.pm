@@ -43,6 +43,7 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
     else {
         $c->res->code( 404 );
         $c->res->body( "No valid entry with ID $id" );
+        $c->detach;
     }
 }
 
