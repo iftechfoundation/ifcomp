@@ -35,7 +35,7 @@
   </div>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-default" id="content-warnings">
   <div class="panel-heading">
     <h3 class="panel-title">Are there any restrictions on content, such as coarse language, or depictions of sex or violence?<br /><br />Do I need to warn players about these things if I include them in my game?</h3>
   </div>
