@@ -32,6 +32,14 @@ sub comp :Path :Args(0) {
     }
 }
 
+sub compact :PathPart('compact') :Chained('fetch_comp') :Args(0) {
+    my ( $self, $c ) = @_;
+
+    $c->stash->{ view_is_compact } = 1;
+
+    $self->index( $c );
+}
+
 sub last_comp :Path('last_comp') :Args(0) {
     my ( $self, $c ) = @_;
 

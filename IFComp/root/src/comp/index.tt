@@ -7,10 +7,20 @@
 
 [% INCLUDE next_prev %]
 
-<p>
-You can also <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html">download all the competition's files from the Interactive Fiction Archive</a>.
-</p>
-
+        <p style="text-align:center;">
+[% IF view_is_compact %]
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], ) %]" type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-stats"></span> Switch to full view
+        </a>
+[% ELSE %]
+        <a href="[% c.uri_for_action( '/comp/compact', [ comp.year ], ) %]" type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-list"></span> Switch to compact list view
+        </a>
+[% END %]
+        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-default">
+            <span class="glyphicon glyphicon-cloud-download"></span> Browse / download [% comp.year %] game files
+        </a>
+        </p>
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-info">
@@ -20,11 +30,19 @@ The competition's very first run in 1995 split the entries into two categories: 
 </div>
 [% END %]
 
-[% FOREACH entry IN entries %]
-    <div id="entry-[% entry.id %]">
-        [% INCLUDE entry_row %]
-    </div>
-<hr />
+[% IF view_is_compact %]
+    <table class="table">
+        [% FOREACH entry IN entries %]
+            [% INCLUDE compact_entry_row %]
+        [% END %]
+    </table>
+[% ELSE %]
+    [% FOREACH entry IN entries %]
+        <div id="entry-[% entry.id %]">
+            [% INCLUDE entry_row %]
+        </div>
+    <hr />
+    [% END %]
 [% END %]
 
 <p>The organizer of the [% comp.year %] Annual Interactive Fiction Competition was <strong>[% comp.organizer %].</strong></p>
@@ -102,6 +120,15 @@ $(function () {
     </div>
 </div>
 [% INCLUDE _entry_row.tt %]
+[% END %]
+
+[% BLOCK compact_entry_row %]
+[% place = entry.place %]
+<tr>
+    <td style="text-align:right"><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
+        [% IF there_is_a_tie_for.$place %](tie)[% END %]</span></td>
+    <td><strong><a href="#">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]</td>
+</tr>
 [% END %]
 
 [% BLOCK pager %]
