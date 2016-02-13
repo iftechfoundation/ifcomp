@@ -134,7 +134,7 @@ $(function () {
 [% BLOCK pager %]
 <ul class="pagination pagination-sm" style="margin-bottom:0">
   [% FOREACH year IN comp_years %]
-      <li [% IF year == comp.year %]class="active"[% END %]><a href="[% c.uri_for_action('/comp/index', [ year ] ) %]">[% year %]</a></li>
+      <li [% IF year == comp.year %]class="active"[% END %]><a href="[% c.uri_for_action('/comp/index', [ year ], { compact => view_is_compact } ) %]">[% year %]</a></li>
   [% END %]
 </ul>
 [% END %]
@@ -142,10 +142,10 @@ $(function () {
 [% BLOCK next_prev %]
 <ul class="pager">
   [% IF previous_year %]
-  <li class="previous"><a href="[% c.uri_for_action('/comp/index', [ previous_year ] ) %]">&larr; [% previous_year %] results</a></li>
+  <li class="previous"><a href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a></li>
   [% END %]
   [% IF next_year %]
-  <li class="next"><a href="[% c.uri_for_action('/comp/index', [ next_year ] ) %]">[% next_year %] results &rarr;</a></li>
+  <li class="next"><a href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></li>
   [% END %]
 </ul>
 [% END %]
