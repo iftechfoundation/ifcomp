@@ -9,11 +9,11 @@
 
         <p style="text-align:center;">
 [% IF view_is_compact %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], ) %]" type="submit" class="btn btn-default">
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-default">
             <span class="glyphicon glyphicon-stats"></span> Switch to full view
         </a>
 [% ELSE %]
-        <a href="[% c.uri_for_action( '/comp/compact', [ comp.year ], ) %]" type="submit" class="btn btn-default">
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-default">
             <span class="glyphicon glyphicon-list"></span> Switch to compact list view
         </a>
 [% END %]

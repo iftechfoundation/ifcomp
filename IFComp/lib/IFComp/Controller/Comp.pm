@@ -32,14 +32,6 @@ sub comp :Path :Args(0) {
     }
 }
 
-sub compact :PathPart('compact') :Chained('fetch_comp') :Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->stash->{ view_is_compact } = 1;
-
-    $self->index( $c );
-}
-
 sub last_comp :Path('last_comp') :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -105,6 +97,14 @@ sub index :Chained('fetch_comp') :PathPart('') :Args(0) {
     $c->stash->{ there_is_a_tie_for } = _get_tie_hash( $comp, 'place' );
     $c->stash->{ there_is_a_miss_congeniality_tie_for } =
         _get_tie_hash( $comp, 'miss_congeniality_place' );
+
+
+    if ( $c->req->params->{ compact } ) {
+        $c->stash->{ view_is_compact } = 1;
+    }
+    else {
+        $c->stash->{ view_is_compact } = 0;
+    }
 }
 
 sub _get_tie_hash {
