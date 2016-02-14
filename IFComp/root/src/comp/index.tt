@@ -127,7 +127,7 @@ $(function () {
 <tr>
     <td style="text-align:right"><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
         [% IF there_is_a_tie_for.$place %](tie)[% END %]</span></td>
-    <td><strong><a href="#">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]</td>
+    <td><strong><a href="[% INCLUDE ifdb_url.tt %]">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]</td>
 </tr>
 [% END %]
 
