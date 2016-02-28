@@ -63,6 +63,7 @@
 <p><strong>Competition status: </strong>
 [% IF current_comp.status == 'not_begun' %]
 The [% current_comp.year %] comp will open for entry registration and prize donation on [% current_comp.intents_open.month_name %] [% current_comp.intents_open.day %].
+<p>Check out <a href="[% c.uri_for('/comp/') %]">the complete results for last year's competition</a>.
 [% ELSIF current_comp.status == 'accepting_intents' %]
 The [% current_comp.year %] comp is now accepting entries! Authors have until [% current_comp.intents_close.month_name %] [% current_comp.intents_open.day %] to register their intent to enter.
 [% ELSIF current_comp.status == 'closed_to_intents' %]
