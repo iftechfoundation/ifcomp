@@ -1,6 +1,6 @@
 <!-- BEGIN site/footer -->
  <footer style="font-size:small; font-style:italic" class="container">
  <hr /> 
-       <p>The organizer of the 2015 Interactive Fiction Competition is <a href="mailto:ifcomp@ifcomp.org">Jason McIntosh</a>.</p><p>Except where otherwise noted, content of this website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, attributable to The Interactive Fiction Competition (www.ifcomp.org).</p>
+       <p>The organizer of the [% current_comp.year %] Interactive Fiction Competition is <a href="mailto:ifcomp@ifcomp.org">Jason McIntosh</a>.</p><p>Except where otherwise noted, content of this website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, attributable to The Interactive Fiction Competition (www.ifcomp.org).</p>
  </footer>
 <!-- END site/footer -->
