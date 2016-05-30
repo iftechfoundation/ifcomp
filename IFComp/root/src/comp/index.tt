@@ -53,7 +53,7 @@ The competition's very first run in 1995 split the entries into two categories: 
 </div>
 
 [% BLOCK scripts %]
-<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
 $(function () { 
     [% FOR entry IN entries %]
