@@ -33,6 +33,9 @@ USE Markdown;
 [% FOR category IN ordered_categories %]
     [% IF prizes_in_category.$category.size %]
         <h2>[% full_name_for.$category %]</h2>
+        [% IF category == 'money' %]
+            <p>Unless otherwise specified, cash prizes are expressed in U.S. dollars and delivered by PayPal.</p>
+        [% END %]
         <ul>
         [% FOR prize IN prizes_in_category.$category %]
             <li>
