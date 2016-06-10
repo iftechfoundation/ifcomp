@@ -35,6 +35,16 @@
   </div>
 </div>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Can I enter a game that I've already shown at festivals or other events?</h3>
+  </div>
+  <div class="panel-body">
+<p>Every IFComp entry should be, in essence, the world premiere of that work. If you've already shown the work, whether in current or earlier form, in other festivals or competitions, then IFComp considers it an already-released work and therefore disqualified from entry.</p>
+<p>This disqualification can also apply should you, for example, submit a game in July and then submit it to other events in September, weeks before the IFComp judging period. If your work is bound for IFComp, then please avoid any public release at all until IFComp judging begins.</p>
+  </div>
+</div>
+
 <div class="panel panel-default" id="content-warnings">
   <div class="panel-heading">
     <h3 class="panel-title">Are there any restrictions on content, such as coarse language, or depictions of sex or violence?<br /><br />Do I need to warn players about these things if I include them in my game?</h3>
