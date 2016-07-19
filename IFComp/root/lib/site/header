@@ -62,6 +62,7 @@ END;
                   <li><a href="http://twitter.com/ifcomp">Twitter</a></li>
                 </ul>
               </li>
+              <li><a href="/about/donate/" class="donate-link">Donate</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
             <button type="submit" class="btn btn-success">[% button_label %]</button> 

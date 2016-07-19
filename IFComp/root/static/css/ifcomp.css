@@ -33,3 +33,11 @@ code {
   padding-top: 60px;
   margin-top: -60px;
 }
+
+a.donate-link {
+  color: #DAEDF6 !important;
+}
+
+a.donate-link:hover {
+  color: white !important;
+}

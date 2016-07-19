@@ -86,6 +86,9 @@ sub past_prizes :Path('past_prizes') :Args(0) {
 sub faq :Path('faq') :Args(0) {
 }
 
+sub donate :Path('donate') :Args(0) {
+}
+
 =encoding utf8
 
 =head1 AUTHOR
