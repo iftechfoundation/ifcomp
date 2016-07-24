@@ -38,7 +38,8 @@ END;
                   <li><a href="/about/how_to_enter">How to enter</a></li>
                   <li><a href="/entry">Register or manage your entries</a></li>
                   <li class="divider"></li>
-                  <li><a href="/about/prizes">View / donate prizes</a></li>
+                  <li><a href="/about/prizes">View prizes</a></li>
+                  <li><a href="/about/donate">Donate to IFComp</a></li>
                   <li class="divider"></li>
                   <li><a href="/about/faq">Frequently Asked Questions</a></li>
                 </ul>
@@ -62,7 +63,6 @@ END;
                   <li><a href="http://twitter.com/ifcomp">Twitter</a></li>
                 </ul>
               </li>
-              <li><a href="/about/donate/" class="donate-link">Donate</a></li>
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
             <button type="submit" class="btn btn-success">[% button_label %]</button> 
