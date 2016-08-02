@@ -47,10 +47,6 @@ Copy `conf/ifcomp_local.conf-dist` to `conf/ifcomp.local` and then update the da
 
 It's a Catalyst application, and works as any other. See [the Catalyst documentation](https://metacpan.org/pod/Catalyst::Manual) for more details.
 
-# Other links
-
-The project has [a public Pivotal Tracker](https://www.pivotaltracker.com/n/projects/1001548).
-
 # Contributors
 
 The project maintainer is Jason McIntosh ([jmac@jmac.org](jmac@jmac.org)).
