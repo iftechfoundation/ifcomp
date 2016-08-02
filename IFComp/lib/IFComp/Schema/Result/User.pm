@@ -260,6 +260,8 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-05-10 11:16:28
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BBT/++Ap+7+u+Yf2VVYl0A
 
+__PACKAGE__->many_to_many('roles' => 'user_roles', 'role');
+
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;
 use Email::MIME::Kit;
