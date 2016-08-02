@@ -1058,6 +1058,56 @@ sub _build_latest_update {
     return $updates_rs->next;
 }
 
+sub get_qualified_voters {
+  my ($self) = shift;
+  my $db = $self->result_source->schema;
+
+  return $db->resultset("User")->search({ "entry.comp" => $self->comp->id,
+                                        },
+                                        { join => [ "votes" ],
+                                          prefetch => {"votes" => ["entry"]},
+                                          group_by => "me.id",
+                                          having => \['count(me.id) > ?', 4]
+                                      }
+ );
+}
+
+sub get_qualified_votes {
+  my ($self) = shift;
+
+  my $db = $self->result_source->schema;
+  my @qualified_voters = $self->get_qualified_voters();
+
+  return $db->resultset("Vote")->search({ "comp" => $self->comp->id,
+                                          "entry" => $self->id,
+                                          "user" => [ map { $_->id } @qualified_voters ],
+                                        } ,
+                                        { join => [ "entry" ],
+                                          prefetch => { "entry", => [ "comp" ] },
+                                        },
+                                       );
+}
+
+sub compute_average_score {
+  my ($self, $only_qualified) = shift;
+
+  my @votes;
+  if ($only_qualified) {
+    @votes = $self->compute_qualified_votes;
+  } else {
+    @votes = $self->votes->all;
+  }
+
+  my $sum = 0;
+  for (@votes) {
+    $sum += $_->score;
+  }
+
+  my $num = scalar @votes;
+
+  return sprintf("%0.2f", $sum / $num);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

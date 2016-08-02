@@ -177,6 +177,17 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-09-06 19:19:53
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:g4UITRzNezx1Jjn4tJklmg
 
+has 'comp' => (
+               is => "ro",
+               lazy => 1,
+               builder => '_build_comp',
+              );
+
+sub _build_comp {
+  my ($self) = shift;
+  $self->entry->comp;
+}
+
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

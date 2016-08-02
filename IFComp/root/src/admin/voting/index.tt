@@ -1,0 +1,55 @@
+[% meta.title = 'IFComp - Admin - Voting' %]
+[% USE D = Dumper %]
+<div class="container">
+     <div class="jumbotron">
+          <h1 style="text-align:center;">Voting Reports</h1>
+     </div>
+     
+     <ul class="breadcrumb">
+        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+        <li class="active">Voting</a>
+     </ul>
+
+     <p>Note: complete voting records are only available from 2014 forward.</p>
+
+     <div>
+       <form id="frm-select-year" method="GET" action="[% c.uri_for("/admin/voting") %]" class="form">
+         <div class="row">
+           <div class="col-md-4">
+             <label for="comp_id">Competition Year:</label>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-md-4">
+             <select name="comp_id" class="form-control">
+               [% FOREACH comp = available_comps %]
+               <option value="[% comp.id %]" [% comp.id == current_comp.id ? "selected" : ""%]>[% comp.year %]</option>
+               [% END %]
+             </select>
+           </div>
+           <div class="col-md-4">
+             <button form="frm-select-year" class="btn btn-primary">Change</button>
+           </div>
+         </div>
+       </form>
+     </div>
+
+     <div class="table-responsive">
+       <table class="table table-condensed">
+         <thead>
+           <th>Title</th>
+           <th>Author</th>
+           <th>Average Score</th>
+         </thead>
+         <tbody>
+           [% FOREACH entry = entries %]
+           <tr>
+             <td><a href="[% c.uri_for("/admin/voting/" _ entry.id) %]">[% entry.title | html %]</a></td>
+             <td>[% entry.author.name %]</td>
+             <td>[% entry.average_score %]</td>
+           </tr>
+           [% END %]
+         </tbody>
+       </table>
+     </div>
+</div>

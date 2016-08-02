@@ -1,0 +1,57 @@
+[% meta.title = 'IFComp - Admin - Voting - Entry' %]
+[% USE D = Dumper %]
+<div class="container">
+     <div class="jumbotron">
+          <h1 style="text-align:center;">Entry: [% entry.title %]</h1>
+     </div>
+     
+     <ul class="breadcrumb">
+        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+        <li><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => entry.comp.id}); r %]">Voting Reports</a></li>
+        <li class="active">Voting details</a></li>
+     </ul>
+
+
+     <div id="score-meta">
+        <div class="row">
+          <div class="col-md-2">
+            <label>Total Votes:</label>
+          </div>
+          <div class="col-md-2">
+            [% entry.votes.size %]
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-2">
+            <label>Qualified Votes:</label>
+          </div>
+          <div class="col-md-2">
+            [% entry.get_qualified_votes.size %]
+          </div>
+        </div>
+     
+        <div class="row">
+          <div class="col-md-2">
+            <label>Average Score:</label>
+          </div>
+          <div class="col-md-2">
+            [% entry.compute_average_score %]
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2">
+            <label>Average Qualified Score:</label>
+          </div>
+          <div class="col-md-2">
+            [% entry.compute_average_score(1) %]
+          </div>
+        </div>
+
+     </div>
+     
+     <div id="score-breakdown">
+     </div>
+     
+</div>

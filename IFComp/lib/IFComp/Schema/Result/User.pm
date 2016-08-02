@@ -433,6 +433,15 @@ sub current_comp_entries {
     }
 }
 
+sub qualified_voter {
+  my ($self, $comp_id) = @_;
+  return unless $comp_id;
+
+  my @votes_cast = grep { $_->comp == $comp_id } $self->votes->all;
+
+  return @votes_cast > 4;
+}
+
 __PACKAGE__->meta->make_immutable( inline_constructor => 0 );
 
 1;
