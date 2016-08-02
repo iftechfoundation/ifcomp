@@ -93,11 +93,13 @@ sub call {
                         my $user =
                             $self->schema->resultset( 'User' )->find( $user_id )
                         ;
-                        if ( $user_id == $entry->author->id ) {
-                            $current_user_can_see_this_game = 1;
-                        }
-                        elsif ( grep { $_->name eq 'curator' } $user->roles->all ) {
-                            $current_user_can_see_this_game = 1;
+                        if ( defined $user ) {
+                            if ( $user_id == $entry->author->id ) {
+                                $current_user_can_see_this_game = 1;
+                            }
+                            elsif ( grep { $_->name eq 'curator' } $user->roles->all ) {
+                                $current_user_can_see_this_game = 1;
+                            }
                         }
                     }
                 }
