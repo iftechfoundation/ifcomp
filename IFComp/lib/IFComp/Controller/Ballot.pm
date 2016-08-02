@@ -30,6 +30,7 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
     unless (
         $current_comp->status eq 'open_for_judging'
         || $current_comp->status eq 'processing_votes'
+        || $c->check_user_roles( 'curator' )
     ) {
         $c->res->redirect( $c->uri_for_action( '/comp/comp' ) );
         return;
