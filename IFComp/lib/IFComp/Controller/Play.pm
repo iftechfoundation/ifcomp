@@ -36,6 +36,7 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
             || ( $c->stash->{ current_comp }->status eq 'processing_votes' )
             || ( $c->stash->{ current_comp }->status eq 'over' )
             || ( $c->user && ( $entry->author->id eq $c->user->id ) )
+            || ( $c->check_user_roles( 'curator' ) )
         ) {
             $c->res->redirect( $c->uri_for_action( '/comp/comp' ) );
         }

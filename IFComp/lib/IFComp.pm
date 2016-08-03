@@ -20,6 +20,7 @@ use Catalyst qw/
     ConfigLoader
     Static::Simple
     Authentication
+    Authorization::Roles
     Session
     Session::Store::DBIC
     Session::State::Cookie
@@ -59,6 +60,8 @@ __PACKAGE__->config(
                 class => "DBIx::Class",
                 user_model => "IFCompDB::User",
                 store_user_class => 'IFComp::UserStore',
+                role_relation => 'roles',
+                role_field => 'name',
             },
         },
     },
