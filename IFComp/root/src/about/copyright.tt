@@ -1,0 +1,15 @@
+[% meta.title = 'IFComp - Transformative work' %]
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">Regarding transformative work</h1>
+</div>
+
+<p>IFComp's <a href="/rules/#authors">author rule #1</a> is based on the following text from our legal counsel, which we consider the "extended edition" of that same rule.</p>
+
+<blockquote>
+<p>If an Entry includes any text, images, music, audio content or work in or from any other medium ("Prior-Created Content") that is owned by any third party, such use of Prior-Created Content in the Entry must be pursuant to Fair Use, licensed by the copyright-holder or otherwise permitted under US copyright law. We will generally follow <a href="http://www.transformativeworks.org/10-fair-use-misconceptions">the recommendations from the Organization for Transformative Works</a> regarding what is and is not Fair Use. We note that any work in the public domain (such as all but the last four of Sir Arthur Conan Doyle's Sherlock Holmes novels) can be freely used as such works are not owned by any third party.</p>
+
+<p>Pursuant to IFTF tradition, an entry may be a transformative work, such as a parody, critique, or fan-fiction.  You may, for example, enter a game involving the further adventures of the characters from a novel, song or play that inspires you. You may not, however, fill your game with dozens of paragraphs of descriptive text copied word-for-word from that same Prior-Created Content, unless you have obtained a license from the Prior-Created Content's copyright holder as such a usage would be too extensive to fall under fair use. Similarly, you may not scan a novel's cover to use as your game cover unless you create a transformative work from that scan; we ask that unless you obtain a license to the music or use music available via a Creative Commons license, you not create background music out of the soundtrack from the film or YouTube adaptation of said a Prior-Created Content.</p>
+</blockquote>
+
+</div>
