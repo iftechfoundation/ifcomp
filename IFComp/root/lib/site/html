@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/ifcomp.css" rel="stylesheet">
+  <link href="//cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
   <style type="text/css">
@@ -17,11 +19,20 @@ padding: 9px 0;
 }
 [% PROCESS ttsite.css %]
   </style>
+
  </head>
  <body>
 [% content %]
- <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+
+ <script type="text/javascript" src="//code.jquery.com/jquery.js"></script>
  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+ <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+ <script type="text/javascript">
+   $(document).ready(function() {
+      $(".sortable").DataTable({iDisplayLength : 50});
+   });
+ </script>
  [% INCLUDE scripts %]
  </body>
 </html>

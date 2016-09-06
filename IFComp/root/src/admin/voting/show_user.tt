@@ -1,0 +1,36 @@
+[% meta.title = 'IFComp - Admin - Voting - User' %]
+[% USE D = Dumper %]
+<div class="container">
+     <div class="jumbotron">
+          <h1 style="text-align:center;">User: [% user.name %]</h1>
+     </div>
+     
+     <ul class="breadcrumb">
+        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+        <li><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => comp.id}); r %]">Voting Reports</a></li>
+        <li class="active">User details</a></li>
+     </ul>
+
+     <h3>Voting Record for Comp [% comp.year %]</h3>
+
+     <div class="table-responsive">
+       <table class="table table-condensed table-striped sortable">
+          <thead>
+              <th>Entry</th>
+              <th>Score</th>
+              <th>IP</th>
+              <th>Date Cast</th>
+          </thead>
+          <tbody>
+             [% FOREACH vote = votes %]
+             <tr>
+                <td><a href="[% c.uri_for("/admin/voting/" _ vote.entry.id); %]">[% vote.entry.title %]</a></td>
+                <td>[% vote.score %]</td>
+                <td><a href="[% c.uri_for("/admin/voting/ip/" _ vote.ip _ "/" _ comp.id) %]">[% vote.ip %]</a></td>
+                <td>[% vote.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</td>
+             </tr>
+             [% END %]
+          </tbody>
+       </table>
+     </div>
+</div>

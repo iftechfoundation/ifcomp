@@ -2,6 +2,7 @@ package IFComp::Controller::Admin::Voting;
 use Moose;
 use namespace::autoclean;
 use Data::Dumper;
+use JSON;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -25,14 +26,14 @@ A controller for voting reports.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $comp = $c->model('IFCompDB::Comp');
+    my $comp  = $c->model('IFCompDB::Comp');
     my $entry = $c->model('IFCompDB::Entry');
 
     my $current_comp;
     if (my $id = $c->req->param("comp_id")) {
-      $current_comp = $comp->find($id);
+        $current_comp = $comp->find($id);
     } else {
-      $current_comp = $comp->current_comp;
+        $current_comp = $comp->current_comp;
     }
 
     $c->stash->{ current_comp } = $current_comp;
@@ -48,32 +49,51 @@ sub index :Path :Args(0) {
     my @all_entries = $entry->search({comp => $current_comp->id,
                                       is_disqualified => 0
                                      },
+                                     { order_by => { -desc => "average_score"} }
                                      )->all;
-    # sort list by vote count
-    # not super-efficient, but still fast for this data
-    @all_entries =
-      map { $_->[0] }
-      sort { $b->[1] <=> $a->[1] }
-      map {
-        [ $_, $_->average_score ]
-      } @all_entries;
+    my $total_votes = 0;
+    my $total_scores = 0;
+    my (@score_buckets);
+
+    for my $entry (@all_entries) {
+        $total_votes += $entry->votes_cast;
+        $total_scores += $entry->average_score;
+
+        for my $i (1..10) {
+            my $method = "total_$i";
+            $score_buckets[$i] += $entry->$method;
+        }
+    }
+
+    shift @score_buckets; # remove first entry, for it is null
+    my $score_buckets_json = JSON::to_json(\@score_buckets);
 
     $c->stash->{ entries } = \@all_entries;
     $c->stash->{ template } = "admin/voting/index.tt";
+    $c->stash->{ total_votes } = $total_votes;
+    if (@all_entries) {
+      $c->stash->{ average_score } = sprintf("%0.2f", ($total_scores / scalar @all_entries));
+    } else {
+      $c->stash->{ average_score } = 0;
+    }
+
+    my $shills = $current_comp->get_possible_shills;
+    $c->stash->{shills} = $shills;
+    $c->stash->{ score_buckets_json } = $score_buckets_json;
 }
+
 
 # /admin/voting/:entry_id
 sub show_entry :Path :Args(1) {
-  my ($self, $c, $entry_id) = @_;
+    my ($self, $c, $entry_id) = @_;
 
-  my $entry = $c->model('IFCompDB::Entry');
-  my $this_entry = $entry->find($entry_id);
+    my $entry = $c->model('IFCompDB::Entry');
+    my $this_entry = $entry->find($entry_id);
 
-  $c->stash->{ entry } = $this_entry;
-
-  $c->stash->{ template } = "admin/voting/show_entry.tt";
-
+    $c->stash->{ entry } = $this_entry;
+    $c->stash->{ template } = "admin/voting/show_entry.tt";
 }
+
 
 =encoding utf8
 

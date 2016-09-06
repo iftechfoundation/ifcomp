@@ -1,5 +1,6 @@
 package IFComp::Schema::ResultSet::Comp;
 
+use Data::Dumper;
 use Moose;
 extends 'DBIx::Class::ResultSet';
 

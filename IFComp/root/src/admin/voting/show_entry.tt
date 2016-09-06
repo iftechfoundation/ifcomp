@@ -13,45 +13,68 @@
 
 
      <div id="score-meta">
+        <h3>Stats</h3>
+
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label>Total Votes:</label>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             [% entry.votes.size %]
           </div>
         </div>
         
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label>Qualified Votes:</label>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             [% entry.get_qualified_votes.size %]
           </div>
         </div>
      
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label>Average Score:</label>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             [% entry.compute_average_score %]
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label>Average Qualified Score:</label>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             [% entry.compute_average_score(1) %]
           </div>
         </div>
 
      </div>
+
+     <h3>Voting Details</h3>
      
-     <div id="score-breakdown">
+     <div class="table-responsive">
+       <table class="table table-striped table-condensed sortable">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Score</th>
+              <th>IP</th>
+              <th>Date Cast</th>
+            </tr>
+          </thead>
+          <tbody>
+            [% FOREACH vote = entry.votes %]
+            <tr>
+              <td><a href="[% c.uri_for("/admin/voting/user/" _ vote.user.id _ "/" _ entry.comp.id) %]">[% vote.user.name %]</a></td>
+              <td>[% vote.score %]</td>
+              <td><a href="[% c.uri_for("/admin/voting/ip/" _ vote.ip _ "/" _ entry.comp.id) %]">[% vote.ip %]</a></td>
+              <td>[% vote.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</td>
+            </tr>
+            [% END %]
+          </tbody>
+       </table>
      </div>
-     
 </div>
