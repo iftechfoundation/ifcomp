@@ -28,6 +28,8 @@ sub index :Path :Args(0) {
 
     my $comp  = $c->model('IFCompDB::Comp');
     my $entry = $c->model('IFCompDB::Entry');
+    my $vote  = $c->model('IFCompDB::Vote');
+    my $user  = $c->model('IFCompDB::User');
 
     my $current_comp;
     if (my $id = $c->req->param("comp_id")) {
@@ -50,11 +52,46 @@ sub index :Path :Args(0) {
                                       is_disqualified => 0
                                      },
                                      { order_by => { -desc => "average_score"} }
-                                     )->all;
+                                    )->all;
+    my @entry_ids = map { $_->id } @all_entries;
+
+    my (@ips, @users);
+    my @votes = $vote->search({entry => \@entry_ids },
+                                  {
+                                   select => ['user', { 'count' => 'me.id', -as => 'cnt' }],
+                                   as => [ 'user', 'cnt' ],
+                                   group_by => [ 'user' ],
+                                   order_by => { -desc => [ 'cnt' ] },
+                                  },
+                             );
+    my $seen = 0;
+    for my $vote (@votes) {
+        my ($user_id, $cnt) = ($vote->get_column('user'),
+                               $vote->get_column('cnt'));
+        push @users, [ $user->find($user_id), $cnt];
+        last if ++$seen > 4
+    }
+
+    @votes = $vote->search({entry => \@entry_ids },
+                           {
+                            select => ['ip', { 'count' => 'me.id', -as => 'cnt' }],
+                            as => [ 'ip', 'cnt' ],
+                            group_by => [ 'ip' ],
+                            order_by => { -desc => [ 'cnt' ] },
+                           },
+                          );
+    $seen = 0;
+    for my $vote (@votes) {
+        my ($ip, $cnt) = ($vote->get_column('ip'),
+                          $vote->get_column('cnt'));
+        push @ips, [ $ip, $cnt ];
+        last if ++$seen > 4;
+    }
+
+
     my $total_votes = 0;
     my $total_scores = 0;
     my (@score_buckets);
-
     for my $entry (@all_entries) {
         $total_votes += $entry->votes_cast;
         $total_scores += $entry->average_score;
@@ -80,6 +117,8 @@ sub index :Path :Args(0) {
     my $shills = $current_comp->get_possible_shills;
     $c->stash->{shills} = $shills;
     $c->stash->{ score_buckets_json } = $score_buckets_json;
+    $c->stash->{ips} = \@ips;
+    $c->stash->{users} = \@users;
 }
 
 
@@ -89,8 +128,14 @@ sub show_entry :Path :Args(1) {
 
     my $entry = $c->model('IFCompDB::Entry');
     my $this_entry = $entry->find($entry_id);
+    my @score_buckets;
+
+    for my $vote ($this_entry->votes) {
+        $score_buckets[$vote->score] += 1;
+    }
 
     $c->stash->{ entry } = $this_entry;
+    $c->stash->{ score_buckets_json } = JSON::to_json(\@score_buckets);
     $c->stash->{ template } = "admin/voting/show_entry.tt";
 }
 

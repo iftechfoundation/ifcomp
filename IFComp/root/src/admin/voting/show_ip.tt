@@ -12,6 +12,61 @@
      </ul>
 
      <h3>Voting Record for IP [% comp.year %]</h3>
+     <div id="score-buckets-chart"></div>
+
+     [% BLOCK scripts %]
+     <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+     <script type="text/javascript">
+$(function () { 
+ 
+  $('#score-buckets-chart').highcharts({
+     title: { text: '# Votes by Score' },
+     credits: false,
+     legend: { enabled: false },
+     chart: {
+       type: 'column',
+       animation: false,
+       height: 200,
+     },
+     xAxis: {
+            categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+     },
+     yAxis: {
+        title: { text: 'Vote count' },
+            endOnTick: false,
+            tickInterval: 5,
+        },
+        plotOptions: {
+            series: {
+                animation: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                var vote_word;
+                if ( this.y == 1 ) {
+                    vote_word = 'judge';
+                }
+                else {
+                    vote_word = 'judges';
+                }
+                return this.y 
+                       + ' ' 
+                       + vote_word 
+                       + ' gave this game a rating of ' 
+                       + this.x 
+                       + '.';
+            }
+        },
+        series: [{ data: [% score_buckets_json %] }]
+    });
+});
+</script>
+
+     [% END %]
 
      <div class="table-responsive">
        <table class="table table-condensed table-striped sortable">

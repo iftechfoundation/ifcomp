@@ -1,6 +1,7 @@
 package IFComp::Controller::Admin::Voting::IP;
 use Moose;
 use namespace::autoclean;
+use JSON;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -33,10 +34,16 @@ sub show_ip :Path :Args(2) {
     my @votes = $c->model('IFCompDB::Vote')->search({entry => \@entry_ids,
                                                      ip => $ip,
                                                     });
+    my @score_buckets;
+    for my $vote (@votes) {
+        $score_buckets[$vote->score] += 1;
+    }
+
 
     $c->stash->{comp} = $comp;
     $c->stash->{ip} = $ip;
     $c->stash->{votes} = \@votes;
+    $c->stash->{ score_buckets_json } = JSON::to_json(\@score_buckets);
     $c->stash->{template} = "admin/voting/show_ip.tt";
 }
 

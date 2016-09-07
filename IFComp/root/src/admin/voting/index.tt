@@ -57,6 +57,34 @@
                [% average_score %]
              </div>
            </div>
+           
+           <div class="row">
+             <div class="col-md-4">
+               <label>Most Active Users:</label>
+             </div>
+             <div class="col-md-6">
+               <ol>
+                [% FOREACH rec = users %]
+                <li><a href="[% c.uri_for("/admin/voting/user/" _ rec.0.id _ "/" _ current_comp.id) %]">[% rec.0.name %]</a>  ([% rec.1 %] votes)</li>
+                [% END %]
+               </ol> 
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col-md-4">
+               <label>Most Active IPS:</label>
+             </div>
+             <div class="col-md-6">
+               <ol>
+                [% FOREACH rec = ips %]
+                <li><a href="[% c.uri_for("/admin/voting/ip/" _ rec.0 _ "/" _ current_comp.id) %]">[% rec.0 %]</a> ([% rec.1 %] votes)</li>
+                [% END %]
+               </ol> 
+             </div>
+           </div>
+
+
            <div class="row">
              <div class="col-md-12">
                <h3>Ballot Irregularities</h3>

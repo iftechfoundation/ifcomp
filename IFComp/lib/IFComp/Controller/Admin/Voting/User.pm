@@ -1,6 +1,7 @@
 package IFComp::Controller::Admin::Voting::User;
 use Moose;
 use namespace::autoclean;
+use JSON;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -34,10 +35,16 @@ sub show_user :Path :Args(2) {
     my @votes = $vote->search({entry => \@comp_ids,
                                user => $user_id,
                               });
+    my @score_buckets;
+    for my $vote (@votes) {
+        $score_buckets[$vote->score] += 1;
+    }
 
     $c->stash->{votes} = \@votes;
     $c->stash->{user}  = $user;
     $c->stash->{comp}  = $comp;
+    $c->stash->{ score_buckets_json } = JSON::to_json(\@score_buckets);
+
     $c->stash->{template} = "admin/voting/show_user.tt";
 }
 

@@ -16,43 +16,102 @@
         <h3>Stats</h3>
 
         <div class="row">
-          <div class="col-md-3">
-            <label>Total Votes:</label>
-          </div>
-          <div class="col-md-3">
-            [% entry.votes.size %]
-          </div>
-        </div>
-        
-        <div class="row">
-          <div class="col-md-3">
-            <label>Qualified Votes:</label>
-          </div>
-          <div class="col-md-3">
-            [% entry.get_qualified_votes.size %]
-          </div>
-        </div>
+          <div class="col-md-6">
+            <div class="row">       
+              <div class="col-md-3">        
+                <label>Total Votes:</label>
+              </div>
+              <div class="col-md-3">
+                [% entry.votes.size %]
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-3">
+                <label>Qualified Votes:</label>
+              </div>
+              <div class="col-md-3">
+                [% entry.get_qualified_votes.size %]
+              </div>
+            </div>
      
-        <div class="row">
-          <div class="col-md-3">
-            <label>Average Score:</label>
+            <div class="row">
+              <div class="col-md-3">
+                <label>Average Score:</label>
+              </div>
+              <div class="col-md-3">
+                [% entry.compute_average_score %]
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-3">
+                <label>Average Qualified Score:</label>
+              </div>
+              <div class="col-md-3">
+                [% entry.compute_average_score(1) %]
+              </div>
+            </div>
           </div>
-          <div class="col-md-3">
-            [% entry.compute_average_score %]
+          <div class="col-md-6">
+            <div id="score-buckets-chart"></div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-3">
-            <label>Average Qualified Score:</label>
-          </div>
-          <div class="col-md-3">
-            [% entry.compute_average_score(1) %]
-          </div>
-        </div>
-
      </div>
-
+     
+     [% BLOCK scripts %]
+     <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+     <script type="text/javascript">
+$(function () { 
+ 
+  $('#score-buckets-chart').highcharts({
+     title: { text: '# Votes by Score' },
+     credits: false,
+     legend: { enabled: false },
+     chart: {
+       type: 'column',
+       animation: false,
+       height: 200,
+     },
+     xAxis: {
+            categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+     },
+     yAxis: {
+        title: { text: 'Vote count' },
+            endOnTick: false,
+            tickInterval: 5,
+        },
+        plotOptions: {
+            series: {
+                animation: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                var vote_word;
+                if ( this.y == 1 ) {
+                    vote_word = 'judge';
+                }
+                else {
+                    vote_word = 'judges';
+                }
+                return this.y 
+                       + ' ' 
+                       + vote_word 
+                       + ' gave this game a rating of ' 
+                       + this.x 
+                       + '.';
+            }
+        },
+        series: [{ data: [% score_buckets_json %] }]
+    });
+});
+</script>
+     [% END %]
+     
      <h3>Voting Details</h3>
      
      <div class="table-responsive">
