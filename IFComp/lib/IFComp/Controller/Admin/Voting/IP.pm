@@ -36,9 +36,10 @@ sub show_ip :Path :Args(2) {
                                                     });
     my @score_buckets;
     for my $vote (@votes) {
-        $score_buckets[$vote->score] += 1;
+        my $score = $vote->score;
+        $score_buckets[$score] += 1;
     }
-
+    shift @score_buckets;
 
     $c->stash->{comp} = $comp;
     $c->stash->{ip} = $ip;

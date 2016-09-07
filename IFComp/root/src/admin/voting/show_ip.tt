@@ -12,6 +12,7 @@
      </ul>
 
      <h3>Voting Record for IP [% comp.year %]</h3>
+
      <div id="score-buckets-chart"></div>
 
      [% BLOCK scripts %]

@@ -39,6 +39,7 @@ sub show_user :Path :Args(2) {
     for my $vote (@votes) {
         $score_buckets[$vote->score] += 1;
     }
+    shift @score_buckets;
 
     $c->stash->{votes} = \@votes;
     $c->stash->{user}  = $user;
