@@ -674,13 +674,13 @@ sub _build_platform {
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^quixe.*js?$/i } @content_files )
     ) {
-        if ( my $js_file = $self->inform_game_js_file ) {
-            my $fh = $js_file->openr;
-            my $first_line = <$fh>;
-            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) {/ ) {
-                return 'quixe2';
-            }
+      if ( my $js_file = $self->inform_game_js_file ) {
+        my $fh = $js_file->openr;
+        my $first_line = <$fh>;
+        if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ ) {
+          return 'quixe2';
         }
+      }
     }
 
     if (
