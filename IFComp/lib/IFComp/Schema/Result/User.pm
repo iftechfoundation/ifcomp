@@ -433,6 +433,7 @@ sub current_comp_entries {
     }
 }
 
+
 sub qualified_voter {
   my ($self, $comp_id) = @_;
   return unless $comp_id;

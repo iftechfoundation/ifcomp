@@ -312,7 +312,6 @@ sub get_vote_counts_from_non_unique_ips {
     my ($self) = @_;
 
     my $db = $self->result_source->schema;
-    $db->storage->debug(0);
     my $votes = $db->resultset("User")->search({
                                                 'entry.comp' => $self->id,
                                                },
@@ -342,7 +341,6 @@ sub get_vote_counts_from_non_unique_ips {
                 && $_->get_column("total_vote_count") > 5
              } $votes->all ];
 
-    $db->storage->debug(0);
     return $data;
 }
 
