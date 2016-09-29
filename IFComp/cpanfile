@@ -15,6 +15,7 @@ requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
 requires 'Catalyst::View::TT';
 requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Cache';
+requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Cache::FastMmap';
 requires 'DateTime::Moonpig';
 requires 'JSON::Any';
