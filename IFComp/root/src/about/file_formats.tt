@@ -39,6 +39,8 @@
 
 <p><a href="http://tads.org">TADS</a> is another popular system for creating parser IF. As with Inform, it offers <a href="http://www.tads.org/tads3.htm">its own variety of free, cross-platform interpreters</a> you can use to load and play games created with it.</p>
 
+<p>We strongly recommend using a <a href="http://www.tads.org/tads3.htm">TADS-specific interpeter</a> to play IFComp entries created with TADS, rather than a more general multi-format IF interpreter. They tend to be much more capable at properly loading and displaying all types of TADS-based work, including those using the newer "HTML TADS" format.</p>
+
 <p>As TADS games are also usually parser-based, the above links and advice regarding parser-play also apply here.</p>
 
 <h3 id="quest">Quest games</h3>
