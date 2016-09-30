@@ -35,6 +35,7 @@ requires 'DateTime::Format::MySQL';
 requires 'Email::MIME::Kit::Renderer::TT';
 requires 'Template::Plugin::Comma';
 requires 'Template::Plugin::DateTime';
+requires 'Template::Plugin::Markdown';
 requires 'Regexp::Common';
 requires 'File::MimeInfo';
 
