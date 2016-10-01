@@ -918,6 +918,7 @@ EOF
 
     my $html_file = $self->content_directory->file( 'index.html' );
     my $html_fh = $html_file->openw;
+    $html_fh->binmode( ':utf8' );
 
     print $html_fh $html;
 
