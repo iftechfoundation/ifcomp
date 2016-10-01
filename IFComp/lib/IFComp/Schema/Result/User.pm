@@ -126,46 +126,56 @@ Email doubles as login ID
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "name",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
-  "password",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
-  "email",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
-  "email_is_public",
-  { data_type => "tinyint", default_value => 1, is_nullable => 0 },
-  "url",
-  { data_type => "char", is_nullable => 1, size => 128 },
-  "twitter",
-  { data_type => "char", is_nullable => 1, size => 32 },
-  "salt",
-  { data_type => "char", is_nullable => 1, size => 36 },
-  "created",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "updated",
-  {
-    data_type => "timestamp",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "verified",
-  { data_type => "tinyint", is_nullable => 1 },
-  "access_token",
-  { data_type => "char", is_nullable => 1, size => 36 },
-  "forum_handle",
-  { data_type => "char", is_nullable => 1, size => 32 },
-);
+                         "id",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_auto_increment => 1,
+                          is_nullable => 0,
+                         },
+                         "name",
+                         {
+                          data_type => "char", default_value => "", is_nullable => 0, size => 128 },
+                         "password",
+                         {
+                          data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+                         "email",
+                         {
+                          data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+                         "email_is_public",
+                         {
+                          data_type => "tinyint", default_value => 1, is_nullable => 0 },
+                         "url",
+                         {
+                          data_type => "char", is_nullable => 1, size => 128 },
+                         "twitter",
+                         {
+                          data_type => "char", is_nullable => 1, size => 32 },
+                         "salt",
+                         {
+                          data_type => "char", is_nullable => 1, size => 36 },
+                         "created",
+                         {
+                          data_type => "datetime",
+                          datetime_undef_if_invalid => 1,
+                          is_nullable => 1,
+                         },
+                         "updated",
+                         {
+                          data_type => "timestamp",
+                          datetime_undef_if_invalid => 1,
+                          is_nullable => 1,
+                         },
+                         "verified",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "access_token",
+                         {
+                          data_type => "char", is_nullable => 1, size => 36 },
+                         "forum_handle",
+                         {
+                          data_type => "char", is_nullable => 1, size => 32 },
+                        );
 
 =head1 PRIMARY KEY
 
@@ -190,11 +200,13 @@ Related object: L<IFComp::Schema::Result::AuthToken>
 =cut
 
 __PACKAGE__->has_many(
-  "auth_tokens",
-  "IFComp::Schema::Result::AuthToken",
-  { "foreign.user" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "auth_tokens",
+                      "IFComp::Schema::Result::AuthToken",
+                      {
+                       "foreign.user" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 entries
 
@@ -205,11 +217,13 @@ Related object: L<IFComp::Schema::Result::Entry>
 =cut
 
 __PACKAGE__->has_many(
-  "entries",
-  "IFComp::Schema::Result::Entry",
-  { "foreign.author" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "entries",
+                      "IFComp::Schema::Result::Entry",
+                      {
+                       "foreign.author" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 prizes
 
@@ -220,11 +234,13 @@ Related object: L<IFComp::Schema::Result::Prize>
 =cut
 
 __PACKAGE__->has_many(
-  "prizes",
-  "IFComp::Schema::Result::Prize",
-  { "foreign.recipient" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "prizes",
+                      "IFComp::Schema::Result::Prize",
+                      {
+                       "foreign.recipient" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 user_roles
 
@@ -235,11 +251,13 @@ Related object: L<IFComp::Schema::Result::UserRole>
 =cut
 
 __PACKAGE__->has_many(
-  "user_roles",
-  "IFComp::Schema::Result::UserRole",
-  { "foreign.user" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "user_roles",
+                      "IFComp::Schema::Result::UserRole",
+                      {
+                       "foreign.user" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 votes
 
@@ -250,11 +268,13 @@ Related object: L<IFComp::Schema::Result::Vote>
 =cut
 
 __PACKAGE__->has_many(
-  "votes",
-  "IFComp::Schema::Result::Vote",
-  { "foreign.user" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "votes",
+                      "IFComp::Schema::Result::Vote",
+                      {
+                       "foreign.user" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-05-10 11:16:28
@@ -267,10 +287,10 @@ use Data::GUID;
 use DateTime;
 
 has 'password_needs_hashing' => (
-    isa => 'Bool',
-    is => 'rw',
-    default => '0',
-);
+                                 isa => 'Bool',
+                                 is => 'rw',
+                                 default => '0',
+                                );
 
 sub reset_access_token {
     my $self = shift;
@@ -307,11 +327,11 @@ sub get_api_fascade {
     my ($self) = @_;
 
     return {
-        id => $self->id,
-        name => $self->name,
-        email => $self->email,
-        token => $self->auth_tokens->first->token,
-    };
+            id => $self->id,
+            name => $self->name,
+            email => $self->email,
+            token => $self->auth_tokens->first->token,
+           };
 }
 
 sub send_validation_email {
@@ -331,15 +351,15 @@ sub _send_email_and_reset_token {
     my ( $subdir ) = @_;
 
     my $kit = Email::MIME::Kit->new( {
-        source => $self->_path_to_email_subdir( $subdir ),
-    } );
+                                      source => $self->_path_to_email_subdir( $subdir ),
+                                     } );
 
     $self->reset_access_token;
     my $access_token = $self->access_token;
 
     my $email = $kit->assemble( {
-        user => $self,
-    } );
+                                 user => $self,
+                                } );
 
     # XXX TODO: Check the return value of sendmail(); log errors.
     my $success = sendmail( $email );
@@ -356,8 +376,7 @@ sub validate_token {
         $self->verified( 1 );
         $self->update;
         return 1;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -419,28 +438,26 @@ sub current_comp_entries {
     my $self = shift;
 
     my $current_comp =
-        $self->result_source->schema->resultset( 'Comp' )->current_comp;
+      $self->result_source->schema->resultset( 'Comp' )->current_comp;
 
     my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
 
     if ( ( $current_comp->status eq 'accepting_intents' )
-         || ( $current_comp->status eq 'closed_to_intents' ) )
-    {
+         || ( $current_comp->status eq 'closed_to_intents' ) ) {
         return $entries_rs->all;
-    }
-    else {
+    } else {
         return grep { $_->is_qualified } $entries_rs->all;
     }
 }
 
 
 sub qualified_voter {
-  my ($self, $comp_id) = @_;
-  return unless $comp_id;
+    my ($self, $comp_id) = @_;
+    return unless $comp_id;
 
-  my @votes_cast = grep { $_->comp == $comp_id } $self->votes->all;
+    my @votes_cast = grep { $_->comp == $comp_id } $self->votes->all;
 
-  return @votes_cast > 4;
+    return @votes_cast > 4;
 }
 
 __PACKAGE__->meta->make_immutable( inline_constructor => 0 );

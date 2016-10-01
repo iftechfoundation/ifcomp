@@ -21,11 +21,13 @@ A controller for administrative functions
 
 =cut
 
-sub index :Path :Args(0) {
+sub index :Chained('/') :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    #my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
-    #$c->stash->{ current_comp } = $current_comp;
+    unless ( $c->user ) {
+        $c->res->redirect( '/auth/login' );
+        return;
+    }
 
     $c->stash->{ template } = "admin/index.tt";
 }

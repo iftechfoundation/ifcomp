@@ -80,38 +80,40 @@ __PACKAGE__->table("vote");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "user",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "score",
-  { data_type => "tinyint", is_nullable => 0 },
-  "entry",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "time",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "ip",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 15 },
-);
+                         "id",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_auto_increment => 1,
+                          is_nullable => 0,
+                         },
+                         "user",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_foreign_key => 1,
+                          is_nullable => 0,
+                         },
+                         "score",
+                         {
+                          data_type => "tinyint", is_nullable => 0 },
+                         "entry",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_foreign_key => 1,
+                          is_nullable => 0,
+                         },
+                         "time",
+                         {
+                          data_type => "datetime",
+                          datetime_undef_if_invalid => 1,
+                          is_nullable => 1,
+                         },
+                         "ip",
+                         {
+                          data_type => "char", default_value => "", is_nullable => 0, size => 15 },
+                        );
 
 =head1 PRIMARY KEY
 
@@ -152,11 +154,13 @@ Related object: L<IFComp::Schema::Result::Entry>
 =cut
 
 __PACKAGE__->belongs_to(
-  "entry",
-  "IFComp::Schema::Result::Entry",
-  { id => "entry" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
+                        "entry",
+                        "IFComp::Schema::Result::Entry",
+                        {
+                         id => "entry" },
+                        {
+                         is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+                       );
 
 =head2 user
 
@@ -167,11 +171,13 @@ Related object: L<IFComp::Schema::Result::User>
 =cut
 
 __PACKAGE__->belongs_to(
-  "user",
-  "IFComp::Schema::Result::User",
-  { id => "user" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
+                        "user",
+                        "IFComp::Schema::Result::User",
+                        {
+                         id => "user" },
+                        {
+                         is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+                       );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-09-06 19:19:53
@@ -184,8 +190,8 @@ has 'comp' => (
               );
 
 sub _build_comp {
-  my ($self) = shift;
-  $self->entry->comp;
+    my ($self) = shift;
+    $self->entry->comp;
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

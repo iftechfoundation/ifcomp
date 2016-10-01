@@ -193,80 +193,103 @@ __PACKAGE__->table("entry");
 =cut
 
 __PACKAGE__->add_columns(
-  "id",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_auto_increment => 1,
-    is_nullable => 0,
-  },
-  "title",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
-  "subtitle",
-  { data_type => "char", is_nullable => 1, size => 128 },
-  "author",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "author_pseudonym",
-  { data_type => "char", is_nullable => 1, size => 64 },
-  "ifdb_id",
-  { data_type => "char", is_nullable => 1, size => 16 },
-  "comp",
-  {
-    data_type => "integer",
-    extra => { unsigned => 1 },
-    is_foreign_key => 1,
-    is_nullable => 0,
-  },
-  "upload_time",
-  {
-    data_type => "datetime",
-    datetime_undef_if_invalid => 1,
-    is_nullable => 1,
-  },
-  "place",
-  { data_type => "tinyint", is_nullable => 1 },
-  "blurb",
-  { data_type => "text", is_nullable => 1 },
-  "reveal_pseudonym",
-  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
-  "miss_congeniality_place",
-  { data_type => "integer", is_nullable => 1 },
-  "email",
-  { data_type => "char", is_nullable => 1, size => 64 },
-  "is_disqualified",
-  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
-  "average_score",
-  { data_type => "decimal", is_nullable => 1, size => [6, 2] },
-  "standard_deviation",
-  { data_type => "decimal", is_nullable => 1, size => [5, 2] },
-  "total_1",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_2",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_3",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_4",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_5",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_6",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_7",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_8",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_9",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_10",
-  { data_type => "tinyint", is_nullable => 1 },
-  "votes_cast",
-  { data_type => "integer", is_nullable => 1 },
-);
+                         "id",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_auto_increment => 1,
+                          is_nullable => 0,
+                         },
+                         "title",
+                         {
+                          data_type => "char", default_value => "", is_nullable => 0, size => 128 },
+                         "subtitle",
+                         {
+                          data_type => "char", is_nullable => 1, size => 128 },
+                         "author",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_foreign_key => 1,
+                          is_nullable => 0,
+                         },
+                         "author_pseudonym",
+                         {
+                          data_type => "char", is_nullable => 1, size => 64 },
+                         "ifdb_id",
+                         {
+                          data_type => "char", is_nullable => 1, size => 16 },
+                         "comp",
+                         {
+                          data_type => "integer",
+                          extra => { unsigned => 1 },
+                          is_foreign_key => 1,
+                          is_nullable => 0,
+                         },
+                         "upload_time",
+                         {
+                          data_type => "datetime",
+                          datetime_undef_if_invalid => 1,
+                          is_nullable => 1,
+                         },
+                         "place",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "blurb",
+                         {
+                          data_type => "text", is_nullable => 1 },
+                         "reveal_pseudonym",
+                         {
+                          data_type => "tinyint", default_value => 0, is_nullable => 0 },
+                         "miss_congeniality_place",
+                         {
+                          data_type => "integer", is_nullable => 1 },
+                         "email",
+                         {
+                          data_type => "char", is_nullable => 1, size => 64 },
+                         "is_disqualified",
+                         {
+                          data_type => "tinyint", default_value => 0, is_nullable => 0 },
+                         "average_score",
+                         {
+                          data_type => "decimal", is_nullable => 1, size => [6, 2] },
+                         "standard_deviation",
+                         {
+                          data_type => "decimal", is_nullable => 1, size => [5, 2] },
+                         "total_1",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_2",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_3",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_4",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_5",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_6",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_7",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_8",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_9",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "total_10",
+                         {
+                          data_type => "tinyint", is_nullable => 1 },
+                         "votes_cast",
+                         {
+                          data_type => "integer", is_nullable => 1 },
+                        );
 
 =head1 PRIMARY KEY
 
@@ -305,11 +328,13 @@ Related object: L<IFComp::Schema::Result::User>
 =cut
 
 __PACKAGE__->belongs_to(
-  "author",
-  "IFComp::Schema::Result::User",
-  { id => "author" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
+                        "author",
+                        "IFComp::Schema::Result::User",
+                        {
+                         id => "author" },
+                        {
+                         is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+                       );
 
 =head2 comp
 
@@ -320,11 +345,13 @@ Related object: L<IFComp::Schema::Result::Comp>
 =cut
 
 __PACKAGE__->belongs_to(
-  "comp",
-  "IFComp::Schema::Result::Comp",
-  { id => "comp" },
-  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
-);
+                        "comp",
+                        "IFComp::Schema::Result::Comp",
+                        {
+                         id => "comp" },
+                        {
+                         is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+                       );
 
 =head2 entry_updates
 
@@ -335,11 +362,13 @@ Related object: L<IFComp::Schema::Result::EntryUpdate>
 =cut
 
 __PACKAGE__->has_many(
-  "entry_updates",
-  "IFComp::Schema::Result::EntryUpdate",
-  { "foreign.entry" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "entry_updates",
+                      "IFComp::Schema::Result::EntryUpdate",
+                      {
+                       "foreign.entry" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 transcripts
 
@@ -350,11 +379,13 @@ Related object: L<IFComp::Schema::Result::Transcript>
 =cut
 
 __PACKAGE__->has_many(
-  "transcripts",
-  "IFComp::Schema::Result::Transcript",
-  { "foreign.entry" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "transcripts",
+                      "IFComp::Schema::Result::Transcript",
+                      {
+                       "foreign.entry" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 =head2 votes
 
@@ -365,11 +396,13 @@ Related object: L<IFComp::Schema::Result::Vote>
 =cut
 
 __PACKAGE__->has_many(
-  "votes",
-  "IFComp::Schema::Result::Vote",
-  { "foreign.entry" => "self.id" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
+                      "votes",
+                      "IFComp::Schema::Result::Vote",
+                      {
+                       "foreign.entry" => "self.id" },
+                      {
+                       cascade_copy => 0, cascade_delete => 0 },
+                     );
 
 
 # Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 12:20:29
@@ -392,137 +425,137 @@ Readonly my $ALAN_REGEX   => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
-    'Cover.jpg',
-    'index.html',
-    'interpreter',
-    'play.html',
-    'Small Cover.jpg',
-    'style.css',
-);
+                                           'Cover.jpg',
+                                           'index.html',
+                                           'interpreter',
+                                           'play.html',
+                                           'Small Cover.jpg',
+                                           'style.css',
+                                          );
 Readonly my @DEFAULT_INFORM_CONTENT => qw(
-    index.html
-);
+                                             index.html
+                                        );
 
 has 'directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-    clearer => 'clear_directory',
-);
+                    is => 'ro',
+                    isa => 'Path::Class::Dir',
+                    lazy_build => 1,
+                    clearer => 'clear_directory',
+                   );
 
 has 'directory_name' => (
-    is => 'ro',
-    isa => 'Maybe[Str]',
-    lazy_build => 1,
-    clearer => 'clear_directory_name',
-);
+                         is => 'ro',
+                         isa => 'Maybe[Str]',
+                         lazy_build => 1,
+                         clearer => 'clear_directory_name',
+                        );
 
 has 'main_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-    clearer => 'clear_main_file',
-);
+                    is => 'ro',
+                    isa => 'Maybe[Path::Class::File]',
+                    lazy_build => 1,
+                    clearer => 'clear_main_file',
+                   );
 
 has 'walkthrough_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-    clearer => 'clear_walkthrough_file',
-);
+                           is => 'ro',
+                           isa => 'Maybe[Path::Class::File]',
+                           lazy_build => 1,
+                           clearer => 'clear_walkthrough_file',
+                          );
 
 has 'main_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-);
+                         is => 'ro',
+                         isa => 'Path::Class::Dir',
+                         lazy_build => 1,
+                        );
 
 has 'walkthrough_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-);
+                                is => 'ro',
+                                isa => 'Path::Class::Dir',
+                                lazy_build => 1,
+                               );
 
 has 'content_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-);
+                            is => 'ro',
+                            isa => 'Path::Class::Dir',
+                            lazy_build => 1,
+                           );
 
 has 'cover_directory' => (
-    is => 'ro',
-    isa => 'Path::Class::Dir',
-    lazy_build => 1,
-);
+                          is => 'ro',
+                          isa => 'Path::Class::Dir',
+                          lazy_build => 1,
+                         );
 
 has 'cover_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-);
+                     is => 'ro',
+                     isa => 'Maybe[Path::Class::File]',
+                     lazy_build => 1,
+                    );
 
 has 'inform_game_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-);
+                           is => 'ro',
+                           isa => 'Maybe[Path::Class::File]',
+                           lazy_build => 1,
+                          );
 
 has 'inform_game_js_file' => (
-    is => 'ro',
-    isa => 'Maybe[Path::Class::File]',
-    lazy_build => 1,
-);
+                              is => 'ro',
+                              isa => 'Maybe[Path::Class::File]',
+                              lazy_build => 1,
+                             );
 
 enum 'Platform', [qw(
-    html
-    website
-    quixe2
-    parchment
-    inform
-    inform-website
-    tads
-    quest
-    windows
-    alan
-    other
-) ];
+                        html
+                        website
+                        quixe2
+                        parchment
+                        inform
+                        inform-website
+                        tads
+                        quest
+                        windows
+                        alan
+                        other
+                   ) ];
 
 has 'platform' => (
-    is => 'ro',
-    isa => 'Platform',
-    lazy_build => 1,
-    clearer => 'clear_platform',
-);
+                   is => 'ro',
+                   isa => 'Platform',
+                   lazy_build => 1,
+                   clearer => 'clear_platform',
+                  );
 
 has 'is_qualified' => (
-    is => 'ro',
-    isa => 'Bool',
-    lazy_build => 1,
-);
+                       is => 'ro',
+                       isa => 'Bool',
+                       lazy_build => 1,
+                      );
 
 has 'parchment_tag_text' => (
-    is => 'ro',
-    isa => 'Str',
-    lazy_build => 1,
-);
+                             is => 'ro',
+                             isa => 'Str',
+                             lazy_build => 1,
+                            );
 
 has 'is_zcode' => (
-    is => 'ro',
-    isa => 'Bool',
-    lazy_build => 1,
-);
+                   is => 'ro',
+                   isa => 'Bool',
+                   lazy_build => 1,
+                  );
 
 has 'has_extra_content' => (
-    is => 'ro',
-    isa => 'Bool',
-    lazy_build => 1,
-);
+                            is => 'ro',
+                            isa => 'Bool',
+                            lazy_build => 1,
+                           );
 
 has 'latest_update' => (
-    is => 'ro',
-    isa => 'Maybe[IFComp::Schema::Result::EntryUpdate]',
-    lazy_build => 1,
-);
+                        is => 'ro',
+                        isa => 'Maybe[IFComp::Schema::Result::EntryUpdate]',
+                        lazy_build => 1,
+                       );
 
 sub place_as_ordinate {
     my $self = shift;
@@ -580,10 +613,10 @@ sub _build_directory {
     my $self = shift;
 
     my $dir_path = Path::Class::Dir->new(
-        '',
-        $self->result_source->schema->entry_directory,
-        $self->id,
-    );
+                                         '',
+                                         $self->result_source->schema->entry_directory,
+                                         $self->id,
+                                        );
 
     unless ( -e $dir_path ) {
         mkdir ( $dir_path );
@@ -657,15 +690,15 @@ sub _build_platform {
 
     my @content_files;
     $self->content_directory->recurse( callback => sub {
-        push @content_files, $_[0]->basename;
-    } );
+                                           push @content_files, $_[0]->basename;
+                                       } );
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^play\.html?$/i } @content_files )
         && ( grep { /^parchment.*js$/i } @content_files  )
-    ) {
+       ) {
         return 'parchment';
     }
 
@@ -673,20 +706,20 @@ sub _build_platform {
         ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /^index\.html?$/i } @content_files )
         && ( grep { /^quixe.*js?$/i } @content_files )
-    ) {
-      if ( my $js_file = $self->inform_game_js_file ) {
-        my $fh = $js_file->openr;
-        my $first_line = <$fh>;
-        if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ ) {
-          return 'quixe2';
+       ) {
+        if ( my $js_file = $self->inform_game_js_file ) {
+            my $fh = $js_file->openr;
+            my $first_line = <$fh>;
+            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ ) {
+                return 'quixe2';
+            }
         }
-      }
     }
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
         && ( grep { /\.html?$/i } @content_files )
-    ) {
+       ) {
         return 'inform-website';
     }
 
@@ -696,7 +729,7 @@ sub _build_platform {
 
     if (
         ( grep { /$I7_REGEX/ } @content_files )
-    ) {
+       ) {
         return 'inform';
     }
 
@@ -726,11 +759,9 @@ sub _build_is_qualified {
 
     if ( $self->is_disqualified ) {
         return 0;
-    }
-    elsif ( $self->main_file ) {
+    } elsif ( $self->main_file ) {
         return 1;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -740,11 +771,11 @@ sub _build_inform_game_file {
 
     my $inform_file;
     $self->content_directory->recurse( callback => sub {
-        my ( $file ) = @_;
-        if ( $file->basename =~ /$I7_REGEX/ ) {
-            $inform_file = $file;
-        }
-    } );
+                                           my ( $file ) = @_;
+                                           if ( $file->basename =~ /$I7_REGEX/ ) {
+                                               $inform_file = $file;
+                                           }
+                                       } );
 
     return $inform_file;
 }
@@ -754,15 +785,15 @@ sub _build_inform_game_js_file {
 
     my $js_file;
     $self->content_directory->recurse( callback => sub {
-        my ( $file ) = @_;
-        if ( $file->basename =~ /\.js$/ ) {
-            my $filename = $file->basename;
-            $filename =~ s/\.js$//;
-            if ( $filename =~ /$I7_REGEX/ ) {
-                $js_file = $file;
-            }
-        }
-    } );
+                                           my ( $file ) = @_;
+                                           if ( $file->basename =~ /\.js$/ ) {
+                                               my $filename = $file->basename;
+                                               $filename =~ s/\.js$//;
+                                               if ( $filename =~ /$I7_REGEX/ ) {
+                                                   $js_file = $file;
+                                               }
+                                           }
+                                       } );
 
     return $js_file;
 }
@@ -772,8 +803,7 @@ sub cover_exists {
 
     if ( $self->cover_file ) {
         return -e $self->cover_file;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -796,11 +826,11 @@ sub update_content_directory {
         # amber.
         my @dirs_to_delete;
         $content_directory->recurse( callback => sub {
-            my ( $subdir ) = @_;
-            if ( $subdir->basename eq '__MACOSX' ) {
-                push @dirs_to_delete, $subdir;
-            }
-        } );
+                                         my ( $subdir ) = @_;
+                                         if ( $subdir->basename eq '__MACOSX' ) {
+                                             push @dirs_to_delete, $subdir;
+                                         }
+                                     } );
         for my $deletable_dir ( @dirs_to_delete ) {
             $deletable_dir->rmtree if -e $deletable_dir;
         }
@@ -810,24 +840,22 @@ sub update_content_directory {
         if (
             ( $content_directory->children == 1 )
             && ( ($content_directory->children)[0]->is_dir )
-        ) {
+           ) {
             my $sole_dir = ($content_directory->children)[0];
             for my $child ( $sole_dir->children ) {
                 my $destination;
                 if ( $child->is_dir ) {
                     $destination =
-                        $content_directory->subdir( $child->basename );
-                }
-                else {
+                      $content_directory->subdir( $child->basename );
+                } else {
                     $destination =
-                        $content_directory->file( $child->basename );
+                      $content_directory->file( $child->basename );
                 }
                 move( $child => $destination->stringify ) or die $!;
             }
             $sole_dir->rmtree;
         }
-    }
-    else {
+    } else {
         $self->main_file->copy_to( $self->content_directory );
     }
 
@@ -835,11 +863,9 @@ sub update_content_directory {
 
     if ( $self->platform eq 'inform' ) {
         $self->_create_parchment_page;
-    }
-    elsif ( $self->platform eq 'parchment' ) {
+    } elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
-    }
-    elsif ( $self->platform eq 'quixe2' ) {
+    } elsif ( $self->platform eq 'quixe2' ) {
         $self->_repair_game_js;
     }
 }
@@ -848,12 +874,12 @@ sub _repair_game_js {
     my $self = shift;
 
     $self->inform_game_js_file->spew(
-            q/$(document).ready(function() {/
-            . q/  GiLoad.load_run(null, '/
-            . encode_base64( $self->inform_game_file->slurp, '' )
-            . q/', 'base64');/
-            . q/});/
-    );
+                                     q/$(document).ready(function() {/
+                                     . q/  GiLoad.load_run(null, '/
+                                     . encode_base64( $self->inform_game_file->slurp, '' )
+                                     . q/', 'base64');/
+                                     . q/});/
+                                    );
 }
 
 sub _create_parchment_page {
@@ -914,7 +940,7 @@ ifRecorder.story.version = "1";
 </html>
 
 EOF
-    ;
+      ;
 
     my $html_file = $self->content_directory->file( 'index.html' );
     my $html_fh = $html_file->openw;
@@ -984,8 +1010,7 @@ sub _build_parchment_tag_text {
 <link rel="stylesheet" type="text/css" href="../../static/interpreter/zcode/style.css">
 EOF
         ;
-    }
-    else {
+    } else {
         return <<EOF;
 <script src="../../static/interpreter/jquery.min.js"></script>
 <script src="../../static/interpreter/parchment.min.js"></script>
@@ -1003,13 +1028,12 @@ sub _build_is_zcode {
 
     my @content_files;
     $self->content_directory->recurse( callback => sub {
-        push @content_files, $_[0]->basename;
-    } );
+                                           push @content_files, $_[0]->basename;
+                                       } );
 
     if ( grep { /$ZCODE_REGEX/ } @content_files ) {
         return 1;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -1020,30 +1044,28 @@ sub _build_has_extra_content {
     my @default_list;
     if ( $self->platform =~ /^inform/ ) {
         @default_list = @DEFAULT_INFORM_CONTENT;
-    }
-    elsif (
-        ( $self->platform eq 'parchment' )
-        || ( $self->platform eq 'quixe2' )
-    ) {
+    } elsif (
+             ( $self->platform eq 'parchment' )
+             || ( $self->platform eq 'quixe2' )
+            ) {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
-    }
-    else {
+    } else {
         return 0;
     }
 
     my $lc = List::Compare->new(
-        [
-            map
-                { $_->basename }
-                $self->content_directory->children( no_hidden => 1 )
-        ],
-        \@default_list,
-    );
+                                [
+                                 map
+                                 {
+                                     $_->basename }
+                                 $self->content_directory->children( no_hidden => 1 )
+                                ],
+                                \@default_list,
+                               );
 
     if ( $lc->get_unique > 1 ) {
         return 1;
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -1052,60 +1074,62 @@ sub _build_latest_update {
     my $self = shift;
 
     my $updates_rs = $self->entry_updates->search(
-        {},
-        { order_by => 'time desc', }
-    );
+                                                  {
+                                                  },
+                                                  {
+                                                   order_by => 'time desc', }
+                                                 );
     return $updates_rs->next;
 }
 
 sub get_qualified_voters {
-  my ($self) = shift;
-  my $db = $self->result_source->schema;
+    my ($self) = shift;
+    my $db = $self->result_source->schema;
 
-  return $db->resultset("User")->search({ "entry.comp" => $self->comp->id,
-                                        },
-                                        { join => [ "votes" ],
-                                          prefetch => {"votes" => ["entry"]},
-                                          group_by => "me.id",
-                                          having => \['count(me.id) > ?', 4]
+    return $db->resultset("User")->search({ "entry.comp" => $self->comp->id,
+                                          },
+                                          { join => [ "votes" ],
+                                            prefetch => {"votes" => ["entry"]},
+                                            group_by => "me.id",
+                                            having => \['count(me.id) > ?', 4]
                                       }
- );
+   );
 }
 
-sub get_qualified_votes {
-  my ($self) = shift;
+  sub get_qualified_votes {
+      my ($self) = shift;
 
-  my $db = $self->result_source->schema;
-  my @qualified_voters = $self->get_qualified_voters();
+      my $db = $self->result_source->schema;
+      my @qualified_voters = $self->get_qualified_voters();
 
-  return $db->resultset("Vote")->search({ "comp" => $self->comp->id,
-                                          "entry" => $self->id,
-                                          "user" => [ map { $_->id } @qualified_voters ],
-                                        } ,
-                                        { join => [ "entry" ],
-                                          prefetch => { "entry", => [ "comp" ] },
-                                        },
-                                       );
-}
+      return $db->resultset("Vote")->search({ "comp" => $self->comp->id,
+                                              "entry" => $self->id,
+                                              "user" => [ map { $_->id } @qualified_voters ],
+                                            } ,
+                                            { join => [ "entry" ],
+                                              prefetch => { "entry", => [ "comp" ] },
+                                            },
+                                           );
+  }
 
 sub compute_average_score {
-  my ($self, $only_qualified) = shift;
+    my ($self, $only_qualified) = shift;
 
-  my @votes;
-  if ($only_qualified) {
-    @votes = $self->compute_qualified_votes;
-  } else {
-    @votes = $self->votes->all;
-  }
+    my @votes;
+    if ($only_qualified) {
+        @votes = $self->compute_qualified_votes;
+    } else {
+        @votes = $self->votes->all;
+    }
 
-  my $sum = 0;
-  for (@votes) {
-    $sum += $_->score;
-  }
+    my $sum = 0;
+    for (@votes) {
+        $sum += $_->score;
+    }
 
-  my $num = scalar @votes;
+    my $num = scalar @votes;
 
-  return sprintf("%0.2f", $sum / $num);
+    return sprintf("%0.2f", $sum / $num);
 }
 
 __PACKAGE__->meta->make_immutable;

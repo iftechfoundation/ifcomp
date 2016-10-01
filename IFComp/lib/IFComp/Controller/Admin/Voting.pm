@@ -23,8 +23,20 @@ A controller for voting reports.
 
 =cut
 
-sub index :Path :Args(0) {
+sub index :Chained('/admin') :Path :Args(0) {
     my ( $self, $c ) = @_;
+
+    # Must have a votecounter
+    my @user_roles = $c->user->user_roles;
+    my $votecounter_role = 'votecoun';
+    my $has_votecounter_role = grep { $_->role->name eq $votecounter_role } @user_roles;
+
+    unless ($has_votecounter_role) {
+        $c->log->warn(sprintf("User %s does not have role %s",
+                              $c->user->name, $votecounter_role));
+        $c->res->redirect( '/' );
+        return;
+    }
 
     my $comp  = $c->model('IFCompDB::Comp');
     my $entry = $c->model('IFCompDB::Entry');
@@ -42,27 +54,29 @@ sub index :Path :Args(0) {
     my @available_comps = $comp->search({
                                          year => {'>=' => 2014},
                                         },
-                                        { order_by => 'year'}
+                                        {
+                                         order_by => 'year'}
                                        )->all;
 
     $c->stash->{ available_comps } = \@available_comps;
 
     # Get all entries for this comp
     my @all_entries = $entry->search({comp => $current_comp->id,
-                                      is_disqualified => 0
                                      },
-                                     { order_by => { -desc => "average_score"} }
+                                     {
+                                      order_by => { -desc => "average_score"} }
                                     )->all;
-    my @entry_ids = map { $_->id } @all_entries;
+    my @entry_ids = map { $_->id }
+      grep { $_->is_qualified } @all_entries;
 
     my (@ips, @users);
     my @votes = $vote->search({entry => \@entry_ids },
-                                  {
-                                   select => ['user', { 'count' => 'me.id', -as => 'cnt' }],
-                                   as => [ 'user', 'cnt' ],
-                                   group_by => [ 'user' ],
-                                   order_by => { -desc => [ 'cnt' ] },
-                                  },
+                              {
+                               select => ['user', { 'count' => 'me.id', -as => 'cnt' }],
+                               as => [ 'user', 'cnt' ],
+                               group_by => [ 'user' ],
+                               order_by => { -desc => [ 'cnt' ] },
+                              },
                              );
     my $seen = 0;
     for my $vote (@votes) {
@@ -102,16 +116,16 @@ sub index :Path :Args(0) {
         }
     }
 
-    shift @score_buckets; # remove first entry, for it is null
+    shift @score_buckets;       # remove first entry, for it is null
     my $score_buckets_json = JSON::to_json(\@score_buckets);
 
     $c->stash->{ entries } = \@all_entries;
     $c->stash->{ template } = "admin/voting/index.tt";
     $c->stash->{ total_votes } = $total_votes;
     if (@all_entries) {
-      $c->stash->{ average_score } = sprintf("%0.2f", ($total_scores / scalar @all_entries));
+        $c->stash->{ average_score } = sprintf("%0.2f", ($total_scores / scalar @all_entries));
     } else {
-      $c->stash->{ average_score } = 0;
+        $c->stash->{ average_score } = 0;
     }
 
     my $shills = $current_comp->get_possible_shills;
@@ -123,7 +137,7 @@ sub index :Path :Args(0) {
 
 
 # /admin/voting/:entry_id
-sub show_entry :Path :Args(1) {
+sub show_entry :Chained("/admin/voting") :Path :Args(1) {
     my ($self, $c, $entry_id) = @_;
 
     my $entry = $c->model('IFCompDB::Entry');

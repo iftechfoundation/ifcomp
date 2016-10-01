@@ -25,7 +25,7 @@ A controller for voting reports.
 
 # /admin/voting/ip/:ip/:comp_id
 # Show the voting from this IP for this entry
-sub show_ip :Path :Args(2) {
+sub show_ip :Chained("/admin/voting") :Path :Args(2) {
     my ($self, $c, $ip, $comp_id) = @_;
 
     my $comp = $c->model('IFCompDB::Comp')->find($comp_id);

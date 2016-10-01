@@ -269,7 +269,6 @@ sub _build_winners {
 
 # A shill is a voter who casts many extreme votes (10s or 1s) for the
 # current comp
-use Data::Dumper;
 sub get_possible_shills {
     my ($self) = @_;
 
