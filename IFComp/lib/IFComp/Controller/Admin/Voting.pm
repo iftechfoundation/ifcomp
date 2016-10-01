@@ -28,7 +28,7 @@ sub index :Chained('/admin') :Path :Args(0) {
 
     # Must have a votecounter
     my @user_roles = $c->user->user_roles;
-    my $votecounter_role = 'votecoun';
+    my $votecounter_role = 'votecounter';
     my $has_votecounter_role = grep { $_->role->name eq $votecounter_role } @user_roles;
 
     unless ($has_votecounter_role) {
