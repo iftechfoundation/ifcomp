@@ -5,5 +5,5 @@
 
 <p>We've just sent an email to [% user.email %], with the subject line "Please confirm your new ifcomp.org account". Simply click the link you'll find inside that email to complete your registration.</p>
 
-<p>(If you don't receive this email within the next few minutes, please contact us at <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a>, letting us know the email address you used to register.)</p>
+<p>(If you don't receive this email within the next few minutes, please check your spam folder. If it's not in there either, please contact us at <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a>, letting us know the email address you used to register.)</p>
 </div>
