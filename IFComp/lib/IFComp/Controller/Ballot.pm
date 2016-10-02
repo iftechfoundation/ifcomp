@@ -68,18 +68,7 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
 sub index :Chained('root') :PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $year = $c->stash->{ current_comp }->year;
-    my $zip_filename = "IFComp$year.zip";
-    my $zip_file = Path::Class::File->new(
-        $c->path_to( 'root', 'static', 'downloads' ),
-        $zip_filename,
-    );
-
-    if ( -r $zip_file ) {
-        my $zip_file_size = $zip_file->stat->size;
-        $c->stash->{ zip_file_mb }
-            = sprintf ( "%.2f", ( $zip_file_size / 1000000 ) );
-    }
+    $c->stash->{ zip_file_mb } = $c->config->{ zip_file_mb };
 }
 
 sub vote :Chained('root') :PathPart('vote') :Args(0) {
