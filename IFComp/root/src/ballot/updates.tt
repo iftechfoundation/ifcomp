@@ -1,5 +1,10 @@
 <div class="container">
 <h1>[% entry.title %]: Changelog</h1>
+
+<p>This lists all the changes the authors of this game have made to it since the judging period began, in their own words.</p>
+
+<p>If you'd like to play the game as it existed at the start of the competition, prior to the application of any updates, you may download the full-competition .zip archive from <a href="/ballot">the top of the games-list page</a>.</p>
+
 <ul>
 [% FOR update IN updates %]
     <li><em>[% update.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</em>: [% update.note | html %]</li>
