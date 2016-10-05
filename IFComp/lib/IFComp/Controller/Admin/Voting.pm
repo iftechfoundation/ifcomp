@@ -61,13 +61,13 @@ sub index :Chained('/admin') :Path :Args(0) {
     $c->stash->{ available_comps } = \@available_comps;
 
     # Get all entries for this comp
-    my @all_entries = $entry->search({comp => $current_comp->id,
+    my @all_entries = grep { $_->is_qualified }
+                      $entry->search({comp => $current_comp->id,
                                      },
                                      {
                                       order_by => { -desc => "average_score"} }
                                     )->all;
-    my @entry_ids = map { $_->id }
-      grep { $_->is_qualified } @all_entries;
+    my @entry_ids = map { $_->id } @all_entries;
 
     my (@ips, @users);
     my @votes = $vote->search({entry => \@entry_ids },
