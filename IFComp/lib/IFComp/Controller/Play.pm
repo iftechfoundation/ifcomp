@@ -54,12 +54,7 @@ sub play_online :Chained('fetch_entry') :Args(0) {
     my $entry = $c->stash->{ entry };
     my $entry_id = $entry->id;
     my $redirection_target = '';
-    if ( $entry->platform eq 'html' ) {
-        $redirection_target = $entry->main_file->basename;
-    }
-    else {
-        $redirection_target = 'index.html';
-    }
+    $redirection_target = $entry->play_file->stringify;
 
     my $redirection_path = "/$entry_id/content/$redirection_target";
     $c->res->redirect( $c->uri_for( $redirection_path ) );

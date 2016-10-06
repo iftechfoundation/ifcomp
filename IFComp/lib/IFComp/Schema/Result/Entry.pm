@@ -388,8 +388,9 @@ Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
 Readonly my $QUEST_REGEX   => qr/\.quest$/i;
-Readonly my $ALAN_REGEX   => qr/\.a3c$/i;
+Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
+Readonly my $HTML_REGEX    => qr/\.html?$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
     'Cover.jpg',
@@ -487,11 +488,25 @@ enum 'Platform', [qw(
     other
 ) ];
 
+has 'contents_data' => (
+    is => 'ro',
+    init_arg => undef,
+    lazy_build => 1,
+    clearer => 'clear_contents_data',
+);
+
 has 'platform' => (
     is => 'ro',
     isa => 'Platform',
     lazy_build => 1,
     clearer => 'clear_platform',
+);
+
+has 'play_file' => (
+    is => 'ro',
+    isa => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+    clearer => 'clear_play_file',
 );
 
 has 'is_qualified' => (
@@ -647,78 +662,101 @@ sub _build_subdir_named {
     return $path;
 }
 
-sub _build_platform {
+sub _build_contents_data {
     my $self = shift;
 
     my $file = $self->main_file;
     if ( $self->main_file =~ /\.html?$/i ) {
-        return 'html';
+        return {'platform' => 'html', 'play_file' => $self->main_file->relative($self->content_directory)};
     }
 
     my @content_files;
     $self->content_directory->recurse( callback => sub {
-        push @content_files, $_[0]->basename;
+        push @content_files, $_[0]->relative($self->content_directory);
     } );
 
-    if (
-        ( grep { /$I7_REGEX/ } @content_files )
-        && ( grep { /^index\.html?$/i } @content_files )
-        && ( grep { /^play\.html?$/i } @content_files )
-        && ( grep { /^parchment.*js$/i } @content_files  )
+    # ensure a predictable order:
+    @content_files = sort { $a cmp $b } @content_files;
+
+    if (_check_basenames([$I7_REGEX,
+                          qr/^index\.html?$/i,
+                          qr/^play\.html?$/i,
+                          qr/^parchment.*js$/i],
+                         \@content_files)
     ) {
-        return 'parchment';
+        my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
+        return {'platform' => 'parchment', 'play_file' => $play_file};
     }
 
-    if (
-        ( grep { /$I7_REGEX/ } @content_files )
-        && ( grep { /^index\.html?$/i } @content_files )
-        && ( grep { /^quixe.*js?$/i } @content_files )
+    if (_check_basenames([$I7_REGEX,
+                          qr/^index\.html?$/i,
+                          qr/^quixe.*js$/i],
+                         \@content_files)
     ) {
         if ( my $js_file = $self->inform_game_js_file ) {
             my $fh = $js_file->openr;
             my $first_line = <$fh>;
-            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) {/ ) {
-                return 'quixe2';
+            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ ) {
+                my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
+                return {'platform' => 'quixe2', 'play_file' => $play_file};
             }
         }
     }
 
-    if (
-        ( grep { /$I7_REGEX/ } @content_files )
-        && ( grep { /\.html?$/i } @content_files )
+    if (_check_basenames([$I7_REGEX, $HTML_REGEX], \@content_files)
     ) {
-        return 'inform-website';
+        my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
+        return {'platform' => 'inform-website', 'play_file' => $play_file};
     }
 
-    if ( grep { /\.html?$/i } @content_files ) {
-        return 'website';
+    # perhaps we need a better heuristic for picking the right file, if
+    # there are multiple matches, or we could let the user specify,
+    # but for now just take the first successful match:
+    for my $file (@content_files) {
+        if ( $file->basename =~ /$HTML_REGEX/ ) {
+            return {'platform' => 'website', 'play_file' => $file};
+        }
+        elsif ( $file->basename =~ /$I7_REGEX/ ) {
+            return {'platform' => 'inform', 'play_file' => $file};
+        }
+        elsif ( $file->basename =~ /$TADS_REGEX/ ) {
+            return {'platform' => 'tads', 'play_file' => $file};
+        }
+        elsif ( $file->basename =~ /$QUEST_REGEX/ ) {
+            return {'platform' => 'quest', 'play_file' => $file};
+        }
+        elsif ( $file->basename =~ /$ALAN_REGEX/ ) {
+            return {'platform' => 'alan', 'play_file' => $file};
+        }
+        elsif ( $file->basename =~ /$WINDOWS_REGEX/ ) {
+            return {'platform' => 'windows', 'play_file' => $file};
+        }
     }
 
-    if (
-        ( grep { /$I7_REGEX/ } @content_files )
-    ) {
-        return 'inform';
+    return {'platform' => 'other', 'play_file' => undef};
+}
+
+sub _check_basenames {
+    my ($regexes, $files) = @_;
+    REGEXES: for my $regex (@$regexes) {
+        for my $file (@$files) {
+            next REGEXES if ($file->basename =~ /$regex/);
+        }
+        return 0; # nobody matched, give up
     }
+    return 1;
+}
 
+sub _build_platform {
+    my $self = shift;
 
-    if ( grep { /$TADS_REGEX/ } @content_files ) {
-        return 'tads';
-    }
+    return $self->contents_data->{'platform'};
+}
 
-    if ( grep { /$QUEST_REGEX/ } @content_files ) {
-        return 'quest';
-    }
+sub _build_play_file {
+    my $self = shift;
 
-    if ( grep { /$ALAN_REGEX/ } @content_files ) {
-        return 'alan';
-    }
-
-    if ( grep { /$WINDOWS_REGEX/ } @content_files ) {
-        return 'windows';
-    }
-
-    return 'other';
-
+    return $self->contents_data->{'play_file'};
 }
 
 sub _build_is_qualified {
@@ -831,7 +869,9 @@ sub update_content_directory {
         $self->main_file->copy_to( $self->content_directory );
     }
 
+    $self->clear_contents_data;
     $self->clear_platform;
+    $self->clear_play_file;
 
     if ( $self->platform eq 'inform' ) {
         $self->_create_parchment_page;
