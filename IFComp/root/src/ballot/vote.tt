@@ -49,7 +49,7 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 [% END %]
 
 <table class="table">
-[% WHILE (entry = entries_rs.next) %]
+[% FOR entry IN entries %]
 <tr>
     [% IF entry.is_qualified %]
     <td><strong><a href="/ballot#entry-[% entry.id %]">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]</td>

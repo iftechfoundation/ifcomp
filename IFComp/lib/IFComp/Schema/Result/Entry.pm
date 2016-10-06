@@ -403,6 +403,14 @@ Readonly my @DEFAULT_INFORM_CONTENT => qw(
     index.html
 );
 
+has 'sort_title' => (
+    is => 'ro',
+    isa => 'Maybe[Str]',
+    lazy_build => 1,
+    clearer => 'clear_sort_title',
+    predicate => 'has_sort_title',
+);
+
 has 'directory' => (
     is => 'ro',
     isa => 'Path::Class::Dir',
@@ -556,9 +564,20 @@ around update => sub {
         }
     }
 
-    return $self->$orig( @_ );
+    if ( $self->is_column_changed( 'title' ) && $self->has_sort_title ) {
+        $self->clear_sort_title;
+    }
 
+    return $self->$orig( @_ );
 };
+
+sub _build_sort_title {
+    my $self = shift;
+    my $title = $self->title;
+    # for right now, just remove initial articles
+    $title =~ s/^(?:the|a|an) //i;
+    return $title;
+}
 
 sub _build_directory_name {
     my $self = shift;
