@@ -36,6 +36,7 @@ requires 'Template::Plugin::Comma';
 requires 'Template::Plugin::DateTime';
 requires 'Regexp::Common';
 requires 'File::MimeInfo';
+requires 'Statistics::Basic';
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
