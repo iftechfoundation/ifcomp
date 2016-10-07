@@ -36,7 +36,7 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
         return;
     }
 
-    my $order_by;
+    my @entries;
     if ( $c->req->params->{ shuffle } ) {
         $c->stash->{ is_shuffled } = 1;
         my $seed = '';
@@ -44,25 +44,26 @@ sub root :Chained('/') :PathPart('ballot') :CaptureArgs(0) {
             $seed = $c->user->get_object->id;
             $c->stash->{ is_personalized } = 1;
         }
-        $order_by = "rand($seed)";
+        my $order_by = "rand($seed)";
+        @entries = $current_comp->entries(
+            {},
+            {
+                order_by => $order_by,
+            }
+        );
     }
     else {
-        $order_by = 'title asc';
+        @entries = sort { $a->sort_title cmp $b->sort_title }
+            $current_comp->entries();
     }
 
-    $c->stash->{ entries_rs } = $current_comp->entries(
-        {},
-        {
-            order_by => $order_by,
-        }
-    );
+    $c->stash->{ entries } = \@entries;
 
     my $user_is_author = 0;
     if ( $c->user && $c->user->get_object->current_comp_entries ) {
         $user_is_author = 1;
     }
     $c->stash->{ user_is_author } = $user_is_author;
-
 }
 
 sub index :Chained('root') :PathPart('') :Args(0) {

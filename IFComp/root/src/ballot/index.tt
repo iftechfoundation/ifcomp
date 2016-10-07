@@ -86,7 +86,7 @@
     </p>
 [% END %]
 
-[% WHILE (entry = entries_rs.next) %]
+[% FOR entry IN entries %]
     [% IF entry.is_qualified %]
         <div class="well" id="entry-[% entry.id %]">
         [% INCLUDE _entry_title.tt include_permalink = 1 %]
