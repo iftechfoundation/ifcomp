@@ -95,7 +95,7 @@ sub transcribe :Chained('fetch_entry') :Args(0) {
 
     my $data_ref = $c->req->body_data->{ data };
     unless ( ref $data_ref ) {
-        $data_ref = decode_json( $data_ref );
+        $data_ref = from_json( $data_ref );
     }
 
     my $data_list_ref;
