@@ -145,7 +145,7 @@ sub show_entry :Chained("/admin/voting") :Path :Args(1) {
     my @score_buckets;
 
     for my $vote ($this_entry->votes) {
-        $score_buckets[$vote->score] += 1;
+        $score_buckets[$vote->score - 1] += 1;
     }
 
     $c->stash->{ entry } = $this_entry;
