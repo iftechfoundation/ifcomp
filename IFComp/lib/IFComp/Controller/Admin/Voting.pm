@@ -107,12 +107,12 @@ sub index :Chained('/admin') :Path :Args(0) {
     my $total_scores = 0;
     my (@score_buckets);
     for my $entry (@all_entries) {
-        $total_votes += $entry->votes_cast;
-        $total_scores += $entry->average_score;
+        $total_votes += $entry->votes_cast || 0;
+        $total_scores += $entry->average_score || 0;
 
         for my $i (1..10) {
             my $method = "total_$i";
-            $score_buckets[$i] += $entry->$method;
+            $score_buckets[$i] += $entry->$method || 0;
         }
     }
 
