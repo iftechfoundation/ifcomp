@@ -33,15 +33,18 @@ To install this project's CPAN dependencies, run the following command from the 
 
 This should crunch though the installation of a bunch of Perl modules. It'll take a few minutes.
 
-## Database configuration
-
-I hear rumors that one can construct a database based on the provided `IFComp::Schema` library, but that is magic presently beyond my ken.
-
-Otherwise, this information will appear someday...
-
 ## Application configuration
 
-Copy `conf/ifcomp_local.conf-dist` to `conf/ifcomp.local` and then update the database pointers therein as appropriate.
+Copy `conf/ifcomp_local.conf-dist` to `conf/ifcomp_local.conf` and then update the database pointers therein as appropriate.
+
+## Database configuration
+
+Run script/ifcomp_deploy_db.pl to construct the database tables (having first
+created the database, user, and password, and set up the application
+configuration appropriately). Note this script won't fill in the role table,
+the comp table, or the federated_site table. The last of these isn't required
+for most operation, but the first two do need to be manually filled in once
+the tables are created.
 
 ## Making it go
 
