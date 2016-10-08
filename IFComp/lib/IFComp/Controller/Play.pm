@@ -68,7 +68,7 @@ sub download :Chained('fetch_entry') :Args(0) {
 
     my $entry = $c->stash->{ entry };
     my $filename = $entry->main_file->basename;
-    if ( $entry->platform eq 'html' ) {
+    if ( $filename =~ /\.html?$/i ) {
         my $body = $entry->main_file->slurp;
         $c->res->header( 'Content-Disposition' => "attachment; filename=$filename" );
         $c->res->content_type( 'text/html' );

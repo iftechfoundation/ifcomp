@@ -391,6 +391,7 @@ Readonly my $QUEST_REGEX   => qr/\.quest$/i;
 Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 Readonly my $HTML_REGEX    => qr/\.html?$/i;
+Readonly my $INDEX_REGEX   => qr/^index\.html?$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
     'Cover.jpg',
@@ -684,11 +685,6 @@ sub _build_subdir_named {
 sub _build_contents_data {
     my $self = shift;
 
-    my $file = $self->main_file;
-    if ( $self->main_file =~ /\.html?$/i ) {
-        return {'platform' => 'html', 'play_file' => $self->main_file->relative($self->content_directory)};
-    }
-
     my @content_files;
     $self->content_directory->recurse( callback => sub {
         push @content_files, $_[0]->relative($self->content_directory);
@@ -697,73 +693,72 @@ sub _build_contents_data {
     # ensure a predictable order:
     @content_files = sort { $a cmp $b } @content_files;
 
-    if (_check_basenames([$I7_REGEX,
-                          qr/^index\.html?$/i,
-                          qr/^play\.html?$/i,
-                          qr/^parchment.*js$/i],
-                         \@content_files)
-    ) {
-        my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
-        return {'platform' => 'parchment', 'play_file' => $play_file};
-    }
-
-    if (_check_basenames([$I7_REGEX,
-                          qr/^index\.html?$/i,
-                          qr/^quixe.*js$/i],
-                         \@content_files)
-    ) {
+    my $quixe_extra_check = sub {
         if ( my $js_file = $self->inform_game_js_file ) {
             my $fh = $js_file->openr;
             my $first_line = <$fh>;
-            if ( $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ ) {
-                my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
-                return {'platform' => 'quixe2', 'play_file' => $play_file};
-            }
+            return scalar($first_line =~ /^\$\(document\)\.ready\(function\(\) \{/);
         }
-    }
+        return 0;
+    };
 
-    if (_check_basenames([$I7_REGEX, $HTML_REGEX], \@content_files)
-    ) {
-        my $play_file = (grep { $_->basename =~ /^index\.html?$/i } @content_files)[0];
-        return {'platform' => 'inform-website', 'play_file' => $play_file};
-    }
+    # This is a list of tuples of:
+    # - platform name
+    # - list of regexes for files required to exist
+    # - optional additional validation func
+    # Assuming all the regexes pass, the file matched by the first is
+    # what's used for the play file
+    my @platforms = (
+        ['parchment',
+         [$INDEX_REGEX, $I7_REGEX, qr/^play\.html?$/i, qr/^parchment.*js$/i]],
+        ['quixe2',
+         [$INDEX_REGEX, $I7_REGEX, qr/^quixe.*js$/i],
+         $quixe_extra_check],
+        ['inform-website', [$INDEX_REGEX, $I7_REGEX]],
+        ['inform', [$I7_REGEX]],
+        ['tads', [$TADS_REGEX]],
+        ['quest', [$QUEST_REGEX]],
+        ['alan', [$ALAN_REGEX]],
+        ['windows', [$WINDOWS_REGEX]],
+        # two possible cases for the "website" platform: either there's
+        # an index.html in the top level dir and some other html files,
+        # in which case we take the index.html file; or if that fails,
+        # then we consider the case where there's at least one html file
+        # in the top level dir, in which case we take it (or take the first
+        # alphabetically if there are multiple)
+        ['website', [$INDEX_REGEX, $HTML_REGEX]],
+        ['website', [qr/^[^\/]+$HTML_REGEX/]],
+    );
 
-    # perhaps we need a better heuristic for picking the right file, if
-    # there are multiple matches, or we could let the user specify,
-    # but for now just take the first successful match:
-    for my $file (@content_files) {
-        if ( $file->basename =~ /$HTML_REGEX/ ) {
-            return {'platform' => 'website', 'play_file' => $file};
-        }
-        elsif ( $file->basename =~ /$I7_REGEX/ ) {
-            return {'platform' => 'inform', 'play_file' => $file};
-        }
-        elsif ( $file->basename =~ /$TADS_REGEX/ ) {
-            return {'platform' => 'tads', 'play_file' => $file};
-        }
-        elsif ( $file->basename =~ /$QUEST_REGEX/ ) {
-            return {'platform' => 'quest', 'play_file' => $file};
-        }
-        elsif ( $file->basename =~ /$ALAN_REGEX/ ) {
-            return {'platform' => 'alan', 'play_file' => $file};
-        }
-        elsif ( $file->basename =~ /$WINDOWS_REGEX/ ) {
-            return {'platform' => 'windows', 'play_file' => $file};
+    for my $platform_info (@platforms) {
+        my ($name, $regexes, $extra_check) = @$platform_info;
+        $extra_check = sub { return 1 } unless defined $extra_check;
+        my @found_files = _find_fileset($regexes, @content_files);
+        if (@found_files && $extra_check->()) {
+            return {'platform' => $name, 'play_file' => $found_files[0]};
         }
     }
 
     return {'platform' => 'other', 'play_file' => undef};
 }
 
-sub _check_basenames {
-    my ($regexes, $files) = @_;
-    REGEXES: for my $regex (@$regexes) {
-        for my $file (@$files) {
-            next REGEXES if ($file->basename =~ /$regex/);
-        }
-        return 0; # nobody matched, give up
+sub _find_file {
+    my ($regex, @files) = @_;
+    for my $file (@files) {
+        return $file if $file->stringify =~ $regex;
     }
-    return 1;
+    return undef;
+}
+
+sub _find_fileset {
+    my ($regexes, @files) = @_;
+    my @ret;
+    for my $regex (@$regexes) {
+        my $found = _find_file($regex, @files);
+        return () unless defined $found;
+        push @ret, $found;
+    }
+    return @ret;
 }
 
 sub _build_platform {
@@ -894,6 +889,11 @@ sub update_content_directory {
 
     if ( $self->platform eq 'inform' ) {
         $self->_create_parchment_page;
+        # and then we have to recalculate again since doing this changes the
+        # platform type and play file
+        $self->clear_contents_data;
+        $self->clear_platform;
+        $self->clear_play_file;
     }
     elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
