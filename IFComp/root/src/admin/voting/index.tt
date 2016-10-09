@@ -102,7 +102,7 @@
                  <tbody>
                    [% FOREACH shill = shills %]
                    <tr>
-                     <td>[% shill.user.email %]</td>
+                     <td><a href="[% c.uri_for("/admin/voting/user/" _ shill.user.id _ "/" _ current_comp.id) %]">[% shill.user.email %]</a></td>
                      <td>[% shill.extreme_score_count %]/[% shill.total_vote_count %]</td>
                    </tr>               
                    [% END %]
