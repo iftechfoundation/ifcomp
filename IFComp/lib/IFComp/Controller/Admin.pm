@@ -24,8 +24,8 @@ A controller for administrative functions
 sub index :Chained('/') :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    unless ( $c->user ) {
-        $c->res->redirect( '/auth/login' );
+    unless ( $c->user && $c->check_any_user_role( 'votecounter' ) ) {
+        $c->res->redirect( '/' );
         return;
     }
 
