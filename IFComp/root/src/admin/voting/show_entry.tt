@@ -19,39 +19,22 @@
           <div class="col-md-6">
             <div class="row">       
               <div class="col-md-3">        
-                <label>Total Votes:</label>
+                <label>Total qualified ratings:</label>
               </div>
               <div class="col-md-3">
-                [% entry.votes.size %]
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md-3">
-                <label>Qualified Votes:</label>
-              </div>
-              <div class="col-md-3">
-                [% entry.get_qualified_votes.size %]
+                [% entry.votes_cast %]
               </div>
             </div>
      
             <div class="row">
               <div class="col-md-3">
-                <label>Average Score:</label>
+                <label>Average qualified rating:</label>
               </div>
               <div class="col-md-3">
-                [% entry.compute_average_score %]
+                [% entry.average_score %]
               </div>
             </div>
             
-            <div class="row">
-              <div class="col-md-3">
-                <label>Average Qualified Score:</label>
-              </div>
-              <div class="col-md-3">
-                [% entry.compute_average_score(1) %]
-              </div>
-            </div>
           </div>
           <div class="col-md-6">
             <div id="score-buckets-chart"></div>
