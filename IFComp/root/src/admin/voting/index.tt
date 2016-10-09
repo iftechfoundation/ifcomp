@@ -1,0 +1,210 @@
+[% meta.title = 'IFComp - Admin - Voting' %]
+[% USE D = Dumper %]
+<div class="container">
+     <div class="jumbotron">
+          <h1 style="text-align:center;">Voting Reports</h1>
+     </div>
+     
+     <ul class="breadcrumb">
+        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+        <li class="active">Voting</a>
+     </ul>
+
+     <p>Note: complete voting records are only available from 2014 forward.</p>
+
+     <div>
+       <form id="frm-select-year" method="GET" action="[% c.uri_for("/admin/voting") %]" class="form">
+         <div class="row">
+           <div class="col-md-4">
+             <label for="comp_id">Competition Year:</label>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col-md-4">
+             <select name="comp_id" class="form-control">
+               [% FOREACH comp = available_comps %]
+               <option value="[% comp.id %]" [% comp.id == current_comp.id ? "selected" : ""%]>[% comp.year %]</option>
+               [% END %]
+             </select>
+           </div>
+           <div class="col-md-4">
+             <button form="frm-select-year" class="btn btn-primary">Change</button>
+           </div>
+         </div>
+       </form>
+     </div>
+
+     <br>
+     
+     <div id="competition-rollup-stats">
+       <h3>Competition Statistics</h3>
+
+       <div class="row">
+         <div class="col-md-6">
+           <div class="row">
+             <div class="col-sm-4">
+               <label>Total votes cast:</label>
+             </div>
+             <div class="col-sm-6">
+               [% total_votes %]
+             </div>
+           </div>
+           <div class="row">
+             <div class="col-md-4">
+               <label>Average score:</label>
+             </div>
+             <div class="col-md-6">
+               [% average_score %]
+             </div>
+           </div>
+           
+           <div class="row">
+             <div class="col-md-4">
+               <label>Most Active Users:</label>
+             </div>
+             <div class="col-md-6">
+               <ol>
+                [% FOREACH rec = users %]
+                <li><a href="[% c.uri_for("/admin/voting/user/" _ rec.0.id _ "/" _ current_comp.id) %]">[% rec.0.name %]</a>  ([% rec.1 %] votes)</li>
+                [% END %]
+               </ol> 
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col-md-4">
+               <label>Most Active IPS:</label>
+             </div>
+             <div class="col-md-6">
+               <ol>
+                [% FOREACH rec = ips %]
+                <li><a href="[% c.uri_for("/admin/voting/ip/" _ rec.0 _ "/" _ current_comp.id) %]">[% rec.0 %]</a> ([% rec.1 %] votes)</li>
+                [% END %]
+               </ol> 
+             </div>
+           </div>
+
+
+           <div class="row">
+             <div class="col-md-12">
+               <h3>Ballot Irregularities</h3>
+
+               [% IF shills.size %]
+               <h4>Possible Shills</h4>
+               
+               <table class="table table-condensed">
+                 <thead>
+                   <tr>
+                     <th>Email</th>
+                     <th>Extreme Score Ratio</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   [% FOREACH shill = shills %]
+                   <tr>
+                     <td>[% shill.user.email %]</td>
+                     <td>[% shill.extreme_score_count %]/[% shill.total_vote_count %]</td>
+                   </tr>               
+                   [% END %]
+                 </tbody>
+               </table>
+               [% END %]
+             </div>
+           </div>
+           
+         </div> 
+         <div class="col-md-6">
+           <div id="score-buckets-chart"></div>
+           
+           [% BLOCK scripts %]
+           <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+           <script type="text/javascript">
+$(function () { 
+ 
+  $('#score-buckets-chart').highcharts({
+     title: { text: '# Votes by Score' },
+     credits: false,
+     legend: { enabled: false },
+     chart: {
+       type: 'column',
+       animation: false,
+       height: 200,
+     },
+     xAxis: {
+            categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+     },
+     yAxis: {
+        title: { text: 'Vote count' },
+            endOnTick: false,
+            tickInterval: 5,
+        },
+        plotOptions: {
+            series: {
+                animation: false,
+                dataLabels: {
+                    enabled: false
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                var vote_word;
+                if ( this.y == 1 ) {
+                    vote_word = 'judge';
+                }
+                else {
+                    vote_word = 'judges';
+                }
+                return this.y 
+                       + ' ' 
+                       + vote_word 
+                       + ' gave this game a rating of ' 
+                       + this.x 
+                       + '.';
+            }
+        },
+        series: [{ data: [% score_buckets_json %] }]
+    });
+});
+</script>
+[% END %]
+
+
+           
+         </div>
+       </div>
+     </div>
+     
+     <br>
+     
+     <div class="table-responsive">
+       <h3>Entries</h3>
+       <table class="table table-condensed table-striped sortable">
+         <thead>
+           <th>Placement</th>
+           <th>Title</th>
+           <th>Author</th>
+           <th>Average Score</th>
+           <th>Standard Deviation</th>
+           <th># of votes</th>
+         </thead>
+         <tbody>
+           [% placement = 1 %]
+           [% FOREACH entry = entries %]
+           <tr>
+             <td>[% placement %]</td>
+             <td>
+                <a name="entry-[% entry.id %]"></a>
+                <a href="[% c.uri_for("/admin/voting/" _ entry.id) %]">[% entry.title | html %]</a>
+             </td>
+             <td>[% entry.author.name %]</td>
+             <td>[% entry.average_score %]</td>
+             <td>[% entry.standard_deviation %]</td>
+             <td>[% entry.votes_cast %]</td>
+           </tr>
+              [% placement = placement + 1 %]
+           [% END %]
+         </tbody>
+       </table>
+     </div>
+</div>

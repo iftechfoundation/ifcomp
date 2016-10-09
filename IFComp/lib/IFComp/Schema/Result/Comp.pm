@@ -267,5 +267,81 @@ sub _build_winners {
     return [ $self->entries->search( { place => 1 } )->all ];
 }
 
+# A shill is a voter who casts many extreme votes (10s or 1s) for the
+# current comp
+sub get_possible_shills {
+    my ($self) = @_;
+
+    my $db = $self->result_source->schema;
+    $db->storage->debug(0);
+    my $votes = $db->resultset("User")->search({
+                                                'entry.comp' => $self->id,
+                                               },
+                                               {
+                                                join => { 'votes' => 'entry' },
+                                                'select' => [
+                                                             'me.id',
+                                                             { count => 'votes.id', '-as' => 'total_vote_count' },
+                                                             { sum => 'CASE WHEN votes.score = 10 OR votes.score = 1 THEN 1 ELSE 0 END', '-as' => 'extreme_score_count'}
+                                                            ],
+                                                as => [ 'me.id', 'total_vote_count', 'extreme_score_count'],
+                                                group_by => 'me.id',
+                                               }
+                                              );
+
+    # Shills have voted a lot (> 5 times) and they have extreme votes
+    my $data = [
+                map {
+                      {
+                          user => $db->resultset("User")->find($_->get_column("id")),
+                          total_vote_count => $_->get_column("total_vote_count"),
+                          extreme_score_count => $_->get_column("extreme_score_count")
+                      };
+                }
+        grep {
+               ($_->get_column("extreme_score_count") / $_->get_column("total_vote_count")) >= 0.5
+                && $_->get_column("total_vote_count") > 5
+             } $votes->all ];
+
+    $db->storage->debug(0);
+    return $data;
+}
+
+sub get_vote_counts_from_non_unique_ips {
+    my ($self) = @_;
+
+    my $db = $self->result_source->schema;
+    my $votes = $db->resultset("User")->search({
+                                                'entry.comp' => $self->id,
+                                               },
+                                               {
+                                                join => { 'votes' => 'entry' },
+                                                'select' => [
+                                                             'me.id',
+                                                             { count => 'votes.id', '-as' => 'total_vote_count' },
+                                                             { sum => 'CASE WHEN votes.score = 10 OR votes.score = 1 THEN 1 ELSE 0 END', '-as' => 'extreme_score_count'}
+                                                            ],
+                                                as => [ 'me.id', 'total_vote_count', 'extreme_score_count'],
+                                                group_by => 'me.id',
+                                               }
+                                              );
+
+    # Shills have voted a lot (> 5 times) and they have extreme votes
+    my $data = [
+                map {
+                      {
+                          user => $db->resultset("User")->find($_->get_column("id")),
+                          total_vote_count => $_->get_column("total_vote_count"),
+                          extreme_score_count => $_->get_column("extreme_score_count")
+                      };
+                }
+        grep {
+               ($_->get_column("extreme_score_count") / $_->get_column("total_vote_count")) >= 0.5
+                && $_->get_column("total_vote_count") > 5
+             } $votes->all ];
+
+    return $data;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
