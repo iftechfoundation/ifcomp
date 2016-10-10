@@ -1,6 +1,14 @@
 <!-- BEGIN site/footer -->
- <footer style="font-size:small; font-style:italic" class="container">
+ <footer class="container">
  <hr /> 
-       <p>The organizer of the [% current_comp.year %] Interactive Fiction Competition is <a href="mailto:ifcomp@ifcomp.org">Jason McIntosh</a>.</p><p>Except where otherwise noted, content of this website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, attributable to <a href="http://iftechfoundation.org">Interactive Fiction Technology Foundation (www.iftechfoundation.org)</a>.</p>
+ <div class="row">
+  <div class="col-xs-3">
+   <a href="http://iftechfoundation.org"><img class="img-responsive" src="/static/images/blue_iftf.png" /></a>
+  </div>
+  <div class="col-xs-9">
+<p>The Annual Interactive Fiction Competition is a public service of <a href="http://iftechfoundation.org">the Interactive Fiction Technology Foundation</a>, and <a href="/about/donate">funded by IF supporters like you</a>.</p>
+<p>Except where otherwise noted, content of this website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>, attributable to <a href="http://iftechfoundation.org">Interactive Fiction Technology Foundation (www.iftechfoundation.org)</a>.</p>
+  </div>
+ </div>
  </footer>
 <!-- END site/footer -->
