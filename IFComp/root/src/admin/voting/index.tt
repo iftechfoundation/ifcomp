@@ -83,34 +83,6 @@
                </ol> 
              </div>
            </div>
-
-
-           <div class="row">
-             <div class="col-md-12">
-               <h3>Ballot Irregularities</h3>
-
-               [% IF shills.size %]
-               <h4>Possible Shills</h4>
-               
-               <table class="table table-condensed">
-                 <thead>
-                   <tr>
-                     <th>Email</th>
-                     <th>Extreme Score Ratio</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   [% FOREACH shill = shills %]
-                   <tr>
-                     <td><a href="[% c.uri_for("/admin/voting/user/" _ shill.user.id _ "/" _ current_comp.id) %]">[% shill.user.email %]</a></td>
-                     <td>[% shill.extreme_score_count %]/[% shill.total_vote_count %]</td>
-                   </tr>               
-                   [% END %]
-                 </tbody>
-               </table>
-               [% END %]
-             </div>
-           </div>
            
          </div> 
          <div class="col-md-6">

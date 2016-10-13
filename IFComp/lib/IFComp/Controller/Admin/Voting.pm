@@ -128,8 +128,6 @@ sub index :Chained('/admin') :Path :Args(0) {
         $c->stash->{ average_score } = 0;
     }
 
-    my $shills = $current_comp->get_possible_shills;
-    $c->stash->{shills} = $shills;
     $c->stash->{ score_buckets_json } = $score_buckets_json;
     $c->stash->{ips} = \@ips;
     $c->stash->{users} = \@users;
