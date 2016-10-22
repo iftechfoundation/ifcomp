@@ -69,9 +69,9 @@ sub download :Chained('fetch_entry') :Args(0) {
     my $entry = $c->stash->{ entry };
     my $filename = $entry->main_file->basename;
     if ( $entry->platform eq 'html' ) {
-        my $body = $entry->main_file->slurp;
+        my $body = $entry->main_file->slurp(iomode => '<:encoding(UTF-8)');
         $c->res->header( 'Content-Disposition' => "attachment; filename=$filename" );
-        $c->res->content_type( 'text/html' );
+        $c->res->content_type( 'text/html; charset=utf-8' );
         $c->res->code( 200 );
         $c->res->body( $body );
     }
