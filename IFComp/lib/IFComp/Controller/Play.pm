@@ -84,7 +84,7 @@ sub download :Chained('fetch_entry') :Args(0) {
             $body =~ s/es6-shim.*//s;
             $body .= $shim_text;
         }
-        $c->res->header( 'Content-Disposition' => "attachment; filename=$filename" );
+        $c->res->header( 'Content-Disposition' => qq{attachment; filename="$filename"} );
         $c->res->content_type( 'text/html' );
         $c->res->code( 200 );
         $c->res->body( $body );
