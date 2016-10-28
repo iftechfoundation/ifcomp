@@ -8,12 +8,6 @@
 
 <div class="container">
 
-[% IF c.req.params.old_login %]
-<div class="alert alert-warning">
-<p><strong>Logins temporarily disabled.</strong> Looks like you tried to come here via the old login page! Login and account creation functions are temporarily offline while we get ready for the 2014 IFComp.</p>
-<p>You'll be able to use (or recover) your existing login, if you have one, when we start accepting entries in July. <a href="/about/comp#competitionschedule">See the full schedule</a> for more details.
-</div>
-[% END %]
 <div class="alert alert-info">
 [% INCLUDE motd %]
 </div>
