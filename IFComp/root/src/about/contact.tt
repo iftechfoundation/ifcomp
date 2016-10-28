@@ -4,17 +4,14 @@
 <h1 style="text-align:center;">Contact and credits</h1>
 </div>
 <div class="page-header">
-<h1 id="whatifissmallasfaraswereconcernedsmall">Email</h1>
+<h1 id="contact">Contact</h1>
 </div>
-<h2><a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a></h2>
+
+<p><strong>Email:</strong> <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a></p>
+<p><strong>Twitter:</strong> <a href="http://twitter.com/ifcomp">@IFComp</a></p>
 
 <div class="page-header">
-<h1 id="whatifissmallasfaraswereconcernedsmall">Twitter</h1>
-</div>
-<h2><a href="http://twitter.com/ifcomp">@IFComp</a></h2>
-
-<div class="page-header">
-<h1 id="whatifissmallasfaraswereconcernedsmall">Site credits</h1>
+<h1 id="credits">Site credits</h1>
 </div>
 
 <p>This website was created by Jason McIntosh, with additional software contributions and technical support from Joe Johnston, Mark Musante, Dan Shiovitz, and Amy Swartz. (Other people created the IFComp itself, long before this website came around; please see <a href="/history">the history page</a> for salient names and dates.)</p>
