@@ -11,6 +11,10 @@
         [% FILTER html_para %]
         	[% entry.blurb | html %]
         [% END %]
+        
+        [% IF entry.warning %]
+            <p><strong>Content warning:</strong> [% entry.warning %]</p>
+        [% END %]
 
         [% UNLESS entry.platform == 'other' %]
         <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
