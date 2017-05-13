@@ -28,6 +28,10 @@ has_field 'blurb' => (
     type => 'TextArea',
 );
 
+has_field 'warning' => (
+    type => 'Text',
+);
+
 has_field 'author_pseudonym' => (
     type => 'Text',
     label => 'Displayed pseudonym or author-list (if different from your registered name)',
