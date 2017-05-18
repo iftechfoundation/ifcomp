@@ -40,6 +40,9 @@ has_field 'playtime' => (
         { label => '2 hours',            value => 120, },
         { label => 'More than 2 hours',  value => 127, },
     ],
+
+has_field 'warning' => (
+    type => 'Text',
 );
 
 has_field 'author_pseudonym' => (

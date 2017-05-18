@@ -12,6 +12,10 @@
         	[% entry.blurb | html %]
         [% END %]
 
+        [% IF entry.warning %]
+            <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
+        [% END %]
+
         [% IF entry.playtime %]
         	<p><strong>Estimated playtime: </strong>
         	[% IF entry.playtime == '15' %]
