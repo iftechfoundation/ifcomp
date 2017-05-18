@@ -190,6 +190,11 @@ __PACKAGE__->table("entry");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 warning
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -266,6 +271,8 @@ __PACKAGE__->add_columns(
   { data_type => "tinyint", is_nullable => 1 },
   "votes_cast",
   { data_type => "integer", is_nullable => 1 },
+  "warning",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -372,8 +379,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-11-16 12:20:29
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:iF3wtgC7dnsOjVdunwh+jA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 21:16:14
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q58ScE3jBt6Vxwf2yJJ1Cg
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
