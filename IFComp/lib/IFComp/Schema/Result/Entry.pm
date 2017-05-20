@@ -195,6 +195,11 @@ __PACKAGE__->table("entry");
   data_type: 'text'
   is_nullable: 1
 
+=head2 playtime
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -273,6 +278,8 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "warning",
   { data_type => "text", is_nullable => 1 },
+  "playtime",
+  { data_type => "tinyint", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -379,8 +386,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-12 21:16:14
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Q58ScE3jBt6Vxwf2yJJ1Cg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-20 18:39:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eW2JHkzALPOPNVhd0rpQZw
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
