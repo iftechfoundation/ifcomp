@@ -17,21 +17,7 @@
         [% END %]
 
         [% IF entry.playtime %]
-        	<p><strong>Estimated playtime: </strong>
-        	[% IF entry.playtime == '15' %]
-        	    15 minutes or less
-        	[% ELSIF entry.playtime == '30' %]
-        	    30 minutes
-        	[% ELSIF entry.playtime == '60' %]
-        	    1 hour
-        	[% ELSIF entry.playtime == '90' %]
-        	    1.5 hours
-        	[% ELSIF entry.playtime == '120' %]
-        	    2 hours
-        	[% ELSE %]
-        	    More than 2 hours
-        	[% END %]
-        	</p>
+        	<p><strong>Estimated playtime: </strong> [% entry.playtime %]</p>
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]

@@ -32,14 +32,15 @@ has_field 'playtime' => (
     type => 'Select',
     label => 'Estimated play time',
     empty_select => '',
-    options => [
-        { label => '15 minutes or less', value => 15, },
-        { label => '30 minutes',         value => 30, },
-        { label => '1 hour',             value => 60, },
-        { label => '1.5 hours',          value => 90, },
-        { label => '2 hours',            value => 120, },
-        { label => 'More than 2 hours',  value => 127, },
-    ],
+    options => [[
+        '15 minutes or less',
+        'half an hour',
+        'one hour',
+        'an hour and a half',
+        'two hours',
+        'longer than two hours',
+    ]],
+);
 
 has_field 'warning' => (
     type => 'Text',

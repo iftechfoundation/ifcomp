@@ -197,7 +197,8 @@ __PACKAGE__->table("entry");
 
 =head2 playtime
 
-  data_type: 'tinyint'
+  data_type: 'enum'
+  extra: {list => ["15 minutes or less","half an hour","one hour","an hour and a half","two hours","longer than two hours"]}
   is_nullable: 1
 
 =cut
@@ -279,7 +280,20 @@ __PACKAGE__->add_columns(
   "warning",
   { data_type => "text", is_nullable => 1 },
   "playtime",
-  { data_type => "tinyint", is_nullable => 1 },
+  {
+    data_type => "enum",
+    extra => {
+      list => [
+        "15 minutes or less",
+        "half an hour",
+        "one hour",
+        "an hour and a half",
+        "two hours",
+        "longer than two hours",
+      ],
+    },
+    is_nullable => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -386,8 +400,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-20 18:39:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eW2JHkzALPOPNVhd0rpQZw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-24 15:39:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lmMJAPvE9llb6Qn6rBFUag
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
