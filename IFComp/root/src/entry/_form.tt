@@ -53,6 +53,36 @@ Delete cover art file
 </div>
 
 <div class="panel panel-default">
+<div class="panel-heading"><h2>Estimated play time</h2></div>
+<div class="panel-body">
+<p>
+Optionally, choose from the menu below a rough estimate of how much time you would expect a typical player to spend on this game.</p>
+
+<p>If you provide this estimate, it will be displayed by your game's listing on the IFComp ballot. This can help judges plan what entries to play and when, based on their own schedules.
+</p>
+
+[% form.field('playtime').render %]
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Content warnings</h2></div>
+<div class="panel-body">
+<p>
+You may optionally provide a brief warning that your work contains material some players may wish to know about before playing. Whether you provide a warning, and how you choose to word it, is entirely up to you. <a href="/about/faq#content-warnings" target="ifcomp-faq">See the FAQ for more information on IFComp's policies and suggestions regarding content warnings.</a>
+</p>
+
+<p>
+Your warning text, if present, will appear by your game's blurb on the IFComp ballot page, with the label "<strong>Content warning:</strong>". Players will have the option to hide content warnings from their ballots.
+</p>
+
+[% form.field('warning').render %]
+</div>
+</div>
+
+
+<div class="panel panel-default">
 <div class="panel-heading"><h2>Displayed name(s) and contact info</h2></div>
 <div class="panel-body">
 <p>If you wish, you can enter your game under a name (or a list of names) other than the name this website knows you by ([% c.user.name %]). Do this if you wish to enter your game under a pseudonym, or if your game has more than one author and you wish to equally credit all of them.</p>

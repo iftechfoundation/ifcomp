@@ -25,6 +25,8 @@ Note that the software additionally performs some goofy business involving syste
 
 ## Installing dependencies
 
+### Perl libraries
+
 To install this project's CPAN dependencies, run the following command from the IFComp/ directory of your cloned repository (the directory that contains the file called "cpanfile"):
 
     curl -fsSL https://cpanmin.us | perl - --installdeps .
@@ -32,6 +34,10 @@ To install this project's CPAN dependencies, run the following command from the 
 (If you already have _cpanm_ installed, you can just run `cpanm --installdeps .` instead.)
 
 This should crunch though the installation of a bunch of Perl modules. It'll take a few minutes.
+
+### PHP libraries
+
+You'll need to install both PHP and the PHP MCrypt module. Both should be available through your package manager of choice. (E.g. on Debian, `sudo apt-get install php5-mcrypt` will do the trick.)
 
 ## Application configuration
 

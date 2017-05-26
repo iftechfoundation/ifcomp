@@ -1,0 +1,61 @@
+#!/usr/bin/env perl
+
+# This script updates various derived-value fields for the current comp's
+# qualified entry records. Can be cron as a regular crontask.
+
+use warnings;
+use strict;
+use FindBin;
+use Statistics::Basic qw( stddev mean );
+
+use lib "$FindBin::Bin/../lib";
+use IFComp::Schema;
+
+my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
+$schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
+
+my $current_comp = $schema->resultset( 'Comp' )->current_comp;
+my $vote_rs = $schema->resultset( 'VoteFromQualifiedJudgeBallot' );
+
+for my $entry ( $current_comp->entries ) {
+    next unless $entry->is_qualified;
+
+    my %votes;
+    my $standard_dev;
+    my $mean;
+    my $total_votes;
+    my @scores;
+
+    for my $score ( 1..10 ) {
+    	my $count = $vote_rs->search(
+	        {
+	            entry => $entry->id,
+    	        score => $score,
+            },
+            {
+                bind  => [ $current_comp->id, $current_comp->id, $current_comp->id  ],
+            },
+        )->count;
+
+    	$votes{ "total_$score" } = $count;
+	    $total_votes += $count;
+    	foreach ( 1..$count ) {
+	        push @scores, $score;
+    	}
+    }
+
+    next unless $total_votes;
+
+    $standard_dev = stddev( @scores );
+    $mean = mean( @scores );
+
+    my %update_args = (
+	average_score => $mean,
+	standard_deviation => $standard_dev,
+	votes_cast => $total_votes,
+	%votes,
+    );
+
+    $entry->update ( \%update_args );
+
+}

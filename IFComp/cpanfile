@@ -28,6 +28,7 @@ requires 'MooseX::ClassAttribute';
 requires 'Email::Sender::Simple';
 requires 'Email::MIME::Kit';
 requires 'Data::GUID';
+requires 'HTML::FormHandler' => '0.40067';
 requires 'HTML::FormHandler::Moose';
 requires 'HTML::FormHandler::Model::DBIC';
 requires 'DateTime::Format::SQLite';
@@ -38,6 +39,12 @@ requires 'Template::Plugin::DateTime';
 requires 'Template::Plugin::Markdown';
 requires 'Regexp::Common';
 requires 'File::MimeInfo';
+requires 'Statistics::Basic';
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
+
+on 'develop' => sub {
+  requires 'Code::TidyAll';
+  requires 'Perl::Tidy';
+};

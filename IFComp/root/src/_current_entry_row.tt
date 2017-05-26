@@ -12,6 +12,14 @@
         	[% entry.blurb | html %]
         [% END %]
 
+        [% IF entry.warning %]
+            <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
+        [% END %]
+
+        [% IF entry.playtime %]
+        	<p><strong>Estimated playtime: </strong> [% entry.playtime %]</p>
+        [% END %]
+
         [% UNLESS entry.platform == 'other' %]
         <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]

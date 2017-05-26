@@ -28,6 +28,24 @@ has_field 'blurb' => (
     type => 'TextArea',
 );
 
+has_field 'playtime' => (
+    type => 'Select',
+    label => 'Estimated play time',
+    empty_select => '',
+    options => [[
+        '15 minutes or less',
+        'half an hour',
+        'one hour',
+        'an hour and a half',
+        'two hours',
+        'longer than two hours',
+    ]],
+);
+
+has_field 'warning' => (
+    type => 'Text',
+);
+
 has_field 'author_pseudonym' => (
     type => 'Text',
     label => 'Displayed pseudonym or author-list (if different from your registered name)',

@@ -8,12 +8,6 @@
 
 <div class="container">
 
-[% IF c.req.params.old_login %]
-<div class="alert alert-warning">
-<p><strong>Logins temporarily disabled.</strong> Looks like you tried to come here via the old login page! Login and account creation functions are temporarily offline while we get ready for the 2014 IFComp.</p>
-<p>You'll be able to use (or recover) your existing login, if you have one, when we start accepting entries in July. <a href="/about/comp#competitionschedule">See the full schedule</a> for more details.
-</div>
-[% END %]
 <div class="alert alert-info">
 [% INCLUDE motd %]
 </div>
@@ -71,9 +65,9 @@ It's the final stretch for [% current_comp.year %] comp authors! All entries are
 [% ELSIF current_comp.status == 'closed_to_entries' %]
 All entries are in and being prepared for release. The judging period will begin on <!-- [% current_comp.judging_begins.month_name %] [% current_comp.judging_begins.day %] --> October 1.
 [% ELSIF current_comp.status == 'open_for_judging' %]
-<a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] Interactive Fiction Competition are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games before [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %].
+<a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] Interactive Fiction Competition are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games by [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %]. <a href="[% c.uri_for('/about/schedule') %]">See the full schedule</a>.
 [% ELSIF current_comp.status == 'processing_votes' %]
-Voting has closed! We're tallying up the results now. Final results will be posted within 24 hours. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
+Voting has closed! We're tallying up the results now. Final results will be posted within two days. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
 [% ELSE %]
 The [% current_comp.year %] IFComp is over. Congratulations to the first-place winner[% IF current_comp.winners.size > 1 %]s[% END %], [% winner_count = 1 %][% FOR winner IN current_comp.winners %]<em>[% winner.title %]</em> by [% INCLUDE author_name.tt entry=winner suppress_links=1 | trim %][% IF winner_count < current_comp.winners.size %] and [% END %][% winner_count = winner_count + 1 %][% END %]!</p>
 
