@@ -50,12 +50,9 @@
             
         [% IF entry.main_file %]
         <div class="play-button">
-        <form action="[% c.uri_for_action( '/play/download', [ entry.id] ) %]">
-        <button type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for_action( '/play/download', [ entry.id] ) %]" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
-
-        </button>
-        </form>
+        </a>
         </div>
         [%# END %]
         
@@ -67,23 +64,18 @@
 	      || entry.platform == 'quixe2'
         %]
         <div class="play-button">
-        <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        
-        <button type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
            <span class="glyphicon glyphicon-chevron-right"></span> Play online
-        </button>
-        </form>
+        </a>
         </div>
         [% END %]
         [% END %]
         
         [% IF entry.walkthrough_file %]
         <div class="play-button">
-        <form action="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]" target="_blank">        
-
-        <button type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]" target="_blank" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-question-sign"></span> Walkthrough
-        </button>
-        </form>
+        </a>
         </div>
         [% END %]        
 
