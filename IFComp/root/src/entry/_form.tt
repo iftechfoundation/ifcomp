@@ -28,6 +28,8 @@
 <p>
 <p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. It pays to be thoughtful here. <a href="/comp/" target="_blank">Browse past entries</a> to see some good examples of both, and <a href="/about/guidelines#writeastrongblurb" target="_blank">consult the guidelines</a> to learn more about writing strong blurbs.</p>
 
+<p>Your blurb cannot contain HTML or other markup, but we'll present double-carriage-returns as paragraph breaks.</p>
+
 [% form.field('blurb').render %]
 <p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
 [% IF entry.id && entry.cover_file %]
