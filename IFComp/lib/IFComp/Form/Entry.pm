@@ -32,6 +32,7 @@ has_field 'playtime' => (
     type => 'Select',
     label => 'Estimated play time',
     empty_select => '',
+    id => 'playtime',
     options => [[
         '15 minutes or less',
         'half an hour',

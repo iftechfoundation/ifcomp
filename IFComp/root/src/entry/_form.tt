@@ -165,3 +165,25 @@ Delete walkthrough file
 [% USE Comma %]
 [% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
 [% END %]
+
+[% BLOCK scripts %]
+<script>
+var warning_div = $( '#long-game-warning' );
+var playtime    = $( '#playtime' );
+
+update_playtime_warning();
+
+playtime.change( function() { 
+    update_playtime_warning() 
+} );
+
+function update_playtime_warning() {
+    if ( playtime.val() == 'longer than two hours' ) {
+        warning_div.show();
+    }
+    else {
+        warning_div.hide();
+    }
+}
+</script>
+[% END %]
