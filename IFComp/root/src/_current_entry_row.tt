@@ -22,7 +22,7 @@
             [% IF entry.has_extra_content %]
             — Download includes additional content
             [% END %]
-        [% ELSIF entry.platform == 'html' || entry.platform == 'website' %]
+        [% ELSIF entry.platform == 'website' %]
             Web
         [% ELSIF entry.platform == 'tads' %]
             TADS [% INCLUDE guide_link %]
@@ -52,11 +52,9 @@
         [%# END %]
         
         [% IF entry.platform == 'parchment' 
-              || entry.platform == 'inform'
               || entry.platform == 'website'
-              || entry.platform == 'html' 
               || entry.platform == 'inform-website'
-	      || entry.platform == 'quixe2'
+              || entry.platform == 'quixe2'
         %]
         <div class="play-button">
         <form action="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" target="_blank">        
