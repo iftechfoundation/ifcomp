@@ -1,17 +1,15 @@
 use strict;
 use warnings;
 use Test::More;
-use IFComp::Schema;
+
 use FindBin;
 use lib ("$FindBin::Bin/lib");
-
 use IFCompTest;
+my $schema = IFCompTest->init_schema();
 
-IFComp::Schema->entry_directory(
+$schema->entry_directory(
     Path::Class::Dir->new( "$FindBin::Bin/platform_test_entries" )
 );
-
-my $schema = IFCompTest->init_schema();
 
 $schema->populate(
     'Entry',
