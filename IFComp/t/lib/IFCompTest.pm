@@ -79,15 +79,27 @@ sub init_schema
         ],
     );
 
-    # There's only one comp, and it's for this year. And enterable all year.
+    # There are two comps - last year and this year. The current comp is open
+    # for intents all year long.
     my $this_year = DateTime->now->year;
-    my $start_of_year = "$this_year-01-01";
-    my $end_of_year = "$this_year-12-31";
+    my $last_year = $this_year - 1;
     $schema->populate(
         'Comp',
-        [
-            [ 'id', 'year', 'intents_open', 'intents_close', 'entries_due', 'judging_begins', 'judging_ends',],
-            [ 1, $this_year, $start_of_year, $end_of_year, $end_of_year, $end_of_year, $end_of_year ],
+        [   [   'id',           'year',
+                'intents_open', 'intents_close',
+                'entries_due',  'judging_begins',
+                'judging_ends', 'comp_closes',
+            ],
+            [   1,                  $last_year,
+                "$last_year-07-01", "$last_year-09-01",
+                "$last_year-09-28", "$last_year-10-01",
+                "$last_year-11-15", "$last_year-12-01",
+            ],
+            [   2,                  $this_year,
+                "$this_year-01-01", "$this_year-12-31",
+                "$this_year-12-31", "$this_year-12-31",
+                "$this_year-12-31", "$this_year-12-31",
+            ],
         ],
     );
 
