@@ -51,6 +51,7 @@ has_field 'warning' => (
 has_field 'author_pseudonym' => (
     type => 'Text',
     label => 'Displayed pseudonym or author-list (if different from your registered name)',
+    maxlength => 64,
 );
 
 has_field 'reveal_pseudonym' => (
@@ -62,6 +63,7 @@ has_field 'reveal_pseudonym' => (
 has_field 'email' => (
     type => 'Email',
     label => 'Contact email to display for this game',
+    maxlength => 64,
 );
 
 has_field 'main_upload' => (
