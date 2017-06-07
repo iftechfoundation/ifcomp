@@ -63,6 +63,11 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 
 [% form.field('playtime').render %]
 
+<div id="long-game-warning" class="alert alert-warning">
+<p><strong>Please note:</strong> While IFComp allows entries of any length, its rules instruct judges to base their ratings for any single game on the first two hours of play, at most.</p>
+<p>If you wish to enter a longer game regardless of this restriction, you may do so.</p>
+</div>
+
 </div>
 </div>
 
