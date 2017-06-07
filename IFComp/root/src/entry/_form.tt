@@ -28,6 +28,8 @@
 <p>
 <p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. It pays to be thoughtful here. <a href="/comp/" target="_blank">Browse past entries</a> to see some good examples of both, and <a href="/about/guidelines#writeastrongblurb" target="_blank">consult the guidelines</a> to learn more about writing strong blurbs.</p>
 
+<p>Your blurb cannot contain HTML or other markup, but we'll present double-carriage-returns as paragraph breaks.</p>
+
 [% form.field('blurb').render %]
 <p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
 [% IF entry.id && entry.cover_file %]
@@ -62,6 +64,11 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 </p>
 
 [% form.field('playtime').render %]
+
+<div id="long-game-warning" class="alert alert-warning">
+<p><strong>Please note:</strong> While IFComp allows entries of any length, its rules instruct judges to base their ratings for any single game on the first two hours of play, at most.</p>
+<p>If you wish to enter a longer game regardless of this restriction, you may do so.</p>
+</div>
 
 </div>
 </div>
@@ -164,4 +171,26 @@ Delete walkthrough file
 [% USE date = DateTime( from_epoch = stat.mtime, time_zone = 'local' ) %]
 [% USE Comma %]
 [% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
+[% END %]
+
+[% BLOCK scripts %]
+<script>
+var warning_div = $( '#long-game-warning' );
+var playtime    = $( '#playtime' );
+
+update_playtime_warning();
+
+playtime.change( function() { 
+    update_playtime_warning() 
+} );
+
+function update_playtime_warning() {
+    if ( playtime.val() == 'longer than two hours' ) {
+        warning_div.show();
+    }
+    else {
+        warning_div.hide();
+    }
+}
+</script>
 [% END %]

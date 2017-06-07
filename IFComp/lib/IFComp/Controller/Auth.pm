@@ -38,11 +38,11 @@ sub login :Path('login') :Args(0) {
         if ($c->authenticate({ email => $c->req->param( 'email' ),
                                password => $c->req->param( 'password' ),
                          })) {
-            $c->log->debug("User authed\n");
+            $c->log->debug("User authed\n") if ($c->debug);
             $c->res->redirect( '/' );
         }
         else {
-            $c->log->debug("Authenication failed\n");
+            $c->log->debug("Authenication failed\n") if ($c->debug);
             $form->add_form_error('Login failed. <a href="/user/request_password_reset">(Do you need to reset your password?)</a>');
         }
     }

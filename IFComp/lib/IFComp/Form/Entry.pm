@@ -16,12 +16,14 @@ Readonly my $MAX_FILE_SIZE => 10485760;
 Readonly my $MAX_GAME_SIZE => 26214400;
 
 has_field 'title' => (
-    required => 1,
-    type => 'Text',
+    required  => 1,
+    type      => 'Text',
+    maxlength => 128,
 );
 
 has_field 'subtitle' => (
-    type => 'Text',
+    type      => 'Text',
+    maxlength => 128,
 );
 
 has_field 'blurb' => (
@@ -32,6 +34,7 @@ has_field 'playtime' => (
     type => 'Select',
     label => 'Estimated play time',
     empty_select => '',
+    id => 'playtime',
     options => [[
         '15 minutes or less',
         'half an hour',
@@ -49,6 +52,7 @@ has_field 'warning' => (
 has_field 'author_pseudonym' => (
     type => 'Text',
     label => 'Displayed pseudonym or author-list (if different from your registered name)',
+    maxlength => 64,
 );
 
 has_field 'reveal_pseudonym' => (
@@ -60,6 +64,7 @@ has_field 'reveal_pseudonym' => (
 has_field 'email' => (
     type => 'Email',
     label => 'Contact email to display for this game',
+    maxlength => 64,
 );
 
 has_field 'main_upload' => (
