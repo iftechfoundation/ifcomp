@@ -10,10 +10,7 @@ unless (eval q{use Test::WWW::Mechanize::Catalyst 0.55; 1}) {
 
 use FindBin;
 use lib ("$FindBin::Bin/lib");
-
 use IFCompTest;
-use IFComp::Model::IFCompDB;;
-
 my $schema = IFCompTest->init_schema();
 
 IFComp::Schema->entry_directory( Path::Class::Dir->new ( "$FindBin::Bin/entries" ) );
@@ -55,5 +52,5 @@ $entry->discard_changes;
 is ( $entry->title, 'Super-Fun Game' );
 
 is( $comp_dir->children, 1, "Entry directory contains 1 child." );
-done_testing();
 
+done_testing();
