@@ -63,6 +63,11 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 
 [% form.field('playtime').render %]
 
+<div id="long-game-warning" class="alert alert-warning">
+<p><strong>Please note:</strong> While IFComp allows entries of any length, its rules instruct judges to base their ratings for any single game on the first two hours of play, at most.</p>
+<p>If you wish to enter a longer game regardless of this restriction, you may do so.</p>
+</div>
+
 </div>
 </div>
 
@@ -164,4 +169,26 @@ Delete walkthrough file
 [% USE date = DateTime( from_epoch = stat.mtime, time_zone = 'local' ) %]
 [% USE Comma %]
 [% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
+[% END %]
+
+[% BLOCK scripts %]
+<script>
+var warning_div = $( '#long-game-warning' );
+var playtime    = $( '#playtime' );
+
+update_playtime_warning();
+
+playtime.change( function() { 
+    update_playtime_warning() 
+} );
+
+function update_playtime_warning() {
+    if ( playtime.val() == 'longer than two hours' ) {
+        warning_div.show();
+    }
+    else {
+        warning_div.hide();
+    }
+}
+</script>
 [% END %]
