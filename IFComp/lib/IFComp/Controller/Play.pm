@@ -68,7 +68,7 @@ sub download :Chained('fetch_entry') :Args(0) {
 
     my $entry = $c->stash->{ entry };
     my $filename = $entry->main_file->basename;
-    if ( $entry->platform eq 'html' ) {
+    if ( $filename =~ /\.html?$/i ) {
         my $body = $entry->main_file->slurp(iomode => '<:encoding(UTF-8)');
         # XXX Horrible hack to get around a thing in Twine-generated files
         #     that I don't understand yet.

@@ -43,7 +43,7 @@ ok ( $rs->find( 103 )->is_zcode );
 is ( $rs->find( 104 )->platform, 'inform-website' );
 ok ( $rs->find( 104 )->is_zcode );
 is ( $rs->find( 105 )->platform, 'website' );
-is ( $rs->find( 106 )->platform, 'html' );
+is ( $rs->find( 106 )->platform, 'website' );
 is ( $rs->find( 107 )->platform, 'inform-website' );
 ok ( $rs->find( 107 )->is_zcode );
 is ( $rs->find( 108 )->platform, 'quest' );
