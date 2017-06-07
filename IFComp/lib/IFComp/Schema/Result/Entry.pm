@@ -738,9 +738,9 @@ sub _build_contents_data {
     # what's used for the play file
     my @platforms = (
         ['parchment',
-         [$INDEX_REGEX, $I7_REGEX, qr/^play\.html?$/i, qr/^parchment.*js$/i]],
+         [$INDEX_REGEX, $I7_REGEX, qr/^play\.html?$/i, qr/^(interpreter\/)?parchment.*js$/i]],
         ['quixe2',
-         [$INDEX_REGEX, $I7_REGEX, qr/^quixe.*js$/i],
+         [$INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i],
          $quixe_extra_check],
         ['inform-website', [$INDEX_REGEX, $I7_REGEX]],
         ['inform', [$I7_REGEX]],
