@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema;
 
@@ -10,9 +11,10 @@ extends 'DBIx::Class::Schema';
 
 __PACKAGE__->load_namespaces;
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-01-15 17:49:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ky9maeBYyy5mD//QSeUGBQ
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uxXflUCGtsGN5LDbi7A+7A
 
 use MooseX::ClassAttribute;
 

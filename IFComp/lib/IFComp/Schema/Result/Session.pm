@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Session;
 
@@ -78,9 +79,10 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-07-09 21:52:30
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6lFaYQ3HpKL4SXYi7yGwQA
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8v1BC9lSa3qijqMuU3abHQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

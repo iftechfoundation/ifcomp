@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Comp;
 
@@ -205,9 +206,10 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07043 @ 2015-12-27 04:55:28
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IYAhuBMI6CH5OD4iCQrx+w
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HLMI0dky1vwemnm0KYNCPA
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;

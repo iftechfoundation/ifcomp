@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Entry;
 
@@ -399,9 +400,10 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-05-24 15:39:26
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lmMJAPvE9llb6Qn6rBFUag
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jIB96MSDHziEbORsmGEZ9A
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;

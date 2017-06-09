@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::UserRole;
 
@@ -139,9 +140,10 @@ __PACKAGE__->belongs_to(
   },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DpV0McEN6ofgc0wtTJ5PNw
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fZEtwmLzr+UE+A9u50kFtg
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/UserRole.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
