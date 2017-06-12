@@ -1,0 +1,9 @@
+[% meta.title = 'IFComp - File Not Found' %]
+<div class="container">
+    <div class="alert alert-warning">
+        <p class="text-center">
+            <strong>File Not Found</strong>
+            <br />Oops, the page you're looking for has gone missing or been moved. Try one of the menus above.
+        </p>
+    </div>
+</div>
