@@ -42,9 +42,7 @@ sub fetch_entry :Chained('root') :PathPart('') :CaptureArgs(1) {
         }
     }
     else {
-        $c->res->code( 404 );
-        $c->res->body( "No valid entry with ID $id" );
-        $c->detach;
+        $c->detach('/error_404');
     }
 }
 
@@ -151,8 +149,7 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
         $c->res->body( $image_data );
     }
     else {
-        $c->res->code( 404 );
-        $c->res->body( '' );
+        $c->detach('/error_404');
     }
 }
 
