@@ -1,6 +1,7 @@
-[% USE 
-   colossal_data = datafile( c.path_to( 'root/lib/config/colossal' ) )
-%]
+[% colossal_file = c.path_to( 'root/lib/config/colossal' ) %]
+[% TRY %]
+[% USE colossal_data = datafile( colossal_file ) %]
+
 [% colossal = colossal_data.0 %]
 <h2>The Colossal Fund</h2>
 <p>
@@ -26,4 +27,8 @@ Support IFComp and its authors by giving to <strong>The Colossal Fund</strong>, 
 
 [% IF colossal.maximum_prize > colossal.minimum_prize %]
 <p class="text-center">Current first-place prize: $[% colossal.maximum_prize %]</p>
+[% END %]
+
+[% CATCH %]
+    <div class="alert alert-danger"><p>No data file found at [% colossal_file %].</p></div>
 [% END %]
