@@ -3,9 +3,10 @@
 [% USE colossal_data = datafile( colossal_file ) %]
 
 [% colossal = colossal_data.0 %]
+
 <h2>The Colossal Fund</h2>
 <p>
-Support IFComp and its authors by giving to <strong>The Colossal Fund</strong>, new for the 2017 competition! <a href="#">Learn more about it</a>.
+Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, which includes a new cash prize pool for top IFComp entries! <a href="#">Learn more about it</a>.
 </p>
         
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -24,10 +25,6 @@ Support IFComp and its authors by giving to <strong>The Colossal Fund</strong>, 
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="[% colossal.current_dollars %]" aria-valuemin="0" aria-valuemax="[% colossal.goal_dollars %]" style="width: [% colossal.current_dollars / colossal.goal_dollars * 100 %]%;"></div>
 </div>
-
-[% IF colossal.maximum_prize > colossal.minimum_prize %]
-<p class="text-center">Current first-place prize: $[% colossal.maximum_prize %]</p>
-[% END %]
 
 [% CATCH %]
     <div class="alert alert-danger"><p>No data file found at [% colossal_file %].</p></div>
