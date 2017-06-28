@@ -15,15 +15,7 @@
  
      <div class="col-sm-4">
         <h2>IFComp's 22nd year!</h2>
-
-        <p>
-        Welcome to IFComp.org! For a brief rundown on the IFComp and its schedule this year, see <a href="[% c.uri_for('about/comp') %]">our About the Competition page</a>.
-        </p>
-    </div>
-    
-    <div class="col-sm-4">
-        <h2>What's going on?</h2>
-        <p>A few things you can do on this site, right now:</p>
+        <p><strong>Welcome!</strong> Here a few things you can do on this site, right now:</p>
         <ul>
         [% IF current_comp.status == 'open_for_judging' %]
             <li><a href="[% c.uri_for('/ballot') %]">Browse and play this year's entries</a>, and then <a href="[% c.uri_for('/ballot/vote') %]">rate them</a></li>
@@ -35,6 +27,12 @@
         <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
         <li>Browse <a href="[% c.uri_for('/comp/last_comp/') %]">past IFComp entries</a></li>
     </div>
+ 
+    <div class="col-sm-4">
+     [% INCLUDE _colossal_fund.tt %]
+    </div>
+    
+
     
     <div class="col-sm-4">
         <h2>Stay comp-informed</h2>
