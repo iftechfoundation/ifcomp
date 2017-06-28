@@ -1,0 +1,29 @@
+[% USE 
+   colossal_data = datafile( c.path_to( 'root/lib/config/colossal' ) )
+%]
+[% colossal = colossal_data.0 %]
+<h2>The Colossal Fund</h2>
+<p>
+Support IFComp and its authors by giving to <strong>The Colossal Fund</strong>, new for the 2017 competition! <a href="#">Learn more about it</a>.
+</p>
+        
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="KGS6V7RPE4L34">
+    <input class="btn btn-primary center-block" type="submit" value="Donate with PayPal">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+[% IF colossal.current_dollars >= colossal.goal_dollars %]
+<p class="text-center">We've reached our $[% colossal.goal_dollars %] goal! Thanks, everyone!</p>
+[% ELSE %]
+<p class="text-center">We've raised $[% colossal.current_dollars %] of our $[% colossal.goal_dollars %] goal!</p>
+[% END %]
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+</div>
+
+[% IF colossal.maximum_prize > colossal.minimum_prize %]
+<p class="text-center">Current first-place prize: $[% colossal.maximum_prize %]</p>
+[% END %]

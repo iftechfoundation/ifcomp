@@ -35,6 +35,12 @@
         <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
         <li>Browse <a href="[% c.uri_for('/comp/last_comp/') %]">past IFComp entries</a></li>
     </div>
+ 
+    <div class="col-sm-4">
+     [% INCLUDE _colossal_fund.tt %]
+    </div>
+    
+
     
     <div class="col-sm-4">
         <h2>Stay comp-informed</h2>
