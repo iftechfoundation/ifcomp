@@ -41,8 +41,7 @@ Standard 404 error page
 
 sub default :Path {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    $c->detach('/error_404');
 }
 
 =head2 end
@@ -59,6 +58,19 @@ sub end : ActionClass('RenderView') {
         my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
         $c->stash->{ current_comp } = $current_comp;
     }
+}
+
+=head2 error_404
+
+Sends a 404 response, and displays a friendly file-not-found page.
+
+=cut
+
+sub error_404 : Private {
+    my ( $self, $c ) = @_;
+
+    $c->response->status(404);
+    $c->stash( template => 'error_404.tt' );
 }
 
 =head1 AUTHOR

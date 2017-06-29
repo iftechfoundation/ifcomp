@@ -141,8 +141,7 @@ sub cover :Chained('fetch_entry') :PathPart('cover') :Args(0) {
         $c->res->body( $image_data );
     }
     else {
-        $c->res->code( 404 );
-        $c->res->body( '' );
+        $c->detach('/error_404');
     }
 }
 
