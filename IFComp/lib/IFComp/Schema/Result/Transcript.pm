@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Transcript;
 
@@ -163,9 +164,10 @@ __PACKAGE__->belongs_to(
   },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-08-26 18:15:45
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oPi1popV2LIROAMbz+PO6A
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:qs+tL+YM6Le7woiZJRhKQw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
