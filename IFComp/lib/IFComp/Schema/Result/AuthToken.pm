@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::AuthToken;
 
@@ -137,9 +138,10 @@ __PACKAGE__->belongs_to(
   },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-03-26 21:48:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:f8OfZrOIxQKK8OmUBVuk6Q
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Zu+hI5litqwYjsSutizhnw
 
 
 __PACKAGE__->meta->make_immutable;

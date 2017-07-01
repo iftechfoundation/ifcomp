@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Prize;
 
@@ -204,9 +205,10 @@ __PACKAGE__->belongs_to(
   },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2015-05-13 10:29:38
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dtC2iwNeWXuX1u51KyT/Ng
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mVu/5JE+XtIgK6j11c1sYw
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Prize.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete

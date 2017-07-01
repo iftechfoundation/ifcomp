@@ -46,5 +46,6 @@ test_requires 'Test::WWW::Mechanize::Catalyst';
 
 on 'develop' => sub {
   requires 'Code::TidyAll';
+  requires 'DBIx::Class::Schema::Loader';
   requires 'Perl::Tidy';
 };

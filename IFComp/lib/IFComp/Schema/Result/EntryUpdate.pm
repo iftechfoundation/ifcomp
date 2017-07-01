@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::EntryUpdate;
 
@@ -119,9 +120,10 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07039 @ 2014-02-23 16:14:35
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FyfVsVjb9q5+0uEiKpAtLQ
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:us0rtUNb7uUsHJfu6KdcfA
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/EntryUpdate.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete

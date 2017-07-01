@@ -35,6 +35,10 @@ To install this project's CPAN dependencies, run the following command from the 
 
 This should crunch though the installation of a bunch of Perl modules. It'll take a few minutes.
 
+If you're planning on contributing to the project, you'll want some additional modules. Use the `--with-develop` option with the _cpanm_ command. eg.
+
+    curl -fsSL https://cpanmin.us | perl - --installdeps --with-develop .
+
 ### PHP libraries
 
 You'll need to install both PHP and the PHP MCrypt module. Both should be available through your package manager of choice. (E.g. on Debian, `sudo apt-get install php5-mcrypt` will do the trick.)
