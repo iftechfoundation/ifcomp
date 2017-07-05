@@ -14,22 +14,15 @@ IFComp::Schema::Result::Session
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<session>
 
@@ -81,8 +74,8 @@ __PACKAGE__->set_primary_key("id");
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8v1BC9lSa3qijqMuU3abHQ
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l7YUlx5T934XGSgny/Tj7w
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

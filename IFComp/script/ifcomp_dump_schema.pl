@@ -8,9 +8,10 @@ use lib "$FindBin::Bin/../lib";
 
 make_schema_at(
     'IFComp::Schema',
-    {   components              => ['InflateColumn::DateTime'],
-        dump_directory          => "$FindBin::Bin/../lib",
+    {   dump_directory          => "$FindBin::Bin/../lib",
         overwrite_modifications => 1,
+
+        result_base_class => 'IFComp::Schema::Result',
 
         # Add markers around generated code to avoid tidying
         filter_generated_code => sub { return "#<<<\n$_[2]\n#>>>"; },

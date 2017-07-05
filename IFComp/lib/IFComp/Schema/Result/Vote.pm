@@ -14,22 +14,15 @@ IFComp::Schema::Result::Vote
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<vote>
 
@@ -176,8 +169,8 @@ __PACKAGE__->belongs_to(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3dawPRJJ6ZdRmJWk3+CNHw
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RVvPb6r6iuBRONnsSlb8gg
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

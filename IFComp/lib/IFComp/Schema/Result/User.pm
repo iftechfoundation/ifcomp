@@ -14,22 +14,15 @@ IFComp::Schema::Result::User
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<user>
 
@@ -255,8 +248,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AsgYcFCVUC1KDib6dDmSDg
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Jvp749ZrDZHSWlqn2hrHaA
 
 __PACKAGE__->many_to_many('roles' => 'user_roles', 'role');
 

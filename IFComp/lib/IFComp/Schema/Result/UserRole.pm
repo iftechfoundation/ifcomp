@@ -14,22 +14,15 @@ IFComp::Schema::Result::UserRole
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<user_role>
 
@@ -142,8 +135,8 @@ __PACKAGE__->belongs_to(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fZEtwmLzr+UE+A9u50kFtg
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TRiq4VCwieSmMz+DegVLIA
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/UserRole.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
