@@ -59,7 +59,6 @@ __PACKAGE__->config(
             store => {
                 class => "DBIx::Class",
                 user_model => "IFCompDB::User",
-                store_user_class => 'IFComp::UserStore',
                 role_relation => 'roles',
                 role_field => 'name',
             },

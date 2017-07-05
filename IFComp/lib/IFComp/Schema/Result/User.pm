@@ -290,6 +290,16 @@ sub hash_password {
     return $hash;
 }
 
+sub check_password {
+    my ( $self, $password ) = @_;
+
+    return unless ( $self->is_verified );
+
+    my $hashed = $self->hash_password($password);
+    my $stored = $self->password;
+    return ( $stored eq $hashed );
+}
+
 sub is_verified {
     my ($self) = @_;
     return $self->verified > 0;
