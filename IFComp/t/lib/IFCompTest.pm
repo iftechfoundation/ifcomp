@@ -73,7 +73,7 @@ sub init_schema
     $schema->populate(
         'User',
         [
-            ['id', 'name', 'password', 'salt', 'email', 'email_is_public', 'url', 'verified' ],
+            ['id', 'name', 'password_md5', 'salt_md5', 'email', 'email_is_public', 'url', 'verified' ],
             [ 1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'nobody@example.com', 1, 'http://example.com/', 1 ],
             [ 2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'author@example.com', 1, undef, 1]
         ],
