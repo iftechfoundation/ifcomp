@@ -3,8 +3,16 @@
 <div class="jumbotron">
 <h1 style="text-align:center;">About the Competition</h1>
 </div>
+
+
 <div class="page-header">
-<h1 id="thecompinanutshell">The comp in a nutshell</h1>
+<h1 id="thecompinanutshell">IFComp's mission statement</h1>
+</div>
+
+<p>The Annual Interactive Fiction Competition (IFComp) welcomes all kinds of text-driven digital stories and games, making them freely available in order to encourage the creation, play, and discussion of interactive fiction.</p>
+
+<div class="page-header">
+<h1 id="thecompinanutshell">How IFComp works, in a nutshell</h1>
 </div>
 
 <p>The Interactive Fiction Competition is <a href="[% c.uri_for_action( '/history/index' ) %]">an annual event begun by passionate hobbyists in 1995</a> to encourage both the creation and the discussion of new interactive fiction works (also known as <em>IF</em>). While <a href="[% c.uri_for_action( '/about/if' ) %]">the definition of IF has evolved in the years since then</a>, the IFComp&#8217;s format and schedule have remained stable since the 1990s. Anyone can judge the entries on a one-to-ten scale, and the laurels go to the entries receiving the best average rating.</p>
