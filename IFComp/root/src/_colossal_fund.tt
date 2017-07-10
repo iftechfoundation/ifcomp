@@ -27,7 +27,7 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 </div>
 
 [% IF show_maximum_prize %]
-<p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% colossal.maximum_prize %]</strong>.</p>
+<p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% colossal.maximum_prize %]</strong> (assuming [% colossal.estimated_entries %] entries).</p>
 [% END %]
 
 [% CATCH %]
