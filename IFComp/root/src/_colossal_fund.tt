@@ -4,7 +4,7 @@
 
 [% colossal = colossal_data.0 %]
 
-<h2>The Colossal Fund</h2>
+<h2 id="colossal-fund">The Colossal Fund</h2>
 <p>
 Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, providing a new cash prize pool for top IFComp entries! <a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">Learn more about it</a>.
 </p>
@@ -25,6 +25,10 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="[% colossal.current_dollars %]" aria-valuemin="0" aria-valuemax="[% colossal.goal_dollars %]" style="width: [% colossal.current_dollars / colossal.goal_dollars * 100 %]%;"></div>
 </div>
+
+[% IF show_maximum_prize %]
+<p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% colossal.maximum_prize %]</strong>.</p>
+[% END %]
 
 [% CATCH %]
     <div class="alert alert-danger"><p>No data file found at [% colossal_file %].</p></div>
