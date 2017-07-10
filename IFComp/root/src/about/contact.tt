@@ -7,8 +7,14 @@
 <h1 id="contact">Contact</h1>
 </div>
 
-<p><strong>Email:</strong> <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a></p>
-<p><strong>Twitter:</strong> <a href="http://twitter.com/ifcomp">@IFComp</a></p>
+<ul>
+<li><p><strong>Email</strong>
+<ul>
+<li>Organizers: <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a></p></li>
+<li>Prize coordinator: <a href="mailto:prizes@ifcomp.org">prizes@ifcomp.org</a></p></li>
+</ul>
+<li><p><strong>Twitter: </strong> <a href="http://twitter.com/ifcomp">@IFComp</a></p></li>
+</ul>
 
 <div class="page-header">
 <h1 id="credits">Site credits</h1>

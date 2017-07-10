@@ -2,12 +2,24 @@
 [% there_are_prizes = prizes_in_category.keys.size %]
 <div class="container">
     <div class="jumbotron">
-    <h1 style="text-align:center;">The IFComp prize pool</h1>
+    <h1 style="text-align:center;">Prizes for the [% current_comp.year %] IFComp</h1>
     </div>
     
-<div class="page-header">
-<h1>Prizes for the [% current_comp.year %] competition</h1>
-</div>
+<p>IFComp features two kinds of prizes, both of which are <a href="#donatingprizes">donated by the IF community</a>, and then shared among the authors of top-ranked entries after the competition ends.</p>
+
+<li>
+<p>The <strong>Colossal Fund</strong> is an annual fund drive, run by <a href="http://iftechfoundation.org">our parent organization</a>, to establish a cash prize pool for the top two-thirds of entries. Donations to the Colossal Fund also help pay for IFComp operational costs.</p>
+</li>
+<li>
+<p>The traditional <strong>prize pool</strong> contains all sorts of goodies pledged every year by members of the IF community.</p>
+</li>
+</ul>
+
+[% INCLUDE _colossal_fund.tt show_maximum_prize = 1 %]
+
+<hr />
+
+<h2>The prize pool</h2>
 
 [% IF there_are_prizes %]
 
@@ -22,6 +34,24 @@
 <p>We rely on generous (or generously creative) donations from the interactive fiction community to fill each year's prize pool. Keep reading to learn how the prize pool works, and <a href="#donatingprizes">how you can add to it</a>.</p>
 
 [% END %]
+
+<div class="page-header">
+<h1 id="donatingprizes">Donating prizes</h1>
+</div>
+
+<h2>Donating to the prize pool</h2>
+
+<p>To donate prizes to this year&#8217;s prize pool, please <a href="mailto:prizes@ifcomp.org">contact the IFComp prize coordinator</a> with a description of what you&#8217;d like to put forward. </p>
+
+<p>We&#8217;ll accept pretty much any suggestion; from simple tokens to useful things and objects of value, no prize is too humble or too grand. Feel free to <a href="/about/past_prizes">browse past years&#8217; prize lists</a> for inspiration. You are free to donate as many prizes per year as you&#8217;d like; in all cases, these prizes stay with you until the competition ends.</p>
+
+<p>Please note in your email whether your donation should go into the general prize pool, or whether it&#8217;s a special prize with extra conditions attached. (Most prizes go into the pool.) Note also whether you&#8217;d need to put any restrictions on who can receive it or where you can ship it. (This usually isn&#8217;t the case.)</p>
+
+<h2>Donating to the Colossal Fund</h2>
+
+<p>To donate to the Colossal Fund, press that lovely blue PayPal button found <a href="#colossal-fund">above the fund's progress bar</a>, up near the top of this page.</p>
+
+<p>Donations to the Colossal Fund go to the <a href="http://iftechfoundation.org">Interactive Fiction Technology Foundation</a>, a U.S.-based 501(c)(3) non-profit organization, and are fully tax-deductible where allowed by law.</p>
 
 <div class="page-header">
 <h1 id="aboutifcompprizes">About IFComp prizes</h1>
@@ -47,13 +77,12 @@
 
 <p>Special prizes, when present, are the gravy on top of the normal prize pool. Authors whose work land them one or more special prizes will still get their pick from the pool according to the usual rules.</p>
 
-<div class="page-header">
-<h1 id="donatingprizes">Donating prizes</h1>
-</div>
+<h2>The Colossal Fund</h2>
 
-<p>To donate prizes to this year&#8217;s competition, please <a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x69;&#x66;&#99;&#x6f;&#x6d;&#x70;&#64;&#x69;&#x66;&#99;&#111;&#x6d;&#x70;&#x2e;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#108; &#116;&#104;&#101; &#111;&#x72;&#103;&#x61;&#110;&#x69;&#122;&#x65;&#x72;</a> with a description of what you&#8217;d like to put forward. </p>
+<p>IFComp launched the Colossal Fund in 2017: a parallel, cash-only side-pool built up from charitable public donations. It's essentially a permanent "special prize" run by the competition itself.</p>
 
-<p>We&#8217;ll accept pretty much any suggestion; from simple tokens to useful things and objects of value, no prize is too humble or too grand. Feel free to <a href="/about/past_prizes">browse past years&#8217; prize lists</a> for inspiration. You are free to donate as many prizes per year as you&#8217;d like; in all cases, these prizes stay with you until the competition ends.</p>
+<p><a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">This blog post</a> explains the history and motivation behind the Colossal Fund, and details how it works.</p>
 
-<p>Please note in your email whether your donation should go into the general prize pool, or whether it&#8217;s a special prize with extra conditions attached. (Most prizes go into the pool.) Note also whether you&#8217;d need to put any restrictions on who can receive it or where you can ship it. (This usually isn&#8217;t the case.)</p>
+
+
 </div>

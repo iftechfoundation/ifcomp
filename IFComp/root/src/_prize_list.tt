@@ -32,7 +32,7 @@ USE Markdown;
 
 [% FOR category IN ordered_categories %]
     [% IF prizes_in_category.$category.size %]
-        <h2>[% full_name_for.$category %]</h2>
+        <h3>[% full_name_for.$category %]</h3>
         [% IF category == 'money' %]
             <p>Unless otherwise specified, cash prizes are expressed in U.S. dollars and delivered by PayPal.</p>
         [% END %]
