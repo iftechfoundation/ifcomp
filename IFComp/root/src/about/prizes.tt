@@ -17,8 +17,6 @@
 
 [% INCLUDE _colossal_fund.tt show_maximum_prize = 1 %]
 
-<hr />
-
 <h2>The prize pool</h2>
 
 [% IF there_are_prizes %]
@@ -83,6 +81,8 @@
 
 <p><a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">This blog post</a> explains the history and motivation behind the Colossal Fund, and details how it works.</p>
 
-
-
 </div>
+
+<style>
+.progress { width: 50% }
+</sytle>

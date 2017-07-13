@@ -22,7 +22,7 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 <p class="text-center">We've raised $[% colossal.current_dollars %] of our $[% colossal.goal_dollars %] goal!</p>
 [% END %]
 
-<div class="progress">
+<div class="progress center-block">
     <div class="progress-bar" role="progressbar" aria-valuenow="[% colossal.current_dollars %]" aria-valuemin="0" aria-valuemax="[% colossal.goal_dollars %]" style="width: [% colossal.current_dollars / colossal.goal_dollars * 100 %]%;"></div>
 </div>
 
