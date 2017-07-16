@@ -17,23 +17,24 @@ A controller for voting reports.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-
 # /admin/voting/ip/:ip/:comp_id
 # Show the voting from this IP for this entry
-sub show_ip :Chained("/admin/voting") :Path :Args(2) {
-    my ($self, $c, $ip, $comp_id) = @_;
+sub show_ip : Chained("/admin/voting") : Path : Args(2) {
+    my ( $self, $c, $ip, $comp_id ) = @_;
 
     my $comp = $c->model('IFCompDB::Comp')->find($comp_id);
-    my @entries = $c->model('IFCompDB::Entry')->search({comp => $comp_id});
+    my @entries =
+        $c->model('IFCompDB::Entry')->search( { comp => $comp_id } );
     my @entry_ids = map { $_->id } @entries;
-    my @votes = $c->model('IFCompDB::Vote')->search({entry => \@entry_ids,
-                                                     ip => $ip,
-                                                    });
+    my @votes = $c->model('IFCompDB::Vote')->search(
+        {   entry => \@entry_ids,
+            ip    => $ip,
+        }
+    );
     my @score_buckets;
     for my $vote (@votes) {
         my $score = $vote->score;
@@ -41,13 +42,12 @@ sub show_ip :Chained("/admin/voting") :Path :Args(2) {
     }
     shift @score_buckets;
 
-    $c->stash->{comp} = $comp;
-    $c->stash->{ip} = $ip;
-    $c->stash->{votes} = \@votes;
-    $c->stash->{ score_buckets_json } = JSON::to_json(\@score_buckets);
-    $c->stash->{template} = "admin/voting/show_ip.tt";
+    $c->stash->{comp}               = $comp;
+    $c->stash->{ip}                 = $ip;
+    $c->stash->{votes}              = \@votes;
+    $c->stash->{score_buckets_json} = JSON::to_json( \@score_buckets );
+    $c->stash->{template}           = "admin/voting/show_ip.tt";
 }
-
 
 =encoding utf8
 

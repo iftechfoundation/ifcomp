@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('IFComp', 'FastCGI');
+Catalyst::ScriptRunner->run( 'IFComp', 'FastCGI' );
 
 1;
 

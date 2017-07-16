@@ -136,6 +136,5 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AS/WXRePNS+3sxfk3w4M2g
 
-
 __PACKAGE__->meta->make_immutable;
 1;

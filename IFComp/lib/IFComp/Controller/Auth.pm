@@ -26,38 +26,43 @@ The login handler
 
 use IFComp::Form::Login;
 
-sub login :Path('login') :Args(0) {
-    my ($self, $c) = @_;
+sub login : Path('login') : Args(0) {
+    my ( $self, $c ) = @_;
 
     my $form = IFComp::Form::Login->new;
 
-    $c->stash->{ template } = 'auth/login.tt';
-    $c->stash->{ form } = $form;
+    $c->stash->{template} = 'auth/login.tt';
+    $c->stash->{form}     = $form;
 
     if ( $form->process( params => $c->req->parameters ) ) {
-        if ($c->authenticate({ email => $c->req->param( 'email' ),
-                               password => $c->req->param( 'password' ),
-                         })) {
-            $c->log->debug("User authed\n") if ($c->debug);
-            $c->res->redirect( '/' );
+        if ($c->authenticate(
+                {   email    => $c->req->param('email'),
+                    password => $c->req->param('password'),
+                }
+            )
+            )
+        {
+            $c->log->debug("User authed\n") if ( $c->debug );
+            $c->res->redirect('/');
         }
         else {
-            $c->log->debug("Authenication failed\n") if ($c->debug);
-            $form->add_form_error('Login failed. <a href="/user/request_password_reset">(Do you need to reset your password?)</a>');
+            $c->log->debug("Authenication failed\n") if ( $c->debug );
+            $form->add_form_error(
+                'Login failed. <a href="/user/request_password_reset">(Do you need to reset your password?)</a>'
+            );
         }
     }
 
 }
 
-sub logout :Path('logout') :Args(0) {
+sub logout : Path('logout') : Args(0) {
     my ( $self, $c ) = @_;
 
     if ( $c->user ) {
         $c->logout;
     }
-    $c->res->redirect( '/' );
+    $c->res->redirect('/');
 }
-
 
 =encoding utf8
 

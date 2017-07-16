@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('IFComp', 'Test');
+Catalyst::ScriptRunner->run( 'IFComp', 'Test' );
 
 1;
 

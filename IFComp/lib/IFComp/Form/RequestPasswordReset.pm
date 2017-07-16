@@ -5,36 +5,34 @@ extends 'HTML::FormHandler';
 
 has 'schema' => (
     required => 1,
-    is => 'ro',
-    isa => 'IFComp::Schema',
+    is       => 'ro',
+    isa      => 'IFComp::Schema',
 );
 
 has_field 'email' => (
-    type => 'Email',
-    label => "Your ifcomp.org account's email address",
+    type     => 'Email',
+    label    => "Your ifcomp.org account's email address",
     required => 1,
 );
 
 has_field 'submit' => (
-    type => 'Submit',
-    value => 'Send request',
-    element_attr => {
-        class => 'btn btn-success',
-    },
+    type         => 'Submit',
+    value        => 'Send request',
+    element_attr => { class => 'btn btn-success', },
 );
 
-has '+widget_wrapper' => (
-    default => 'Bootstrap3',
-);
+has '+widget_wrapper' => ( default => 'Bootstrap3', );
 
 sub validate_email {
     my $self = shift;
-    my ( $field ) = @_;
+    my ($field) = @_;
 
-    my $user_rs = $self->schema->resultset( 'User' );
-    my $existing_user = $user_rs->search( { email => $field->value } )->single;
-    unless ( $existing_user ) {
-        $field->add_error( 'We have no account on record involving this email address.' );
+    my $user_rs = $self->schema->resultset('User');
+    my $existing_user =
+        $user_rs->search( { email => $field->value } )->single;
+    unless ($existing_user) {
+        $field->add_error(
+            'We have no account on record involving this email address.');
     }
 }
 

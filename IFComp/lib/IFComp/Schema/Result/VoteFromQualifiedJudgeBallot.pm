@@ -13,48 +13,48 @@ use base qw/DBIx::Class::Core/;
 
 __PACKAGE__->table_class('DBIx::Class::ResultSource::View');
 
-__PACKAGE__->table( 'judge_votes' );
+__PACKAGE__->table('judge_votes');
 
 __PACKAGE__->add_columns(
-                         "id",
-                         {
-                          data_type => "integer",
-                          extra => { unsigned => 1 },
-                          is_auto_increment => 1,
-                          is_nullable => 0,
-                         },
-                         "user",
-                         {
-                          data_type => "integer",
-                          extra => { unsigned => 1 },
-                          is_foreign_key => 1,
-                          is_nullable => 0,
-                         },
-                         "score",
-                         {
-                          data_type => "tinyint", is_nullable => 0 },
-                         "entry",
-                         {
-                          data_type => "integer",
-                          extra => { unsigned => 1 },
-                          is_foreign_key => 1,
-                          is_nullable => 0,
-                         },
-                         "time",
-                         {
-                          data_type => "datetime",
-                          datetime_undef_if_invalid => 1,
-                          is_nullable => 1,
-                         },
-                         "ip",
-                         {
-                          data_type => "char", default_value => "", is_nullable => 0, size => 15 },
-                        );
+    "id",
+    {   data_type         => "integer",
+        extra             => { unsigned => 1 },
+        is_auto_increment => 1,
+        is_nullable       => 0,
+    },
+    "user",
+    {   data_type      => "integer",
+        extra          => { unsigned => 1 },
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "score",
+    { data_type => "tinyint", is_nullable => 0 },
+    "entry",
+    {   data_type      => "integer",
+        extra          => { unsigned => 1 },
+        is_foreign_key => 1,
+        is_nullable    => 0,
+    },
+    "time",
+    {   data_type                 => "datetime",
+        datetime_undef_if_invalid => 1,
+        is_nullable               => 1,
+    },
+    "ip",
+    {   data_type     => "char",
+        default_value => "",
+        is_nullable   => 0,
+        size          => 15
+    },
+);
 
 __PACKAGE__->result_source_instance->is_virtual(1);
 
-__PACKAGE__->result_source_instance->view_definition(q[
+__PACKAGE__->result_source_instance->view_definition(
+    q[
 select v.* from entry e, vote v left join entry o on (v.user = o.author and o.comp = ?) where e.comp = ? and v.entry = e.id and (o.author is null or o.is_disqualified = 1) and v.user in (select user from vote, entry where entry.id = vote.entry and entry.comp = ? group by user having count(score) >= 5)
-]);
+]
+);
 
 1;

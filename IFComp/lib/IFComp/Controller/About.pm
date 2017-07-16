@@ -16,82 +16,81 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub if :Path('if') :Args(0) {
+sub if : Path('if') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'about/if.tt';
+    $c->stash->{template} = 'about/if.tt';
 
 }
 
-sub contact :Path('contact') :Args(0) {
+sub contact : Path('contact') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'about/contact.tt';
+    $c->stash->{template} = 'about/contact.tt';
 }
 
-sub comp :Path('comp') :Args(0) {
+sub comp : Path('comp') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'about/comp.tt';
+    $c->stash->{template} = 'about/comp.tt';
 }
 
-sub schedule :Path('schedule') :Args(0) {
+sub schedule : Path('schedule') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'about/schedule.tt';
+    $c->stash->{template} = 'about/schedule.tt';
 }
 
-sub guidelines :Path('guidelines') :Args(0) {
+sub guidelines : Path('guidelines') : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'about/guidelines.tt';
+    $c->stash->{template} = 'about/guidelines.tt';
 }
 
-sub judging :Path('judging') :Args(0) {
-    my ( $self, $c ) = @_;
-}
-
-sub file_formats :Path('file_formats') :Args(0) {
+sub judging : Path('judging') : Args(0) {
     my ( $self, $c ) = @_;
 }
 
-
-sub how_to_enter :Path('how_to_enter') :Args(0) {
+sub file_formats : Path('file_formats') : Args(0) {
+    my ( $self, $c ) = @_;
 }
 
-sub prizes :Path('prizes') :Args(0) {
+sub how_to_enter : Path('how_to_enter') : Args(0) {
+}
+
+sub prizes : Path('prizes') : Args(0) {
     my ( $self, $c ) = @_;
 
-    my $current_comp = $c->model( 'IFCompDB::Comp' )->current_comp;
-    $c->stash->{ current_comp } = $current_comp;
+    my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    $c->stash->{current_comp} = $current_comp;
 
     my %prizes_in_category;
-    for my $prize ( $current_comp->prizes->search( {}, { order_by => 'name' } )->all ) {
+    for my $prize (
+        $current_comp->prizes->search( {}, { order_by => 'name' } )->all )
+    {
         $prizes_in_category{ $prize->category } ||= [];
         push @{ $prizes_in_category{ $prize->category } }, $prize;
     }
 
-    $c->stash->{ prizes_in_category } = \%prizes_in_category;
+    $c->stash->{prizes_in_category} = \%prizes_in_category;
 
 }
 
-sub past_prizes :Path('past_prizes') :Args(0) {
+sub past_prizes : Path('past_prizes') : Args(0) {
 }
 
-sub faq :Path('faq') :Args(0) {
+sub faq : Path('faq') : Args(0) {
 }
 
-sub donate :Path('donate') :Args(0) {
+sub donate : Path('donate') : Args(0) {
 }
 
-sub copyright :Path('copyright') :Args(0) {
+sub copyright : Path('copyright') : Args(0) {
 }
-
 
 =encoding utf8
 

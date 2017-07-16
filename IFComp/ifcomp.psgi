@@ -12,16 +12,17 @@ use File::MimeInfo;
 builder {
     enable "IFComp";
     enable "Plack::Middleware::Static",
-          path => qr{^/static/}, root => "$FindBin::Bin/root";
+        path => qr{^/static/},
+        root => "$FindBin::Bin/root";
     enable "Plack::Middleware::Static",
-          path => qr{^/\d+/}, 
-          root => "$FindBin::Bin/entries",
-          content_type => sub { 
-            Plack::MIME->mime_type( $_[0] ) || mimetype( $_[0] ) 
-          },
-    ;
+        path         => qr{^/\d+/},
+        root         => "$FindBin::Bin/entries",
+        content_type => sub {
+        Plack::MIME->mime_type( $_[0] ) || mimetype( $_[0] );
+        },
+        ;
 
-    my $app = IFComp->apply_default_middlewares(IFComp->psgi_app);
+    my $app = IFComp->apply_default_middlewares( IFComp->psgi_app );
     $app;
 };
 

@@ -21,29 +21,29 @@ use IFComp::Form::ResetPassword;
 use IFComp::Form::RequestPasswordReset;
 use IFComp::Form::EditAccount;
 
-sub register :Path('register') :Args(0) {
+sub register : Path('register') : Args(0) {
     my ( $self, $c ) = @_;
 
-    my $form = IFComp::Form::Register->new( {
-        schema => $c->model( 'IFCompDB' )->schema,
-    } );
+    my $form = IFComp::Form::Register->new(
+        { schema => $c->model('IFCompDB')->schema, } );
 
     $c->stash(
-        form => $form,
+        form     => $form,
         template => 'user/register.tt',
     );
 
     if ( $form->process( params => $c->req->parameters ) ) {
 
-        my $new_user = $c->model( 'IFCompDB::User' )->create( {
-            email => $form->field( 'email' )->value,
-            name  => $form->field( 'name' )->value,
-            password => $form->field( 'password' )->value,
-            twitter => $form->field( 'twitter' )->value,
-            forum_handle => $form->field( 'forum_handle' )->value,
-            url => $form->field( 'url' )->value,
-            email_is_public => $form->field( 'email_is_public' )->value,
-        } );
+        my $new_user = $c->model('IFCompDB::User')->create(
+            {   email           => $form->field('email')->value,
+                name            => $form->field('name')->value,
+                password        => $form->field('password')->value,
+                twitter         => $form->field('twitter')->value,
+                forum_handle    => $form->field('forum_handle')->value,
+                url             => $form->field('url')->value,
+                email_is_public => $form->field('email_is_public')->value,
+            }
+        );
 
         $new_user->send_validation_email;
 
@@ -55,75 +55,73 @@ sub register :Path('register') :Args(0) {
     }
 }
 
-sub validate :Path('validate') :Args(2) {
+sub validate : Path('validate') : Args(2) {
     my $self = shift;
     my ( $c, $user_id, $access_token ) = @_;
 
-    my $user = $c->model( 'IFCompDB::User' )->find( $user_id );
+    my $user = $c->model('IFCompDB::User')->find($user_id);
 
-    if ( $user && $user->validate_token( $access_token ) ) {
-        $c->stash->{ template } = 'user/verified.tt';
+    if ( $user && $user->validate_token($access_token) ) {
+        $c->stash->{template} = 'user/verified.tt';
     }
     else {
-        $self->_handle_bad_access_token( $c );
+        $self->_handle_bad_access_token($c);
     }
 }
 
-sub request_password_reset :Path('request_password_reset') :Args(0) {
+sub request_password_reset : Path('request_password_reset') : Args(0) {
     my $self = shift;
-    my ( $c ) = @_;
+    my ($c) = @_;
 
-    my $form = IFComp::Form::RequestPasswordReset->new( {
-        schema => $c->model( 'IFCompDB' )->schema,
-    } );
+    my $form = IFComp::Form::RequestPasswordReset->new(
+        { schema => $c->model('IFCompDB')->schema, } );
 
     $c->stash(
-        form => $form,
+        form     => $form,
         template => 'user/request_password_reset.tt',
     );
 
     if ( $form->process( params => $c->req->parameters ) ) {
-        my $user = $c->model( 'IFCompDB::User' )
-                     ->search( { email => $form->field( 'email' )->value } )
-                     ->single;
-        $c->stash->{ template } = 'user/requested_password_reset.tt';
-        $c->stash->{ user } = $user;
+        my $user = $c->model('IFCompDB::User')
+            ->search( { email => $form->field('email')->value } )->single;
+        $c->stash->{template} = 'user/requested_password_reset.tt';
+        $c->stash->{user}     = $user;
 
         $user->send_password_reset_email;
     }
 }
 
-sub reset_password :Path('reset_password') :Args(2) {
+sub reset_password : Path('reset_password') : Args(2) {
     my $self = shift;
     my ( $c, $user_id, $access_token ) = @_;
 
-    my $user = $c->model( 'IFCompDB::User' )->find( $user_id );
+    my $user = $c->model('IFCompDB::User')->find($user_id);
 
     unless ( $user
-             && $user->access_token
-             && $user->access_token eq $access_token ) {
-        $self->_handle_bad_access_token( $c );
+        && $user->access_token
+        && $user->access_token eq $access_token )
+    {
+        $self->_handle_bad_access_token($c);
         return;
     }
 
-    my $form = IFComp::Form::ResetPassword->new( {
-        schema => $c->model( 'IFCompDB' )->schema,
-    } );
+    my $form = IFComp::Form::ResetPassword->new(
+        { schema => $c->model('IFCompDB')->schema, } );
 
     $c->stash(
-        form => $form,
+        form     => $form,
         template => 'user/reset_password.tt',
-        user => $user,
+        user     => $user,
     );
 
     if ( $form->process( params => $c->req->parameters ) ) {
-        if ( $user && $user->validate_token( $access_token ) ) {
-            $user->password( $form->field( 'password' )->value );
+        if ( $user && $user->validate_token($access_token) ) {
+            $user->password( $form->field('password')->value );
             $user->update;
-            $c->stash->{ template } = 'user/password_has_been_reset.tt';
+            $c->stash->{template} = 'user/password_has_been_reset.tt';
         }
         else {
-            $self->_handle_bad_access_token( $c );
+            $self->_handle_bad_access_token($c);
         }
     }
 
@@ -131,35 +129,33 @@ sub reset_password :Path('reset_password') :Args(2) {
 
 sub _handle_bad_access_token {
     my $self = shift;
-    my ( $c ) = @_;
+    my ($c) = @_;
 
-    $c->flash->{ bad_access_token } = 1;
-    $c->res->redirect( '/' );
+    $c->flash->{bad_access_token} = 1;
+    $c->res->redirect('/');
 }
 
-sub edit_account :Path('edit_account') {
+sub edit_account : Path('edit_account') {
     my $self = shift;
-    my ( $c ) = @_;
+    my ($c) = @_;
 
     unless ( $c->user ) {
-        $c->res->redirect( '/auth/login' );
+        $c->res->redirect('/auth/login');
         return;
     }
 
     my $user = $c->user->get_object;
-    my $form = IFComp::Form::EditAccount->new( {
-        user   => $user,
-    } );
+    my $form = IFComp::Form::EditAccount->new( { user => $user, } );
 
     $c->stash(
-        form => $form,
+        form     => $form,
         template => 'user/edit_account.tt',
     );
 
     if ( $form->process( params => $c->req->parameters, item => $user ) ) {
-        $c->stash->{ edit_successful } = 1;
-        if ( $c->req->parameters->{ password } =~ /\S/ ) {
-            $user->password( $form->field( 'password' )->value );
+        $c->stash->{edit_successful} = 1;
+        if ( $c->req->parameters->{password} =~ /\S/ ) {
+            $user->password( $form->field('password')->value );
         }
         $user->update;
     }

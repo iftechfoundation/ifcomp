@@ -3,19 +3,20 @@ package IFComp::View::HTML;
 use strict;
 use base 'Catalyst::View::TT';
 
-__PACKAGE__->config({
-    INCLUDE_PATH => [
-        IFComp->path_to( 'root', 'src' ),
-        IFComp->path_to( 'root', 'lib' ),
-    ],
-    TEMPLATE_EXTENSION => '.tt',
-    PRE_PROCESS  => 'config/main',
-    WRAPPER      => 'site/wrapper',
-    ERROR        => 'error.tt2',
-    TIMER        => 0,
-    render_die   => 1,
-    ENCODING     => 'utf8',
-});
+__PACKAGE__->config(
+    {   INCLUDE_PATH => [
+            IFComp->path_to( 'root', 'src' ),
+            IFComp->path_to( 'root', 'lib' ),
+        ],
+        TEMPLATE_EXTENSION => '.tt',
+        PRE_PROCESS        => 'config/main',
+        WRAPPER            => 'site/wrapper',
+        ERROR              => 'error.tt2',
+        TIMER              => 0,
+        render_die         => 1,
+        ENCODING           => 'utf8',
+    }
+);
 
 =head1 NAME
 

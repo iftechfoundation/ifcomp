@@ -19,14 +19,14 @@ __PACKAGE__->load_namespaces;
 use MooseX::ClassAttribute;
 
 class_has 'email_template_basedir' => (
-    is => 'rw',
+    is  => 'rw',
     isa => 'Path::Class::Dir',
 );
 
 class_has 'entry_directory' => (
-    is => 'rw',
+    is  => 'rw',
     isa => 'Path::Class::Dir',
 );
 
-__PACKAGE__->meta->make_immutable(inline_constructor => 0);
+__PACKAGE__->meta->make_immutable( inline_constructor => 0 );
 1;

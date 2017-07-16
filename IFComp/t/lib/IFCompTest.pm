@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Carp qw( cluck );
 
-$SIG{ __WARN__ } = sub { cluck shift };
+$SIG{__WARN__} = sub { cluck shift };
 
 use base qw( Exporter );
 our @EXPORT    = qw( elt );
@@ -11,7 +11,7 @@ our @EXPORT_OK = qw( elt );
 
 use FindBin;
 
-$ENV{CATALYST_CONFIG} = "$FindBin::Bin/conf/ifcomp.conf";
+$ENV{CATALYST_CONFIG}        = "$FindBin::Bin/conf/ifcomp.conf";
 $ENV{EMAIL_SENDER_TRANSPORT} = 'Test';
 
 use utf8;
@@ -24,31 +24,26 @@ use IFComp::Schema;
 use Readonly;
 Readonly my $SALT => '123456';
 
-my $db_dir    = "$FindBin::Bin/db";
-my $db_file   = "$db_dir/IFComp.db";
-my $dsn       = "dbi:SQLite:$db_file";
+my $db_dir  = "$FindBin::Bin/db";
+my $db_file = "$db_dir/IFComp.db";
+my $dsn     = "dbi:SQLite:$db_file";
 
-sub connect_info
-{
+sub connect_info {
     my ($self) = shift;
-    return ($dsn,
-            '',
-            '',
-            {
-                sqlite_unicode => 1,
-                on_connect_call => 'use_foreign_keys',
-            });
+    return (
+        $dsn, '', '',
+        {   sqlite_unicode  => 1,
+            on_connect_call => 'use_foreign_keys',
+        }
+    );
 }
 
-sub init_schema
-{
+sub init_schema {
     my $self = shift;
     my %args = @_;
 
-    if (-e $db_file)
-    {
-        unless (unlink $db_file)
-        {
+    if ( -e $db_file ) {
+        unless ( unlink $db_file ) {
             croak("Couldn't unlink $db_file: $OS_ERROR");
         }
     }
@@ -64,18 +59,27 @@ sub init_schema
 
     $schema->populate(
         'FederatedSite',
-        [
-         [ 'id', 'name', 'api_key', 'hashing_method' ],
-         [ 1, 'ifcomp.org', 'fD0TDnRsQQlTLB/LXMPkkpYDsQXFRVDpFqFqIb//c6s=', 'rijndael-256' ],
+        [   [ 'id', 'name', 'api_key', 'hashing_method' ],
+            [   1, 'ifcomp.org',
+                'fD0TDnRsQQlTLB/LXMPkkpYDsQXFRVDpFqFqIb//c6s=',
+                'rijndael-256'
+            ],
         ],
     );
 
     $schema->populate(
         'User',
-        [
-            ['id', 'name', 'password_md5', 'salt_md5', 'email', 'email_is_public', 'url', 'verified' ],
-            [ 1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'nobody@example.com', 1, 'http://example.com/', 1 ],
-            [ 2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33', $SALT, 'author@example.com', 1, undef, 1]
+        [   [   'id',           'name',
+                'password_md5', 'salt_md5',
+                'email',        'email_is_public',
+                'url',          'verified'
+            ],
+            [   1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'nobody@example.com', 1, 'http://example.com/', 1
+            ],
+            [   2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'author@example.com', 1, undef, 1
+            ]
         ],
     );
 
@@ -107,14 +111,16 @@ sub init_schema
 }
 
 sub log_in_as_author {
-    my ( $mech ) = @_;
-    $mech->get_ok( 'http://localhost/auth/login' );
-    $mech->submit_form_ok( {
-        fields => {
-            email => 'author@example.com',
-            password => 'fool',
+    my ($mech) = @_;
+    $mech->get_ok('http://localhost/auth/login');
+    $mech->submit_form_ok(
+        {   fields => {
+                email    => 'author@example.com',
+                password => 'fool',
+            },
         },
-    }, 'Submitted the login form' );
+        'Submitted the login form'
+    );
 
     $mech->content_like( qr/Alice Author/, 'Login successful' );
 }

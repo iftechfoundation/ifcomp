@@ -26,7 +26,7 @@ use Catalyst qw/
     Session::State::Cookie
     Cache
     PageCache
-/;
+    /;
 
 extends 'Catalyst';
 
@@ -43,62 +43,49 @@ our $VERSION = '0.01';
 
 __PACKAGE__->config(
     name => 'IFComp',
+
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
-    enable_catalyst_header => 1, # Send X-Catalyst header
-    encoding => 'UTF-8',
-    'Plugin::ConfigLoader' => {file => "conf/" }, # Load configs from the conf dir
+    enable_catalyst_header                      => 1, # Send X-Catalyst header
+    encoding               => 'UTF-8',
+    'Plugin::ConfigLoader' => { file => "conf/" }
+    ,    # Load configs from the conf dir
     'Plugin::Authentication' => {
         default_realm => "default",
-        default => {
+        default       => {
             credential => {
-                class => "Password",
+                class          => "Password",
                 password_field => "password",
-                password_type => "self_check",
+                password_type  => "self_check",
             },
             store => {
-                class => "DBIx::Class",
-                user_model => "IFCompDB::User",
+                class         => "DBIx::Class",
+                user_model    => "IFCompDB::User",
                 role_relation => 'roles',
-                role_field => 'name',
+                role_field    => 'name',
             },
         },
     },
     'Plugin::Session' => {
-        'expires' => 31536000, # Year
+        'expires'    => 31536000,              # Year
         'dbic_class' => 'IFCompDB::Session',
     },
     'Plugin::Static::Simple' => {
-        dirs => [
-            'static',
-        ],
+        dirs         => [ 'static', ],
         include_path => [
             IFComp->config->{root} . '/../entries',
             IFComp->config->{root},
         ],
-        ignore_extensions => [
-            'tt2',
-            'tt',
-        ],
+        ignore_extensions => [ 'tt2', 'tt', ],
     },
-    'Model::Covers' => {
-        root_dir => __PACKAGE__->path_to('file_store')
-    },
-    'Plugin::Cache' => {
-        'backend' => {
-            class   => "Cache::FastMmap",
-        },
-    },
+    'Model::Covers' => { root_dir  => __PACKAGE__->path_to('file_store') },
+    'Plugin::Cache' => { 'backend' => { class => "Cache::FastMmap", }, },
     'Plugin::PageCache' => {
-        disable_index => 1,
+        disable_index   => 1,
         auto_check_user => 1,
-        auto_cache => [
-            '/rules/?',
-            '/comp/.+',
-            '/history/?',
-            '/about/.*',
-            '/ballot.*',
-            '/',
+        auto_cache      => [
+            '/rules/?',  '/comp/.+', '/history/?', '/about/.*',
+            '/ballot.*', '/',
         ],
     },
 );

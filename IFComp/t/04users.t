@@ -7,8 +7,8 @@ use lib ("$FindBin::Bin/lib");
 use IFCompTest;
 my $schema = IFCompTest->init_schema();
 
-my $u = $schema->resultset("User")->search({id => 1})->single();
-ok($u && $u->name eq "user1", "Found test user");
+my $u = $schema->resultset("User")->search( { id => 1 } )->single();
+ok( $u && $u->name eq "user1", "Found test user" );
 
 ### Check password hashing...
 # ...on ->create()

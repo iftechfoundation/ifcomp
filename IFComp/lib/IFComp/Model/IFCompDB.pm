@@ -3,19 +3,16 @@ package IFComp::Model::IFCompDB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
-__PACKAGE__->config(
-    schema_class => 'IFComp::Schema',
-);
-
+__PACKAGE__->config( schema_class => 'IFComp::Schema', );
 
 sub ACCEPT_CONTEXT {
     my $self = shift;
-    my ( $c ) = @_;
+    my ($c) = @_;
 
-    $self->schema->email_template_basedir( $c->path_to( 'mail' ) );
+    $self->schema->email_template_basedir( $c->path_to('mail') );
 
     unless ( $self->schema->entry_directory ) {
-        $self->schema->entry_directory( $c->path_to( 'entries' ) );
+        $self->schema->entry_directory( $c->path_to('entries') );
     }
 
     return $self;
