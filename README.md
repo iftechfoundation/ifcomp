@@ -72,9 +72,9 @@ The project maintainer is Jason McIntosh ([jmac@jmac.org](jmac@jmac.org)).
 
 Major contributors to this codebase include:
 
-* Adam Herzog ([adam@adamherzog.com](adam@adamherzog.com))
-* Joe Johnston ([joe.johnston@gmail.com](joe.johnston@gmail.com))
-* Jason McIntosh ([jmac@jmac.org](jmac@jmac.org)).
-* Dan Shiovitz ([dans@drizzle.com](dans@drizzle.com))
+* Adam Herzog ([adam@adamherzog.com](mailto:adam@adamherzog.com))
+* Joe Johnston ([joe.johnston@gmail.com](mailto:joe.johnston@gmail.com))
+* Jason McIntosh ([jmac@jmac.org](mailto:jmac@jmac.org)).
+* Dan Shiovitz ([dans@drizzle.com](mailto:dans@drizzle.com))
 
 For a list of contributors to the larger IFComp project, see [the IFComp credits page](http://www.ifcomp.org/about/contact).
