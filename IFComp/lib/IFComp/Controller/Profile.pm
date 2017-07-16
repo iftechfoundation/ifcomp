@@ -234,7 +234,7 @@ sub check_password {
         return;
     }
 
-    return $user->hash_password($plaintext) eq $user->password;
+    return $user->check_password($plaintext);
 }
 
 sub encrypt_rijndael_256 {

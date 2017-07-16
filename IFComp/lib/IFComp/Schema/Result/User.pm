@@ -14,22 +14,15 @@ IFComp::Schema::Result::User
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<user>
 
@@ -56,8 +49,13 @@ __PACKAGE__->table("user");
 =head2 password
 
   data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
+  is_nullable: 1
+  size: 60
+
+=head2 password_md5
+
+  data_type: 'char'
+  is_nullable: 1
   size: 64
 
 =head2 email
@@ -85,7 +83,7 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 32
 
-=head2 salt
+=head2 salt_md5
 
   data_type: 'char'
   is_nullable: 1
@@ -133,7 +131,9 @@ __PACKAGE__->add_columns(
   "name",
   { data_type => "char", default_value => "", is_nullable => 0, size => 128 },
   "password",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  { data_type => "char", is_nullable => 1, size => 60 },
+  "password_md5",
+  { data_type => "char", is_nullable => 1, size => 64 },
   "email",
   { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
   "email_is_public",
@@ -142,7 +142,7 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 128 },
   "twitter",
   { data_type => "char", is_nullable => 1, size => 32 },
-  "salt",
+  "salt_md5",
   { data_type => "char", is_nullable => 1, size => 36 },
   "created",
   {
@@ -255,8 +255,17 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-06-08 23:46:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AsgYcFCVUC1KDib6dDmSDg
+# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:36:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dUibpAIoceC/jeeV1B2ifg
+
+__PACKAGE__->add_column(
+    '+password' => {
+        encode_column       => 1,
+        encode_class        => 'Crypt::Eksblowfish::Bcrypt',
+        encode_args         => { cost => 8 },
+        encode_check_method => '_check_password',
+    },
+);
 
 __PACKAGE__->many_to_many('roles' => 'user_roles', 'role');
 
@@ -265,12 +274,6 @@ use Email::Sender::Simple qw/ sendmail /;
 use Email::MIME::Kit;
 use Data::GUID;
 use DateTime;
-
-has 'password_needs_hashing' => (
-    isa => 'Bool',
-    is => 'rw',
-    default => '0',
-);
 
 sub reset_access_token {
     my $self = shift;
@@ -288,13 +291,45 @@ sub clear_access_token {
     $self->update;
 }
 
-sub hash_password {
-    my ($self, $plaintext) = (shift, shift);
+sub _hash_password_md5 {
+    my ( $self, $plaintext ) = @_;
 
-    my $salt = $self->salt;
+    my $salt = $self->salt_md5;
     my $hash = md5_hex( $plaintext . $salt );
 
     return $hash;
+}
+
+sub _check_password_md5 {
+    my ( $self, $plaintext ) = @_;
+
+    my $hashed = $self->_hash_password_md5($plaintext);
+    my $stored = $self->password_md5;
+    return ( $stored eq $hashed );
+}
+
+sub check_password {
+    my ( $self, $password ) = @_;
+
+    return unless ( $self->is_verified );
+
+    if ( $self->password ) {
+        return $self->_check_password($password);
+    }
+
+    if ( $self->password_md5 ) {
+        if ( $self->_check_password_md5($password) ) {
+            $self->update(
+                {   password     => $password,
+                    password_md5 => undef,
+                    salt_md5     => undef,
+                }
+            );
+            return 1;
+        }
+    }
+
+    return;
 }
 
 sub is_verified {
@@ -370,36 +405,9 @@ sub _build_template_dir {
     return File::Spec->catdir( $base_dir, $self->Email_template_subdir );
 }
 
-around 'new' => sub {
-    my $orig = shift;
-    my $class = shift;
-
-    my ( $args_ref ) = @_;
-    my $password_needs_hashing = 0;
-    if ( $args_ref->{ password_needs_hashing } ) {
-        delete $args_ref->{ password_needs_hashing };
-        $password_needs_hashing = 1;
-    }
-
-    my $self = $class->$orig( @_ );
-
-    $self->password_needs_hashing( 1 );
-
-    return $self;
-};
-
 around 'insert' => sub {
     my $orig = shift;
     my $self = shift;
-
-    unless ( $self->salt ) {
-        $self->salt( Data::GUID->new );
-    }
-
-    if ( $self->password_needs_hashing ) {
-        $self->password_needs_hashing( 0 );
-        $self->password( $self->hash_password( $self->password ) );
-    }
 
     unless ( $self->created ) {
         $self->created( DateTime->now );
@@ -433,11 +441,6 @@ sub current_comp_entries {
     }
 }
 
-__PACKAGE__->meta->make_immutable( inline_constructor => 0 );
-
-1;
-
-
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
+
 1;
