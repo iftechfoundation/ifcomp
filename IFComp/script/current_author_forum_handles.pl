@@ -8,9 +8,9 @@ use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
 
 my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
-$schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
+$schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
 
-my $entries_rs = $schema->resultset( 'Comp' )->current_comp->entries;
+my $entries_rs = $schema->resultset('Comp')->current_comp->entries;
 my %forum_handles;
 while ( my $entry = $entries_rs->next ) {
     next unless $entry->is_qualified;

@@ -16,22 +16,20 @@ A controller for administrative functions
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Chained('/') :Path :Args(0) {
+sub index : Chained('/') : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    unless ( $c->user && $c->check_any_user_role( 'votecounter' ) ) {
-        $c->res->redirect( '/' );
+    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
+        $c->res->redirect('/');
         return;
     }
 
-    $c->stash->{ template } = "admin/index.tt";
+    $c->stash->{template} = "admin/index.tt";
 }
-
 
 =encoding utf8
 

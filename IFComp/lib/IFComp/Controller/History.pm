@@ -16,30 +16,24 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'history/history.tt';
+    $c->stash->{template} = 'history/history.tt';
 
-    my @winners = $c->model( 'IFCompDB::Entry' )->search(
-        {
-            place => 1,
-        },
-        {
-            join => [ 'comp' ],
+    my @winners = $c->model('IFCompDB::Entry')->search(
+        { place => 1, },
+        {   join     => ['comp'],
             order_by => 'comp.year desc',
         },
     );
 
-    $c->stash->{ winners } = \@winners;
+    $c->stash->{winners} = \@winners;
 }
-
-
 
 =encoding utf8
 

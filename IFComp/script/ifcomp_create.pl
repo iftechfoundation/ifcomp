@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('IFComp', 'Create');
+Catalyst::ScriptRunner->run( 'IFComp', 'Create' );
 
 1;
 

@@ -77,7 +77,6 @@ __PACKAGE__->set_primary_key("id");
 # Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:l7YUlx5T934XGSgny/Tj7w
 
-
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

@@ -5,7 +5,7 @@ BEGIN {
 }
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('IFComp', 'Server');
+Catalyst::ScriptRunner->run( 'IFComp', 'Server' );
 
 1;
 

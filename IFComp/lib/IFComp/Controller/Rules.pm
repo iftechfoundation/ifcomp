@@ -16,18 +16,15 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub rules :Path :Args(0) {
+sub rules : Path : Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{ template } = 'rules/rules.tt';
+    $c->stash->{template} = 'rules/rules.tt';
 }
-
-
 
 =encoding utf8
 

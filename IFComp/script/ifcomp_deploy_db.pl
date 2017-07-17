@@ -7,10 +7,9 @@ use Time::HiRes;
 use Getopt::Std;
 
 my %Opts;
-getopts('dh?', \%Opts);
+getopts( 'dh?', \%Opts );
 
-if ($Opts{'?'} || $Opts{'h'})
-{
+if ( $Opts{'?'} || $Opts{'h'} ) {
     print usage();
     exit(0);
 }
@@ -22,8 +21,7 @@ eval q[
     use IFComp;
 ];
 
-if ($@)
-{
+if ($@) {
     print("Could not create IFComp\n");
     print($@);
     die;
@@ -32,21 +30,19 @@ if ($@)
 print "Deploying schema\n";
 
 my %sql_args;
-if ($Opts{'d'})
-{
+if ( $Opts{'d'} ) {
     $sql_args{'add_drop_table'} = 1;
 }
 
-IFComp->component("IFComp::Model::IFCompDB")->schema->deploy(\%sql_args);
+IFComp->component("IFComp::Model::IFCompDB")->schema->deploy( \%sql_args );
 
 my $end = Time::HiRes::time();
-printf("Deploy took %.2f seconds\n", ($end - $start));
+printf( "Deploy took %.2f seconds\n", ( $end - $start ) );
 
 #-----
-# Sub 
+# Sub
 #-----
-sub usage
-{
+sub usage {
     return qq[$0 - Deploy IFComp schema to an empty MySQL database
 
 USAGE: $0 [-d]

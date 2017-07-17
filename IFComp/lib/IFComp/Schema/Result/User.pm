@@ -267,7 +267,7 @@ __PACKAGE__->add_column(
     },
 );
 
-__PACKAGE__->many_to_many('roles' => 'user_roles', 'role');
+__PACKAGE__->many_to_many( 'roles' => 'user_roles', 'role' );
 
 use Digest::MD5 ('md5_hex');
 use Email::Sender::Simple qw/ sendmail /;
@@ -280,14 +280,14 @@ sub reset_access_token {
 
     my $new_code = Data::GUID->new->as_string;
 
-    $self->access_token( $new_code );
+    $self->access_token($new_code);
     $self->update;
 }
 
 sub clear_access_token {
     my $self = shift;
 
-    $self->access_token( undef );
+    $self->access_token(undef);
     $self->update;
 }
 
@@ -342,8 +342,8 @@ sub get_api_fascade {
     my ($self) = @_;
 
     return {
-        id => $self->id,
-        name => $self->name,
+        id    => $self->id,
+        name  => $self->name,
         email => $self->email,
         token => $self->auth_tokens->first->token,
     };
@@ -352,43 +352,41 @@ sub get_api_fascade {
 sub send_validation_email {
     my $self = shift;
 
-    $self->_send_email_and_reset_token( 'validate_registration' );
+    $self->_send_email_and_reset_token('validate_registration');
 }
 
 sub send_password_reset_email {
     my $self = shift;
 
-    $self->_send_email_and_reset_token( 'reset_password' );
+    $self->_send_email_and_reset_token('reset_password');
 }
 
 sub _send_email_and_reset_token {
     my $self = shift;
-    my ( $subdir ) = @_;
+    my ($subdir) = @_;
 
-    my $kit = Email::MIME::Kit->new( {
-        source => $self->_path_to_email_subdir( $subdir ),
-    } );
+    my $kit = Email::MIME::Kit->new(
+        { source => $self->_path_to_email_subdir($subdir), } );
 
     $self->reset_access_token;
     my $access_token = $self->access_token;
 
-    my $email = $kit->assemble( {
-        user => $self,
-    } );
+    my $email = $kit->assemble( { user => $self, } );
 
     # XXX TODO: Check the return value of sendmail(); log errors.
-    my $success = sendmail( $email );
+    my $success = sendmail($email);
 }
-
 
 sub validate_token {
     my $self = shift;
 
-    my ( $token_to_validate ) = @_;
+    my ($token_to_validate) = @_;
 
-    if ( defined $self->access_token && $self->access_token eq $token_to_validate ) {
+    if ( defined $self->access_token
+        && $self->access_token eq $token_to_validate )
+    {
         $self->clear_access_token;
-        $self->verified( 1 );
+        $self->verified(1);
         $self->update;
         return 1;
     }
@@ -413,26 +411,27 @@ around 'insert' => sub {
         $self->created( DateTime->now );
     }
 
-    return $self->$orig( @_ );
+    return $self->$orig(@_);
 };
 
 sub _path_to_email_subdir {
     my $self = shift;
-    my ( $subdir ) = @_;
+    my ($subdir) = @_;
 
-    return $self->result_source->schema->email_template_basedir->subdir( $subdir );
+    return $self->result_source->schema->email_template_basedir->subdir(
+        $subdir);
 }
 
 sub current_comp_entries {
     my $self = shift;
 
     my $current_comp =
-        $self->result_source->schema->resultset( 'Comp' )->current_comp;
+        $self->result_source->schema->resultset('Comp')->current_comp;
 
     my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
 
-    if ( ( $current_comp->status eq 'accepting_intents' )
-         || ( $current_comp->status eq 'closed_to_intents' ) )
+    if (   ( $current_comp->status eq 'accepting_intents' )
+        || ( $current_comp->status eq 'closed_to_intents' ) )
     {
         return $entries_rs->all;
     }

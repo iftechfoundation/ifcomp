@@ -6,47 +6,45 @@ with 'IFComp::Form::PasswordFields';
 use Regexp::Common qw( URI );
 
 has_field 'email' => (
-    type => 'Email',
+    type     => 'Email',
     required => 1,
 );
 
 has_field 'email_is_public' => (
-    type => 'Checkbox',
+    type    => 'Checkbox',
     default => 0,
-    label => 'Display your email address',
+    label   => 'Display your email address',
 );
 
 has_field 'name' => (
-    type => 'Text',
+    type     => 'Text',
     required => 1,
 );
 
 has_field 'twitter' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Twitter handle',
 );
 
 has_field 'url' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Homepage',
 );
 
 has_field 'forum_handle' => (
-    type => 'Text',
+    type  => 'Text',
     label => 'Intfiction.org forum handle',
 );
 
 has_field 'submit' => (
-    type => 'Submit',
-    value => 'Register',
-    element_attr => {
-        class => 'btn btn-success',
-    },
+    type         => 'Submit',
+    value        => 'Register',
+    element_attr => { class => 'btn btn-success', },
 );
 
 sub validate_twitter {
     my $self = shift;
-    my ( $field ) = @_;
+    my ($field) = @_;
 
     my $handle = $field->value;
     return unless $handle;
@@ -58,23 +56,23 @@ sub validate_twitter {
     # http://smallbusiness.chron.com/maximum-length-twitter-handle-61818.html
     my $MAX_LENGTH = 15;
     if ( ( length $handle <= $MAX_LENGTH ) && ( $handle =~ /^[\w\d]+$/ ) ) {
-        $field->value( $handle );
+        $field->value($handle);
     }
     else {
-        $field->add_error( "This doesn't look like a valid Twitter handle." );
+        $field->add_error("This doesn't look like a valid Twitter handle.");
     }
 }
 
 sub validate_url {
     my $self = shift;
-    my ( $field ) = @_;
+    my ($field) = @_;
 
     if ( my $url = $field->value ) {
         unless ( $url =~ /^$RE{URI}$/ ) {
-            $url = $field->value( "http://$url" );
+            $url = $field->value("http://$url");
         }
         unless ( $url =~ /^$RE{URI}$/ ) {
-            $field->add_error( "This doesn't look like a valid URL." );
+            $field->add_error("This doesn't look like a valid URL.");
         }
     }
 
