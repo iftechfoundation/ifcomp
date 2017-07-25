@@ -945,16 +945,6 @@ sub update_content_directory {
     }
 }
 
-sub _repair_game_js {
-    my $self = shift;
-
-    $self->inform_game_js_file->spew( q/$(document).ready(function() {/
-            . q/  GiLoad.load_run(null, '/
-            . encode_base64( $self->inform_game_file->slurp, '' )
-            . q/', 'base64');/
-            . q/});/ );
-}
-
 sub _make_js_file {
     my $self = shift;
 
@@ -1153,7 +1143,7 @@ $tag_text
 <script>
 parchment_options = {
 default_story: [ "$game_file" ],
-lib_path: '../../static/interpreter/parchment',
+lib_path: '../../static/interpreter/parchment/',
 lock_story: 1,
 page_title: 0
 };
