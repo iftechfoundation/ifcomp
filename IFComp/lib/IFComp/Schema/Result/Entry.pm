@@ -940,6 +940,7 @@ sub update_content_directory {
         $self->_mangle_parchment_head;
     }
     elsif ( $self->platform eq 'quixe2' ) {
+
         # Double-encode the JS file to get around an Inform 7 Quixe-export bug.
         $self->_make_js_file( $self->inform_game_js_file );
     }
@@ -958,7 +959,6 @@ sub _make_js_file {
             . q/});/ );
 }
 
-
 sub _create_parchment_page {
     my $self = shift;
 
@@ -975,8 +975,8 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $tag_text     = $self->interpreter_tag_text;
-    my $html         = <<EOF
+    my $tag_text = $self->interpreter_tag_text;
+    my $html     = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
@@ -1046,8 +1046,8 @@ sub _create_quixe_page {
 
     my $entry_id = $self->id;
 
-    my $tag_text     = $self->interpreter_tag_text;
-    my $html         = <<EOF
+    my $tag_text = $self->interpreter_tag_text;
+    my $html     = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
@@ -1137,8 +1137,8 @@ sub _mangle_parchment_head {
     $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
 
     # Add new head tags.
-    my $tag_text     = $self->interpreter_tag_text;
-    my $head_html    = <<EOF;
+    my $tag_text  = $self->interpreter_tag_text;
+    my $head_html = <<EOF;
 $tag_text
 <script>
 parchment_options = {
