@@ -940,6 +940,8 @@ sub update_content_directory {
         $self->_mangle_parchment_head;
     }
     elsif ( $self->platform eq 'quixe' ) {
+        $self->_make_js_file( $self->inform_game_file,
+            $self->inform_game_js_file );
         $self->_mangle_quixe_head;
     }
 }
@@ -1180,7 +1182,7 @@ sub _mangle_quixe_head {
     $play_html
         =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
     $play_html
-        =~ s{"interpreter/glkote.min.js"}{""../../static/interpreter/quixe/lib/glkote.min.js"};
+        =~ s{"interpreter/glkote.min.js"}{"../../static/interpreter/quixe/lib/glkote.min.js"};
     $play_html
         =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
 
