@@ -1174,11 +1174,15 @@ sub _mangle_quixe_head {
     }
 
     my $play_html = $play_file->slurp;
+
     # Re-aim interpreter links to our own Quixe interpreter.
 
-    $play_html =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
-    $play_html =~ s{"interpreter/glkote.min.js"}{""../../static/interpreter/quixe/lib/glkote.min.js"};
-    $play_html =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
+    $play_html
+        =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+    $play_html
+        =~ s{"interpreter/glkote.min.js"}{""../../static/interpreter/quixe/lib/glkote.min.js"};
+    $play_html
+        =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
 
     $play_file->spew($play_html);
 
