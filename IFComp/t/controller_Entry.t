@@ -20,6 +20,7 @@ ok( my $mech =
     'Created mech object'
 );
 
+$schema->entry_directory->mkpath unless ( $schema->entry_directory->stat );
 foreach ( $schema->entry_directory->children ) {
     $_->rmtree;
 }
