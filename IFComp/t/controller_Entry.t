@@ -33,6 +33,11 @@ $mech->content_like( qr/You have not declared/,
 
 my $comp_dir = $schema->entry_directory;
 
+my ( $entry_id ) = $schema->storage->dbh->selectrow_array(
+    'select max(id) from entry'
+);
+$entry_id = $entry_id + 1;
+
 $mech->get_ok('http://localhost/entry/create');
 
 is( $comp_dir->children, 0, "Entry directory ($comp_dir) is still empty." );
@@ -44,10 +49,10 @@ $mech->submit_form_ok(
     'Submitted a declaration'
 );
 
-my $entry = $schema->resultset('Entry')->find(1);
+my $entry = $schema->resultset('Entry')->find( $entry_id );
 is( $entry->title, 'Fun Game', 'New entry is in the DB.' );
 
-$mech->get_ok('http://localhost/entry/1/update');
+$mech->get_ok("http://localhost/entry/$entry_id/update");
 $mech->submit_form_ok(
     {   form_number => 2,
         fields      => { 'entry.title' => 'Super-Fun Game', },
