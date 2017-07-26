@@ -41,7 +41,7 @@ is( $schema->resultset('Entry')->find(100)->platform,
 
 note('Testing naked Glulx upload...');
 ok( file_exists( 101, 'index.html' ), 'Generated an index.html file.', );
-ok( file_exists( 101, 'Naked Glulx.gblorb.js' ),
+ok( file_exists( 101, 'Naked glulx.gblorb.js' ),
     'Generated a JavaScript game file.',
 );
 ok( file_contains( 101, 'index.html', qr{/static/interpreter/quixe/} ),
