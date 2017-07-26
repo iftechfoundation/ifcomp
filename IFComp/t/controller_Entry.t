@@ -33,9 +33,8 @@ $mech->content_like( qr/You have not declared/,
 
 my $comp_dir = $schema->entry_directory;
 
-my ( $entry_id ) = $schema->storage->dbh->selectrow_array(
-    'select max(id) from entry'
-);
+my ($entry_id) =
+    $schema->storage->dbh->selectrow_array( 'select max(id) from entry' );
 $entry_id = $entry_id + 1;
 
 $mech->get_ok('http://localhost/entry/create');
@@ -49,7 +48,7 @@ $mech->submit_form_ok(
     'Submitted a declaration'
 );
 
-my $entry = $schema->resultset('Entry')->find( $entry_id );
+my $entry = $schema->resultset('Entry')->find($entry_id);
 is( $entry->title, 'Fun Game', 'New entry is in the DB.' );
 
 $mech->get_ok("http://localhost/entry/$entry_id/update");
