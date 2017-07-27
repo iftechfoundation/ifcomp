@@ -1078,7 +1078,10 @@ body {
 <script type="text/javascript">
 game_options = {
   use_query_story: false,
-  set_page_title: true
+  set_page_title: true,
+  recording_url: '../../../play/$entry_id/transcribe',
+  recording_label: '$title',
+  recording_format: 'simple'
 };
 </script>
 
