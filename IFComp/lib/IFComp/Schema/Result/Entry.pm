@@ -506,7 +506,7 @@ enum 'Platform', [
     qw(
         html
         website
-        quixe2
+        quixe
         parchment
         inform
         inform-website
@@ -738,7 +738,7 @@ sub _build_contents_data {
                 qr/^play\.html?$/i, qr/^(interpreter\/)?parchment.*js$/i
             ]
         ],
-        [   'quixe2',
+        [   'quixe',
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
@@ -939,10 +939,10 @@ sub update_content_directory {
     elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
     }
-    elsif ( $self->platform eq 'quixe2' ) {
-
-        # Double-encode the JS file to get around an Inform 7 Quixe-export bug.
-        $self->_make_js_file( $self->inform_game_js_file );
+    elsif ( $self->platform eq 'quixe' ) {
+        $self->_make_js_file( $self->inform_game_file,
+            $self->inform_game_js_file );
+        $self->_mangle_quixe_head;
     }
 }
 
@@ -1161,6 +1161,35 @@ EOF
 
 }
 
+sub _mangle_quixe_head {
+    my $self = shift;
+
+    my $play_file = $self->content_directory->file('play.html');
+
+    my $game_file = $self->inform_game_file->basename;
+
+    unless ( ( -e $play_file ) && $game_file ) {
+
+        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
+        # so we won't do anything.
+        return;
+    }
+
+    my $play_html = $play_file->slurp;
+
+    # Re-aim interpreter links to our own Quixe interpreter.
+
+    $play_html
+        =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+    $play_html
+        =~ s{"interpreter/glkote.min.js"}{"../../static/interpreter/quixe/lib/glkote.min.js"};
+    $play_html
+        =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
+
+    $play_file->spew($play_html);
+
+}
+
 sub _build_interpreter_tag_text {
     my $self = shift;
 
@@ -1210,7 +1239,7 @@ sub _build_has_extra_content {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif (( $self->platform eq 'parchment' )
-        || ( $self->platform eq 'quixe2' ) )
+        || ( $self->platform eq 'quixe' ) )
     {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
     }

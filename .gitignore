@@ -4,3 +4,4 @@ IFComp/conf/ifcomp_local.conf
 IFComp/entries
 IFComp/root/static/downloads
 IFComp/root/lib/config/colossal
+IFComp/t/platform_test_entries/*/content

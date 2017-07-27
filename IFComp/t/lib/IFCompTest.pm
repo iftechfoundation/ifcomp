@@ -18,6 +18,7 @@ use utf8;
 use Carp qw(croak);
 use English;
 use File::Path qw(make_path remove_tree);
+use FindBin;
 
 use IFComp::Schema;
 
@@ -106,6 +107,28 @@ sub init_schema {
             ],
         ],
     );
+
+    $schema->populate(
+        'Entry',
+        [   [ 'id', 'author', 'title',                   'comp', 'place' ],
+            [ 100,  1,        'Test Z-code game',        1,      1 ],
+            [ 101,  1,        'Test Glulx game',         1,      2 ],
+            [ 102,  1,        'Test Quixe game',         1,      3 ],
+            [ 103,  1,        'Test Parchment game',     1,      4 ],
+            [ 104,  1,        'Test Z-code website',     1,      5 ],
+            [ 105,  1,        'Test non-Inform website', 1,      6 ],
+            [ 106,  1,        'Test HTML page',          1,      7 ],
+            [ 107, 1, 'Test Z-code website with buried story file', 1, 8 ],
+            [ 108, 1, 'Test Quest game',                            1, 9 ],
+            [ 109, 1, 'Test TADS game',                             1, 10 ],
+            [ 110, 1, 'Test Alan game',                             1, 11 ],
+        ],
+    );
+
+    my $entry_directory =
+        Path::Class::Dir->new("$FindBin::Bin/platform_test_entries");
+
+    $schema->entry_directory($entry_directory);
 
     return $schema;
 }
