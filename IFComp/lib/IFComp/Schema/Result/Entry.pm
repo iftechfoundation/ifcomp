@@ -1181,13 +1181,26 @@ sub _mangle_quixe_head {
     my $play_html = $play_file->slurp;
 
     # Re-aim interpreter links to our own Quixe interpreter.
+    # (Via re-writing <script src="..." /> invocations.)
+    $play_html
+        =~ s{"interpreter/jquery-.*?min.js"}
+            {"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+    $play_html
+        =~ s{"interpreter/glkote.min.js"}
+            {"../../static/interpreter/quixe/lib/glkote.min.js"};
+    $play_html
+        =~ s{"interpreter/quixe.min.js"}
+            {"../../static/interpreter/quixe/lib/quixe.min.js"};
 
+    # Activate transcription, aiming it at the local transcription action.
+    # (Via injecting additional values into the game_options config object.)
+    my $entry_id = $self->id;
+    my $transcription_options =
+        "recording_url: '../../../play/$entry_id/transcribe',\n"
+        . "recording_format: 'simple',\n";
     $play_html
-        =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
-    $play_html
-        =~ s{"interpreter/glkote.min.js"}{"../../static/interpreter/quixe/lib/glkote.min.js"};
-    $play_html
-        =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
+        =~ s[(game_options\s*=\s*{\s*)]
+            [$1$transcription_options]s;
 
     $play_file->spew($play_html);
 
