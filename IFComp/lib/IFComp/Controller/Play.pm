@@ -103,12 +103,10 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
     # We 'normalize' them to look like Parchment's, because it came first.
     my $data_list_ref;
     if ( $c->req->body_data->{data} ) {
-        $data_list_ref =
-            $self->_normalize_parchment_transcript_data( $c );
+        $data_list_ref = $self->_normalize_parchment_transcript_data($c);
     }
     else {
-        $data_list_ref =
-            $self->_normalize_quixe_transcript_data( $c );
+        $data_list_ref = $self->_normalize_quixe_transcript_data($c);
     }
 
     my $now = DateTime->now( time_zone => 'UTC' );
@@ -190,16 +188,15 @@ sub _normalize_quixe_transcript_data {
     my $quixe_data = $c->req->body_data;
 
     my $normalized_data = {};
-    $normalized_data->{session} = $quixe_data->{sessionId};
-    $normalized_data->{log}->{input} = $quixe_data->{input};
+    $normalized_data->{session}       = $quixe_data->{sessionId};
+    $normalized_data->{log}->{input}  = $quixe_data->{input};
     $normalized_data->{log}->{output} = $quixe_data->{output};
     $normalized_data->{log}->{window} = 0;
 
     $normalized_data->{log}->{output} =~ s/^$quixe_data->{input}//g;
 
     my $input_count = $c->model('IFCompDB::Transcript')->search(
-        {
-            entry => $c->stash->{entry}->id,
+        {   entry   => $c->stash->{entry}->id,
             session => $quixe_data->{sessionId},
         },
     )->get_column('inputcount')->max;
@@ -207,9 +204,9 @@ sub _normalize_quixe_transcript_data {
     my $output_count = ++$input_count;
 
     $normalized_data->{log}->{outputcount} = $output_count;
-    $normalized_data->{log}->{inputcount} = $input_count;
+    $normalized_data->{log}->{inputcount}  = $input_count;
 
-    return [ $normalized_data ];
+    return [$normalized_data];
 
 }
 
