@@ -111,8 +111,8 @@ sub init_schema {
     $schema->populate(
         'Entry',
         [   [ 'id', 'author', 'title',                   'comp', 'place' ],
-            [ 100,  1,        'Test Z-code game',        1,      1 ],
-            [ 101,  1,        'Test Glulx game',         1,      2 ],
+            [ 100,  1,        'Test Z-code game',        2,      1 ],
+            [ 101,  1,        'Test Glulx game',         2,      2 ],
             [ 102,  1,        'Test Quixe game',         1,      3 ],
             [ 103,  1,        'Test Parchment game',     1,      4 ],
             [ 104,  1,        'Test Z-code website',     1,      5 ],
@@ -146,6 +146,13 @@ sub log_in_as_author {
     );
 
     $mech->content_like( qr/Alice Author/, 'Login successful' );
+}
+
+sub process_test_entries {
+    my ( $class, $schema ) = @_;
+    for my $entry ( $schema->resultset('Entry')->all ) {
+        $entry->update_content_directory;
+    }
 }
 
 1;

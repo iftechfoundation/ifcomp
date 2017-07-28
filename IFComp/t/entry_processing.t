@@ -9,9 +9,7 @@ my $schema = IFCompTest->init_schema();
 
 my $entry_directory = $schema->entry_directory;
 
-for my $entry ( $schema->resultset('Entry')->all ) {
-    $entry->update_content_directory;
-}
+IFCompTest->process_test_entries($schema);
 
 sub file_exists ($$) {
     my ( $entry_id, $filename ) = @_;
