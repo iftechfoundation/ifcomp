@@ -4,7 +4,7 @@
     <div class="jumbotron">
     <h1 style="text-align:center;">Prizes for the [% current_comp.year %] IFComp</h1>
     </div>
-    
+
 <p>IFComp features two kinds of prizes, both of which are <a href="#donatingprizes">donated by the IF community</a>, and then shared among the authors of top-ranked entries after the competition ends.</p>
 
 <li>
@@ -85,4 +85,4 @@
 
 <style>
 .progress { width: 50% }
-</sytle>
+</style>
