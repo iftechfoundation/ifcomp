@@ -98,16 +98,7 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
 
     my $entry = $c->stash->{entry};
 
-    # Quixe (natively) and Parchment (via if-recorder) report transcription
-    # data in entirely different formats.
-    # We 'normalize' them to look like Parchment's, because it came first.
-    my $data_list_ref;
-    if ( $c->req->body_data->{data} ) {
-        $data_list_ref = $self->_normalize_parchment_transcript_data($c);
-    }
-    else {
-        $data_list_ref = $self->_normalize_quixe_transcript_data($c);
-    }
+    my $data_list_ref = $self->_normalize_transcript_data($c);
 
     my $now = DateTime->now( time_zone => 'UTC' );
     for my $transcript (@$data_list_ref) {
@@ -160,6 +151,23 @@ sub updates : Chained('fetch_entry') : PathPart('updates') : Args(0) {
         template => 'ballot/updates.tt',
         updates  => \@updates,
     );
+}
+
+sub _normalize_transcript_data {
+    my ( $self, $c ) = @_;
+
+    # Quixe (natively) and Parchment (via if-recorder) report transcription
+    # data in entirely different formats.
+    # We 'normalize' them to look like Parchment's, because it came first.
+    my $data_list_ref;
+    if ( $c->req->body_data->{data} ) {
+        $data_list_ref = $self->_normalize_parchment_transcript_data($c);
+    }
+    else {
+        $data_list_ref = $self->_normalize_quixe_transcript_data($c);
+    }
+
+    return $data_list_ref;
 }
 
 sub _normalize_parchment_transcript_data {
