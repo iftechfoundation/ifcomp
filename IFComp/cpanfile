@@ -28,6 +28,7 @@ requires 'HTML::FormHandler' => '0.40067';
 requires 'HTML::FormHandler::Model::DBIC';
 requires 'HTML::FormHandler::Moose';
 requires 'JSON::Any';
+requires 'JSON::XS';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'List::Compare';
 requires 'Moose';

@@ -987,12 +987,12 @@ $tag_text
 <script>
 parchment_options = {
 default_story: [ "$i7_file" ],
-lib_path: '../../static/interpreter/parchment/',
+lib_path: '/static/interpreter/parchment/',
 lock_story: 1,
 page_title: 0
 };
 
-ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.saveUrl = "/play/$entry_id/transcribe";
 ifRecorder.story.name = "$title";
 ifRecorder.story.version = "1";
 </script>
@@ -1078,7 +1078,10 @@ body {
 <script type="text/javascript">
 game_options = {
   use_query_story: false,
-  set_page_title: true
+  set_page_title: true,
+  recording_url: '/play/$entry_id/transcribe',
+  recording_label: '$title',
+  recording_format: 'simple'
 };
 </script>
 
@@ -1094,7 +1097,7 @@ game_options = {
 <hr></noscript>
 </div>
 <div id="loadingpane">
-<img src="../../static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
+<img src="/static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
 <em>&nbsp;&nbsp;&nbsp;Loading...</em>
 </div>
 <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
@@ -1143,12 +1146,12 @@ $tag_text
 <script>
 parchment_options = {
 default_story: [ "$game_file" ],
-lib_path: '../../static/interpreter/parchment/',
+lib_path: '/static/interpreter/parchment/',
 lock_story: 1,
 page_title: 0
 };
 
-ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.saveUrl = "/play/$entry_id/transcribe";
 ifRecorder.story.name = "$title";
 ifRecorder.story.version = "1";
 </script>
@@ -1178,13 +1181,22 @@ sub _mangle_quixe_head {
     my $play_html = $play_file->slurp;
 
     # Re-aim interpreter links to our own Quixe interpreter.
+    # (Via re-writing <script src="..." /> invocations.)
+    $play_html =~ s{"interpreter/jquery-.*?min.js"}
+            {"/static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+    $play_html =~ s{"interpreter/glkote.min.js"}
+            {"/static/interpreter/quixe/lib/glkote.min.js"};
+    $play_html =~ s{"interpreter/quixe.min.js"}
+            {"/static/interpreter/quixe/lib/quixe.min.js"};
 
-    $play_html
-        =~ s{"interpreter/jquery-.*?min.js"}{"../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
-    $play_html
-        =~ s{"interpreter/glkote.min.js"}{"../../static/interpreter/quixe/lib/glkote.min.js"};
-    $play_html
-        =~ s{"interpreter/quixe.min.js"}{"../../static/interpreter/quixe/lib/quixe.min.js"};
+    # Activate transcription, aiming it at the local transcription action.
+    # (Via injecting additional values into the game_options config object.)
+    my $entry_id = $self->id;
+    my $transcription_options =
+          "recording_url: '/play/$entry_id/transcribe',\n"
+        . "recording_format: 'simple',\n";
+    $play_html =~ s[(game_options\s*=\s*{\s*)]
+            [$1$transcription_options]s;
 
     $play_file->spew($play_html);
 
@@ -1195,20 +1207,20 @@ sub _build_interpreter_tag_text {
 
     if ( $self->is_zcode ) {
         return <<EOF;
-<script src="../../static/interpreter/parchment/jquery.min.js"></script>
-<script src="../../static/interpreter/parchment/parchment.min.js"></script>
-<script src="../../static/interpreter/transcript_recorder/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment/parchment.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment/style.css">
+<script src="/static/interpreter/parchment/jquery.min.js"></script>
+<script src="/static/interpreter/parchment/parchment.min.js"></script>
+<script src="/static/interpreter/transcript_recorder/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/parchment.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/style.css">
 EOF
     }
     else {
         return <<EOF;
-<script src="../../static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
-<script src="../../static/interpreter/quixe/lib/glkote.min.js"></script>
-<script src="../../static/interpreter/quixe/lib/quixe.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/quixe/media/glkote.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/quixe/media/dialog.css">
+<script src="/static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
+<script src="/static/interpreter/quixe/lib/glkote.min.js"></script>
+<script src="/static/interpreter/quixe/lib/quixe.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/glkote.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/dialog.css">
 EOF
     }
 }
