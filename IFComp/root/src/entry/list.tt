@@ -54,7 +54,7 @@
     [% ELSE %]
         Not ready for entry yet (No game file)
     [% END %]
-    [% IF ( entry.platform == 'inform-website' || entry.platform == 'parchment' || entry.platform == 'quixe' ) %]
+    [% IF entry.supports_transcripts %]
         <a href="[% c.uri_for_action( '/entry/transcript', [ entry.id ] ) %]">View transcripts</a>
     [% END %]
     </li>
