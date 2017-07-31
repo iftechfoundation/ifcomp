@@ -91,12 +91,12 @@ is( $schema->resultset('Entry')->find(107)->platform,
 );
 TODO: {
     local $TODO = "Some 'inform-website' games don't actually support "
-                  . "transcripts. We need to improve platform labels.";
+        . "transcripts. We need to improve platform labels.";
     ok( not $schema->resultset('Entry')->find(104)->supports_transcripts,
-    'Does not support transcripts.',
+        'Does not support transcripts.',
     );
     ok( not $schema->resultset('Entry')->find(107)->supports_transcripts,
-    'Does not support transcripts.',
+        'Does not support transcripts.',
     );
 }
 
@@ -104,32 +104,32 @@ note('Testing miscellaneous platform detection...');
 is( $schema->resultset('Entry')->find(105)->platform,
     'website', 'Platform is correct. (website)',
 );
-ok( not($schema->resultset('Entry')->find(105)->supports_transcripts),
+ok( not( $schema->resultset('Entry')->find(105)->supports_transcripts ),
     'Does not support transcripts.',
 );
 is( $schema->resultset('Entry')->find(106)->platform,
     'website', 'Platform is correct. (html page)',
 );
-ok( not($schema->resultset('Entry')->find(106)->supports_transcripts),
+ok( not( $schema->resultset('Entry')->find(106)->supports_transcripts ),
     'Does not support transcripts.',
 );
 
 is( $schema->resultset('Entry')->find(108)->platform,
     'quest', 'Platform is correct. (quest)',
 );
-ok( not($schema->resultset('Entry')->find(108)->supports_transcripts),
+ok( not( $schema->resultset('Entry')->find(108)->supports_transcripts ),
     'Does not support transcripts.',
 );
 is( $schema->resultset('Entry')->find(109)->platform,
     'tads', 'Platform is correct. (tads)',
 );
-ok( not($schema->resultset('Entry')->find(109)->supports_transcripts),
+ok( not( $schema->resultset('Entry')->find(109)->supports_transcripts ),
     'Does not support transcripts.',
 );
 is( $schema->resultset('Entry')->find(110)->platform,
     'alan', 'Platform is correct. (alan)',
 );
-ok( not($schema->resultset('Entry')->find(110)->supports_transcripts),
+ok( not( $schema->resultset('Entry')->find(110)->supports_transcripts ),
     'Does not support transcripts.',
 );
 

@@ -1283,11 +1283,10 @@ sub _build_has_extra_content {
 sub _build_supports_transcripts {
     my $self = shift;
 
-    if (
-        ($self->platform eq 'parchment')
+    if (   ( $self->platform eq 'parchment' )
         || ( $self->platform eq 'quixe' )
-        || ( $self->platform eq 'inform-website' )
-    ) {
+        || ( $self->platform eq 'inform-website' ) )
+    {
         return 1;
     }
     else {
