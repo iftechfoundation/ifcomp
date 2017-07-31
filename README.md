@@ -78,3 +78,5 @@ Major contributors to this codebase include:
 * Dan Shiovitz ([dans@drizzle.com](mailto:dans@drizzle.com))
 
 For a list of contributors to the larger IFComp project, see [the IFComp credits page](http://www.ifcomp.org/about/contact).
+
+This repository contains, in whole or in part, a number of third-party open-source IF-related tools. See the file LICENSE.md for further information.
