@@ -36,6 +36,9 @@ ok( file_contains(
 is( $schema->resultset('Entry')->find(100)->platform,
     'inform-website', 'Platform is correct.',
 );
+ok( $schema->resultset('Entry')->find(100)->supports_transcripts,
+    'Supports transcripts.',
+);
 
 note('Testing naked Glulx upload...');
 ok( file_exists( 101, 'index.html' ), 'Generated an index.html file.', );
@@ -48,6 +51,9 @@ ok( file_contains( 101, 'index.html', qr{/static/interpreter/quixe/} ),
 is( $schema->resultset('Entry')->find(101)->platform,
     'inform-website', 'Platform is correct.',
 );
+ok( $schema->resultset('Entry')->find(101)->supports_transcripts,
+    'Supports transcripts.',
+);
 
 note('Testing Quixe upload...');
 ok( file_contains( 102, 'play.html', qr{/static/interpreter/quixe/} ),
@@ -55,6 +61,9 @@ ok( file_contains( 102, 'play.html', qr{/static/interpreter/quixe/} ),
 );
 is( $schema->resultset('Entry')->find(102)->platform,
     'quixe', 'Platform is correct.',
+);
+ok( $schema->resultset('Entry')->find(102)->supports_transcripts,
+    'Supports transcripts.',
 );
 
 note('Testing Parchment...');
@@ -69,6 +78,9 @@ ok( file_contains(
     ),
     'Links to local transcript recorder.',
 );
+ok( $schema->resultset('Entry')->find(103)->supports_transcripts,
+    'Supports transcripts.',
+);
 
 note('Testing custom Inform websites...');
 is( $schema->resultset('Entry')->find(104)->platform,
@@ -77,22 +89,48 @@ is( $schema->resultset('Entry')->find(104)->platform,
 is( $schema->resultset('Entry')->find(107)->platform,
     'inform-website', 'Platform is correct. (weird layout)',
 );
+TODO: {
+    local $TODO = "Some 'inform-website' games don't actually support "
+                  . "transcripts. We need to improve platform labels.";
+    ok( not $schema->resultset('Entry')->find(104)->supports_transcripts,
+    'Does not support transcripts.',
+    );
+    ok( not $schema->resultset('Entry')->find(107)->supports_transcripts,
+    'Does not support transcripts.',
+    );
+}
 
 note('Testing miscellaneous platform detection...');
 is( $schema->resultset('Entry')->find(105)->platform,
     'website', 'Platform is correct. (website)',
 );
+ok( not($schema->resultset('Entry')->find(105)->supports_transcripts),
+    'Does not support transcripts.',
+);
 is( $schema->resultset('Entry')->find(106)->platform,
     'website', 'Platform is correct. (html page)',
 );
+ok( not($schema->resultset('Entry')->find(106)->supports_transcripts),
+    'Does not support transcripts.',
+);
+
 is( $schema->resultset('Entry')->find(108)->platform,
     'quest', 'Platform is correct. (quest)',
+);
+ok( not($schema->resultset('Entry')->find(108)->supports_transcripts),
+    'Does not support transcripts.',
 );
 is( $schema->resultset('Entry')->find(109)->platform,
     'tads', 'Platform is correct. (tads)',
 );
+ok( not($schema->resultset('Entry')->find(109)->supports_transcripts),
+    'Does not support transcripts.',
+);
 is( $schema->resultset('Entry')->find(110)->platform,
     'alan', 'Platform is correct. (alan)',
+);
+ok( not($schema->resultset('Entry')->find(110)->supports_transcripts),
+    'Does not support transcripts.',
 );
 
 done_testing();

@@ -563,6 +563,12 @@ has 'has_extra_content' => (
     lazy_build => 1,
 );
 
+has 'supports_transcripts' => (
+    is         => 'ro',
+    isa        => 'Bool',
+    lazy_build => 1,
+);
+
 has 'latest_update' => (
     is         => 'ro',
     isa        => 'Maybe[IFComp::Schema::Result::EntryUpdate]',
@@ -1267,6 +1273,21 @@ sub _build_has_extra_content {
     );
 
     if ( $lc->get_unique > 1 ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+sub _build_supports_transcripts {
+    my $self = shift;
+
+    if (
+        ($self->platform eq 'parchment')
+        || ( $self->platform eq 'quixe' )
+        || ( $self->platform eq 'inform-website' )
+    ) {
         return 1;
     }
     else {
