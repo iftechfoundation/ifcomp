@@ -59,7 +59,7 @@
         [% IF entry.platform == 'parchment' 
               || entry.platform == 'website'
               || entry.platform == 'inform-website'
-              || entry.platform == 'quixe2'
+              || entry.platform == 'quixe'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">

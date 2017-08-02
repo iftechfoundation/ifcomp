@@ -506,7 +506,7 @@ enum 'Platform', [
     qw(
         html
         website
-        quixe2
+        quixe
         parchment
         inform
         inform-website
@@ -545,7 +545,7 @@ has 'is_qualified' => (
     lazy_build => 1,
 );
 
-has 'parchment_tag_text' => (
+has 'interpreter_tag_text' => (
     is         => 'ro',
     isa        => 'Str',
     lazy_build => 1,
@@ -558,6 +558,12 @@ has 'is_zcode' => (
 );
 
 has 'has_extra_content' => (
+    is         => 'ro',
+    isa        => 'Bool',
+    lazy_build => 1,
+);
+
+has 'supports_transcripts' => (
     is         => 'ro',
     isa        => 'Bool',
     lazy_build => 1,
@@ -738,7 +744,7 @@ sub _build_contents_data {
                 qr/^play\.html?$/i, qr/^(interpreter\/)?parchment.*js$/i
             ]
         ],
-        [   'quixe2',
+        [   'quixe',
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
@@ -923,7 +929,12 @@ sub update_content_directory {
     $self->clear_play_file;
 
     if ( $self->platform eq 'inform' ) {
-        $self->_create_parchment_page;
+        if ( $self->is_zcode ) {
+            $self->_create_parchment_page;
+        }
+        else {
+            $self->_create_quixe_page;
+        }
 
         # and then we have to recalculate again since doing this changes the
         # platform type and play file
@@ -934,17 +945,22 @@ sub update_content_directory {
     elsif ( $self->platform eq 'parchment' ) {
         $self->_mangle_parchment_head;
     }
-    elsif ( $self->platform eq 'quixe2' ) {
-        $self->_repair_game_js;
+    elsif ( $self->platform eq 'quixe' ) {
+        $self->_make_js_file( $self->inform_game_file,
+            $self->inform_game_js_file );
+        $self->_mangle_quixe_head;
     }
 }
 
-sub _repair_game_js {
+sub _make_js_file {
     my $self = shift;
 
-    $self->inform_game_js_file->spew( q/$(document).ready(function() {/
+    my ( $source_file, $js_file ) = @_;
+    $js_file //= $source_file;
+
+    $js_file->spew( q/$(document).ready(function() {/
             . q/  GiLoad.load_run(null, '/
-            . encode_base64( $self->inform_game_file->slurp, '' )
+            . encode_base64( $source_file->slurp, '' )
             . q/', 'base64');/
             . q/});/ );
 }
@@ -965,9 +981,8 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $zcode_subdir = $self->is_zcode ? 'zcode/' : '';
-    my $tag_text     = $self->parchment_tag_text;
-    my $html         = <<EOF
+    my $tag_text = $self->interpreter_tag_text;
+    my $html     = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
@@ -978,12 +993,12 @@ $tag_text
 <script>
 parchment_options = {
 default_story: [ "$i7_file" ],
-lib_path: '../../static/interpreter/$zcode_subdir',
+lib_path: '/static/interpreter/parchment/',
 lock_story: 1,
 page_title: 0
 };
 
-ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.saveUrl = "/play/$entry_id/transcribe";
 ifRecorder.story.name = "$title";
 ifRecorder.story.version = "1";
 </script>
@@ -1006,6 +1021,96 @@ ifRecorder.story.version = "1";
 </body>
 </html>
 
+EOF
+        ;
+
+    my $html_file = $self->content_directory->file('index.html');
+    my $html_fh   = $html_file->openw;
+    $html_fh->binmode(':utf8');
+
+    print $html_fh $html;
+
+}
+
+sub _create_quixe_page {
+    my $self = shift;
+
+    my $title = $self->title;
+
+    # Search the content directory for the I7 file to link to.
+    my $i7_file = $self->inform_game_file;
+
+    unless ($i7_file) {
+        die "Could not find an I7 file in this entry's content directory.";
+    }
+
+    # Create a JS file for this game.
+    my $js_file = Path::Class::File->new( $i7_file . '.js' );
+    $self->_make_js_file( $i7_file, $js_file );
+
+    my $js_filename = $js_file->basename;
+
+    my $entry_id = $self->id;
+
+    my $tag_text = $self->interpreter_tag_text;
+    my $html     = <<EOF
+<!DOCTYPE html>
+<html>
+<head>
+<title>IFComp — $title — Play</title>
+
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+$tag_text
+
+<style type="text/css">
+
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+#gameport {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: #CCAA88;
+  margin: 0px;
+}
+
+</style>
+
+<script type="text/javascript">
+game_options = {
+  use_query_story: false,
+  set_page_title: true,
+  recording_url: '/play/$entry_id/transcribe',
+  recording_label: '$title',
+  recording_format: 'simple'
+};
+</script>
+
+<script src="$js_filename" type="text/javascript"></script>
+
+</head>
+<body>
+
+<div id="gameport">
+<div id="windowport">
+<noscript><hr>
+<p>You'll need to turn on Javascript in your web browser to play this game.</p>
+<hr></noscript>
+</div>
+<div id="loadingpane">
+<img src="/static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
+<em>&nbsp;&nbsp;&nbsp;Loading...</em>
+</div>
+<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+</div>
+
+</body>
+</html>
 EOF
         ;
 
@@ -1041,19 +1146,18 @@ sub _mangle_parchment_head {
     $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
 
     # Add new head tags.
-    my $tag_text     = $self->parchment_tag_text;
-    my $zcode_subdir = $self->is_zcode ? 'zcode/' : '';
-    my $head_html    = <<EOF;
+    my $tag_text  = $self->interpreter_tag_text;
+    my $head_html = <<EOF;
 $tag_text
 <script>
 parchment_options = {
 default_story: [ "$game_file" ],
-lib_path: '../../static/interpreter/$zcode_subdir',
+lib_path: '/static/interpreter/parchment/',
 lock_story: 1,
 page_title: 0
 };
 
-ifRecorder.saveUrl = "../../../play/$entry_id/transcribe";
+ifRecorder.saveUrl = "/play/$entry_id/transcribe";
 ifRecorder.story.name = "$title";
 ifRecorder.story.version = "1";
 </script>
@@ -1066,26 +1170,63 @@ EOF
 
 }
 
-sub _build_parchment_tag_text {
+sub _mangle_quixe_head {
+    my $self = shift;
+
+    my $play_file = $self->content_directory->file('play.html');
+
+    my $game_file = $self->inform_game_file->basename;
+
+    unless ( ( -e $play_file ) && $game_file ) {
+
+        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
+        # so we won't do anything.
+        return;
+    }
+
+    my $play_html = $play_file->slurp;
+
+    # Re-aim interpreter links to our own Quixe interpreter.
+    # (Via re-writing <script src="..." /> invocations.)
+    $play_html =~ s{"interpreter/jquery-.*?min.js"}
+            {"/static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+    $play_html =~ s{"interpreter/glkote.min.js"}
+            {"/static/interpreter/quixe/lib/glkote.min.js"};
+    $play_html =~ s{"interpreter/quixe.min.js"}
+            {"/static/interpreter/quixe/lib/quixe.min.js"};
+
+    # Activate transcription, aiming it at the local transcription action.
+    # (Via injecting additional values into the game_options config object.)
+    my $entry_id = $self->id;
+    my $transcription_options =
+          "recording_url: '/play/$entry_id/transcribe',\n"
+        . "recording_format: 'simple',\n";
+    $play_html =~ s[(game_options\s*=\s*{\s*)]
+            [$1$transcription_options]s;
+
+    $play_file->spew($play_html);
+
+}
+
+sub _build_interpreter_tag_text {
     my $self = shift;
 
     if ( $self->is_zcode ) {
         return <<EOF;
-<script src="../../static/interpreter/zcode/jquery.min.js"></script>
-<script src="../../static/interpreter/zcode/parchment.min.js"></script>
-<script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/zcode/parchment.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/zcode/style.css">
+<script src="/static/interpreter/parchment/jquery.min.js"></script>
+<script src="/static/interpreter/parchment/parchment.min.js"></script>
+<script src="/static/interpreter/transcript_recorder/if-recorder.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/parchment.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/style.css">
 EOF
     }
     else {
         return <<EOF;
-<script src="../../static/interpreter/jquery.min.js"></script>
-<script src="../../static/interpreter/parchment.min.js"></script>
-<script src="../../static/interpreter/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/parchment.min.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/i7-glkote.css">
-<link rel="stylesheet" type="text/css" href="../../static/interpreter/dialog.css">
+<script src="/static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
+<script src="/static/interpreter/quixe/lib/glkote.min.js"></script>
+<script src="/static/interpreter/quixe/lib/quixe.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/glkote.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/dialog.css">
 EOF
     }
 }
@@ -1116,7 +1257,7 @@ sub _build_has_extra_content {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif (( $self->platform eq 'parchment' )
-        || ( $self->platform eq 'quixe2' ) )
+        || ( $self->platform eq 'quixe' ) )
     {
         @default_list = @DEFAULT_PARCHMENT_CONTENT;
     }
@@ -1132,6 +1273,20 @@ sub _build_has_extra_content {
     );
 
     if ( $lc->get_unique > 1 ) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+sub _build_supports_transcripts {
+    my $self = shift;
+
+    if (   ( $self->platform eq 'parchment' )
+        || ( $self->platform eq 'quixe' )
+        || ( $self->platform eq 'inform-website' ) )
+    {
         return 1;
     }
     else {

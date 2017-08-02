@@ -98,18 +98,7 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
 
     my $entry = $c->stash->{entry};
 
-    my $data_ref = $c->req->body_data->{data};
-    unless ( ref $data_ref ) {
-        $data_ref = from_json($data_ref);
-    }
-
-    my $data_list_ref;
-    if ( ref $data_ref eq 'ARRAY' ) {
-        $data_list_ref = $data_ref;
-    }
-    else {
-        $data_list_ref = [$data_ref];
-    }
+    my $data_list_ref = $self->_normalize_transcript_data($c);
 
     my $now = DateTime->now( time_zone => 'UTC' );
     for my $transcript (@$data_list_ref) {
@@ -162,6 +151,71 @@ sub updates : Chained('fetch_entry') : PathPart('updates') : Args(0) {
         template => 'ballot/updates.tt',
         updates  => \@updates,
     );
+}
+
+sub _normalize_transcript_data {
+    my ( $self, $c ) = @_;
+
+    # Quixe (natively) and Parchment (via if-recorder) report transcription
+    # data in entirely different formats.
+    # We 'normalize' them to look like Parchment's, because it came first.
+    my $data_list_ref;
+    if ( $c->req->body_data->{data} ) {
+        $data_list_ref = $self->_normalize_parchment_transcript_data($c);
+    }
+    else {
+        $data_list_ref = $self->_normalize_quixe_transcript_data($c);
+    }
+
+    return $data_list_ref;
+}
+
+sub _normalize_parchment_transcript_data {
+    my ( $self, $c ) = @_;
+
+    my $data_ref = $c->req->body_data->{data};
+
+    unless ( ref $data_ref ) {
+        $data_ref = from_json($data_ref);
+    }
+
+    my $data_list_ref;
+    if ( ref $data_ref eq 'ARRAY' ) {
+        $data_list_ref = $data_ref;
+    }
+    else {
+        $data_list_ref = [$data_ref];
+    }
+
+    return $data_list_ref;
+}
+
+sub _normalize_quixe_transcript_data {
+    my ( $self, $c ) = @_;
+
+    my $quixe_data = $c->req->body_data;
+
+    my $normalized_data = {};
+    $normalized_data->{session}       = $quixe_data->{sessionId};
+    $normalized_data->{log}->{input}  = $quixe_data->{input};
+    $normalized_data->{log}->{output} = $quixe_data->{output};
+    $normalized_data->{log}->{window} = 0;
+
+    $normalized_data->{log}->{output} =~ s/^$quixe_data->{input}//g;
+
+    my $input_count = $c->model('IFCompDB::Transcript')->search(
+        {   entry   => $c->stash->{entry}->id,
+            session => $quixe_data->{sessionId},
+        },
+    )->get_column('inputcount')->max;
+
+    my $output_count = ++$input_count;
+
+    $normalized_data->{log}->{outputcount} = $output_count;
+    $normalized_data->{log}->{inputcount}  = $input_count;
+
+    return [$normalized_data];
+
 }
 
 1;
