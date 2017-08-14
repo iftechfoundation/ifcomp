@@ -1,0 +1,6 @@
+Date,Donation,After Fees,Name,Email,Permission
+07/01/2000,$100.00,$97.50,Alice Nobody,alice@example.com,1
+07/01/2000,$100.00,$97.50,Esther Nobody,esther@example.com,1
+07/01/2000,$100.00,$97.50,Bob Aliceson,bob@example.com,1
+07/01/2000,$50.00,$48.60,Carol Whodat,carol@example.com,0
+08/01/2000,$50.00,$48.60,Hey it's Alice Again,alice@example.com,0
