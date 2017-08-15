@@ -2,6 +2,7 @@ requires 'Archive::Zip';
 requires 'Cache::FastMmap';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
+requires 'Catalyst::Model::Factory';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Plugin::Cache';
