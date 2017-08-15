@@ -1,6 +1,6 @@
 <div class="container">
 <div class="jumbotron">
-<h1 style="text-align:center;">Colossal Fund Donors: [% cf.year %]</h1>
+<h1 style="text-align:center;">Colossal Fund Donors: [% cf_year.year %]</h1>
 </div>
 
 [% INCLUDE level name = 'platinum bar',   min = 1000, max = undef %]
@@ -12,17 +12,17 @@
 [% BLOCK level %]
     <div class="level">
     <h2> [% name.ucfirst %] donors </h2>
-    [% named_donors = year.named_donors_between( min, max ) %]
-    [% anonymous_donors = year.anonymous_donors_between( min, max ) %]
+    <p>Contributed [% IF max %]between $[% min %] and $[% max %][% ELSE %]$[% min %] or more[% END %]:</p>
+    [% named_donors = cf_year.named_donors_between( min, max ) %]
+    [% anonymous_donors = cf_year.anonymous_donors_between( min, max ) %]
     [% IF named_donors.size %]
-        I see [% named_donors.size %]
         <ul>
         [% FOREACH donor IN named_donors %]
             <li>[% donor.name %]</li>
         [% END %]
         </ul>
         [% IF anonymous_donors.size %]
-            <p>Plus [% anonymous_donors.size %] anonymous adventurers.</p>
+            <p>...as well as [% anonymous_donors.size %] anonymous adventurers.</p>
         [% END %]
     [% ELSIF anonymous_donors.size %]
         <p>[% anonymous_donors.size %] anonymous adventurers.</p>
@@ -31,3 +31,5 @@
     [% END %]
     </div>
 [% END %]
+
+[% INCLUDE _colossal_fund.tt show_maximum_prize = 1 %]

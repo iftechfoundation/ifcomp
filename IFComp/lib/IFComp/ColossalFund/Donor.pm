@@ -20,11 +20,27 @@ has 'email' => (
     required => 1,
 );
 
-has 'permission_to_name' => (
+has 'is_anonymous' => (
     isa => 'Bool',
     is => 'ro',
-    default => 0,
+    lazy_build => 1,
 );
+
+sub _build_is_anonymous {
+    my $self = shift;
+
+    my $name = lc($self->name);
+
+    # I'm not sure how all this whitespace is getting stuck onto the name.
+    $name =~ s/\s*$//;
+
+    if (!$name || $name eq 'anonymous') {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
 
 1;
 

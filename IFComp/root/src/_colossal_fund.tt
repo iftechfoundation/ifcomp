@@ -1,9 +1,3 @@
-[% colossal_file = c.path_to( 'root/lib/config/colossal' ) %]
-[% TRY %]
-[% USE colossal_data = datafile( colossal_file ) %]
-
-[% colossal = colossal_data.0 %]
-
 <h2 id="colossal-fund">The Colossal Fund</h2>
 <p>
 Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, providing a new cash prize pool for top IFComp entries! <a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">Learn more about it</a>.
@@ -16,20 +10,16 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 
-[% IF colossal.current_dollars >= colossal.goal_dollars %]
-<p class="text-center">We've reached our $[% colossal.goal_dollars %] goal! Thanks, everyone!</p>
+[% IF cf.collected >= cf.goal %]
+<p class="text-center">We've reached our $[% cf.goal %] goal! Thanks, everyone!</p>
 [% ELSE %]
-<p class="text-center">We've raised $[% colossal.current_dollars %] of our $[% colossal.goal_dollars %] goal!</p>
+<p class="text-center">We've raised $[% cf.collected %] of our $[% cf.goal %] goal!</p>
 [% END %]
 
 <div class="progress center-block">
-    <div class="progress-bar" role="progressbar" aria-valuenow="[% colossal.current_dollars %]" aria-valuemin="0" aria-valuemax="[% colossal.goal_dollars %]" style="width: [% colossal.current_dollars / colossal.goal_dollars * 100 %]%;"></div>
+    <div class="progress-bar" role="progressbar" aria-valuenow="[% cf.collected %]" aria-valuemin="0" aria-valuemax="[% cf.goal %]" style="width: [% cf.collected / cf.goal * 100 %]%;"></div>
 </div>
 
 [% IF show_maximum_prize %]
-<p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% colossal.maximum_prize %]</strong> (assuming [% colossal.estimated_entries %] entries).</p>
-[% END %]
-
-[% CATCH %]
-    <div class="alert alert-danger"><p>No data file found at [% colossal_file %].</p></div>
+<p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% cf.maximum_prize %]</strong> (assuming [% cf.estimated_entries %] entries).</p>
 [% END %]

@@ -2,7 +2,7 @@ package IFComp::Model::ColossalFund;
 use Moose;
 use namespace::autoclean;
 
-extends 'Catalyst::Model::Adaptor';
+extends 'Catalyst::Model::Factory';
 
 __PACKAGE__->config(
     class => 'IFComp::ColossalFund',

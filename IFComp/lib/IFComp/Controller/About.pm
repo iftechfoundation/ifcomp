@@ -77,6 +77,7 @@ sub prizes : Path('prizes') : Args(0) {
     }
 
     $c->stash->{prizes_in_category} = \%prizes_in_category;
+    $c->stash->{cf} = $c->model('ColossalFund');
 
 }
 
@@ -95,8 +96,10 @@ sub colossal_fund : Path('colossal') {
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     $year ||= $current_comp->year;
 
-    my $cf = $c->model('ColossalFund')->year( $year );
-    unless ( $cf ) {
+    my $cf = $c->model('ColossalFund');
+    my $cf_year = $cf->year( $year );
+
+    unless ( $cf_year ) {
         $c->detach( '/error_404' );
         return;
     }
@@ -104,6 +107,7 @@ sub colossal_fund : Path('colossal') {
     $c->stash(
         current_comp => $current_comp,
         cf           => $cf,
+        cf_year      => $cf_year,
     );
 }
 

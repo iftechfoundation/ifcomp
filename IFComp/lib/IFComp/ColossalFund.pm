@@ -64,6 +64,18 @@ has 'years_by_year' => (
     lazy_build => 1,
 );
 
+has 'minimum_prize' => (
+    isa => 'Num',
+    is => 'ro',
+    lazy_build => 1,
+);
+
+has 'maximum_prize' => (
+    isa => 'Num',
+    is => 'ro',
+    lazy_build => 1,
+);
+
 sub _build_goal {
     my $self = shift;
 
@@ -139,10 +151,20 @@ sub _build_current_data {
     return decode_json( $file->slurp );
 }
 
-sub _buld_maximum_prize {
+sub _build_maximum_prize {
     my $self = shift;
 
-    return (3*($self->collected-$self->minimum_prize*$self->estimated_winners)/$self->estimated_winners)*(((.5/$self->estimated_winners)-1)^2)+$self->minimum_prize;
+    my $maximum;
+    unless ( $maximum = $self->current_data->{ maximum_prize } ) {
+        # XXX This doesn't work. Please just set it in the data for now. :b
+        my $pool = $self->collected * 0.8;
+        my $winners = $self->estimated_winners;
+        my $minimum = $self->minimum_prize;
+        my $temp = 3 * ( $pool - $minimum * $winners ) / $winners;
+        $maximum = $temp * (((.5 / $winners) - 1) ^ 2) + $minimum;
+    }
+
+    return $maximum;
 }
 
 sub year {

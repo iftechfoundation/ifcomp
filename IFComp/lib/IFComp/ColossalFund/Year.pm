@@ -45,22 +45,19 @@ sub BUILD {
     my %donors_by_id;
 
     for my $line ( @lines ) {
-        my ($date, $gross, $net, $name, $email, $permission) = @$line;
-        next unless $date =~ /\d/;
+        chomp $line;
+        my ($email, $gross, $name) = @$line;
 
-        foreach ( $gross, $net ) {
-            s/^\s*\$//;
-        }
+        next unless $gross;
+        $gross =~ s/^\$//;
 
         my $donor_id = $email || $name;
-        $permission //= 0;
 
         unless ( $donors_by_id{ $donor_id } ) {
             $donors_by_id{ $donor_id } = {
                 donation => 0,
                 name => $name,
                 email => $email,
-                permission_to_name => $permission,
             };
         }
 
@@ -80,30 +77,33 @@ sub named_donors_between {
     my $self = shift;
     my ( $min, $max ) = @_;
 
-    return $self->_donors_between( $min, $max, 1 );
+    return $self->_donors_between( $min, $max, 0 );
 }
 
 sub anonymous_donors_between {
     my $self = shift;
     my ( $min, $max ) = @_;
 
-    return $self->_donors_between( $min, $max, 0 );
+    return $self->_donors_between( $min, $max, 1 );
 }
 
 sub _donors_between {
     my $self = shift;
-    my ( $min, $max, $permission ) = @_;
+    my ( $min, $max, $is_anonymous ) = @_;
 
     my @donors;
     for my $donor ( @{ $self->donors} ) {
         if (
             ( $donor->donation >= $min )
-            && ( not( defined $max ) || $donor->donation <= $max )
-            && ( $donor->permission_to_name == $permission )
+            && ( not( $max ) || $donor->donation <= $max )
+            && ( $donor->is_anonymous == $is_anonymous )
         ) {
             push @donors, $donor;
         }
     }
+
+    @donors = sort { lc($a->{name}) cmp lc($b->{name}) } @donors;
+
     return \@donors;
 }
 
