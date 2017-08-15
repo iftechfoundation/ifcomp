@@ -2,6 +2,7 @@ package IFComp::ColossalFund;
 
 use Moose;
 use JSON::XS;
+use Try::Tiny;
 
 use IFComp::ColossalFund::Year;
 
@@ -79,25 +80,25 @@ has 'maximum_prize' => (
 sub _build_goal {
     my $self = shift;
 
-    return $self->current_data->{ goal_dollars };
+    return $self->current_data->{ goal_dollars } || 0;
 }
 
 sub _build_estimated_entries {
     my $self = shift;
 
-    return $self->current_data->{ estimated_entries };
+    return $self->current_data->{ estimated_entries } || 0;
 }
 
 sub _build_collected {
     my $self = shift;
 
-    return $self->current_data->{ collected_dollars };
+    return $self->current_data->{ collected_dollars } || 0;
 }
 
 sub _build_minimum_prize {
     my $self = shift;
 
-    return $self->current_data->{ minimum_prize };
+    return $self->current_data->{ minimum_prize } || 0;
 }
 
 
@@ -148,7 +149,12 @@ sub _build_current_data {
         $CURRENT_DATA_FILENAME,
     );
 
-    return decode_json( $file->slurp );
+    my $data = {};
+    try {
+        $data = decode_json( $file->slurp );
+    };
+
+    return $data;
 }
 
 sub _build_maximum_prize {
