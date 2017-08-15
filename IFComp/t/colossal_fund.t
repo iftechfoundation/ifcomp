@@ -9,7 +9,7 @@ use Path::Class::Dir;
 
 use IFComp::ColossalFund;
 
-my $cf_data_dir = Path::Class::Dir->new( "$FindBin::Bin/colossal" );
+my $cf_data_dir = Path::Class::Dir->new("$FindBin::Bin/colossal");
 
 my $cf = IFComp::ColossalFund->new( { data_directory => $cf_data_dir, } );
 

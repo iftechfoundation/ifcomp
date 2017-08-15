@@ -13,7 +13,7 @@ sub prepare_arguments {
 
     return {
         data_directory => Path::Class::Dir->new(
-            $c->path_to( '/root/lib/data/colossal_fund' )
+            $c->path_to('/root/lib/data/colossal_fund')
         )
     };
 }
