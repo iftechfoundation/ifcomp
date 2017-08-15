@@ -10,6 +10,8 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
 
+[% IF cf.goal %]
+
 [% IF cf.collected >= cf.goal %]
 <p class="text-center">We've reached our $[% cf.goal %] goal! Thanks, everyone!</p>
 [% ELSE %]
@@ -22,4 +24,6 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 
 [% IF show_maximum_prize %]
 <p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% cf.maximum_prize %]</strong> (assuming [% cf.estimated_entries %] entries).</p>
+[% END %]
+
 [% END %]
