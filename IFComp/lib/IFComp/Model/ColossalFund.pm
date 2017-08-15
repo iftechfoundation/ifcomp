@@ -4,16 +4,12 @@ use namespace::autoclean;
 
 extends 'Catalyst::Model::Factory';
 
-__PACKAGE__->config(
-    class => 'IFComp::ColossalFund',
-);
+__PACKAGE__->config( class => 'IFComp::ColossalFund', );
 
 sub prepare_arguments {
     my ( $self, $c ) = @_;
 
-    return {
-        data_directory => $c->path_to( '/root/lib/data/colossal_fund' )
-    };
+    return { data_directory => $c->path_to('/root/lib/data/colossal_fund') };
 }
 
 __PACKAGE__->meta->make_immutable;

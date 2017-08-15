@@ -31,7 +31,7 @@ The root page (/)
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{template} = 'welcome.tt2';
-    $c->stash->{cf} = $c->model('ColossalFund');
+    $c->stash->{cf}       = $c->model('ColossalFund');
 }
 
 =head2 default
