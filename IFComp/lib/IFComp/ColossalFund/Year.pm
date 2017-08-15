@@ -25,7 +25,7 @@ sub _build_year {
     my $self = shift;
 
     # The year is just the data file's filename.
-    my ( $year ) = $self->data_file =~ /^(\d+)/;
+    my ( $year ) = $self->data_file->basename =~ /^(\d+)/;
 
     return $year;
 }
@@ -40,8 +40,9 @@ sub BUILD {
     );
 
     # The CSV might contain multiple donations from the same person, as
-    # identified by email address, so we'll flatten em out first.
-    my %donors_by_email;
+    # identified by email address (or name, if no email provided),
+    # so we'll flatten em out first.
+    my %donors_by_id;
 
     for my $line ( @lines ) {
         my ($date, $gross, $net, $name, $email, $permission) = @$line;
@@ -51,8 +52,11 @@ sub BUILD {
             s/^\s*\$//;
         }
 
-        unless ( $donors_by_email{ $email } ) {
-            $donors_by_email{ $email } = {
+        my $donor_id = $email || $name;
+        $permission //= 0;
+
+        unless ( $donors_by_id{ $donor_id } ) {
+            $donors_by_id{ $donor_id } = {
                 donation => 0,
                 name => $name,
                 email => $email,
@@ -60,11 +64,11 @@ sub BUILD {
             };
         }
 
-        $donors_by_email{ $email }->{ donation } += $gross;
+        $donors_by_id{ $donor_id }->{ donation } += $gross;
     }
 
     # Now sort the donors by donation, and make our donors from that.
-    my @donor_data = values %donors_by_email;
+    my @donor_data = values %donors_by_id;
     @donor_data = sort { $a->{donation} <=> $b->{donation} } @donor_data;
     @donor_data = map { IFComp::ColossalFund::Donor->new( $_ ) } @donor_data;
 
@@ -100,7 +104,7 @@ sub _donors_between {
             push @donors, $donor;
         }
     }
-    return @donors;
+    return \@donors;
 }
 
 1;

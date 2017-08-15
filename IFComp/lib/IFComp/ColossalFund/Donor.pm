@@ -15,7 +15,7 @@ has 'name' => (
 );
 
 has 'email' => (
-    isa => 'Str',
+    isa => 'Maybe[Str]',
     is => 'ro',
     required => 1,
 );

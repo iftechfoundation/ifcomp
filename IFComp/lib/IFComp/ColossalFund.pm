@@ -58,6 +58,12 @@ has 'years' => (
     lazy_build => 1,
 );
 
+has 'years_by_year' => (
+    isa => 'HashRef',
+    is => 'ro',
+    lazy_build => 1,
+);
+
 sub _build_goal {
     my $self = shift;
 
@@ -104,6 +110,18 @@ sub _build_years {
 
 }
 
+sub _build_years_by_year {
+    my $self = shift;
+
+    my %years_by_year;
+
+    for my $year ( @{ $self->years } ) {
+        $years_by_year{ $year->year } = $year;
+    }
+
+    return \%years_by_year;
+}
+
 sub _build_estimated_winners {
     my $self = shift;
 
@@ -127,7 +145,11 @@ sub _buld_maximum_prize {
     return (3*($self->collected-$self->minimum_prize*$self->estimated_winners)/$self->estimated_winners)*(((.5/$self->estimated_winners)-1)^2)+$self->minimum_prize;
 }
 
+sub year {
+    my ( $self, $year ) = @_;
 
+    return $self->years_by_year->{ $year };
+}
 
 1;
 

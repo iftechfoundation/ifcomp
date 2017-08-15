@@ -89,6 +89,24 @@ sub faq : Path('faq') : Args(0) {
 sub copyright : Path('copyright') : Args(0) {
 }
 
+sub colossal_fund : Path('colossal') {
+    my ( $self, $c, $year ) = @_;
+
+    my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    $year ||= $current_comp->year;
+
+    my $cf = $c->model('ColossalFund')->year( $year );
+    unless ( $cf ) {
+        $c->detach( '/error_404' );
+        return;
+    }
+
+    $c->stash(
+        current_comp => $current_comp,
+        cf           => $cf,
+    );
+}
+
 =encoding utf8
 
 =head1 AUTHOR
