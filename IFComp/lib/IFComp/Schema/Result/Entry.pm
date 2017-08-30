@@ -737,7 +737,7 @@ sub _build_contents_data {
     my $adrift_extra_check = sub {
         try {
             my $blorb_file = _find_file( qr/blorb$/, @content_files );
-            unless ( $blorb_file ) {
+            unless ($blorb_file) {
                 return 0;
             }
             $blorb_file = $blorb_file->absolute( $self->content_directory );
