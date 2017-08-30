@@ -41,7 +41,7 @@
         [% ELSIF entry.platform == 'alan' %]
             Alan [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'adrift' %]
-            ADIRFT [% INCLUDE guide_link %]
+            ADRIFT [% INCLUDE guide_link %]
         [% END %]
         </em></p>
         [% END %]
