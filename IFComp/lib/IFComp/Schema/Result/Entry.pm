@@ -405,6 +405,7 @@ use File::Copy qw( move );
 use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
+use IFComp::Blorb qw( determine_blorb_type );
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
@@ -514,6 +515,7 @@ enum 'Platform', [
         quest
         windows
         alan
+        adrift
         other
         )
 ];
@@ -732,6 +734,24 @@ sub _build_contents_data {
         return 0;
     };
 
+    my $adrift_extra_check = sub {
+        try {
+            my $blorb_file = _find_file( qr/blorb$/, @content_files );
+            $blorb_file = $blorb_file->absolute( $self->content_directory );
+            my $type = determine_blorb_type($blorb_file);
+            if ( $type eq 'adrift' ) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        catch {
+            warn $_;
+            return 0;
+        };
+    };
+
     # This is a list of tuples of:
     # - platform name
     # - list of regexes for files required to exist
@@ -748,6 +768,7 @@ sub _build_contents_data {
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
+        [ 'adrift', [$I7_REGEX], $adrift_extra_check ],
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
