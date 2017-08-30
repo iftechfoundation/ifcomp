@@ -59,6 +59,14 @@
 
 <p><a href="http://www.alanif.se">Alan</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.alanif.se/download-alan-v3/interpreters">a separate interpreter program</a>, available for Windows, Mac, and Linux.</p>
 
+<h3 id="adrift">ADRIFT games</h3>
+
+<p><strong>File extension:</strong> <code>.blorb</code></p>
+
+<p>Games made with <a href="http://www.adrift.co">ADRIFT</a> also have a "blorb" file extension, just like <a href="#inform">games made with Inform</a>.</p>
+
+<p>(Confused? <a href="http://www.eblong.com/zarf/blorb/">Blorb is an open file format for IF games.</a> Of IF-creation platforms that output blorb files, Inform is far and away the most commonly used, but other platforms -- such as ADRIFT -- can use this format as well.)</p>
+
 <h3 id="windows">Windows executables</h3>
 
 <p><strong>File extension:</strong> <code>.exe</code></p>
