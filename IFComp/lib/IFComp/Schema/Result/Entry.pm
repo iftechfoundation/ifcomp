@@ -737,6 +737,9 @@ sub _build_contents_data {
     my $adrift_extra_check = sub {
         try {
             my $blorb_file = _find_file( qr/blorb$/, @content_files );
+            unless ( $blorb_file ) {
+                return 0;
+            }
             $blorb_file = $blorb_file->absolute( $self->content_directory );
             my $type = determine_blorb_type($blorb_file);
             if ( $type eq 'adrift' ) {
