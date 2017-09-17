@@ -29,10 +29,8 @@ $mech->content_like(
 IFCompTest::log_in_as_judge($mech);
 
 $mech->get('http://localhost/ballot/feedback/100');
-is ($mech->response->code,
-    '404',
-    'Locked out of feedback when judging not active'
-);
+is( $mech->response->code, '404',
+    'Locked out of feedback when judging not active' );
 
 # Change the phase of the current test-competition to open-for-judging.
 use DateTime;
@@ -50,17 +48,15 @@ $comp->update;
 $mech->get_ok('http://localhost/ballot/feedback/100');
 
 $mech->submit_form_ok(
-        {   form_number => 2,
-            fields      => {
-                text => $FEEDBACK_TEXT,
-            },
-        },
-        'Submitted feedback form',
+    {   form_number => 2,
+        fields      => { text => $FEEDBACK_TEXT, },
+    },
+    'Submitted feedback form',
 );
 
 my $feedback = $schema->resultset('Feedback')->find(1);
-is( $feedback->text, $FEEDBACK_TEXT, 'Feedback was recorded in the DB.');
-is( $feedback->entry->id, 100, 'Feedback entry is correct.');
-is( $feedback->judge->id, 1, 'Feedback judge is correct.' );
+is( $feedback->text, $FEEDBACK_TEXT, 'Feedback was recorded in the DB.' );
+is( $feedback->entry->id, 100, 'Feedback entry is correct.' );
+is( $feedback->judge->id, 1,   'Feedback judge is correct.' );
 
 done_testing();

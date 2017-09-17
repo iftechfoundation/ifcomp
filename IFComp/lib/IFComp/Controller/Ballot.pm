@@ -94,51 +94,49 @@ sub vote : Chained('root') : PathPart('vote') : Args(0) {
 sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
     my ( $self, $c, $entry_id ) = @_;
 
-    my $entry = $c->model('IFCompDB::Entry')->find( $entry_id );
-    my $comp = $c->stash->{current_comp};
+    my $entry = $c->model('IFCompDB::Entry')->find($entry_id);
+    my $comp  = $c->stash->{current_comp};
 
     unless ( $c->user ) {
-        $c->res->redirect( $c->uri_for_action( '/auth/login' ) );
+        $c->res->redirect( $c->uri_for_action('/auth/login') );
         return;
     }
 
     # We accept feedback only for active entries during judging.
-    unless (
-        $entry
+    unless ( $entry
         && ( $entry->comp->id eq $comp->id )
         && ( $entry->is_qualified )
-        && ( $comp->status eq 'open_for_judging' )
-    ) {
-        $c->forward( '/error_404' );
+        && ( $comp->status eq 'open_for_judging' ) )
+    {
+        $c->forward('/error_404');
         return;
     }
 
     my $form = IFComp::Form::Feedback->new( { title => $entry->title } );
 
-    my $feedback = $c->model('IFCompDB::Feedback')->find_or_create( {
-        entry => $entry_id,
-        judge => $c->user->id,
-    } );
+    my $feedback = $c->model('IFCompDB::Feedback')->find_or_create(
+        {   entry => $entry_id,
+            judge => $c->user->id,
+        }
+    );
 
-    if (
-        $form->process(
+    if ($form->process(
             init_object => { text => $feedback->text },
-            params => $c->req->parameters,
+            params      => $c->req->parameters,
         )
-    ) {
-        $feedback->text( $form->field( 'text' )->value );
+        )
+    {
+        $feedback->text( $form->field('text')->value );
         $feedback->update;
-        $c->flash->{ feedback_entry } = $entry;
-        $c->res->redirect( $c->uri_for_action( '/ballot/vote' ) );
+        $c->flash->{feedback_entry} = $entry;
+        $c->res->redirect( $c->uri_for_action('/ballot/vote') );
     }
 
     $c->stash(
-        form => $form,
+        form  => $form,
         entry => $entry,
     );
 }
-
-
 
 =encoding utf8
 

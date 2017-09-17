@@ -145,7 +145,7 @@ sub log_in_as_author {
 }
 
 sub _log_in_as {
-    my ($mech, $email, $name) = @_;
+    my ( $mech, $email, $name ) = @_;
 
     $mech->get_ok('http://localhost/auth/login');
     $mech->submit_form_ok(
@@ -159,7 +159,6 @@ sub _log_in_as {
 
     $mech->content_like( qr/$name/, 'Login successful' );
 }
-
 
 sub process_test_entries {
     my ( $class, $schema ) = @_;

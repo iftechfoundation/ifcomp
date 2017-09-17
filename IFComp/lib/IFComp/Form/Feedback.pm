@@ -6,22 +6,20 @@ extends 'HTML::FormHandler';
 has '+widget_wrapper' => ( default => 'Bootstrap3', );
 
 use Readonly;
-Readonly my $MAX_TEXT_LENGTH => 8192; # 8K is enough for anyone...
+Readonly my $MAX_TEXT_LENGTH => 8192;    # 8K is enough for anyone...
 
 has_field 'text' => (
-    type     => 'TextArea',
+    type               => 'TextArea',
     build_label_method => \&_build_text_label,
-    maxlength => $MAX_TEXT_LENGTH,
+    maxlength          => $MAX_TEXT_LENGTH,
 );
 
-has_field 'submit' => (
-    type => 'Submit',
-);
+has_field 'submit' => ( type => 'Submit', );
 
 has 'title' => (
-    is => 'ro',
+    is       => 'ro',
     required => 1,
-    isa => 'Str',
+    isa      => 'Str',
 );
 
 sub _build_text_label {
