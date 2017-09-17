@@ -20,8 +20,8 @@
 [% IF anti_emails.size > 0 %]
 <h2>The anti-list</h2>
 <p>Furthermore, here is a list of all the email addresses for authors with <em>only</em> disqualified entries for [% current_comp.year %]. You can use this list to mass-unsubscribe addresses from a mailing list you may have made earlier based on pre-deadline intents.</p>
-<p>
 <div class="well">
+<p>
 [% FOREACH email IN anti_emails %]
 [% email %]<br />
 [% END %]
