@@ -41,9 +41,9 @@ sub anti_emails_for_comp {
 
     # The "anti-email" list is all holders of disqualified games that
     # don't also hold qualified games.
-    my @emails = $self->_get_emails( @_, 0 );
+    my @emails              = $self->_get_emails( @_, 0 );
     my @disqualified_emails = $self->_get_emails( @_, 1 );
-    my @anti_emails = grep {
+    my @anti_emails         = grep {
         my $dq_email = $_;
         none { $_ eq $dq_email } @emails;
     } @disqualified_emails;
