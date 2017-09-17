@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Feedback;
 
@@ -13,22 +14,15 @@ IFComp::Schema::Result::Feedback
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<feedback>
 
@@ -62,7 +56,7 @@ __PACKAGE__->table("feedback");
 =head2 text
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =cut
 
@@ -89,7 +83,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "text",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -152,9 +146,10 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:51:42
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:T5JRAycJ7cQIPb3f14gqhw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EbJUZK7PYN+7m1RPLT3hYA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

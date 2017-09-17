@@ -1,3 +1,4 @@
+#<<<
 use utf8;
 package IFComp::Schema::Result::Entry;
 
@@ -13,22 +14,15 @@ IFComp::Schema::Result::Entry
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<entry>
 
@@ -414,9 +408,10 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:51:42
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9XgJJyqtJjPdc3XXMzDybw
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GMzdSpKYkl5WuPdt7eAxEQ
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
