@@ -1,4 +1,3 @@
-#<<<
 use utf8;
 package IFComp::Schema::Result::Entry;
 
@@ -14,15 +13,22 @@ IFComp::Schema::Result::Entry
 use strict;
 use warnings;
 
-
-=head1 BASE CLASS: L<IFComp::Schema::Result>
-
-=cut
-
 use Moose;
 use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
-extends 'IFComp::Schema::Result';
+extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=back
+
+=cut
+
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 TABLE: C<entry>
 
@@ -363,6 +369,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 feedbacks
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Feedback>
+
+=cut
+
+__PACKAGE__->has_many(
+  "feedbacks",
+  "IFComp::Schema::Result::Feedback",
+  { "foreign.entry" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 transcripts
 
 Type: has_many
@@ -393,10 +414,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RL9A3QkTI1E2soORe7DzJg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-14 11:51:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9XgJJyqtJjPdc3XXMzDybw
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
