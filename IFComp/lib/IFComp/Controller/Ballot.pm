@@ -97,6 +97,11 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
     my $entry = $c->model('IFCompDB::Entry')->find( $entry_id );
     my $comp = $c->stash->{current_comp};
 
+    unless ( $c->user ) {
+        $c->res->redirect( $c->uri_for_action( '/auth/login' ) );
+        return;
+    }
+
     # We accept feedback only for active entries during judging.
     unless (
         $entry
