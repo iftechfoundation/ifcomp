@@ -132,5 +132,10 @@ is( $schema->resultset('Entry')->find(110)->platform,
 ok( not( $schema->resultset('Entry')->find(110)->supports_transcripts ),
     'Does not support transcripts.',
 );
-
+is( $schema->resultset('Entry')->find(111)->platform,
+    'adrift', 'Platform is correct. (adrift)',
+);
+ok( not( $schema->resultset('Entry')->find(111)->supports_transcripts ),
+    'Does not support transcripts.',
+);
 done_testing();

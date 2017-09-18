@@ -2,6 +2,7 @@ requires 'Archive::Zip';
 requires 'Cache::FastMmap';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
+requires 'Catalyst::Model::Factory';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Plugin::Cache';
@@ -42,6 +43,7 @@ requires 'Statistics::Basic';
 requires 'Template::Plugin::Comma';
 requires 'Template::Plugin::DateTime';
 requires 'Template::Plugin::Markdown';
+requires 'Try::Tiny';
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';

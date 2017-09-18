@@ -1,0 +1,38 @@
+<div class="container">
+<div class="jumbotron">
+<h1 style="text-align:center;">Colossal Fund Donors: [% cf_year.year %]</h1>
+</div>
+
+<p>
+The following IF community members supported IFComp through their contributions to [% cf_year.year %]'s Colossal Fund. We salute their generosity!
+</p>
+
+[% INCLUDE level name = 'platinum bar',   min = 1000, max = undef %]
+[% INCLUDE level name = 'pot of gold',    min = 500,  max = 999 %]
+[% INCLUDE level name = 'silver chalice', min = 100,  max = 499 %]
+[% INCLUDE level name = 'jade figurine',  min = 50,   max = 99 %]
+[% INCLUDE level name = 'brass bauble',   min = 1,    max = 49 %]
+
+[% BLOCK level %]
+    <div class="level">
+    <h2> [% name.ucfirst %] donors <span class="small">(contributed [% IF max %]between $[% min %] and $[% max %][% ELSE %]$[% min %] or more[% END %])</span></h2>
+    [% named_donors = cf_year.named_donors_between( min, max ) %]
+    [% anonymous_donors = cf_year.anonymous_donors_between( min, max ) %]
+    [% IF named_donors.size %]
+        <ul>
+        [% FOREACH donor IN named_donors %]
+            <li>[% donor.name %]</li>
+        [% END %]
+        </ul>
+        [% IF anonymous_donors.size %]
+            <p>...as well as [% anonymous_donors.size %] anonymous adventurers.</p>
+        [% END %]
+    [% ELSIF anonymous_donors.size %]
+        <p>[% anonymous_donors.size %] anonymous adventurers.</p>
+    [% ELSE %]
+        <p><em>No donors at this level [% IF cf.year == current_comp.year %](yet...)[% END %]</em></p>
+    [% END %]
+    </div>
+[% END %]
+
+[% INCLUDE _colossal_fund.tt show_maximum_prize = 1 %]
