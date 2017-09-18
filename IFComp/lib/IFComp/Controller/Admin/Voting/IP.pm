@@ -55,10 +55,7 @@ sub show_ip : Chained("/admin/voting") : Path : Args(2) {
 
 Joe Johnston
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 

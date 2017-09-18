@@ -95,10 +95,7 @@ sub vote : Chained('root') : PathPart('vote') : Args(0) {
 
 Jason McIntosh
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 

@@ -41,10 +41,7 @@ sub index : Path : Args(0) {
 
 Jason McIntosh
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 
