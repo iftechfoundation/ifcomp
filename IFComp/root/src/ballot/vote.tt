@@ -17,6 +17,10 @@
 </div>
 </noscript>
 
+[% IF c.flash.feedback_entry %]
+<div class="alert alert-success"><p><strong>Thank you!</strong> You successfully updated your feedback for [% c.flash.feedback_entry.title %]. The author(s) of that entry will see it after the competition ends. (You can review and update it from this page before then, if you wish.)</p></div>
+[% END %]
+
 [% IF c.user %]
     [% IF c.user.get_object.current_comp_entries %]
     <div class="alert alert-info" >
