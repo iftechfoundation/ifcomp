@@ -363,6 +363,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 feedbacks
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Feedback>
+
+=cut
+
+__PACKAGE__->has_many(
+  "feedbacks",
+  "IFComp::Schema::Result::Feedback",
+  { "foreign.entry" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 transcripts
 
 Type: has_many
@@ -395,8 +410,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RL9A3QkTI1E2soORe7DzJg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GMzdSpKYkl5WuPdt7eAxEQ
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
