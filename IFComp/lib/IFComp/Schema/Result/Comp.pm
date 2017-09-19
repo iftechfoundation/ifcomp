@@ -206,6 +206,7 @@ __PACKAGE__->has_many(
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
+use List::Util qw(none);
 
 enum 'CompStatus', [
     qw(
@@ -300,6 +301,47 @@ sub get_vote_counts_from_non_unique_ips {
     ];
 
     return $data;
+}
+
+
+sub emails {
+    my $self = shift;
+
+    return $self->_get_emails( 0 );
+
+}
+
+sub anti_emails {
+    my $self = shift;
+
+    # The "anti-email" list is all holders of disqualified games that
+    # don't also hold qualified games.
+    my @emails              = $self->_get_emails( 0 );
+    my @disqualified_emails = $self->_get_emails( 1 );
+    my @anti_emails         = grep {
+        my $dq_email = $_;
+        none { $_ eq $dq_email } @emails;
+    } @disqualified_emails;
+
+    return @anti_emails;
+}
+
+sub _get_emails {
+    my $self = shift;
+    my ( $is_disqualified ) = @_;
+
+    my @emails = $self->result_source->schema->resultset('User')->search(
+        {   'entries.comp'            => $self->id,
+            'entries.is_disqualified' => $is_disqualified,
+        },
+        {   join     => 'entries',
+            group_by => 'email',
+            order_by => 'email',
+        },
+    )->get_column('email')->all;
+
+    return @emails;
+
 }
 
 __PACKAGE__->meta->make_immutable;
