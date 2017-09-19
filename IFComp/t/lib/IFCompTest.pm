@@ -134,19 +134,30 @@ sub init_schema {
     return $schema;
 }
 
+sub log_in_as_judge {
+    my ($mech) = @_;
+    _log_in_as( $mech, 'nobody@example.com', 'user1' );
+}
+
 sub log_in_as_author {
     my ($mech) = @_;
+    _log_in_as( $mech, 'author@example.com', 'Alice Author' );
+}
+
+sub _log_in_as {
+    my ( $mech, $email, $name ) = @_;
+
     $mech->get_ok('http://localhost/auth/login');
     $mech->submit_form_ok(
         {   fields => {
-                email    => 'author@example.com',
+                email    => $email,
                 password => 'fool',
             },
         },
         'Submitted the login form'
     );
 
-    $mech->content_like( qr/Alice Author/, 'Login successful' );
+    $mech->content_like( qr/$name/, 'Login successful' );
 }
 
 sub process_test_entries {
