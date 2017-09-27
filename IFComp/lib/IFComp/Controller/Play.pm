@@ -125,7 +125,7 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
 sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
     my ( $self, $c ) = @_;
 
-    my $file = $c->stash->{entry}->cover_file;
+    my $file = $c->stash->{entry}->web_cover_file;
     if ( -e $file ) {
         my $image_data = $file->slurp;
         if ( $file->basename =~ /png$/ ) {
