@@ -23,7 +23,7 @@ A controller for voting reports.
 
 # /admin/voting/user/:user_id/:comp_id
 # Show how this user voted for this comp
-sub show_user : Chained("/admin/voting") : Path : Args(2) {
+sub show_user : Chained("/admin/voting/index") : Path : Args(2) {
     my ( $self, $c, $user_id, $comp_id ) = @_;
 
     my $comp = $c->model('IFCompDB::Comp')->find($comp_id);

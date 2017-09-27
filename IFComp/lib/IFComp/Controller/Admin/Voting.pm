@@ -22,22 +22,11 @@ A controller for voting reports.
 
 =cut
 
-sub index : Chained('/admin') : Path : Args(0) {
+sub index : Chained('/admin/root') : PathPart( 'voting') : Args(0) {
     my ( $self, $c ) = @_;
 
     # Must have a votecounter
-    my @user_roles       = $c->user->user_roles;
-    my $votecounter_role = 'votecounter';
-    my $has_votecounter_role =
-        grep { $_->role->name eq $votecounter_role } @user_roles;
-
-    unless ($has_votecounter_role) {
-        $c->log->warn(
-            sprintf(
-                "User %s does not have role %s",
-                $c->user->name, $votecounter_role
-            )
-        );
+    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
         $c->res->redirect('/');
         return;
     }
@@ -135,7 +124,7 @@ sub index : Chained('/admin') : Path : Args(0) {
 }
 
 # /admin/voting/:entry_id
-sub show_entry : Chained("/admin/voting") : Path : Args(1) {
+sub show_entry : Chained('index') : Path : Args(1) {
     my ( $self, $c, $entry_id ) = @_;
 
     my $entry      = $c->model('IFCompDB::Entry');
