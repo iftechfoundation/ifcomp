@@ -1,0 +1,32 @@
+<div class="container">
+<h1>Entrant email addresses: [% current_comp.year %]</h1>
+
+<h2>The list</h2>
+<p>This is a simple list of all email addresses for all authors with at least one non-disqualified entry registered with the [% current_comp.year %] IFComp.</p>
+
+<p>You can use this list to e.g. paste into mailing-list software, or just to build a massive bcc: field or whatever if that's your thing.</p>
+[% IF emails.size > 0 %]
+<div class="well">
+<p>
+[% FOREACH email IN emails %]
+[% email %]<br />
+[% END %]
+</p> 
+</div>
+[% ELSE %]
+<p>...actually, it looks like we don't have any email addresses right now.</p>
+[% END %]
+
+[% IF anti_emails.size > 0 %]
+<h2>The anti-list</h2>
+<p>Furthermore, here is a list of all the email addresses for authors with <em>only</em> disqualified entries for [% current_comp.year %]. You can use this list to mass-unsubscribe addresses from a mailing list you may have made earlier based on pre-deadline intents.</p>
+<div class="well">
+<p>
+[% FOREACH email IN anti_emails %]
+[% email %]<br />
+[% END %]
+</p> 
+</div>
+[% END %]
+
+</div>
