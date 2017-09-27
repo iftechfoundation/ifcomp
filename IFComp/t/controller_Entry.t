@@ -133,5 +133,21 @@ ok( not( -e "$comp_dir/$id/cover/tiny_cover.png" ), "Cover deleted." );
 ok( not( -e "$comp_dir/$id/web_cover/tiny_cover.png" ),
     "Web cover deleted." );
 
+######
+# Modify an entry, trying to upload a bogus image
+######
+$mech->get_ok("http://localhost/entry/$entry_id/update");
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields      => {
+            'entry.title'        => 'Super-Fun Game',
+            'entry.cover_upload' => "$FindBin::Bin/test_files/bad_image.png",
+        },
+    },
+);
+$mech->content_like(
+    qr/doesn't appear to be a valid image/,
+    "Pushing back on a bad-image upload.",
+);
 
 done_testing();
