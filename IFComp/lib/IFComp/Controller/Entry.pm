@@ -242,6 +242,12 @@ sub _process_form {
                     my $clearer = "clear_${upload_type}_file";
                     $entry->$clearer;
                 }
+                if ( $upload_type eq 'cover' ) {
+
+                    # If clearing cover art, also clear the web-cover.
+                    $entry->web_cover_file->remove;
+                    $entry->clear_web_cover_file;
+                }
             }
 
             my $upload_param = "entry.${upload_type}_upload";

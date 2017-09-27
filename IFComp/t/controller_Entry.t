@@ -38,6 +38,10 @@ my ($entry_id) =
     $schema->storage->dbh->selectrow_array('select max(id) from entry');
 $entry_id = $entry_id + 1;
 
+######
+# Add a new entry
+######
+
 $mech->get_ok('http://localhost/entry/create');
 
 is( $comp_dir->children( no_hidden => 1 ),
@@ -52,6 +56,10 @@ $mech->submit_form_ok(
 
 my $entry = $schema->resultset('Entry')->find($entry_id);
 is( $entry->title, 'Fun Game', 'New entry is in the DB.' );
+
+######
+# Modify entry, adding files
+######
 
 $mech->get_ok("http://localhost/entry/$entry_id/update");
 $mech->submit_form_ok(
@@ -85,6 +93,10 @@ my $web_cover_image =
     Imager->new( file => "$comp_dir/$id/web_cover/cover.png" );
 is( $web_cover_image->getheight, 350, "Web-cover is scaled down." );
 
+######
+# Modify entry, changing to a smaller cover image
+######
+
 $mech->get_ok("http://localhost/entry/$entry_id/update");
 $mech->submit_form_ok(
     {   form_number => 2,
@@ -103,5 +115,23 @@ ok( -e "$comp_dir/$id/web_cover/tiny_cover.png",
 $web_cover_image =
     Imager->new( file => "$comp_dir/$id/web_cover/tiny_cover.png" );
 is( $web_cover_image->getheight, 200, "Web-cover is NOT scaled up." );
+
+######
+# Modify an entry, removing cover files
+######
+
+$mech->get_ok("http://localhost/entry/$entry_id/update");
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields      => {
+            'entry.title'        => 'Super-Fun Game',
+            'entry.cover_delete' => 1,
+        },
+    },
+);
+ok( not( -e "$comp_dir/$id/cover/tiny_cover.png" ), "Cover deleted." );
+ok( not( -e "$comp_dir/$id/web_cover/tiny_cover.png" ),
+    "Web cover deleted." );
+
 
 done_testing();
