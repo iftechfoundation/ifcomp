@@ -500,7 +500,19 @@ has 'cover_directory' => (
     lazy_build => 1,
 );
 
+has 'web_cover_directory' => (
+    is         => 'ro',
+    isa        => 'Path::Class::Dir',
+    lazy_build => 1,
+);
+
 has 'cover_file' => (
+    is         => 'ro',
+    isa        => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
+has 'web_cover_file' => (
     is         => 'ro',
     isa        => 'Maybe[Path::Class::File]',
     lazy_build => 1,
@@ -689,6 +701,24 @@ sub _build_cover_file {
     return ( $self->cover_directory->children( no_hidden => 1 ) )[0];
 }
 
+sub _build_web_cover_file {
+    my $self = shift;
+
+    my $web_cover_file =
+        ( $self->web_cover_directory->children( no_hidden => 1 ) )[0];
+
+    unless ( defined $web_cover_file ) {
+        my $cover_file = $self->cover_file;
+        if ($cover_file) {
+            $web_cover_file =
+                Path::Class::File->new( $self->web_cover_directory,
+                $cover_file->basename, );
+        }
+    }
+
+    return $web_cover_file;
+}
+
 sub _build_main_directory {
     my $self = shift;
 
@@ -711,6 +741,12 @@ sub _build_cover_directory {
     my $self = shift;
 
     return $self->_build_subdir_named('cover');
+}
+
+sub _build_web_cover_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named('web_cover');
 }
 
 sub _build_subdir_named {

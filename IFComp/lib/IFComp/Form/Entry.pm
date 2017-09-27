@@ -3,6 +3,8 @@ package IFComp::Form::Entry;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Model::DBIC';
 
+use Imager;
+
 has '+enctype'        => ( default => 'multipart/form-data' );
 has '+widget_wrapper' => ( default => 'Bootstrap3', );
 
@@ -148,8 +150,12 @@ sub validate_cover_upload {
     my $self = shift;
     my ($field) = @_;
 
-    if ( $field->value && not $field->value->filename =~ /\.(pn|jpe?)g$/ ) {
-        $field->add_error("This doesn't appear to be a PNG or JPEG file.");
+    if ( $field->value ) {
+        my $image = Imager->new( file => $field->value->tempname );
+        unless ($image) {
+            $field->add_error(
+                "This doesn't appear to be a valid image file.");
+        }
     }
 }
 
