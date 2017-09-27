@@ -152,8 +152,9 @@ sub validate_cover_upload {
 
     if ( $field->value ) {
         my $image = Imager->new( file => $field->value->tempname );
-        unless ( $image ) {
-            $field->add_error("This doesn't appear to be a valid image file.");
+        unless ($image) {
+            $field->add_error(
+                "This doesn't appear to be a valid image file.");
         }
     }
 }
