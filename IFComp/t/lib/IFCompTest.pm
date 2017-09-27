@@ -80,8 +80,18 @@ sub init_schema {
             ],
             [   2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'author@example.com', 1, undef, 1
+            ],
+            [   3,
+                'Victor Votecounter',
+                'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'votecounter@example.com', 1, undef, 1
             ]
         ],
+    );
+
+    $schema->populate( 'Role', [ [ 'id', 'name' ], [ 1, 'votecounter' ] ] );
+
+    $schema->populate( 'UserRole', [ [ 'id', 'user', 'role' ], [ 1, 3, 1, ] ],
     );
 
     # There are two comps - last year and this year. The current comp is open
@@ -144,9 +154,18 @@ sub log_in_as_author {
     _log_in_as( $mech, 'author@example.com', 'Alice Author' );
 }
 
+sub log_in_as_votecounter {
+    my ($mech) = @_;
+    _log_in_as( $mech, 'votecounter@example.com', 'Victor Votecounter' );
+}
+
 sub _log_in_as {
     my ( $mech, $email, $name ) = @_;
 
+    # Quietly clear out any existing login first
+    $mech->get('http://localhost/auth/logout');
+
+    # Now try (with tests!) the requested login
     $mech->get_ok('http://localhost/auth/login');
     $mech->submit_form_ok(
         {   fields => {
