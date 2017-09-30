@@ -9,13 +9,9 @@ sub index : Chained("/admin/root") : PathPart('email') : Args(0) {
 
     my $comp = $c->model('IFCompDB::Comp')->current_comp;
 
-    my @emails      = $comp->emails;
-    my @anti_emails = $comp->anti_emails;
+    my @emails = $comp->emails;
 
-    $c->stash(
-        emails      => \@emails,
-        anti_emails => \@anti_emails,
-    );
+    $c->stash( emails => \@emails, );
 
 }
 
