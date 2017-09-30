@@ -421,6 +421,7 @@ use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
 use IFComp::Blorb qw( determine_blorb_type );
+use Unicode::Normalize;
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
@@ -646,8 +647,16 @@ sub _build_sort_title {
     my $self  = shift;
     my $title = $self->title;
 
-    # for right now, just remove initial articles
-    $title =~ s/^(?:the|a|an) //i;
+    # The sort-title is the title, except:
+    # * All lowercase
+    # * Leading articles (the, a, an) removed
+    # * Diacriticals removed from letters
+
+    $title = lc $title;
+    $title =~ s/^(?:the|a|an) //;
+    $title = NFKD( $title );
+    $title =~ s/\p{NonspacingMark}//g;
+
     return $title;
 }
 
