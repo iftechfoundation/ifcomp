@@ -541,6 +541,7 @@ enum 'Platform', [
         inform-website
         tads
         quest
+        quest-online
         windows
         alan
         adrift
@@ -835,6 +836,7 @@ sub _build_contents_data {
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
+        [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
