@@ -655,7 +655,7 @@ sub _build_sort_title {
 
     $title = lc $title;
     $title =~ s/^(?:the|a|an) //;
-    $title = NFKD( $title );
+    $title = NFKD($title);
     $title =~ s/\p{NonspacingMark}//g;
 
     return $title;
