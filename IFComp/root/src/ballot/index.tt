@@ -45,7 +45,7 @@
 
 <h1 id="browse" class="page-header">Browse and play the games</h1>
 
-<p>Have a look at our <a href="[% c.uri_for('/about/file_formats') %]" target="_blank">guide to IF formats</a> for some additional information on the various download-flavors you'll find below.</p>
+<p>Have a look at our <a href="[% c.uri_for('/about/file_formats') %]" target="_blank">guide to IF formats</a> for some additional information on the various download-flavors you'll find below. And for a more compact list of this year's entries, <a href="/ballot/vote/">see the voting ballot</a>.</p>
 
 [% IF is_shuffled %]
     [% IF is_personalized %]
