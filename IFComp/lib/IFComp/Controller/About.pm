@@ -90,6 +90,9 @@ sub faq : Path('faq') : Args(0) {
 sub copyright : Path('copyright') : Args(0) {
 }
 
+sub transcripts : Path('transcripts') : Args(0) {
+}
+
 sub colossal_fund : Path('colossal') {
     my ( $self, $c, $year ) = @_;
 
