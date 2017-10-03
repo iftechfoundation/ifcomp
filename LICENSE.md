@@ -2,11 +2,11 @@
 
 ## Overall copyright notice
 
-Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org).
+Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org), a Delaware nonprofit corporation.
 
 ## Third-party software included in this project
 
-This software repository contains, in whole or in signifcant part, the following open-source projects, used under license. (See below for the full text of their respective licenses.)
+This software repository contains, in whole or in significant part, the following open-source projects, used under license. (See below for the full text of their respective licenses.)
 
 * [Quixe](https://github.com/erkyrath/quixe) by Andrew Plotkin, via [the MIT License](#quixe).
 
