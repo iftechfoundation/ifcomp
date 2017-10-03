@@ -1,0 +1,12 @@
+<div class="container">
+<div class="page-header">
+<h1>Feedback: [% entry.title %]</h1>
+</div>
+<h2>Feedback rules & procedures</h2>
+<p>Thank you for leaving feedback for this IFComp entry! We will share it with this game's author(s) after the competition is over. You may revisit this page and edit your feedback as often as you'd like until then.</p>
+<p>We will not reveal your identity to this game's author(s) via feedback you leave. Competition organizers nonetheless know which judges have left what feedback. As such, <strong>please note that <a href="https://ifcomp.org/rules#code">the IFComp code of conduct</a> applies to all feedback</strong>. (Note also that you can identify yourself within the feedback text, if you want to.)</p>
+<hr />
+<p>You may express your feedback however you'd like, up to 8 kilobytes of text. And do keep it text-only, please; we will strip out any HTML. (We will also turn  double-carriage-returns into paragraph breaks.)</p>
+<p>We encourage you to keep your comments and criticism polite and constructive. If you'd like a prompt, consider this one: <em>What worked well about this game? What are areas for improvement?</em></p>
+[% form.render %]
+</div>

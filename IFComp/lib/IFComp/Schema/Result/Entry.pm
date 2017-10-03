@@ -363,6 +363,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 feedbacks
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Feedback>
+
+=cut
+
+__PACKAGE__->has_many(
+  "feedbacks",
+  "IFComp::Schema::Result::Feedback",
+  { "foreign.entry" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 transcripts
 
 Type: has_many
@@ -395,8 +410,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RL9A3QkTI1E2soORe7DzJg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GMzdSpKYkl5WuPdt7eAxEQ
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
@@ -406,12 +421,13 @@ use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
 use IFComp::Blorb qw( determine_blorb_type );
+use Unicode::Normalize;
 
 use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
-Readonly my $QUEST_REGEX   => qr/\.quest$/i;
+Readonly my $QUEST_REGEX   => qr/\.quest$|\.aslx$/i;
 Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 Readonly my $HTML_REGEX    => qr/\.html?$/i;
@@ -485,7 +501,19 @@ has 'cover_directory' => (
     lazy_build => 1,
 );
 
+has 'web_cover_directory' => (
+    is         => 'ro',
+    isa        => 'Path::Class::Dir',
+    lazy_build => 1,
+);
+
 has 'cover_file' => (
+    is         => 'ro',
+    isa        => 'Maybe[Path::Class::File]',
+    lazy_build => 1,
+);
+
+has 'web_cover_file' => (
     is         => 'ro',
     isa        => 'Maybe[Path::Class::File]',
     lazy_build => 1,
@@ -513,6 +541,7 @@ enum 'Platform', [
         inform-website
         tads
         quest
+        quest-online
         windows
         alan
         adrift
@@ -619,8 +648,16 @@ sub _build_sort_title {
     my $self  = shift;
     my $title = $self->title;
 
-    # for right now, just remove initial articles
-    $title =~ s/^(?:the|a|an) //i;
+    # The sort-title is the title, except:
+    # * All lowercase
+    # * Leading articles (the, a, an) removed
+    # * Diacriticals removed from letters
+
+    $title = lc $title;
+    $title =~ s/^(?:the|a|an) //;
+    $title = NFKD($title);
+    $title =~ s/\p{NonspacingMark}//g;
+
     return $title;
 }
 
@@ -674,6 +711,24 @@ sub _build_cover_file {
     return ( $self->cover_directory->children( no_hidden => 1 ) )[0];
 }
 
+sub _build_web_cover_file {
+    my $self = shift;
+
+    my $web_cover_file =
+        ( $self->web_cover_directory->children( no_hidden => 1 ) )[0];
+
+    unless ( defined $web_cover_file ) {
+        my $cover_file = $self->cover_file;
+        if ($cover_file) {
+            $web_cover_file =
+                Path::Class::File->new( $self->web_cover_directory,
+                $cover_file->basename, );
+        }
+    }
+
+    return $web_cover_file;
+}
+
 sub _build_main_directory {
     my $self = shift;
 
@@ -696,6 +751,12 @@ sub _build_cover_directory {
     my $self = shift;
 
     return $self->_build_subdir_named('cover');
+}
+
+sub _build_web_cover_directory {
+    my $self = shift;
+
+    return $self->_build_subdir_named('web_cover');
 }
 
 sub _build_subdir_named {
@@ -775,6 +836,7 @@ sub _build_contents_data {
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
+        [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],

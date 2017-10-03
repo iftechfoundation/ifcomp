@@ -28,6 +28,7 @@ requires 'File::MimeInfo';
 requires 'HTML::FormHandler' => '0.40067';
 requires 'HTML::FormHandler::Model::DBIC';
 requires 'HTML::FormHandler::Moose';
+requires 'Imager';
 requires 'JSON::Any';
 requires 'JSON::XS';
 requires 'Lingua::EN::Numbers::Ordinate';
@@ -44,6 +45,7 @@ requires 'Template::Plugin::Comma';
 requires 'Template::Plugin::DateTime';
 requires 'Template::Plugin::Markdown';
 requires 'Try::Tiny';
+requires 'Unicode::Normalize';
 
 test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';

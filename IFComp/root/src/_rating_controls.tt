@@ -10,6 +10,9 @@
                 [% number = number + 1 %]
             [% END %]
         </select>
+        <span class="feedback-link" id="feedback-link-[% entry.id %]">
+            <a href="[% c.uri_for_action( '/ballot/feedback', entry.id ) %]">Add / edit feedback</a>
+        </span>
         <span id="rating-status-[% entry.id %]-spinner" class="label label-default waiting" style="display:none">Submitting...</span>
         <span id="rating-status-[% entry.id %]-success" class="label label-success success" style="display:none">Rating recorded!</span>
         <span id="rating-status-[% entry.id %]-failure" class="label label-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>

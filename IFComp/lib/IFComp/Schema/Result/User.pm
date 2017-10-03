@@ -208,6 +208,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 feedbacks
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::Feedback>
+
+=cut
+
+__PACKAGE__->has_many(
+  "feedbacks",
+  "IFComp::Schema::Result::Feedback",
+  { "foreign.judge" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 prizes
 
 Type: has_many
@@ -255,8 +270,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:36:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dUibpAIoceC/jeeV1B2ifg
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0GAZNFGyrHszTo/6wUZPKg
 
 __PACKAGE__->add_column(
     '+password' => {

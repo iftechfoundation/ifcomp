@@ -20,9 +20,12 @@ use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
 
 use MIME::Types;
+use Imager;
+use File::Copy;
 
 use Readonly;
-Readonly my $MAX_ENTRIES => 3;
+Readonly my $MAX_ENTRIES      => 3;
+Readonly my $MAX_COVER_HEIGHT => 350;
 
 has 'form' => (
     is         => 'ro',
@@ -239,6 +242,12 @@ sub _process_form {
                     my $clearer = "clear_${upload_type}_file";
                     $entry->$clearer;
                 }
+                if ( $upload_type eq 'cover' ) {
+
+                    # If clearing cover art, also clear the web-cover.
+                    $entry->web_cover_file->remove;
+                    $entry->clear_web_cover_file;
+                }
             }
 
             my $upload_param = "entry.${upload_type}_upload";
@@ -250,14 +259,21 @@ sub _process_form {
                 my $directory_method = "${upload_type}_directory";
                 my $result =
                     $upload->copy_to(
-                    $entry->$directory_method->file( $upload->filename ) );
+                    $entry->$directory_method->file( $upload->basename ) );
                 unless ($result) {
-                    die "Failed to write the $upload_type file.";
+                    die "Failed to write the $upload_type file from "
+                        . $upload->tempname . " to "
+                        . $entry->$directory_method->file( $upload->basename )
+                        . ": $!";
                 }
                 my $clearer = "clear_${upload_type}_file";
                 $entry->$clearer;
 
+                # Now do extra work specific to uploaded file types.
                 if ( $upload_type eq 'main' ) {
+
+                    # This is the main game file! Process it into the entry's
+                    # content directory.
                     $entry->update_content_directory;
                     if ( my $note = $self->form->field('note')->value ) {
                         $entry->add_to_entry_updates(
@@ -267,8 +283,24 @@ sub _process_form {
                         );
                     }
                 }
-            }
+                elsif ( $upload_type eq 'cover' ) {
 
+                    # Cover art! Preserve as-is, but also make a possibly
+                    # scaled-down web copy.
+                    $entry->web_cover_file->remove;
+                    $entry->clear_web_cover_file;
+                    my $image = Imager->new( file => $entry->cover_file );
+                    if ( $image->getheight > $MAX_COVER_HEIGHT ) {
+                        my $resized_image =
+                            $image->scale( ypixels => $MAX_COVER_HEIGHT );
+                        $resized_image->write(
+                            file => $entry->web_cover_file );
+                    }
+                    else {
+                        copy( $entry->cover_file, $entry->web_cover_file );
+                    }
+                }
+            }
         }
 
         $c->flash->{entry_updated} = 1;

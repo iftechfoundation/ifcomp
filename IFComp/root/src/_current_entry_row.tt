@@ -34,7 +34,7 @@
             Web
         [% ELSIF entry.platform == 'tads' %]
             TADS [% INCLUDE guide_link %]
-        [% ELSIF entry.platform == 'quest' %]
+        [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
             Quest [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'windows' %]
             Windows executable
@@ -62,6 +62,7 @@
               || entry.platform == 'website'
               || entry.platform == 'inform-website'
               || entry.platform == 'quixe'
+              || entry.platform == 'quest-online'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
