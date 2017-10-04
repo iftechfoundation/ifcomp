@@ -133,6 +133,8 @@ sub init_schema {
             [ 109, 1, 'Test TADS game',                             1, 10 ],
             [ 110, 1, 'Test Alan game',                             1, 11 ],
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
+            [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
+
         ],
     );
 
