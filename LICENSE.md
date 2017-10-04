@@ -2,7 +2,7 @@
 
 ## Overall copyright notice
 
-Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org), a Delaware nonprofit corporation.
+Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
 
 ## Third-party software included in this project
 
