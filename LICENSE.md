@@ -8,11 +8,11 @@ Except where otherwise noted, the software found in this repository is copyright
 
 This software repository contains, in whole or in significant part, the following open-source projects, used under license. (See below for the full text of their respective licenses.)
 
-* [Quixe](https://github.com/erkyrath/quixe) by Andrew Plotkin, via [the MIT License](#quixe).
+* [Quixe](https://github.com/erkyrath/quixe) by Andrew Plotkin, via the MIT License
 
-* [If-recorder](https://github.com/juhana/if-recorder) by Juhana Leinonen, via [the MIT License](#if-recorder).
+* [If-recorder](https://github.com/juhana/if-recorder) by Juhana Leinonen, via the MIT License
 
-* [Parchment](https://github.com/curiousdannii/parchment) by Dannii Willis, via [the Modified BSD License](#parchment). It in turn uses [Gnusto](https://github.com/curiousdannii/gnusto), originally by Thomas Thurman, via [the GNU Public License](#gnusto).
+* [Parchment](https://github.com/curiousdannii/parchment) by Dannii Willis, via the Modified BSD License. It in turn uses [Gnusto](https://github.com/curiousdannii/gnusto), originally by Thomas Thurman, via the GNU Public License.
 
 ## Licenses used by included software
 
