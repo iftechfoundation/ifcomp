@@ -125,7 +125,19 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
 sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
     my ( $self, $c ) = @_;
 
-    my $file = $c->stash->{entry}->web_cover_file;
+    return $self->_cover( $c, 'web_cover_file' );
+}
+
+sub full_cover : Chained('fetch_entry') : PathPart('full_cover') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    return $self->_cover( $c, 'cover_file' );
+}
+
+sub _cover {
+    my ( $self, $c, $method ) = @_;
+
+    my $file = $c->stash->{entry}->$method;
     if ( -e $file ) {
         my $image_data = $file->slurp;
         if ( $file->basename =~ /png$/ ) {
@@ -139,6 +151,7 @@ sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
     else {
         $c->detach('/error_404');
     }
+
 }
 
 sub updates : Chained('fetch_entry') : PathPart('updates') : Args(0) {
