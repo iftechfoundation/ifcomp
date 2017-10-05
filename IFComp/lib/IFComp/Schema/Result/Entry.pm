@@ -1352,13 +1352,13 @@ sub _build_has_extra_content {
     }
 
     my $lc = List::Compare->new(
-        [   map { $_->basename }
+        [   grep { not /$I7_REGEX|.*js$/ } map { $_->basename }
                 $self->content_directory->children( no_hidden => 1 )
         ],
         \@default_list,
     );
 
-    if ( $lc->get_unique > 1 ) {
+    if ( $lc->get_unique > 0 ) {
         return 1;
     }
     else {
