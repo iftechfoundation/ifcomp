@@ -2,17 +2,15 @@
 <p>
 Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, providing a new cash prize pool for top IFComp entries! <a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">Learn more about it</a>, and <a href="/about/colossal/">see who has contributed this year</a>.
 </p>
-
-[% IF cf.goal %]
-
-[% IF cf.collected < cf.goal %]        
+        
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
     <input type="hidden" name="cmd" value="_s-xclick">
     <input type="hidden" name="hosted_button_id" value="KGS6V7RPE4L34">
     <input class="btn btn-primary center-block" type="submit" value="Donate with PayPal">
     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 </form>
-[% END %]
+
+[% IF cf.goal %]
 
 [% IF cf.collected >= cf.goal %]
 <p class="text-center">We've reached our $[% cf.goal %] goal! Thanks, everyone!</p>
