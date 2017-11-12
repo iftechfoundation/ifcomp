@@ -1,0 +1,22 @@
+<div class="container">
+
+<h1>All feedback</h1>
+
+<p>
+Here is all the feedback received this year, sorted by judge name.</p>
+
+<p><strong>Please consider the contents of this page sensitive information.</strong> Outside of this page, only the author of a given entry can see the feedback left for it, and in that case they cannot see the identity of the judge who wrote it (unless the judge volunteered this information in the text of the feedback itself.)
+</p>
+
+<hr />
+
+[% IF feedback_rs.count %]
+    [% WHILE (feedback = feedback_rs.next) %]
+        <p><strong>[% feedback.judge.name %] ([% feedback.judge.email %])</strong>, on [% feedback.entry.title %]:</p>
+        <blockquote>[% feedback.text | html | html_para %]</blockquote>
+    [% END %]
+[% ELSE %]
+<p>Hmm, actually, there isn't any feedback to display right now.</p>
+[% END %]
+
+</div>

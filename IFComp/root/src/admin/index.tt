@@ -10,4 +10,8 @@
         <li><a href="[% c.uri_for('/admin/voting/') %]">Voting</a></li>
      </ul>
      
+     <ul>
+        <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>
+     </ul>
+     
 </div>

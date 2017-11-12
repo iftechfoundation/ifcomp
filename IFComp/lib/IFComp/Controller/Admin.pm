@@ -23,7 +23,9 @@ A controller for administrative functions
 sub root : Chained('/') : PathPart( 'admin' ) : CaptureArgs(0) {
     my ( $self, $c ) = @_;
 
-    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
+    unless ( $c->user
+        && $c->check_any_user_role( 'votecounter', 'curator', ) )
+    {
         $c->res->redirect('/');
         return;
     }
