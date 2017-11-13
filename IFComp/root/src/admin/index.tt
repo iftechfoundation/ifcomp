@@ -7,11 +7,12 @@
      <p>The following functions are available for administrators</p>
 
      <ul>
+        [% IF c.check_user_roles( 'votecounter' ) %]
         <li><a href="[% c.uri_for('/admin/voting/') %]">Voting</a></li>
-     </ul>
-     
-     <ul>
+        [% END %]
+        [% IF c.check_user_roles( 'curator' ) %]
         <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>
+        [% END %]
      </ul>
      
 </div>
