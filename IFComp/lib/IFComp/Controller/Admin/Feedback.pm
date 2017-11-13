@@ -8,7 +8,6 @@ sub index : Chained('/admin/root') : PathPart( 'feedback') : Args(0) {
     my ( $self, $c ) = @_;
 
     unless ( $c->user && $c->check_any_user_role('curator') ) {
-        $c->log->debug("get outta here");
         $c->res->redirect('/');
         return;
     }
