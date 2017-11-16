@@ -65,6 +65,21 @@ is( $schema->resultset('Entry')->find(102)->platform,
 ok( $schema->resultset('Entry')->find(102)->supports_transcripts,
     'Supports transcripts.',
 );
+ok( not( $schema->resultset('Entry')->find(102)->has_extra_content ),
+    'Does not report having any extra content.' );
+
+note('Testing Quixe upload (with extra content...');
+ok( file_contains( 112, 'play.html', qr{/static/interpreter/quixe/} ),
+    'Links to local interpreter.',
+);
+is( $schema->resultset('Entry')->find(112)->platform,
+    'quixe', 'Platform is correct.',
+);
+ok( $schema->resultset('Entry')->find(112)->supports_transcripts,
+    'Supports transcripts.',
+);
+ok( $schema->resultset('Entry')->find(112)->has_extra_content,
+    'Reports having extra content.' );
 
 note('Testing Parchment...');
 ok( file_contains( 103, 'play.html', qr{/static/interpreter/parchment/} ),

@@ -22,6 +22,19 @@ is( $count, 0, 'Transcription table is empty at start of test.' );
 
 IFCompTest->process_test_entries($schema);
 
+# Change the phase of the current test-competition to open-for-judging.
+use DateTime;
+my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
+my $future_ymd = DateTime->now->add( days => 2 )->ymd;
+my $comp = $schema->resultset('Comp')->find(2);
+foreach (qw(intents_open intents_close entries_due judging_begins)) {
+    $comp->$_($past_ymd);
+}
+foreach (qw(judging_ends comp_closes)) {
+    $comp->$_($future_ymd);
+}
+$comp->update;
+
 note('Testing Parchment transcription...');
 {
     my $data = {
@@ -68,6 +81,19 @@ note('Testing Quixe transcription...');
     is( $transcription->input,     $INPUT,  'Input recorded correctly.' );
     is( $transcription->output,    $OUTPUT, 'Output recorded correctly.' );
     is( $transcription->entry->id, 101,     'Entry is correct.' );
+}
+
+note('Testing cover art...');
+{
+    my $entry = $schema->resultset('Entry')->find(100);
+
+    $mech->get_ok('http://localhost/play/100/cover');
+    $mech->header_is( 'Content-Type',   'image/png' );
+    $mech->header_is( 'Content-Length', 19242 );
+
+    $mech->get_ok('http://localhost/play/100/full_cover');
+    $mech->header_is( 'Content-Type',   'image/png' );
+    $mech->header_is( 'Content-Length', 35185 );
 }
 
 done_testing();

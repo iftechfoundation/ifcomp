@@ -59,4 +59,11 @@ is( $feedback->text, $FEEDBACK_TEXT, 'Feedback was recorded in the DB.' );
 is( $feedback->entry->id, 100, 'Feedback entry is correct.' );
 is( $feedback->judge->id, 1,   'Feedback judge is correct.' );
 
+# Test the admin view of current feedback.
+IFCompTest::log_in_as_curator($mech);
+
+$mech->get_ok('http://localhost/admin/feedback');
+
+$mech->content_like(qr/$FEEDBACK_TEXT/);
+
 done_testing();

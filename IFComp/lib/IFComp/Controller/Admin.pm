@@ -23,7 +23,9 @@ A controller for administrative functions
 sub root : Chained('/') : PathPart( 'admin' ) : CaptureArgs(0) {
     my ( $self, $c ) = @_;
 
-    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
+    unless ( $c->user
+        && $c->check_any_user_role( 'votecounter', 'curator', ) )
+    {
         $c->res->redirect('/');
         return;
     }
@@ -41,10 +43,7 @@ sub index : Chained( 'root' ) : PathPart('') : Args(0) {
 
 Joe Johnston
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 

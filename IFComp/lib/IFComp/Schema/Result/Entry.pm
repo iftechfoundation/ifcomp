@@ -427,7 +427,7 @@ use Readonly;
 Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
 Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
 Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
-Readonly my $QUEST_REGEX   => qr/\.quest$/i;
+Readonly my $QUEST_REGEX   => qr/\.quest$|\.aslx$/i;
 Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 Readonly my $HTML_REGEX    => qr/\.html?$/i;
@@ -541,6 +541,7 @@ enum 'Platform', [
         inform-website
         tads
         quest
+        quest-online
         windows
         alan
         adrift
@@ -654,7 +655,7 @@ sub _build_sort_title {
 
     $title = lc $title;
     $title =~ s/^(?:the|a|an) //;
-    $title = NFKD( $title );
+    $title = NFKD($title);
     $title =~ s/\p{NonspacingMark}//g;
 
     return $title;
@@ -835,6 +836,7 @@ sub _build_contents_data {
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
+        [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
@@ -1350,13 +1352,13 @@ sub _build_has_extra_content {
     }
 
     my $lc = List::Compare->new(
-        [   map { $_->basename }
+        [   grep { not /$I7_REGEX|.*js$/ } map { $_->basename }
                 $self->content_directory->children( no_hidden => 1 )
         ],
         \@default_list,
     );
 
-    if ( $lc->get_unique > 1 ) {
+    if ( $lc->get_unique > 0 ) {
         return 1;
     }
     else {
