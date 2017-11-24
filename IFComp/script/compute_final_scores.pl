@@ -33,8 +33,10 @@ $dbh->do( 'update entry set miss_congeniality_place = NULL where comp = ?',
     {}, $current_comp->id );
 
 my $ifcomp_sth = $dbh->prepare($ifcomp_sql);
-$ifcomp_sth->execute( $current_comp->id, $current_comp->id,
-    $current_comp->id, $current_comp->id, );
+$ifcomp_sth->execute(
+    $current_comp->id, $current_comp->id,
+    $current_comp->id, $current_comp->id,
+);
 
 my $current_place;
 my $entry_count;
