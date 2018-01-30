@@ -99,8 +99,8 @@ sub colossal_fund : Path('colossal') {
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     $year ||= $current_comp->year;
 
-    my $cf      = $c->model('ColossalFund');
-    my $cf_year = $cf->year($year);
+    my $cf = $c->model('ColossalFund');
+    my $cf_year = $cf->year($year) || $cf->year( $year - 1 );
 
     unless ($cf_year) {
         $c->detach('/error_404');
