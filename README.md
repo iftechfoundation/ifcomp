@@ -78,3 +78,9 @@ Major contributors to this codebase include:
 * Dan Shiovitz ([dans@drizzle.com](mailto:dans@drizzle.com))
 
 For a list of contributors to the larger IFComp project, see [the IFComp credits page](http://www.ifcomp.org/about/contact).
+
+## Copyright and license information
+
+Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
+
+This repository contains, in whole or in part, a number of third-party open-source IF-related tools. See the file LICENSE.md for further information.

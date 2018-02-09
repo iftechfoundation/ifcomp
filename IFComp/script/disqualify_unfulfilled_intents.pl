@@ -18,6 +18,7 @@ my $current_comp = $schema->resultset('Comp')->current_comp;
 
 for my $entry ( $current_comp->entries ) {
     unless ( $entry->main_file ) {
-        $entry->delete;
+        $entry->is_disqualified(1);
+        $entry->update;
     }
 }

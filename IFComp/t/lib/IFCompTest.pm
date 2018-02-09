@@ -85,13 +85,20 @@ sub init_schema {
                 'Victor Votecounter',
                 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'votecounter@example.com', 1, undef, 1
+            ],
+            [   4,
+                'Connie Curator',
+                'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'curator@example.com', 1, undef, 1
             ]
         ],
     );
 
-    $schema->populate( 'Role', [ [ 'id', 'name' ], [ 1, 'votecounter' ] ] );
+    $schema->populate( 'Role',
+        [ [ 'id', 'name' ], [ 1, 'votecounter' ], [ 2, 'curator' ] ] );
 
-    $schema->populate( 'UserRole', [ [ 'id', 'user', 'role' ], [ 1, 3, 1, ] ],
+    $schema->populate( 'UserRole',
+        [ [ 'id', 'user', 'role' ], [ 1, 3, 1, ], [ 2, 4, 2 ] ],
     );
 
     # There are two comps - last year and this year. The current comp is open
@@ -133,6 +140,8 @@ sub init_schema {
             [ 109, 1, 'Test TADS game',                             1, 10 ],
             [ 110, 1, 'Test Alan game',                             1, 11 ],
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
+            [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
+
         ],
     );
 
@@ -157,6 +166,11 @@ sub log_in_as_author {
 sub log_in_as_votecounter {
     my ($mech) = @_;
     _log_in_as( $mech, 'votecounter@example.com', 'Victor Votecounter' );
+}
+
+sub log_in_as_curator {
+    my ($mech) = @_;
+    _log_in_as( $mech, 'curator@example.com', 'Connie Curator' );
 }
 
 sub _log_in_as {

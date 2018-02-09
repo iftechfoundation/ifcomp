@@ -59,4 +59,39 @@ is( $feedback->text, $FEEDBACK_TEXT, 'Feedback was recorded in the DB.' );
 is( $feedback->entry->id, 100, 'Feedback entry is correct.' );
 is( $feedback->judge->id, 1,   'Feedback judge is correct.' );
 
+# Test the admin view of current feedback.
+IFCompTest::log_in_as_curator($mech);
+
+$mech->get_ok('http://localhost/admin/feedback');
+
+$mech->content_like(qr/$FEEDBACK_TEXT/);
+
+# Test the author view of current feedback, and then post-closure feedback.
+{
+    # Before we start: re-assign the authorship of entry 100 to Alice Author.
+    my $entry = $schema->resultset('Entry')->find(100);
+    $entry->author(2);
+    $entry->update;
+
+    IFCompTest::log_in_as_author($mech);
+
+    $mech->get_ok('http://localhost/entry/feedback');
+    $mech->content_unlike( qr/$FEEDBACK_TEXT/,
+        "Alice can't see feedback during the comp." );
+
+    # Set the current comp to closed.
+    my $comp      = $schema->resultset('Comp')->current_comp;
+    my $this_year = DateTime->now->year;
+    foreach (
+        qw(intents_close entries_due judging_begins judging_ends comp_closes))
+    {
+        $comp->$_("$this_year-01-01");
+    }
+    $comp->update;
+
+    $mech->get_ok('http://localhost/entry/feedback');
+    $mech->content_like( qr/$FEEDBACK_TEXT/,
+        "Alice can see feedback after the comp closes." );
+}
+
 done_testing();

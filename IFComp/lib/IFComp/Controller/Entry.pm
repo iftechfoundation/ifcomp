@@ -22,6 +22,7 @@ use IFComp::Form::WithdrawEntry;
 use MIME::Types;
 use Imager;
 use File::Copy;
+use DateTime;
 
 use Readonly;
 Readonly my $MAX_ENTRIES      => 3;
@@ -205,6 +206,28 @@ sub transcript : Chained('fetch_entry') : PathPart('transcript') : Args(1) {
 
 }
 
+sub feedback : Chained('root') : PathPart('feedback') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $author_id = $c->user->get_object->id;
+
+    # Fetch a resultset of feedback for all the current user's entries,
+    # limited to competitions that have closed,
+    # ordered by comp-year (descending) and entry title.
+    my $dtf         = $c->model('IFCompDB')->storage->datetime_parser;
+    my $feedback_rs = $c->model('IFCompDB::Feedback')->search(
+        {   author      => $author_id,
+            comp_closes => { '<', $dtf->format_datetime( DateTime->now ) },
+            text        => { '!=', undef },
+        },
+        {   join => { entry => 'comp' },
+            order_by => [ 'comp.year desc', 'entry.title' ],
+        }
+    );
+
+    $c->stash( feedback_rs => $feedback_rs );
+}
+
 sub _build_form {
     return IFComp::Form::Entry->new;
 }
@@ -330,10 +353,7 @@ sub _process_withdrawal_form {
 
 Jason McIntosh
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 

@@ -51,10 +51,8 @@ Run a Catalyst Testserver for this application.
 
 Catalyst Contributors, see Catalyst.pm
 
-=head1 COPYRIGHT
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
+
 
 =cut
 

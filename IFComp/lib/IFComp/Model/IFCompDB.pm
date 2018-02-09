@@ -39,10 +39,7 @@ Catalyst::Helper::Model::DBIC::Schema - 0.62
 
 Jason McIntosh
 
-=head1 LICENSE
 
-This library is free software, you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 

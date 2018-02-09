@@ -77,5 +77,8 @@
 [% ELSE %]
 <p>The competition is not currently open to new entries.</p>
 [% END %]
-</h2>
+
+<h2>View your feedback</h2>
+<p><a href="[% c.uri_for_action( '/entry/feedback' ) %]">View all the feedback your entries have collected.</a></p>
+
 </div>

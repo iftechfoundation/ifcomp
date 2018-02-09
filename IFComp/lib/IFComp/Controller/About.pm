@@ -66,6 +66,15 @@ sub prizes : Path('prizes') : Args(0) {
     my ( $self, $c ) = @_;
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+
+    # If this year's comp hasn't started yet, let's show last year's prizes
+    # instead.
+    # (Unless there is no last year!)
+    if ( $current_comp->status eq 'not_begun' ) {
+        my $last_comp = $c->model('IFCompDB::Comp')->last_comp;
+        $current_comp = $last_comp if $last_comp;
+    }
+
     $c->stash->{current_comp} = $current_comp;
 
     my %prizes_in_category;
@@ -90,14 +99,17 @@ sub faq : Path('faq') : Args(0) {
 sub copyright : Path('copyright') : Args(0) {
 }
 
+sub transcripts : Path('transcripts') : Args(0) {
+}
+
 sub colossal_fund : Path('colossal') {
     my ( $self, $c, $year ) = @_;
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     $year ||= $current_comp->year;
 
-    my $cf      = $c->model('ColossalFund');
-    my $cf_year = $cf->year($year);
+    my $cf = $c->model('ColossalFund');
+    my $cf_year = $cf->year($year) || $cf->year( $year - 1 );
 
     unless ($cf_year) {
         $c->detach('/error_404');
@@ -117,10 +129,7 @@ sub colossal_fund : Path('colossal') {
 
 Jason McIntosh
 
-=head1 LICENSE
 
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 
