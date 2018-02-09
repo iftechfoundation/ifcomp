@@ -73,23 +73,27 @@ sub init_schema {
         [   [   'id',           'name',
                 'password_md5', 'salt_md5',
                 'email',        'email_is_public',
-                'url',          'verified'
+                'url',          'verified',
+                'forum_handle',
             ],
-            [   1, 'user1', 'f4384fd7e541f4279d003cf89fc40c33',
-                $SALT, 'nobody@example.com', 1, 'http://example.com/', 1
+            [   1,                                  'user1',
+                'f4384fd7e541f4279d003cf89fc40c33', $SALT,
+                'nobody@example.com',               1,
+                'http://example.com/',              1,
+                'user1_forum',
             ],
             [   2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
-                $SALT, 'author@example.com', 1, undef, 1
+                $SALT, 'author@example.com', 1, undef, 1, undef,
             ],
             [   3,
                 'Victor Votecounter',
                 'f4384fd7e541f4279d003cf89fc40c33',
-                $SALT, 'votecounter@example.com', 1, undef, 1
+                $SALT, 'votecounter@example.com', 1, undef, 1, undef,
             ],
             [   4,
                 'Connie Curator',
                 'f4384fd7e541f4279d003cf89fc40c33',
-                $SALT, 'curator@example.com', 1, undef, 1
+                $SALT, 'curator@example.com', 1, undef, 1, undef,
             ]
         ],
     );

@@ -312,12 +312,32 @@ sub emails {
             'entries.is_disqualified' => $is_disqualified,
         },
         {   join     => 'entries',
-            group_by => 'email',
-            order_by => 'email',
+            group_by => 'me.email',
+            order_by => 'me.email',
         },
     )->get_column('email')->all;
 
     return @emails;
+
+}
+
+sub forum_handles {
+    my $self            = shift;
+    my $is_disqualified = 0;
+
+    my @forum_handles =
+        $self->result_source->schema->resultset('User')->search(
+        {   'entries.comp'            => $self->id,
+            'entries.is_disqualified' => $is_disqualified,
+            'forum_handle'            => { '!=', undef },
+        },
+        {   join     => 'entries',
+            group_by => 'forum_handle',
+            order_by => 'forum_handle',
+        },
+        )->get_column('forum_handle')->all;
+
+    return @forum_handles;
 
 }
 
