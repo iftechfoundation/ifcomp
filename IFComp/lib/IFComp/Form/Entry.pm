@@ -174,7 +174,7 @@ sub validate_cover_upload {
         my $image = Imager->new( file => $field->value->tempname );
         unless ($image) {
             $field->add_error(
-                "This doesn't appear to be a valid image file.");
+                "This doesn't appear to be a valid PNG or JPEG file.");
         }
     }
 }
