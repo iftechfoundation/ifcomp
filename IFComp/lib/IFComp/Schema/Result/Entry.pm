@@ -1,4 +1,3 @@
-#<<<
 use utf8;
 package IFComp::Schema::Result::Entry;
 
@@ -14,15 +13,22 @@ IFComp::Schema::Result::Entry
 use strict;
 use warnings;
 
-
-=head1 BASE CLASS: L<IFComp::Schema::Result>
-
-=cut
-
 use Moose;
 use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
-extends 'IFComp::Schema::Result';
+extends 'DBIx::Class::Core';
+
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=back
+
+=cut
+
+__PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 TABLE: C<entry>
 
@@ -63,7 +69,7 @@ __PACKAGE__->table("entry");
 
   data_type: 'char'
   is_nullable: 1
-  size: 64
+  size: 128
 
 =head2 ifdb_id
 
@@ -121,65 +127,65 @@ __PACKAGE__->table("entry");
 
   data_type: 'decimal'
   is_nullable: 1
-  size: [6,2]
+  size: [4,2]
 
 =head2 standard_deviation
 
   data_type: 'decimal'
   is_nullable: 1
-  size: [5,2]
+  size: [3,2]
+
+=head2 votes_cast
+
+  data_type: 'integer'
+  is_nullable: 1
 
 =head2 total_1
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_2
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_3
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_4
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_5
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_6
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_7
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_8
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_9
 
-  data_type: 'tinyint'
+  data_type: 'integer'
   is_nullable: 1
 
 =head2 total_10
-
-  data_type: 'tinyint'
-  is_nullable: 1
-
-=head2 votes_cast
 
   data_type: 'integer'
   is_nullable: 1
@@ -194,6 +200,18 @@ __PACKAGE__->table("entry");
   data_type: 'enum'
   extra: {list => ["15 minutes or less","half an hour","one hour","an hour and a half","two hours","longer than two hours"]}
   is_nullable: 1
+
+=head2 style
+
+  data_type: 'enum'
+  extra: {list => ["parser","choice","other"]}
+  is_nullable: 1
+
+=head2 genre
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 64
 
 =cut
 
@@ -217,7 +235,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "author_pseudonym",
-  { data_type => "char", is_nullable => 1, size => 64 },
+  { data_type => "char", is_nullable => 1, size => 128 },
   "ifdb_id",
   { data_type => "char", is_nullable => 1, size => 16 },
   "comp",
@@ -246,30 +264,30 @@ __PACKAGE__->add_columns(
   "is_disqualified",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "average_score",
-  { data_type => "decimal", is_nullable => 1, size => [6, 2] },
+  { data_type => "decimal", is_nullable => 1, size => [4, 2] },
   "standard_deviation",
-  { data_type => "decimal", is_nullable => 1, size => [5, 2] },
-  "total_1",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_2",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_3",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_4",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_5",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_6",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_7",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_8",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_9",
-  { data_type => "tinyint", is_nullable => 1 },
-  "total_10",
-  { data_type => "tinyint", is_nullable => 1 },
+  { data_type => "decimal", is_nullable => 1, size => [3, 2] },
   "votes_cast",
+  { data_type => "integer", is_nullable => 1 },
+  "total_1",
+  { data_type => "integer", is_nullable => 1 },
+  "total_2",
+  { data_type => "integer", is_nullable => 1 },
+  "total_3",
+  { data_type => "integer", is_nullable => 1 },
+  "total_4",
+  { data_type => "integer", is_nullable => 1 },
+  "total_5",
+  { data_type => "integer", is_nullable => 1 },
+  "total_6",
+  { data_type => "integer", is_nullable => 1 },
+  "total_7",
+  { data_type => "integer", is_nullable => 1 },
+  "total_8",
+  { data_type => "integer", is_nullable => 1 },
+  "total_9",
+  { data_type => "integer", is_nullable => 1 },
+  "total_10",
   { data_type => "integer", is_nullable => 1 },
   "warning",
   { data_type => "text", is_nullable => 1 },
@@ -288,6 +306,14 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 1,
   },
+  "style",
+  {
+    data_type => "enum",
+    extra => { list => ["parser", "choice", "other"] },
+    is_nullable => 1,
+  },
+  "genre",
+  { data_type => "char", is_nullable => 1, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -408,10 +434,9 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-#>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GMzdSpKYkl5WuPdt7eAxEQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-06-30 16:08:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1LwIaqKI9MR4mCZSSrlxhQ
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;

@@ -26,12 +26,17 @@ has_field 'subtitle' => (
     maxlength => 128,
 );
 
+has_field 'genre' => (
+    type      => 'Text',
+    maxlength => 48,
+);
+
 has_field 'blurb' => ( type => 'TextArea', );
 
 has_field 'playtime' => (
     type         => 'Select',
     label        => 'Estimated play time',
-    empty_select => '',
+    empty_select => '( No estimate )',
     id           => 'playtime',
     options      => [
         [   '15 minutes or less',
@@ -45,6 +50,21 @@ has_field 'playtime' => (
 );
 
 has_field 'warning' => ( type => 'Text', );
+
+has_field 'style' => (
+    type         => 'Select',
+    label        => 'Interaction style',
+    empty_select => '-- Please choose an option --',
+    id           => 'style',
+    options      => [
+        {
+            value => 'parser',
+            label => 'Primarily parser-based',
+            },
+        { value => 'choice', label => 'Primarily choice-based', },
+        { value => 'other', label  => 'Neither (or both!) of the above', },
+    ],
+);
 
 has_field 'author_pseudonym' => (
     type => 'Text',
