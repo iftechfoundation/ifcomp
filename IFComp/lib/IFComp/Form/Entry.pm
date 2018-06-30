@@ -57,12 +57,11 @@ has_field 'style' => (
     empty_select => '-- Please choose an option --',
     id           => 'style',
     options      => [
-        {
-            value => 'parser',
+        {   value => 'parser',
             label => 'Primarily parser-based',
-            },
+        },
         { value => 'choice', label => 'Primarily choice-based', },
-        { value => 'other', label  => 'Neither (or both!) of the above', },
+        { value => 'other',  label => 'Neither (or both!) of the above', },
     ],
 );
 
