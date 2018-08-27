@@ -72,11 +72,11 @@
 
 <ul>
 <li><p>If you want to make a <a href="/about/if#parserif">parser-based game</a>, look at systems like <a href="http://inform7.com">Inform</a> or <a href="http://tads.org">TADS</a>. </p></li>
-<li><p><a href="/about/if#hypertextif">Hypertext</a> designs can use systems such as <a href="http://twinery.org">Twine</a> or <a href="http://undum.com">Undum</a>.</p></li>
+<li><p><a href="/about/if#hypertextif">Hypertext</a> designs can use systems such as <a href="http://twinery.org">Twine</a> or <a href="http://idmillington.github.io/undum/">Undum</a>.</p></li>
 <li><p>For <a href="/about/if#cyoa">choice-based</a> designs outside of hypertext, consider something like <a href="http://www.choiceofgames.com/make-your-own-games/choicescript-intro/">ChoiceScript</a> or <a href="http://www.inklestudios.com/inklewriter/">inklewriter</a>.</p></li>
 </ul>
 
-<p>For a more detailed summary of the relative strengths of several popular IF authoring tools, please consult <a href="http://www.getmewriting.com/interactive-fiction/interactive-fiction-authoring-tools-2/">this comparison by Matty Gibbons</a>.</p>
+<p>For a more detailed summary of the relative strengths of several popular IF authoring tools, please consult <a href="https://web.archive.org/web/20160910084459/http://www.getmewriting.com/interactive-fiction/interactive-fiction-authoring-tools-2/">this comparison by Matty Gibbons</a>.</p>
 
 <p>If you wish to submit a work that you created from scratch, please do! We only suggest you keep in mind that giving the player of an interactive story a good basic experience is <em>hard</em>, a software design problem at least as difficult as &#8211; and, in many circumstances, entirely separate from &#8211; the creative challenge of communicating an engaging story. Using an existing IF tool allows authors to worry less about the technology and focus more on the fiction.</p>
 
