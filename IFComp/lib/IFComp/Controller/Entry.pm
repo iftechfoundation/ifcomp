@@ -220,7 +220,7 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(0) {
             comp_closes => { '<', $dtf->format_datetime( DateTime->now ) },
             text        => { '!=', undef },
         },
-        {   join => { entry => 'comp' },
+        {   join     => { entry => 'comp' },
             order_by => [ 'comp.year desc', 'entry.title' ],
         }
     );
