@@ -1307,6 +1307,8 @@ sub _mangle_quixe_head {
             {"/static/interpreter/quixe/lib/glkote.min.js"};
     $play_html =~ s{"interpreter/quixe.min.js"}
             {"/static/interpreter/quixe/lib/quixe.min.js"};
+    $play_html =~ s{"interpreter/glkote.css"}
+            {"/static/interpreter/quixe/media/i7-glkote.css"};
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
