@@ -1018,7 +1018,16 @@ sub update_content_directory {
             && ( ( $content_directory->children )[0]->is_dir ) )
         {
             my $sole_dir = ( $content_directory->children )[0];
-            for my $child ( $sole_dir->children ) {
+
+            # Rename this directory to something unlikely, in case it has a
+            # child with the same name.
+            my $new_path =
+                Path::Class::Dir->new( $content_directory,
+                'IFCOMP-' . localtime,
+                );
+            move( $sole_dir => $new_path )
+                or die "Could not move $sole_dir to $new_path: $!";
+            for my $child ( $new_path->children ) {
                 my $destination;
                 if ( $child->is_dir ) {
                     $destination =
@@ -1028,9 +1037,10 @@ sub update_content_directory {
                     $destination =
                         $content_directory->file( $child->basename );
                 }
-                move( $child => $destination->stringify ) or die $!;
+                move( $child => $destination->stringify )
+                    or die "Could not move $child to $destination: $!";
             }
-            $sole_dir->rmtree;
+            $new_path->rmtree;
         }
     }
     else {
