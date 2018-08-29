@@ -66,6 +66,14 @@ the tables are created.
 
 It's a Catalyst application, and works as any other. See [the Catalyst documentation](https://metacpan.org/pod/Catalyst::Manual) for more details.
 
+The application's central control script is `ifcomp.psgi`, found at the top level within the `IFComp` directory. A basic way to launch the application from the command line, for the sake of local testing:
+
+```
+plackup ifcomp.psgi
+```
+
+Assuming that you have all the necessary prerequisites (including the `plackup` program!) installed and available to your local Perl, this should launch the web application and bind it to localhost, port 5000, and write out access and error logs to the terminal. See the `plackup` manpage for various command-line configuration options (such as changing the port to use, or having the script automatically reload when it detects code changes).
+
 ## Contributors
 
 The project maintainer is Jason McIntosh ([jmac@jmac.org](jmac@jmac.org)).
