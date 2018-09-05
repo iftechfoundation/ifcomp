@@ -320,13 +320,12 @@ sub emails {
 }
 
 sub forum_handles {
-    my $self            = shift;
-    my $is_disqualified = 0;
+    my $self = shift;
 
     my @forum_handles =
         $self->result_source->schema->resultset('User')->search(
         {   'entries.comp'            => $self->id,
-            'entries.is_disqualified' => $is_disqualified,
+            'entries.is_disqualified' => 0,
             'forum_handle'            => { '!=', undef },
         },
         {   join     => 'entries',
