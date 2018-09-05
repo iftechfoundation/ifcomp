@@ -206,7 +206,6 @@ __PACKAGE__->has_many(
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;
-use List::Util qw(none);
 
 enum 'CompStatus', [
     qw(
@@ -304,12 +303,11 @@ sub get_vote_counts_from_non_unique_ips {
 }
 
 sub emails {
-    my $self            = shift;
-    my $is_disqualified = 0;
+    my $self = shift;
 
     my @emails = $self->result_source->schema->resultset('User')->search(
         {   'entries.comp'            => $self->id,
-            'entries.is_disqualified' => $is_disqualified,
+            'entries.is_disqualified' => 0,
         },
         {   join     => 'entries',
             group_by => 'me.email',
@@ -335,7 +333,7 @@ sub forum_handles {
             group_by => 'forum_handle',
             order_by => 'forum_handle',
         },
-        )->get_column('forum_handle')->all;
+    )->get_column('forum_handle')->all;
 
     return @forum_handles;
 

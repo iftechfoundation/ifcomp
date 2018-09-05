@@ -27,7 +27,7 @@
 <div class="well">
 <p>
 [% FOREACH forum_handle IN forum_handles %]
-[% forum_handle %]<br />
+[% forum_handle | html %]<br />
 [% END %]
 </p> 
 </div>
