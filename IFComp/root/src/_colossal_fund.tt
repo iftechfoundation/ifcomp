@@ -1,6 +1,6 @@
 <h2 id="colossal-fund">The Colossal Fund</h2>
 <p>
-Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, providing a new cash prize pool for top IFComp entries! <a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">Learn more about it</a>, and <a href="/about/colossal/">see who has contributed this year</a>.
+Support IFComp and its authors through a charitable gift to <strong>The Colossal Fund</strong>, providing a new cash prize pool for top IFComp entries! <a href="http://blog.ifcomp.org/post/162478013529/announcing-the-ifcomp-colossal-fund">Learn more about it</a>, and <a href="/about/colossal/">see who [% IF cf.goal %]has[% END %] contributed [% IF cf.goal %]this[% ELSE %]last[% END %] year</a>.
 </p>
 
 [% IF cf.goal %]
@@ -27,5 +27,11 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 [% IF show_maximum_prize %]
 <p class="text-center">At the current donation level, the first-place IFComp entry will receive <strong>$[% cf.maximum_prize %]</strong> (assuming [% cf.estimated_entries %] entries).</p>
 [% END %]
+
+[% ELSE %]
+
+<p>
+This year's Colossal Fund drive will kick off in mid-August. Check back after then to learn how you can contribute!
+</p>
 
 [% END %]
