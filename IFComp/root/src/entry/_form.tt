@@ -162,8 +162,8 @@ If you don't specify an email address here, then this website will not display a
 <div class="panel-heading"><h2>Files</h2></div>
 <div class="panel-body">
 <h3>Game file (required)</h3>
-<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
-<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
+<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 75 MB in size.</p>
+<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 75 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
