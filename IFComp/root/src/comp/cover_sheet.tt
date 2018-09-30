@@ -41,9 +41,47 @@
             <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
         [% END %]
 
-        [% IF entry.playtime %]
-        	<p><strong>Estimated playtime: </strong> [% entry.playtime %]</p>
+        <p><em>
+        [% IF entry.genre %]
+        [% entry.genre.ucfirst | html %] •
         [% END %]
+
+        [% IF entry.playtime %]
+        [% entry.playtime.ucfirst %] •
+        [% END %]
+
+        [% IF entry.style == 'parser' %]
+        Parser-based •
+        [% ELSIF entry.style == 'choice' %]
+        Choice-based •
+        [% END %]
+
+        [% UNLESS entry.platform == 'other' %]
+        [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
+            [% IF entry.is_zcode %]
+            Z-code 
+            [% ELSE %]
+            Glulx 
+            [% END %]
+            [% IF entry.has_extra_content %]
+            • Download includes additional content
+            [% END %]
+        [% ELSIF entry.platform == 'website' %]
+            Web-based
+        [% ELSIF entry.platform == 'tads' %]
+            TADS 
+        [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
+            Quest 
+        [% ELSIF entry.platform == 'windows' %]
+            Windows executable
+        [% ELSIF entry.platform == 'alan' %]
+            Alan 
+        [% ELSIF entry.platform == 'adrift' %]
+            ADRIFT 
+        [% END %]
+        [% END %]
+        </em></p>
+
 
     </div>
     
