@@ -117,12 +117,16 @@ sub cover_sheet : Chained('fetch_comp') : PathPart('cover_sheet') : Args(0) {
         return;
     }
 
-    $c->stash->{entries} = [
+    my @entries =
         $c->stash->{comp}->entries->search(
             { is_disqualified => 0, },
             { order_by        => 'title', },
         )->all
-    ];
+    ;
+
+    @entries = sort { $a->sort_title cmp $b->sort_title } @entries;
+
+    $c->stash->{entries} = \@entries;
     $c->stash->{template} = 'comp/cover_sheet.tt';
 }
 
