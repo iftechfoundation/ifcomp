@@ -1,0 +1,30 @@
+<div class="container">
+<ol class="breadcrumb">
+  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+  <li class="active">Feedback</li>
+</ol>
+
+<h1>Your entries’ feedback</h1>
+
+<p>IFComp judges can leave anonymous feedback for your entries directly on the ballot. After each year’s judging period ends, feedback for any entries you have that year will show up here.</p>
+
+[% IF feedback_rs.count > 0 %]
+
+    [% current_entry_id = -1 %]
+    
+    [% WHILE (feedback = feedback_rs.next) %]
+        [% IF feedback.entry.id != current_entry_id %]
+            [% current_entry_id = feedback.entry.id %]
+            <h2>[% feedback.entry.title | html %]</h2>
+        [% END %]
+        [% feedback.text | html | html_para %]
+        <hr />
+    [% END %]
+
+[% ELSE %]
+
+<p>It looks like your entries don’t yet have any feedback ready for display.</p>
+
+[% END %]
+
+</div>

@@ -146,7 +146,7 @@ $mech->submit_form_ok(
     },
 );
 $mech->content_like(
-    qr/doesn't appear to be a valid image/,
+    qr/doesn't appear to be a valid PNG or JPEG/,
     "Pushing back on a bad-image upload.",
 );
 

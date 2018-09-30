@@ -8,6 +8,7 @@ use warnings;
 use strict;
 use FindBin;
 use Path::Class;
+use Try::Tiny;
 
 use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
@@ -20,5 +21,10 @@ my $current_comp = $schema->resultset( 'Comp' )->current_comp;
 for my $entry ( $current_comp->entries ) {
     next unless $entry->main_file;
     print "Updating " . $entry->title . " by " . $entry->author->name . " (" . $entry->platform .")...\n";
-    $entry->update_content_directory;
+    try {
+        $entry->update_content_directory;
+    }
+    catch {
+        print "GOT ERROR: $_\n";
+    };
 }

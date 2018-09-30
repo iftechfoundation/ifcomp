@@ -302,5 +302,41 @@ sub get_vote_counts_from_non_unique_ips {
     return $data;
 }
 
+sub emails {
+    my $self = shift;
+
+    my @emails = $self->result_source->schema->resultset('User')->search(
+        {   'entries.comp'            => $self->id,
+            'entries.is_disqualified' => 0,
+        },
+        {   join     => 'entries',
+            group_by => 'me.email',
+            order_by => 'me.email',
+        },
+    )->get_column('email')->all;
+
+    return @emails;
+
+}
+
+sub forum_handles {
+    my $self = shift;
+
+    my @forum_handles =
+        $self->result_source->schema->resultset('User')->search(
+        {   'entries.comp'            => $self->id,
+            'entries.is_disqualified' => 0,
+            'forum_handle'            => { '!=', undef },
+        },
+        {   join     => 'entries',
+            group_by => 'forum_handle',
+            order_by => 'forum_handle',
+        },
+    )->get_column('forum_handle')->all;
+
+    return @forum_handles;
+
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

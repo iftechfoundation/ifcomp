@@ -1,0 +1,38 @@
+<div class="container">
+<h1>Entrant contact info: [% current_comp.year %]</h1>
+
+<h2>Email addresses</h2>
+<p>This is a simple list of all email addresses for all authors with at least one non-disqualified entry registered with the [% current_comp.year %] IFComp.</p>
+
+<p>You can use this list to e.g. paste into mailing-list software, or just to build a massive bcc: field or whatever if that's your thing.</p>
+[% IF emails.size > 0 %]
+<div class="well">
+<p>
+[% FOREACH email IN emails %]
+[% email %]<br />
+[% END %]
+</p> 
+</div>
+[% ELSE %]
+<p>...actually, it looks like we don't have any email addresses right now.</p>
+[% END %]
+
+<h2>Forum handles</h2>
+
+<p>This is a simple list of forum handles addresses for all authors with at least one non-disqualified entry registered with the [% current_comp.year %] IFComp.</p>
+
+<p>Note that it will likely be shorter than the email-address list, because not all authors will set a forum handle for themselves.</p>
+
+[% IF forum_handles.size > 0 %]
+<div class="well">
+<p>
+[% FOREACH forum_handle IN forum_handles %]
+[% forum_handle | html %]<br />
+[% END %]
+</p> 
+</div>
+[% ELSE %]
+<p>...actually, it looks like we don't have any forum handles right now.</p>
+[% END %]
+
+</div>

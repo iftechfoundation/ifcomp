@@ -2,17 +2,38 @@
 <div class="row">
 <div class="col-sm-12">
 <div class="panel panel-default">
-<div class="panel-heading"><h2>Title and subtitle</h2></div>
+<div class="panel-heading"><h2>Basic entry information</h2></div>
 <div class="panel-body">
 [% IF ( entry.comp.status == 'accepting_intents' ) 
       || ( entry.comp.status == 'closed_to_intents' )
 %]
+    <p>Your game must have a title.</p>
     [% form.field('title').render %]
 [% ELSE %]
 <p><strong>Title:</strong> [% entry.title %] <em>(Contact the organizers if you need to change this)</em></p>
 [% END %]
 <p>Your game can optionally have a subtitle, which this website will display in certain contexts, such as <a href="/comp" target="_blank">the full results pages</a>. The majority of competition entries don't have subtitles, but some use them for evocative effect.</p>
 [% form.field('subtitle').render %]
+
+[% UNLESS entry.id %]
+    <p>Your game must not have had any playable public release prior to the first day of IFComp judging this year.</p>
+<div class="form-group">
+<label class="control-label" for="entry.unreleased">Has this entry had any public playable release before IFComp this year?</label>
+<div>
+<select name="entry.unreleased" id="unreleased" class="form-control">
+<option value="1" id="unreleased.1">No, this entry has not had a prior public release, and I do not plan on releasing it to the public prior to IFComp this year.</option>
+<option value="0" id="unreleased.2">Yes, this entry has already had a prior public release, or I plan on a public release between now and the start of IFComp judging.</option>
+</select>
+<div id="released-game-warning" class="alert alert-warning">
+<p><strong>Please note:</strong> According to <a href="https://ifcomp.org/rules/#authors">author rule 3</a>, this entry would not qualify for IFComp. If you enter it anyway, and we find that it has seen a public release before the start of the judging period, then we may disqualify it.</p>
+
+<p>Please refer to that rule for more details, and <a href="mailto:ifcomp@ifcomp.org">contact the organizers</a> if you have any further questions.</p>
+</div>
+
+</div>
+</div>
+[% END %]
+
 [% UNLESS entry.id %]
 <p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the Sept. 28 deadline.</p>
 [% form.field('submit').render %]
@@ -31,6 +52,7 @@
 <p>Your blurb cannot contain HTML or other markup, but we'll present double-carriage-returns as paragraph breaks.</p>
 
 [% form.field('blurb').render %]
+
 <p>The cover art can be an image file in PNG or JPEG format, and can be up to 10 MB in size.</p>
 [% IF entry.id && entry.cover_file %]
 <div class="row">        <div class="col-xs-4">
@@ -50,6 +72,29 @@ Delete cover art file
 <p>This entry has no cover image attached yet.</p>
 [% END %]
 [% form.field('cover_upload').render %]
+
+
+
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Genre and style</h2></div>
+<div class="panel-body">
+
+<div class="row">
+<div class="col-xs-6">
+<p>To further set judges' expectations of what they'll find within this work, you may optionally wish to supply a very brief genre description of your work (e.g. "fantasy", "romance", "experimental", and so on). If you'd rather not, just leave this blank.
+
+[% form.field('genre').render %]
+</div>
+
+<div class="col-xs-6">
+<p>Please note whether this game's interaction style is <em>primarily</em> parser-based, choice-based, or neither. (See <a href="https://ifcomp.org/about/if">our About IF page</a> for examples of what we mean by "parser" and "choice".)</p>
+
+[% form.field('style').render %]
+</div>
+</div>
 
 </div>
 </div>
@@ -117,8 +162,8 @@ If you don't specify an email address here, then this website will not display a
 <div class="panel-heading"><h2>Files</h2></div>
 <div class="panel-body">
 <h3>Game file (required)</h3>
-<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 25 MB in size.</p>
-<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 25 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
+<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 75 MB in size.</p>
+<p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 75 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]
 <p><strong>Current main file:</strong> [% INCLUDE stat_summary file=entry.main_file %]</p>
@@ -179,6 +224,7 @@ var warning_div = $( '#long-game-warning' );
 var playtime    = $( '#playtime' );
 
 update_playtime_warning();
+update_unreleased_warning();
 
 playtime.change( function() { 
     update_playtime_warning() 
@@ -192,5 +238,21 @@ function update_playtime_warning() {
         warning_div.hide();
     }
 }
+
+$( '#unreleased').change( function() {
+    update_unreleased_warning()
+} );
+
+function update_unreleased_warning() {
+    if ( $( '#unreleased').val() == 0 ) {
+        $( '#released-game-warning' ).show();        
+        $(':input[type="submit"]').prop('disabled', true);
+    }
+    else {
+        $( '#released-game-warning' ).hide();
+        $(':input[type="submit"]').prop('disabled', false);
+    }
+}
+
 </script>
 [% END %]

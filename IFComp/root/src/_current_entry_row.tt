@@ -16,12 +16,17 @@
             <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
         [% END %]
 
+        [% IF entry.genre %]
+        	<p><strong>Genre: </strong> [% entry.genre | html %]</p>
+        [% END %]
+
         [% IF entry.playtime %]
         	<p><strong>Estimated playtime: </strong> [% entry.playtime %]</p>
         [% END %]
 
+
         [% UNLESS entry.platform == 'other' %]
-        <p><em><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe2' %]
+        <p><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             Z-code [% INCLUDE guide_link %]
             [% ELSE %]
@@ -43,7 +48,7 @@
         [% ELSIF entry.platform == 'adrift' %]
             ADRIFT [% INCLUDE guide_link %]
         [% END %]
-        </em></p>
+        </p>
         [% END %]
     
         [% IF entry.latest_update %]

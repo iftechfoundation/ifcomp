@@ -9,6 +9,7 @@
      <ul>
         [% IF c.check_user_roles( 'votecounter' ) %]
         <li><a href="[% c.uri_for('/admin/voting/') %]">Voting</a></li>
+        <li><a href="[% c.uri_for('/admin/email/') %]">Author email-address and forum-handle lists</a></li>
         [% END %]
         [% IF c.check_user_roles( 'curator' ) %]
         <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>

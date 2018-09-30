@@ -37,4 +37,10 @@ $mech->title_like( $VOTING_TITLE_REGEX,
     'Admin-access attempt with an appropriate role worked just fine',
 );
 
+note('Test email lists');
+IFCompTest::log_in_as_votecounter($mech);
+$mech->get_ok('http://localhost/admin/email');
+$mech->content_like( qr/nobody\@example.com/, 'Email list looks OK', );
+$mech->content_like( qr/user1_forum/,         'Forum-handle list looks OK', );
+
 done_testing();
