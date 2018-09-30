@@ -32,7 +32,7 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
         || $current_comp->status eq 'processing_votes'
         || $c->check_user_roles('curator') )
     {
-        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        $c->detach('/error_403');
         return;
     }
 
@@ -71,7 +71,8 @@ sub vote : Chained('root') : PathPart('vote') : Args(0) {
     my ( $self, $c ) = @_;
 
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        $c->res->redirect( $c->uri_for_action( '/error_403' ) );
+        # $c->detach( '/error_403' );
     }
 
     my %rating_for_entry;

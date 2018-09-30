@@ -1,0 +1,8 @@
+[% meta.title = 'IFComp - Unauthorised' %]
+<div class="container">
+    <h1>Oh dear - 403</h1>
+    <div class="alert alert-warning">
+        <p><strong>You do not have permission to access that page. Please try one of the menus above, or <a href="/">return to the IFComp front page</a>.
+        </p>
+    </div>
+</div>
