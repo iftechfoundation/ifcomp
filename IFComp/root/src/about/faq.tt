@@ -157,6 +157,21 @@
 </div>
 </div>
 
+<div class="panel panel-default" id="author-updates">
+  <div class="panel-heading">
+    <h3 class="panel-title">How do I make a "Play Online" button appear for my entry?</h3>
+  </div>
+  <div class="panel-body">
+<p>The "Play Online" button appears only for entries whose uploaded game-file meets any one of these criteria:</p>
+<ul>
+<li>It is an Inform-generated story file (e.g. a <code>.gblorb</code> or a <code>.z8</code>).</li>
+<li>It is an HTML file.</li>
+<li>It is a zip archive with exactly one HTML file at its top level.</li>
+<li>is a zip archive with more than one HTML file at its top level, and one of these files is named <code>index.html</code>.</li>
+</ul>
+</div>
+</div>
+
 <div class="page-header">
 <h1 id="judginggames">Judging games</h1>
 </div>
