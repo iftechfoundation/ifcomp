@@ -62,8 +62,12 @@ is( $res->code, 403, 'Admin page generates 403 when user not logged in' );
 set_phase_after( 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
 is( $res->code, 403, 'Ballot page generates 403 before judging begins' );
+
 $res = $mech->get( 'http://localhost/ballot/vote' );
-is( $res->code, 403, 'Vote page fails before judging begins' );
+is( $res->code, 403, '**** Attempt 1 - expecting 403' );
+
+$res = $mech->get( 'http://localhost/ballot/vote' );
+is( $res->code, 403, '**** Attempt 2 - expecting 403 again' );
 
 set_phase_after( 'judging_begins' );
 $res = $mech->get( 'http://localhost/ballot' );
@@ -71,14 +75,8 @@ is( $res->code, 200, 'Ballot visible when not logged in' );
 $res = $mech->get( 'http://localhost/ballot/vote' );
 is( $res->code, 200, 'Vote page message when not logged in' );
 
-# set_phase_after( 'comp_closes' );
-# $res = $mech->get( 'http://localhost/ballot/vote' );
-# is( $res->code, 403, 'No ballot access when voting is over' );
-
 
 IFCompTest::log_in_as_judge($mech);
-
-
 set_phase_after( 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
 is( $res->code, 403, 'Judges cannot judge before judging period starts' );
@@ -89,8 +87,12 @@ is( $res->code, 200, 'Ballot visible to judges' );
 $res = $mech->get( 'http://localhost/admin/' );
 is( $res->code, 403, 'Judges cannot access admin page' );
 
-# $res = $mech->get( 'http://localhost/play/101' );
-# is( $res->code, 200, 'Judges can access games to play' );
+$res = $mech->get( 'http://localhost/play/100/cover' );
+is( $res->code, 200, 'Judges can access games to play' );
+
+set_phase_after('judging_ends');
+$res = $mech->get('http://localhost/ballot/vote');
+is( $res->code, 403, 'Judges cannot vote after judging ends' );
 
 IFCompTest::log_in_as_votecounter($mech);
 

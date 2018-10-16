@@ -71,8 +71,7 @@ sub vote : Chained('root') : PathPart('vote') : Args(0) {
     my ( $self, $c ) = @_;
 
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for_action( '/error_403' ) );
-        # $c->detach( '/error_403' );
+        $c->detach( '/error_403' );
     }
 
     my %rating_for_entry;
