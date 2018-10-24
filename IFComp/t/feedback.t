@@ -20,17 +20,7 @@ ok( my $mech =
     'Created mech object'
 );
 
-$mech->get_ok('http://localhost/ballot/feedback/100');
-$mech->content_like(
-    qr/Please log in below/,
-    'Feedback attempt without a login got us redirected',
-);
-
 IFCompTest::log_in_as_judge($mech);
-
-$mech->get('http://localhost/ballot/feedback/100');
-is( $mech->response->code, '404',
-    'Locked out of feedback when judging not active' );
 
 # Change the phase of the current test-competition to open-for-judging.
 use DateTime;

@@ -74,6 +74,19 @@ sub error_404 : Private {
     $c->stash( template => 'error_404.tt' );
 }
 
+=head2 error_403
+
+Sends a 403 Forbidden response, and displays a stern permission denied page
+
+=cut
+
+sub error_403 : Private {
+    my ( $self, $c ) = @_;
+
+    $c->response->status(403);
+    $c->stash( template => 'error_403.tt' );
+}
+
 =head1 AUTHOR
 
 Jason McIntosh

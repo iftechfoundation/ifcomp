@@ -32,6 +32,11 @@ extends 'Catalyst';
 
 our $VERSION = '0.01';
 
+sub cache_only_success {
+    my $c = shift;
+    return $c->res->status == 200;
+}
+
 # Configure the application.
 #
 # Note that settings in ifcomp.conf (or other external
@@ -87,6 +92,7 @@ __PACKAGE__->config(
             '/rules/?',  '/comp/.+', '/history/?', '/about/.*',
             '/ballot.*', '/',
         ],
+        cache_finalize_hook => 'cache_only_success',
     },
 );
 

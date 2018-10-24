@@ -17,6 +17,7 @@ ok( my $mech =
     'Created mech object'
 );
 
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $mech->get_ok('http://localhost/ballot');
 
 done_testing();
