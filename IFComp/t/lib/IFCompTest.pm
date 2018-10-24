@@ -218,29 +218,29 @@ sub set_phase_after {
     my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
     my $future_ymd = DateTime->now->add( days => 2 )->ymd;
 
-    my $hit = 0;
+    my $hit    = 0;
     my @before = ();
-    my @after = ();
-    foreach ( @phases ) {
-        if ( $hit ) {
+    my @after  = ();
+    foreach (@phases) {
+        if ($hit) {
             push( @after, $_ );
-        } else {
+        }
+        else {
             push( @before, $_ );
         }
         $hit = 1 if ( $_ eq $phase );
     }
-    shift(@before); # remove the 'announcement' pseudo-phase
+    shift(@before);    # remove the 'announcement' pseudo-phase
 
-    my $comp = $schema->resultset( 'Comp' )->find( 2 );
-    foreach ( @before ) {
-        $comp->$_( $past_ymd );
+    my $comp = $schema->resultset('Comp')->find(2);
+    foreach (@before) {
+        $comp->$_($past_ymd);
     }
-    foreach ( @after ) {
-        $comp->$_( $future_ymd );
+    foreach (@after) {
+        $comp->$_($future_ymd);
     }
     $comp->update;
 }
-
 
 1;
 
