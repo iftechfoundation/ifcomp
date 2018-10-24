@@ -13,39 +13,6 @@ use IFCompTest;
 
 my $schema = IFCompTest->init_schema();
 
-#
-# Set the comp to a specific phase
-#
-sub set_phase_after($) {
-    use DateTime;
-    my ( $phase ) = @_;
-    my @phases = qw(announcement intents_open intents_close entries_due
-        judging_begins judging_ends comp_closes);
-    my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
-    my $future_ymd = DateTime->now->add( days => 2 )->ymd;
-
-    my $hit = 0;
-    my @before = ();
-    my @after = ();
-    foreach ( @phases ) {
-        if ( $hit ) {
-            push( @after, $_ );
-        } else {
-            push( @before, $_ );
-        }
-        $hit = 1 if ( $_ eq $phase );
-    }
-    shift(@before); # remove the 'announcement' pseudo-phase
-
-    my $comp = $schema->resultset( 'Comp' )->find( 2 );
-    foreach ( @before ) {
-        $comp->$_( $past_ymd );
-    }
-    foreach ( @after ) {
-        $comp->$_( $future_ymd );
-    }
-    $comp->update;
-}
 
 ok( my $mech =
         Test::WWW::Mechanize::Catalyst->new( catalyst_app => 'IFComp' ),
@@ -59,29 +26,38 @@ is( $res->code, 404, 'Invalid page gets us a 404 code');
 $res = $mech->get( 'http://localhost/admin/' );
 is( $res->code, 403, 'Admin page generates 403 when user not logged in' );
 
-set_phase_after( 'announcement' );
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
-is( $res->code, 403, 'Ballot page generates 403 before judging begins' );
+is( $res->code, 200, 'Ballot page provides redirect before judging begins' );
 
 $res = $mech->get( 'http://localhost/ballot/vote' );
-is( $res->code, 403, '**** Attempt 1 - expecting 403' );
+is( $res->code, 403, 'vote request returns 403 if not logged in' );
 
 $res = $mech->get( 'http://localhost/ballot/vote' );
-is( $res->code, 403, '**** Attempt 2 - expecting 403 again' );
+is( $res->code, 403, 'second vote request still returns 403' );
 
-set_phase_after( 'judging_begins' );
+IFCompTest::set_phase_after( $schema, 'judging_begins' );
 $res = $mech->get( 'http://localhost/ballot' );
-is( $res->code, 200, 'Ballot visible when not logged in' );
+is( $res->code, 302, 'Ballot redirects when not logged in' );
 $res = $mech->get( 'http://localhost/ballot/vote' );
-is( $res->code, 200, 'Vote page message when not logged in' );
+is( $res->code, 302, 'Vote page redirects when not logged in' );
+$res = $mech->get('http://localhost/ballot/feedback/100');
+is( $res->code, 200, 'Feedback attempt without a login redirects to comp' );
+$mech->title_unlike( qr/Admin - Voting/,
+    'Admin-access attempt without a login got us redirected');
+$mech->content_like( qr/Please log in below/,
+    'Feedback attempt without a login got us redirected' );
+
 
 
 IFCompTest::log_in_as_judge($mech);
-set_phase_after( 'announcement' );
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
 is( $res->code, 403, 'Judges cannot judge before judging period starts' );
+$res = $mech->get('http://localhost/ballot/feedback/100');
+is( $res->code, 403, 'Locked out of feedback when judging not active' );
 
-set_phase_after('judging_begins');
+IFCompTest::set_phase_after( $schema,'judging_begins');
 $res = $mech->get('http://localhost/ballot');
 is( $res->code, 200, 'Ballot visible to judges' );
 $res = $mech->get( 'http://localhost/admin/' );
@@ -90,13 +66,13 @@ is( $res->code, 403, 'Judges cannot access admin page' );
 $res = $mech->get( 'http://localhost/play/100/cover' );
 is( $res->code, 200, 'Judges can access games to play' );
 
-set_phase_after('judging_ends');
+IFCompTest::set_phase_after( $schema,'judging_ends');
 $res = $mech->get('http://localhost/ballot/vote');
 is( $res->code, 403, 'Judges cannot vote after judging ends' );
 
 IFCompTest::log_in_as_votecounter($mech);
 
-set_phase_after( 'announcement' );
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
 is( $res->code, 403, 'Vote counter cannot access ballot before judging' );
 $res = $mech->get( 'http://localhost/admin/' );
@@ -107,7 +83,7 @@ is( $res->code, 200, 'Vote results page accessible by curators' );
 
 IFCompTest::log_in_as_author($mech);
 
-set_phase_after( 'announcement' );
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get( 'http://localhost/admin/' );
 is( $res->code, 403, 'Authors cannot access admin page' );
 $res = $mech->get( 'http://localhost/admin/feedback' );
@@ -119,7 +95,7 @@ is( $res->code, 403, 'Authors cannot access voting page' );
 
 IFCompTest::log_in_as_curator($mech);
 
-set_phase_after( 'announcement' );
+IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get( 'http://localhost/ballot' );
 is( $res->code, 200, 'Curator can access ballots before judging period' );
 $res = $mech->get( 'http://localhost/admin/' );

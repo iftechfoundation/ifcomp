@@ -207,6 +207,41 @@ sub process_test_entries {
     }
 }
 
+#
+# Set the comp to a specific phase
+#
+sub set_phase_after {
+    use DateTime;
+    my ( $schema, $phase ) = @_;
+    my @phases = qw(announcement intents_open intents_close entries_due
+        judging_begins judging_ends comp_closes);
+    my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
+    my $future_ymd = DateTime->now->add( days => 2 )->ymd;
+
+    my $hit = 0;
+    my @before = ();
+    my @after = ();
+    foreach ( @phases ) {
+        if ( $hit ) {
+            push( @after, $_ );
+        } else {
+            push( @before, $_ );
+        }
+        $hit = 1 if ( $_ eq $phase );
+    }
+    shift(@before); # remove the 'announcement' pseudo-phase
+
+    my $comp = $schema->resultset( 'Comp' )->find( 2 );
+    foreach ( @before ) {
+        $comp->$_( $past_ymd );
+    }
+    foreach ( @after ) {
+        $comp->$_( $future_ymd );
+    }
+    $comp->update;
+}
+
+
 1;
 
 __END__

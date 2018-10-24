@@ -28,6 +28,11 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     $c->stash->{current_comp} = $current_comp;
 
+    unless ( $c->user ) {
+        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        return;
+    }
+
     unless ( $current_comp->status eq 'open_for_judging'
         || $current_comp->status eq 'processing_votes'
         || $c->check_user_roles('curator') )
@@ -108,7 +113,7 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         && ( $entry->is_qualified )
         && ( $comp->status eq 'open_for_judging' ) )
     {
-        $c->forward('/error_404');
+        $c->detach('/error_403');
         return;
     }
 
