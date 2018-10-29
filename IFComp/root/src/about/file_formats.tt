@@ -61,9 +61,13 @@
 
 <h3 id="adrift">ADRIFT games</h3>
 
-<p><strong>File extension:</strong> <code>.blorb</code></p>
+<p><strong>File extensions:</strong> <code>.taf</code>, <code>.blorb</code></p>
 
-<p>Games made with <a href="http://www.adrift.co">ADRIFT</a> also have a "blorb" file extension, just like <a href="#inform">games made with Inform</a>.</p>
+<p><a href="http://www.adrift.co">ADRIFT</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.adrift.co/files/ADRIFT5r.zip">a separate interpreter ("runner") program</a>, available for Windows.</p>
+
+<p>You can also play ADRIFT games on Android using the <a href="https://play.google.com/store/apps/details?id=com.luxlunae.fabularium">Fabularium</a> interpreter.</p>
+
+<p>Note that games made with ADRIFT can have a "blorb" file extension, just like <a href="#inform">games made with Inform</a>, but they don't work with Lectrote, Gargoyle, or other popular IF interpreters.</p>
 
 <p>(Confused? <a href="http://www.eblong.com/zarf/blorb/">Blorb is an open file format for IF games.</a> Of IF-creation platforms that output blorb files, Inform is far and away the most commonly used, but other platforms -- such as ADRIFT -- can use this format as well.)</p>
 
