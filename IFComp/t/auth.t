@@ -27,7 +27,7 @@ is( $res->code, 403, 'Admin page generates 403 when user not logged in' );
 
 IFCompTest::set_phase_after( $schema, 'announcement' );
 $res = $mech->get('http://localhost/ballot');
-is( $res->code, 200, 'Ballot page provides redirect before judging begins' );
+is( $res->code, 403, 'Ballot page generates 403 before judging begins' );
 
 $res = $mech->get('http://localhost/ballot/vote');
 is( $res->code, 403, 'vote request returns 403 if not logged in' );
@@ -37,9 +37,9 @@ is( $res->code, 403, 'second vote request still returns 403' );
 
 IFCompTest::set_phase_after( $schema, 'judging_begins' );
 $res = $mech->get('http://localhost/ballot');
-is( $res->code, 302, 'Ballot redirects when not logged in' );
+is( $res->code, 200, 'Ballot loads when not logged in' );
 $res = $mech->get('http://localhost/ballot/vote');
-is( $res->code, 302, 'Vote page redirects when not logged in' );
+is( $res->code, 200, 'Vote page loads when not logged in' );
 $res = $mech->get('http://localhost/ballot/feedback/100');
 is( $res->code, 200, 'Feedback attempt without a login redirects to comp' );
 $mech->title_unlike( qr/Admin - Voting/,
