@@ -183,6 +183,7 @@ sub transcript : Chained('fetch_entry') : PathPart('transcript') : Args(1) {
 
     my $transcript_rs = $c->model('IFCompDB::Transcript')->search(
         {   session => $session_id,
+            entry   => $c->stash->{entry}->id,
             window  => 0,
         },
         { order_by => 'timestamp', },
