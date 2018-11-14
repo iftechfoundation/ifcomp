@@ -57,6 +57,8 @@ $mech->submit_form_ok(
 my $entry = $schema->resultset('Entry')->find($entry_id);
 is( $entry->title, 'Fun Game', 'New entry is in the DB.' );
 
+my $authid = $entry->author->id;
+
 ######
 # Modify entry, adding files
 ######
@@ -149,5 +151,73 @@ $mech->content_like(
     qr/doesn't appear to be a valid PNG or JPEG/,
     "Pushing back on a bad-image upload.",
 );
+
+# -----
+my $count = $schema->storage->dbh->
+        selectrow_array('select count(*) from entry where author=' . $authid);
+is( $count, 1, 'One entry is already present in the db' );
+
+$entry_id = $schema->storage->dbh->selectrow_array('select max(id) from entry');
+
+$mech->get_ok('http://localhost/entry/create');
+$entry_id = $entry_id + 1;
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields      => { 'entry.title' => 'Fun Game 2: The Funining', },
+    },
+    'Submitted a second declaration'
+);
+
+$count = $schema->storage->dbh->
+        selectrow_array('select count(*) from entry where author=' . $authid);
+is( $count, 2, 'A second entry was successfully added to the db' );
+
+$mech->get_ok('http://localhost/entry/create');
+$mech->content_like( qr/Enter a game into/, 'Still allowed to enter a third' );
+
+ok( my $mech2 =
+        Test::WWW::Mechanize::Catalyst->new( catalyst_app => 'IFComp' ),
+    'Created mech object'
+);
+IFCompTest::log_in_as_author($mech2);
+$mech2->get_ok('http://localhost/entry/create');
+$mech2->content_like( qr/Enter a game into/, 'Able to open second tab');
+
+$entry_id = $entry_id + 1;
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields      => { 'entry.title' => 'Fun Game 3: Another Bad Habit', },
+    },
+    'Submitted a third declaration'
+);
+
+$count = $schema->storage->dbh->
+        selectrow_array('select count(*) from entry where author=' . $authid);
+is( $count, 3, 'A third and final entry was added to the db' );
+
+$mech->get_ok("http://localhost/entry/$entry_id/update");
+$mech->content_like(qr/Another Bad Habit/, 'Can see page for 3rd game' );
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields      => { 'entry.subtitle' => 'Silly Subtitle' }
+    },
+    'Updated 3rd entry'
+);
+$mech->get_ok("http://localhost/entry/$entry_id/update");
+$mech->content_like(qr/Silly Subtitle/, 'Subtitle successfully updated' );
+
+$mech->get_ok('http://localhost/entry/create');
+$mech->content_like(qr/You can't declare any further entries this year/,
+    'No more entries allowed beyond the third');
+
+$entry_id = $entry_id + 1;
+my $res = $mech2->submit_form(
+        form_number => 2,
+        fields      => { 'entry.title' => 'Evil Game Overcount', },
+);
+
+$count = $schema->storage->dbh->
+        selectrow_array('select count(*) from entry where author=' . $authid);
+is( $count, 3, 'A fourth entry was not added to the db' );
 
 done_testing();
