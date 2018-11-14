@@ -27,6 +27,8 @@ use DateTime;
 use Readonly;
 Readonly my $MAX_ENTRIES      => 3;
 Readonly my $MAX_COVER_HEIGHT => 350;
+Readonly my $IS_UPDATE        => 1;
+Readonly my $IS_CREATE        => 2;
 
 has 'form' => (
     is         => 'ro',
@@ -110,7 +112,7 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
 
     $c->stash( entry =>
             $c->model('IFCompDB::Entry')->new_result( \%new_result_args ) );
-    if ( $self->_process_form($c) ) {
+    if ( $self->_process_form($c, $IS_CREATE) ) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 }
@@ -126,7 +128,7 @@ sub update : Chained('fetch_entry') : PathPart('update') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
-    $self->_process_form($c);
+    $self->_process_form($c, $IS_UPDATE);
 
     $self->_process_withdrawal_form($c);
 }
@@ -238,7 +240,18 @@ sub _build_withdrawal_form {
 }
 
 sub _process_form {
-    my ( $self, $c ) = @_;
+    my ( $self, $c, $action ) = @_;
+
+    my $entcount = $c->model('IFCompDB::Entry')->search(
+            {   author => $c->user->get_object->id,
+                comp   => $c->stash->{current_comp}->id,
+            }
+        )->count;
+    my $entry = $c->stash->{entry};
+
+    if ($action == $IS_CREATE && $entcount >= $MAX_ENTRIES) {
+        return 0;
+    }
 
     $c->stash(
         form     => $self->form,
@@ -253,7 +266,8 @@ sub _process_form {
         }
     }
 
-    my $entry = $c->stash->{entry};
+
+
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
 
         # Handle files
