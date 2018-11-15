@@ -112,7 +112,7 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
 
     $c->stash( entry =>
             $c->model('IFCompDB::Entry')->new_result( \%new_result_args ) );
-    if ( $self->_process_form($c, $IS_CREATE) ) {
+    if ( $self->_process_form( $c, $IS_CREATE ) ) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 }
@@ -128,7 +128,7 @@ sub update : Chained('fetch_entry') : PathPart('update') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
-    $self->_process_form($c, $IS_UPDATE);
+    $self->_process_form( $c, $IS_UPDATE );
 
     $self->_process_withdrawal_form($c);
 }
@@ -243,13 +243,13 @@ sub _process_form {
     my ( $self, $c, $action ) = @_;
 
     my $entcount = $c->model('IFCompDB::Entry')->search(
-            {   author => $c->user->get_object->id,
-                comp   => $c->stash->{current_comp}->id,
-            }
-        )->count;
+        {   author => $c->user->get_object->id,
+            comp   => $c->stash->{current_comp}->id,
+        }
+    )->count;
     my $entry = $c->stash->{entry};
 
-    if ($action == $IS_CREATE && $entcount >= $MAX_ENTRIES) {
+    if ( $action == $IS_CREATE && $entcount >= $MAX_ENTRIES ) {
         return 0;
     }
 
@@ -265,8 +265,6 @@ sub _process_form {
             $params_ref->{$param} = $c->req->upload($param);
         }
     }
-
-
 
     if ( $self->form->process( item => $entry, params => $params_ref, ) ) {
 
