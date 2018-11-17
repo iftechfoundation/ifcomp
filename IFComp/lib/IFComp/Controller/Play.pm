@@ -20,21 +20,24 @@ sub root : Chained('/') : PathPart('play') : CaptureArgs(0) {
 sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
-    my $entry = $c->model('IFCompDB::Entry')->search(
-        {   id   => $id,
-            comp => $c->stash->{current_comp}->id,
-        }
-    )->single;
+    my $entry = $c->model('IFCompDB::Entry')->find($id);
 
     if ($entry) {
         $c->stash->{entry} = $entry;
-        unless ( ( $c->stash->{current_comp}->status eq 'open_for_judging' )
-            || ( $c->stash->{current_comp}->status eq 'processing_votes' )
-            || ( $c->stash->{current_comp}->status eq 'over' )
-            || ( $c->user && ( $entry->author->id eq $c->user->id ) )
-            || ( $c->check_user_roles('curator') ) )
-        {
-            $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        if ( $entry->comp->id eq $c->stash->{current_comp}->id ) {
+            unless (
+                   ( $c->stash->{current_comp}->status eq 'open_for_judging' )
+                || ( $c->stash->{current_comp}->status eq 'processing_votes' )
+                || ( $c->stash->{current_comp}->status eq 'over' )
+                || ( $c->user && ( $entry->author->id eq $c->user->id ) )
+                || ( $c->check_user_roles('curator') ) )
+            {
+                $c->res->redirect( $c->uri_for_action('/comp/comp') );
+            }
+        }
+        else {
+            $c->res->redirect(
+                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id );
         }
     }
     else {

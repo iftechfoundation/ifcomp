@@ -51,8 +51,12 @@ sub call {
     if ( $env->{PATH_INFO} =~ m{^/(\d+)} ) {
         my $entry_id = $1;
         my $entry    = $self->schema->resultset('Entry')->find($entry_id);
+
+        # If this game is from a previous comp, then we don't host it any more.
+        # Forward to its IFDB page instead.
+        my $current_comp = $self->schema->resultset('Comp')->current_comp;
         if (   $entry
-            && ( $entry->comp->status ne 'open_for_judging' )
+            && ( $entry->comp->id ne $current_comp->id )
             && $entry->ifdb_id )
         {
             my $ifdb_url =
