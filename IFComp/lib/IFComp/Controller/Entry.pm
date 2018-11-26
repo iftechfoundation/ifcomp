@@ -250,6 +250,7 @@ sub _process_form {
     my $entry = $c->stash->{entry};
 
     if ( $action == $IS_CREATE && $entcount >= $MAX_ENTRIES ) {
+        $c->flash->{entry_rejected} = 1;
         return 0;
     }
 
