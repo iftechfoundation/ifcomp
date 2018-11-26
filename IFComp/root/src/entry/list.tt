@@ -7,6 +7,10 @@
 
 <p>This year's competition is open for new intents from [% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %] through [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] (inclusive, Eastern time). Authors must have their games uploaded by 11:59 PM (Eastern time) on [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
 
+[% IF c.flash.entry_rejected %]
+<div class="alert alert-warning">Limit Reached: You cannot enter any more games; you must withdraw one first.</div>
+[% END %]
+
 [% IF current_comp.status == 'not_begun' %]
 <div class="alert alert-warning">
 <p><strong>We're not open for entries yet!</strong> While we appreciate your enthusiasm, we're sorry to say you won't be able to do much on this page prior to July 1st. Come back on or after that date to enter the competition!</p>

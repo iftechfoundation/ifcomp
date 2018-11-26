@@ -219,6 +219,7 @@ my $res = $mech2->submit_form(
     form_number => 2,
     fields      => { 'entry.title' => 'Evil Game Overcount', },
 );
+$mech2->content_like( qr/Limit Reached/, 'Error displayed upon rejection' );
 
 $count = $schema->storage->dbh->selectrow_array(
     'select count(*) from entry where author=' . $authid );
