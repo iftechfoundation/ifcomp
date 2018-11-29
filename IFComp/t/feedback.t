@@ -26,7 +26,7 @@ IFCompTest::log_in_as_judge($mech);
 use DateTime;
 my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
 my $future_ymd = DateTime->now->add( days => 2 )->ymd;
-my $comp = $schema->resultset('Comp')->find(2);
+my $comp       = $schema->resultset('Comp')->find(2);
 foreach (qw(intents_open intents_close entries_due judging_begins)) {
     $comp->$_($past_ymd);
 }
