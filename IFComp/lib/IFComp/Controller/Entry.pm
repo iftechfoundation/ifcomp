@@ -92,17 +92,6 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
-    unless (
-        $c->model('IFCompDB::Entry')->search(
-            {   author => $c->user->get_object->id,
-                comp   => $c->stash->{current_comp}->id,
-            }
-        )->count < $MAX_ENTRIES
-        )
-    {
-        $c->res->redirect( $c->uri_for_action('/entry/list') );
-    }
-
     my %new_result_args = (
         comp   => $c->stash->{current_comp},
         author => $c->user->get_object->id,
