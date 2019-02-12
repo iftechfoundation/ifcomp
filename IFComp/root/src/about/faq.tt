@@ -183,7 +183,7 @@
     <h3 class="panel-title">Who can judge the IFComp?</h3>
   </div>
   <div class="panel-body">
-<p>Anyone can! It&#8217;s as simple as signing up for an account on this website, and then <a href="/ballot/vote">visiting the ballot</a> (available when the competition is active). Judges have until 11:59 PM Eastern time on November 15 to rate as many games as they can.</p>
+<p>Anyone can! It&#8217;s as simple as signing up for an account on this website, and then <a href="/ballot/vote">visiting the ballot</a> (available when the competition is active). Judges have until 11:59 PM Eastern time on [% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %] to rate as many games as they can.</p>
 <p>Exceptions:</p>
 
 <ul>

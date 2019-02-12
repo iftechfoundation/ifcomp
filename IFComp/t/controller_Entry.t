@@ -4,6 +4,8 @@ use Test::More;
 use Path::Class;
 use Imager;
 
+# use DateTime;
+
 unless ( eval q{use Test::WWW::Mechanize::Catalyst 0.55; 1} ) {
     plan skip_all => 'Test::WWW::Mechanize::Catalyst >= 0.55 required';
     exit 0;
@@ -148,6 +150,25 @@ $mech->submit_form_ok(
 $mech->content_like(
     qr/doesn't appear to be a valid PNG or JPEG/,
     "Pushing back on a bad-image upload.",
+);
+
+######
+# Validate dates are not hardcoded
+######
+IFCompTest::set_phase_after( $schema, 'intents_open' );
+$mech->get_ok("http://localhost/entry");
+my $cur       = DateTime->now->subtract( days => 2 );
+my $startdate = $cur->month_name() . " " . $cur->day();
+$cur = DateTime->now->add( days => 2 );
+my $enddate = $cur->month_name() . " " . $cur->day();
+$mech->content_contains(
+    "intents from " . $startdate . " through " . $enddate,
+    "List page dates are shown dynamically" );
+
+$mech->get_ok("http://localhost/entry/create");
+$mech->content_contains(
+    "please through the " . $enddate . " deadline",
+    "Creation page dates are shown dynamically"
 );
 
 done_testing();
