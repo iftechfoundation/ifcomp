@@ -20,7 +20,7 @@
 <p>The people who participate in the IFComp include:</p>
 
 <ul>
-<li><p><strong>Authors</strong>, who write the best IF works they can, and then submit them to the comp before the September 28 deadline (see the full schedule below). There is no entry fee, and anyone&#8217;s allowed to submit up to three entries.</p>
+<li><p><strong>Authors</strong>, who write the best IF works they can, and then submit them to the comp before the [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %] deadline (see the full schedule below). There is no entry fee, and anyone&#8217;s allowed to submit up to three entries.</p>
 
 <p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full rules for authors.</a></p></li>
 <li><p><strong>Judges</strong>, who, over a six-week period in October and November, play as many entries as they can, and give each one they play a score between 1 and 10. Higher numbers mean a better score; judges are otherwise free to use any scoring rubric they wish. A game&#8217;s final score is simply the average of all scores it has received.</p>

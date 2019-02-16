@@ -84,7 +84,7 @@
 <h1 id="submitonlyfinishedwork">Submit only finished work</h1>
 </div>
 
-<p>It&#8217;s true that the IFComp has a deadline for entry, but do not confuse this deadline with an impassable point of make-or-break failure. If October approaches and your project feels like it still has miles to go, consider aiming for a later competition instead &#8211; the <a href="http://springthing.net">Spring Thing</a>, perhaps, or even the following year&#8217;s IFComp.</p>
+<p>It&#8217;s true that the IFComp has a deadline for entry, but do not confuse this deadline with an impassable point of make-or-break failure. If the deadline for submission approaches (this year it's [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]) and your project feels like it still has miles to go, consider aiming for a later competition instead &#8211; the <a href="http://springthing.net">Spring Thing</a>, perhaps, or even the following year&#8217;s IFComp.</p>
 
 <p>Not finishing your project when you first meant to, and watching the year&#8217;s parade of comp games march past without yours among them, can feel disappointing. However, the satisfaction of seeing that same project finally completed more than makes up for it. </p>
 
