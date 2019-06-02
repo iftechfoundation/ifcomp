@@ -14,7 +14,7 @@
  <div class="row">
  
      <div class="col-sm-4">
-        <h2>IFComp's 24th year!</h2>
+        <h2>IFComp's 25th year!</h2>
         <p><strong>Welcome!</strong> Here a few things you can do on this site, right now:</p>
         <ul>
         [% IF current_comp.status == 'open_for_judging' %]
