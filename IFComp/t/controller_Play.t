@@ -24,7 +24,7 @@ IFCompTest->process_test_entries($schema);
 
 # Change the phase of the current test-competition to open-for-judging.
 use DateTime;
-my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
+my $past_ymd   = DateTime->now->subtract( days => 2 )->ymd;
 my $future_ymd = DateTime->now->add( days => 2 )->ymd;
 my $comp       = $schema->resultset('Comp')->find(2);
 foreach (qw(intents_open intents_close entries_due judging_begins)) {
