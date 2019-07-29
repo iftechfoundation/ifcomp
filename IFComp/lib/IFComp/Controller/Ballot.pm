@@ -52,7 +52,17 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
             $seed = $c->user->get_object->id;
             $c->stash->{is_personalized} = 1;
         }
-        my $order_by = "rand($seed)";
+
+        # Peek into our app config to see if we're running SQLite.
+        # If so, randomize via random(). Otherwise, use rand().
+        my $order_by;
+        my $dsn = $c->config->{'Model::IFCompDB'}->{connect_info}->{dsn};
+        if ( $dsn =~ /SQLite/ ) {
+            $order_by = "random($seed)";
+        }
+        else {
+            $order_by = "rand($seed)";
+        }
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
     }
     $c->stash->{entries} = \@entries;
