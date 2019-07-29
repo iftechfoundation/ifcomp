@@ -37,6 +37,7 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
     }
 
     my @entries;
+
     # If we have an 'alphabetize' param defined, sort the games by alpha.
     # Otherwise, shuffle them, also seeding off the user's ID if we're in
     # personal-shuffle mode.
