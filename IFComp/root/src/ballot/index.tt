@@ -56,13 +56,16 @@
         <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-random"></span> Random Shuffle
         </a>
+        <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
+                   <span class="glyphicon glyphicon-user"></span> Personal Shuffle
+        </a>
         <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-list"></span> Alphabetize
         </a>
         </p>
     [% ELSE %]
         <p style="text-align:center;">
-        <a href="javascript:location.reload()" type="submit" class="btn btn-default btn-lg">
+        <a href="javascript:location.reload()" type="submit" class="btn btn-primary btn-lg">
             <span class="glyphicon glyphicon-random"></span> Random Shuffle
         </a>
         [% IF c.user %]
@@ -85,6 +88,9 @@
            <span class="glyphicon glyphicon-user"></span> Personal Shuffle
         </a>
     [% END %]
+    <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-list"></span> Alphabetize
+    </a>
     </p>
 [% END %]
 
