@@ -59,7 +59,7 @@
         <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
                    <span class="glyphicon glyphicon-user"></span> Personal Shuffle
         </a>
-        <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-list"></span> Alphabetize
         </a>
         </p>
@@ -73,7 +73,7 @@
                <span class="glyphicon glyphicon-user"></span> Personal Shuffle
             </a>
         [% END %]
-        <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-list"></span> Alphabetize
         </a>
         </p>
@@ -88,7 +88,7 @@
            <span class="glyphicon glyphicon-user"></span> Personal Shuffle
         </a>
     [% END %]
-    <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-primary btn-lg">
+    <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
         <span class="glyphicon glyphicon-list"></span> Alphabetize
     </a>
     </p>
