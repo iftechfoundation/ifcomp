@@ -68,25 +68,9 @@ sub download : Chained('fetch_entry') : Args(0) {
     if ( $filename =~ /\.html?$/i ) {
         my $body = $entry->main_file->slurp( iomode => '<:encoding(UTF-8)' );
 
-        # XXX Horrible hack to get around a thing in Twine-generated files
-        #     that I don't understand yet.
-        if ( $body =~ /es6-shim/ ) {
-
-            # It's a Twine file that uses a 'es6-shim', whatever that is.
-            # Well, it doesn't play nice with UTF-8, I guess?
-            # Re-slurp without UTF-8 encoding.
-            my $non_utf8 = $entry->main_file->slurp;
-
-            # Replace everything in the body from the first mention of
-            # 'es6-shim' onwards with poorly-encoded version of same.
-            # Else the page will fail to load. No, I don't know either.
-            my ($shim_text) = $non_utf8 =~ /(es6-shim.*)$/s;
-            $body =~ s/es6-shim.*//s;
-            $body .= $shim_text;
-        }
         $c->res->header(
             'Content-Disposition' => qq{attachment; filename="$filename"} );
-        $c->res->content_type('text/html');
+        $c->res->content_type('text/htmll; charset=utf-8');
         $c->res->code(200);
         $c->res->body($body);
     }
