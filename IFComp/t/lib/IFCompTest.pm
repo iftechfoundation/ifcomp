@@ -215,7 +215,7 @@ sub set_phase_after {
     my ( $schema, $phase ) = @_;
     my @phases = qw(announcement intents_open intents_close entries_due
         judging_begins judging_ends comp_closes);
-    my $past_ymd   = DateTime->now->subtract( days => 2 )->ymd;
+    my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
     my $future_ymd = DateTime->now->add( days => 2 )->ymd;
 
     my $hit    = 0;

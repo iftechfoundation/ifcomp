@@ -27,9 +27,9 @@ $mech->get_ok('http://localhost/about/contact');
 #
 IFCompTest::set_phase_after( $schema, 'intents_open' );
 my $starttime = DateTime->now->subtract( days => 2 );
-my $endtime   = DateTime->now->add( days => 2 );
-my $strstart  = $starttime->month_name() . " " . $starttime->day();
-my $strend    = $endtime->month_name() . " " . $endtime->day();
+my $endtime  = DateTime->now->add( days => 2 );
+my $strstart = $starttime->month_name() . " " . $starttime->day();
+my $strend   = $endtime->month_name() . " " . $endtime->day();
 $mech->get('http://localhost/about/schedule');
 $mech->content_contains(
     $strstart . ":</strong> The competition website is open",
