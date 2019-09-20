@@ -122,12 +122,13 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 <div class="panel-heading"><h2>Content warnings</h2></div>
 <div class="panel-body">
 <p>
-You may optionally provide a brief warning that your work contains material some players may wish to know about before playing. Whether you provide a warning, and how you choose to word it, is entirely up to you. <a href="/about/faq#content-warnings" target="ifcomp-faq">See the FAQ for more information on IFComp's policies and suggestions regarding content warnings.</a>
-</p>
+You may optionally provide a brief warning that your work contains emotionally intense content - <a href="https://accessible.games/accessible-player-experiences/challenge-patterns/moderation-in-all-things/">what the AbleGamers Foundation describes</a> as “surprise, violence, gore, or sexual themes”. Whether you provide a warning, and how you choose to word it, is entirely up to you. <a href=“/about/faq#content-warnings” target=“ifcomp-faq”>See the FAQ for more information on IFComp’s policies and suggestions regarding content warnings.</a></p>
 
 <p>
 Your warning text, if present, will appear by your game's blurb on the IFComp ballot page, with the label "<strong>Content warning:</strong>". Players will have the option to hide content warnings from their ballots.
 </p>
+
+<p>Please use this only for real and useful content warnings, and not humor or irony. For instance, it would not be appropriate to state "Contains trace amounts of peanuts" here. (You can put that sort of thing in your blurb, if you want...)</p>
 
 [% form.field('warning').render %]
 </div>
