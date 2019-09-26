@@ -3,7 +3,7 @@
 <ul>
 <li><p><strong>[% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %]:</strong> The competition website is open for authors to declare their intent to enter this year&#8217;s competition.</p></li>
 <li><p><strong>[% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %]:</strong> The last date that authors can register their intent to enter.</p></li>
-<li><p><strong>[% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]:</strong> The last date that authors can upload their games to the competition site. Judges start sharpening their silverware.</p></li>
+<li><p><strong>[% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]:</strong> The last date that authors can upload their games to the competition site.</p></li>
 <li><p><strong>[% current_comp.judging_begins.strftime( '%{month_name} %{day}' ) %]:</strong> The games are released to the public, and the judging period begins.</p></li>
 <li><p><strong>[% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %]:</strong> All votes must be submitted by the end of the day. The competition results are announced shortly afterwards. Prize choosing and distribution begins.</p></li>
 </ul>
