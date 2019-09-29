@@ -1314,9 +1314,9 @@ sub _mangle_quixe_head {
     $play_html =~ s{"interpreter/jquery-.*?min.js"}
             {"/static/interpreter/glkote/jquery-3.4.1.min.js"};
     $play_html =~ s{"interpreter/glkote.min.js"}
-            {"/static/interpreter/glkote/glkote.js"};
+            {"/static/interpreter/glkote/glkote.min.js"};
     $play_html =~ s{"interpreter/quixe.min.js"}
-            {"/static/interpreter/quixe/quixe.js"};
+            {"/static/interpreter/quixe/quixe.min.js"};
     $play_html =~ s{"interpreter/glkote.css"}
             {"/static/interpreter/glkote/i7-glkote.css"};
 
@@ -1348,12 +1348,8 @@ EOF
     else {
         return <<EOF;
 <script src="/static/interpreter/glkote/jquery-3.4.1.min.js"></script>
-<script src="/static/interpreter/glkote/glkote.js"></script>
-<script src="/static/interpreter/glkote/dialog.js"></script>
-<script src="/static/interpreter/glkote/glkapi.js"></script>
-<script src="/static/interpreter/quixe/quixe.js"></script>
-<script src="/static/interpreter/quixe/gi_dispa.js"></script>
-<script src="/static/interpreter/glkote/gi_load.js"></script>
+<script src="/static/interpreter/glkote/glkote.min.js"></script>
+<script src="/static/interpreter/quixe/quixe.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/glkote.css">
 <link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/dialog.css">
 EOF
