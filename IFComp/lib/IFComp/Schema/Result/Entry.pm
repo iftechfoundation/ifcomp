@@ -861,7 +861,7 @@ sub _build_contents_data {
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
-        [ 'adrift', [$I7_REGEX], $adrift_extra_check ],
+        [ 'adrift',         [$I7_REGEX], $adrift_extra_check ],
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
