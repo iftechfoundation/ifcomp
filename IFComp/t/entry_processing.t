@@ -115,6 +115,10 @@ TODO: {
     );
 }
 
+note('Testing hugo detection');
+is( $schema->resultset('Entry')->find(113)->platform,
+    'hugo', 'Platform is correct' );
+
 note('Testing miscellaneous platform detection...');
 is( $schema->resultset('Entry')->find(105)->platform,
     'website', 'Platform is correct. (website)',
