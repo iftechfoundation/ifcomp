@@ -134,21 +134,21 @@ sub init_schema {
 
     $schema->populate(
         'Entry',
-        [   [ 'id', 'author', 'title',                   'comp', 'place' ],
-            [ 100,  1,        'Test Z-code game',        2,      1 ],
-            [ 101,  1,        'Test Glulx game',         2,      2 ],
-            [ 102,  1,        'Test Quixe game',         1,      3 ],
-            [ 103,  1,        'Test Parchment game',     1,      4 ],
-            [ 104,  1,        'Test Z-code website',     1,      5 ],
-            [ 105,  1,        'Test non-Inform website', 1,      6 ],
-            [ 106,  1,        'Test HTML page',          1,      7 ],
+        [   [ 'id', 'author', 'title', 'comp', 'place' ],
+
+            [ 100, 1, 'Test Z-code game',                           2, 1 ],
+            [ 101, 1, 'Test Glulx game',                            2, 2 ],
+            [ 102, 1, 'Test Quixe game',                            1, 3 ],
+            [ 103, 1, 'Test Parchment game',                        1, 4 ],
+            [ 104, 1, 'Test Z-code website',                        1, 5 ],
+            [ 105, 1, 'Test non-Inform website',                    1, 6 ],
+            [ 106, 1, 'Test HTML page',                             1, 7 ],
             [ 107, 1, 'Test Z-code website with buried story file', 1, 8 ],
             [ 108, 1, 'Test Quest game',                            1, 9 ],
             [ 109, 1, 'Test TADS game',                             1, 10 ],
             [ 110, 1, 'Test Alan game',                             1, 11 ],
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
             [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
-
         ],
     );
 
@@ -205,6 +205,41 @@ sub process_test_entries {
     for my $entry ( $schema->resultset('Entry')->all ) {
         $entry->update_content_directory;
     }
+}
+
+#
+# Set the comp to a specific phase
+#
+sub set_phase_after {
+    use DateTime;
+    my ( $schema, $phase ) = @_;
+    my @phases = qw(announcement intents_open intents_close entries_due
+        judging_begins judging_ends comp_closes);
+    my $past_ymd   = DateTime->now->subtract( days => 2 )->ymd;
+    my $future_ymd = DateTime->now->add( days => 2 )->ymd;
+
+    my $hit    = 0;
+    my @before = ();
+    my @after  = ();
+    foreach (@phases) {
+        if ($hit) {
+            push( @after, $_ );
+        }
+        else {
+            push( @before, $_ );
+        }
+        $hit = 1 if ( $_ eq $phase );
+    }
+    shift(@before);    # remove the 'announcement' pseudo-phase
+
+    my $comp = $schema->resultset('Comp')->find(2);
+    foreach (@before) {
+        $comp->$_($past_ymd);
+    }
+    foreach (@after) {
+        $comp->$_($future_ymd);
+    }
+    $comp->update;
 }
 
 1;

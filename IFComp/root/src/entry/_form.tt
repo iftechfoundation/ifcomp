@@ -35,7 +35,7 @@
 [% END %]
 
 [% UNLESS entry.id %]
-<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the Sept. 28 deadline.</p>
+<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] deadline.</p>
 [% form.field('submit').render %]
 <p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
 [% END %]
@@ -122,12 +122,10 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 <div class="panel-heading"><h2>Content warnings</h2></div>
 <div class="panel-body">
 <p>
-You may optionally provide a brief warning that your work contains material some players may wish to know about before playing. Whether you provide a warning, and how you choose to word it, is entirely up to you. <a href="/about/faq#content-warnings" target="ifcomp-faq">See the FAQ for more information on IFComp's policies and suggestions regarding content warnings.</a>
+You may optionally provide a brief warning that your work contains emotionally intense content - <a href="https://accessible.games/accessible-player-experiences/challenge-patterns/moderation-in-all-things/">what the AbleGamers Foundation describes</a> as “surprise, violence, gore, or sexual themes”. Your warning text, if present, will appear by your game's blurb on the IFComp ballot page, with the label "<strong>Content warning:</strong>". Players will have the option to hide content warnings from their ballots.
 </p>
 
-<p>
-Your warning text, if present, will appear by your game's blurb on the IFComp ballot page, with the label "<strong>Content warning:</strong>". Players will have the option to hide content warnings from their ballots.
-</p>
+<p>Whether you provide a warning, and how you choose to word it, is up to you. <a href=“https://ifcomp.org/about/faq#content-warnings” target=“ifcomp-faq”>See the FAQ for more information on IFComp’s policies and suggestions regarding content warnings.</a> We do ask that you use this field only for real and useful content warnings, and not humor or irony. For instance, it would not be appropriate to state "Contains trace amounts of peanuts" here. (You can put that sort of thing in your blurb, if you want...)</p>
 
 [% form.field('warning').render %]
 </div>
@@ -162,7 +160,7 @@ If you don't specify an email address here, then this website will not display a
 <div class="panel-heading"><h2>Files</h2></div>
 <div class="panel-body">
 <h3>Game file (required)</h3>
-<p>You must upload, by September 28 (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 75 MB in size.</p>
+<p>You must upload, by [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %] (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 75 MB in size.</p>
 <p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 75 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
 <p>If your game exists in an online-only platform, such as StoryNexus or ChooseYourStory, and you don't actually possess a file containing the game, then you must at the very least create and upload here an HTML file that links to that game. This file can contain any style or content you like, so long as it clearly links to the game.</p>
 [% IF entry.id && entry.main_file %]

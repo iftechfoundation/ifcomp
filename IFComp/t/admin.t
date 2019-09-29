@@ -20,17 +20,6 @@ ok( my $mech =
 
 my $VOTING_TITLE_REGEX = qr/Admin - Voting/;
 
-$mech->get_ok('http://localhost/admin/voting');
-$mech->title_unlike( $VOTING_TITLE_REGEX,
-    'Admin-access attempt without a login got us redirected',
-);
-
-IFCompTest::log_in_as_judge($mech);
-$mech->get_ok('http://localhost/admin/voting');
-$mech->title_unlike( $VOTING_TITLE_REGEX,
-    'Admin-access attempt without an appropriate role got us redirected',
-);
-
 IFCompTest::log_in_as_votecounter($mech);
 $mech->get_ok('http://localhost/admin/voting');
 $mech->title_like( $VOTING_TITLE_REGEX,

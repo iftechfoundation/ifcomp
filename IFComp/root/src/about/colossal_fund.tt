@@ -25,10 +25,10 @@ The following IF community members supported IFComp through their contributions 
         [% END %]
         </ul>
         [% IF anonymous_donors.size %]
-            <p>...as well as [% anonymous_donors.size %] anonymous adventurers.</p>
+            <p>...as well as [% anonymous_donors.size %] anonymous adventurer[% IF anonymous_donors.size > 1 %]s[% END %].</p>
         [% END %]
     [% ELSIF anonymous_donors.size %]
-        <p>[% anonymous_donors.size %] anonymous adventurers.</p>
+        <p>[% anonymous_donors.size %] anonymous adventurer[% IF anonymous_donors.size > 1 %]s[% END %].</p>
     [% ELSE %]
         <p><em>No donors at this level [% IF cf.year == current_comp.year %](yet...)[% END %]</em></p>
     [% END %]

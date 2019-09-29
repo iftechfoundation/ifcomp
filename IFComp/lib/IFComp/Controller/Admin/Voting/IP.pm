@@ -30,7 +30,7 @@ sub show_ip : Chained("/admin/voting/index") : Path : Args(2) {
     my @entries =
         $c->model('IFCompDB::Entry')->search( { comp => $comp_id } );
     my @entry_ids = map { $_->id } @entries;
-    my @votes = $c->model('IFCompDB::Vote')->search(
+    my @votes     = $c->model('IFCompDB::Vote')->search(
         {   entry => \@entry_ids,
             ip    => $ip,
         }

@@ -6,7 +6,7 @@
 
 <h1>Transcripts for [% entry.title %]</h1>
 
-<p>Transcripts are provided as a free service by ifcomp.org, and will be collected for as long as your game's online-play function is hosted here; that is to say, through the end of the judging period in mid-November.</p>
+<p>Transcripts are provided as a free service by ifcomp.org, and will be collected for as long as your game's online-play function is hosted here; that is to say, through the end of the judging period on [% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %].</p>
 
 [% IF session_rs.count > 0 %]
 

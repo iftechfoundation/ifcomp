@@ -14,6 +14,7 @@ has '+html_prefix' => ( default => 1 );
 use Readonly;
 Readonly my $MAX_FILE_SIZE => 10485760;
 Readonly my $MAX_GAME_SIZE => 78643200;
+Readonly my $MAX_ENTRIES   => 3;
 
 has_field 'title' => (
     required  => 1,
@@ -190,6 +191,20 @@ sub validate_main_upload {
         )
     {
         $field->add_error("You must provide a reason for this update.");
+    }
+}
+
+sub validate {
+    my $self = shift;
+
+    my $entry_count = $self->schema->resultset('Entry')->search(
+        {   author => $self->item->author->id,
+            comp   => $self->item->comp->id,
+        }
+    )->count;
+
+    if ( $entry_count >= $MAX_ENTRIES && !$self->item->id ) {
+        $self->add_form_error("INVALID_ENTRY_COUNT");
     }
 }
 

@@ -20,21 +20,24 @@ sub root : Chained('/') : PathPart('play') : CaptureArgs(0) {
 sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
-    my $entry = $c->model('IFCompDB::Entry')->search(
-        {   id   => $id,
-            comp => $c->stash->{current_comp}->id,
-        }
-    )->single;
+    my $entry = $c->model('IFCompDB::Entry')->find($id);
 
     if ($entry) {
         $c->stash->{entry} = $entry;
-        unless ( ( $c->stash->{current_comp}->status eq 'open_for_judging' )
-            || ( $c->stash->{current_comp}->status eq 'processing_votes' )
-            || ( $c->stash->{current_comp}->status eq 'over' )
-            || ( $c->user && ( $entry->author->id eq $c->user->id ) )
-            || ( $c->check_user_roles('curator') ) )
-        {
-            $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        if ( $entry->comp->id eq $c->stash->{current_comp}->id ) {
+            unless (
+                   ( $c->stash->{current_comp}->status eq 'open_for_judging' )
+                || ( $c->stash->{current_comp}->status eq 'processing_votes' )
+                || ( $c->stash->{current_comp}->status eq 'over' )
+                || ( $c->user && ( $entry->author->id eq $c->user->id ) )
+                || ( $c->check_user_roles('curator') ) )
+            {
+                $c->res->redirect( $c->uri_for_action('/comp/comp') );
+            }
+        }
+        else {
+            $c->res->redirect(
+                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id );
         }
     }
     else {
@@ -65,25 +68,9 @@ sub download : Chained('fetch_entry') : Args(0) {
     if ( $filename =~ /\.html?$/i ) {
         my $body = $entry->main_file->slurp( iomode => '<:encoding(UTF-8)' );
 
-        # XXX Horrible hack to get around a thing in Twine-generated files
-        #     that I don't understand yet.
-        if ( $body =~ /es6-shim/ ) {
-
-            # It's a Twine file that uses a 'es6-shim', whatever that is.
-            # Well, it doesn't play nice with UTF-8, I guess?
-            # Re-slurp without UTF-8 encoding.
-            my $non_utf8 = $entry->main_file->slurp;
-
-            # Replace everything in the body from the first mention of
-            # 'es6-shim' onwards with poorly-encoded version of same.
-            # Else the page will fail to load. No, I don't know either.
-            my ($shim_text) = $non_utf8 =~ /(es6-shim.*)$/s;
-            $body =~ s/es6-shim.*//s;
-            $body .= $shim_text;
-        }
         $c->res->header(
             'Content-Disposition' => qq{attachment; filename="$filename"} );
-        $c->res->content_type('text/html');
+        $c->res->content_type('text/html; charset=utf-8');
         $c->res->code(200);
         $c->res->body($body);
     }

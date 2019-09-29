@@ -16,27 +16,33 @@
             <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
         [% END %]
 
+        <p><em>
         [% IF entry.genre %]
-        	<p><strong>Genre: </strong> [% entry.genre | html %]</p>
+        [% entry.genre.ucfirst | html %] •
         [% END %]
 
         [% IF entry.playtime %]
-        	<p><strong>Estimated playtime: </strong> [% entry.playtime %]</p>
+        [% entry.playtime.ucfirst %] •
         [% END %]
 
+        [% IF entry.style == 'parser' %]
+        Parser-based •
+        [% ELSIF entry.style == 'choice' %]
+        Choice-based •
+        [% END %]
 
         [% UNLESS entry.platform == 'other' %]
-        <p><strong>Format:</strong> [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
+        [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             Z-code [% INCLUDE guide_link %]
             [% ELSE %]
             Glulx [% INCLUDE guide_link %]
             [% END %]
             [% IF entry.has_extra_content %]
-            — Download includes additional content
+            • Download includes additional content
             [% END %]
         [% ELSIF entry.platform == 'website' %]
-            Web
+            Web-based
         [% ELSIF entry.platform == 'tads' %]
             TADS [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
@@ -48,9 +54,9 @@
         [% ELSIF entry.platform == 'adrift' %]
             ADRIFT [% INCLUDE guide_link %]
         [% END %]
-        </p>
         [% END %]
-    
+        </em></p>
+            
         [% IF entry.latest_update %]
             <p><a href="[% c.uri_for_action( '/play/updates', [ entry.id ] ) %]"><em><strong>Updated:</strong> [% entry.latest_update.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</em></a></p>
         [% END %]

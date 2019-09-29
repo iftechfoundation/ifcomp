@@ -20,23 +20,13 @@ ok( my $mech =
     'Created mech object'
 );
 
-$mech->get_ok('http://localhost/ballot/feedback/100');
-$mech->content_like(
-    qr/Please log in below/,
-    'Feedback attempt without a login got us redirected',
-);
-
 IFCompTest::log_in_as_judge($mech);
-
-$mech->get('http://localhost/ballot/feedback/100');
-is( $mech->response->code, '404',
-    'Locked out of feedback when judging not active' );
 
 # Change the phase of the current test-competition to open-for-judging.
 use DateTime;
-my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
+my $past_ymd   = DateTime->now->subtract( days => 2 )->ymd;
 my $future_ymd = DateTime->now->add( days => 2 )->ymd;
-my $comp = $schema->resultset('Comp')->find(2);
+my $comp       = $schema->resultset('Comp')->find(2);
 foreach (qw(intents_open intents_close entries_due judging_begins)) {
     $comp->$_($past_ymd);
 }

@@ -26,7 +26,7 @@ sub root : Chained('/') : PathPart( 'admin' ) : CaptureArgs(0) {
     unless ( $c->user
         && $c->check_any_user_role( 'votecounter', 'curator', ) )
     {
-        $c->res->redirect('/');
+        $c->detach('/error_403');
         return;
     }
 }

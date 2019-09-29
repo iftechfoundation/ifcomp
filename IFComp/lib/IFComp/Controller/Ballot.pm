@@ -32,26 +32,39 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
         || $current_comp->status eq 'processing_votes'
         || $c->check_user_roles('curator') )
     {
-        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        $c->detach('/error_403');
         return;
     }
 
     my @entries;
-    if ( $c->req->params->{shuffle} ) {
+
+    # If we have an 'alphabetize' param defined, sort the games by alpha.
+    # Otherwise, shuffle them, also seeding off the user's ID if we're in
+    # personal-shuffle mode.
+    if ( $c->req->params->{alphabetize} ) {
+        @entries = sort { $a->sort_title cmp $b->sort_title }
+            $current_comp->entries();
+    }
+    else {
         $c->stash->{is_shuffled} = 1;
         my $seed = '';
         if ( $c->user && $c->req->params->{personalize} ) {
             $seed = $c->user->get_object->id;
             $c->stash->{is_personalized} = 1;
         }
-        my $order_by = "rand($seed)";
+
+        # Peek into our app config to see if we're running SQLite.
+        # If so, randomize via random(). Otherwise, use rand().
+        my $order_by;
+        my $dsn = $c->config->{'Model::IFCompDB'}->{connect_info}->{dsn};
+        if ( $dsn =~ /SQLite/ ) {
+            $order_by = "random($seed)";
+        }
+        else {
+            $order_by = "rand($seed)";
+        }
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
     }
-    else {
-        @entries = sort { $a->sort_title cmp $b->sort_title }
-            $current_comp->entries();
-    }
-
     $c->stash->{entries} = \@entries;
 
     my $user_is_author = 0;
@@ -71,7 +84,7 @@ sub vote : Chained('root') : PathPart('vote') : Args(0) {
     my ( $self, $c ) = @_;
 
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        $c->detach('/error_403');
     }
 
     my %rating_for_entry;
@@ -108,7 +121,7 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         && ( $entry->is_qualified )
         && ( $comp->status eq 'open_for_judging' ) )
     {
-        $c->forward('/error_404');
+        $c->detach('/error_403');
         return;
     }
 

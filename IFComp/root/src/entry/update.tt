@@ -44,10 +44,22 @@
 </div>
 
 [% BLOCK error_div %]
-[% IF form.has_errors || withdrawal_form.has_errors %]
-<div class="alert alert-danger">
-<p>Your form submission had some problems; please see below for more details.</p>
-</div>
-[% END %]
+    [% IF form.has_errors || withdrawal_form.has_errors %]
+        <div class="alert alert-danger">
+            [% too_many = 0 %]
+            [% FOREACH i IN form.errors %]
+                [% IF i == "INVALID_ENTRY_COUNT" %]
+                    [% too_many = 1 %]
+                    <p>You have already reached your maximum number of entries
+                    for this competition. You must withdraw an entry in order
+                    to submit a new one.</p>
+                [% END %]
+            [% END %]
+            [% IF too_many == 0 || form.errors.size > 1 %]
+                <p>[% IF too_many == 0 %]Your[% ELSE %]Additionally, your[% END %]
+                form submission had some problems; please see below for more details.</p>
+            [% END %]
+        </div>
+    [% END %]
 [% END %]
 

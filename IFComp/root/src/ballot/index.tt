@@ -31,7 +31,7 @@
 <div class="col-sm-10">
 
 [% IF current_comp.status == 'open_for_judging' %]
-<p>If you intend to join us as a judge this year — and we hope you do — please take a moment to <a href="/rules#judges">read the rules for judges</a> before digging into the games. (They're short and simple, we promise.) When you're ready to vote on any entry, <a href="/ballot/vote/">visit the ballot</a>. You have through November 15 to vote for at least five games.</p>
+<p>If you intend to join us as a judge this year — and we hope you do — please take a moment to <a href="/rules#judges">read the rules for judges</a> before digging into the games. (They're short and simple, we promise.) When you're ready to vote on any entry, <a href="/ballot/vote/">visit the ballot</a>. You have through [% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %] to vote for at least five games.</p>
 
 [% IF user_is_author %]
 <p>(Because you have entries in this year's competition, your votes won't count towards the main IFComp scores, but rather towards the Miss Congeniality side-contest.)</p>
@@ -56,13 +56,16 @@
         <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-random"></span> Random Shuffle
         </a>
-        <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
+                   <span class="glyphicon glyphicon-user"></span> Personal Shuffle
+        </a>
+        <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-list"></span> Alphabetize
         </a>
         </p>
     [% ELSE %]
         <p style="text-align:center;">
-        <a href="javascript:location.reload()" type="submit" class="btn btn-default btn-lg">
+        <a href="javascript:location.reload()" type="submit" class="btn btn-primary btn-lg">
             <span class="glyphicon glyphicon-random"></span> Random Shuffle
         </a>
         [% IF c.user %]
@@ -70,7 +73,7 @@
                <span class="glyphicon glyphicon-user"></span> Personal Shuffle
             </a>
         [% END %]
-        <a href="[% c.uri_for( '/ballot', ) %]#browse" type="submit" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-list"></span> Alphabetize
         </a>
         </p>
@@ -85,6 +88,9 @@
            <span class="glyphicon glyphicon-user"></span> Personal Shuffle
         </a>
     [% END %]
+    <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
+        <span class="glyphicon glyphicon-list"></span> Alphabetize
+    </a>
     </p>
 [% END %]
 
