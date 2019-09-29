@@ -149,6 +149,7 @@ sub init_schema {
             [ 110, 1, 'Test Alan game',                             1, 11 ],
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
             [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
+            [ 113, 1, 'Test Hugo game',                             1, 14 ],
         ],
     );
 
