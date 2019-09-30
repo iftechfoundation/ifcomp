@@ -808,8 +808,11 @@ sub _build_contents_data {
     # (Without this, /ballot takes an additional 15 seconds to load.)
     # Remove this once GitHub issue #180 is resolved.
     # (https://github.com/iftechfoundation/ifcomp/issues/180)
-    if ( $self->id eq 2117 ) {
-        return { 'platform' => 'other', 'play_file' => undef };
+    if ( $self->id == 2117 ) {
+        return {
+            'platform' => 'website',
+            'play_file' => Path::Class::File->new('index.html'),
+        };
     }
 
     my @content_files;
