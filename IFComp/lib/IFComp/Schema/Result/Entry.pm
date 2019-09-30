@@ -1229,7 +1229,7 @@ game_options = {
 <hr></noscript>
 </div>
 <div id="loadingpane">
-<img src="/static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
+<img src="/static/interpreter/glkote/waiting.gif" alt="LOADING"><br>
 <em>&nbsp;&nbsp;&nbsp;Loading...</em>
 </div>
 <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
@@ -1315,13 +1315,13 @@ sub _mangle_quixe_head {
     # Re-aim interpreter links to our own Quixe interpreter.
     # (Via re-writing <script src="..." /> invocations.)
     $play_html =~ s{"interpreter/jquery-.*?min.js"}
-            {"/static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+            {"/static/interpreter/glkote/jquery-3.4.1.min.js"};
     $play_html =~ s{"interpreter/glkote.min.js"}
-            {"/static/interpreter/quixe/lib/glkote.min.js"};
+            {"/static/interpreter/glkote/glkote.min.js"};
     $play_html =~ s{"interpreter/quixe.min.js"}
-            {"/static/interpreter/quixe/lib/quixe.min.js"};
+            {"/static/interpreter/quixe/quixe.min.js"};
     $play_html =~ s{"interpreter/glkote.css"}
-            {"/static/interpreter/quixe/media/i7-glkote.css"};
+            {"/static/interpreter/glkote/i7-glkote.css"};
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
@@ -1350,11 +1350,11 @@ EOF
     }
     else {
         return <<EOF;
-<script src="/static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
-<script src="/static/interpreter/quixe/lib/glkote.min.js"></script>
-<script src="/static/interpreter/quixe/lib/quixe.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/glkote.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/dialog.css">
+<script src="/static/interpreter/glkote/jquery-3.4.1.min.js"></script>
+<script src="/static/interpreter/glkote/glkote.min.js"></script>
+<script src="/static/interpreter/quixe/quixe.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/glkote.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/dialog.css">
 EOF
     }
 }
