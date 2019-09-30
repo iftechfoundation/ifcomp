@@ -59,6 +59,12 @@
 
 <p><a href="http://www.alanif.se">Alan</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.alanif.se/download-alan-v3/interpreters">a separate interpreter program</a>, available for Windows, Mac, and Linux.</p>
 
+<h3 id="hugo">Hugo games</h3>
+
+<p><strong>File extension:</strong> <code>.hex</code></p>
+
+<p><a href="http://www.ifwiki.org/index.php/Hugo">Hugo</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.ifwiki.org/index.php/Hugor">a separate interpreter program</a>, available for Windows, Mac, and Linux.</p>
+
 <h3 id="adrift">ADRIFT games</h3>
 
 <p><strong>File extensions:</strong> <code>.taf</code>, <code>.blorb</code></p>
