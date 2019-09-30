@@ -810,7 +810,7 @@ sub _build_contents_data {
     # (https://github.com/iftechfoundation/ifcomp/issues/180)
     if ( $self->id == 2117 ) {
         return {
-            'platform' => 'website',
+            'platform'  => 'website',
             'play_file' => Path::Class::File->new('index.html'),
         };
     }
