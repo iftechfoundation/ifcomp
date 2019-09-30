@@ -859,7 +859,8 @@ sub _build_contents_data {
     # - list of regexes for files required to exist
     # - optional additional validation func
     # Assuming all the regexes pass, the file matched by the first is
-    # what's used for the play file
+    # what's used for the play file.
+    # ORDER MATTERS. The first regex matched determines the platform.
     my @platforms = (
         [   'parchment',
             [   $INDEX_REGEX,       $I7_REGEX,
@@ -877,8 +878,8 @@ sub _build_contents_data {
         [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
-        [ 'windows',        [$WINDOWS_REGEX] ],
         [ 'hugo',           [$HUGO_REGEX] ],
+        [ 'windows',        [$WINDOWS_REGEX] ],
 
         # two possible cases for the "website" platform: either there's
         # an index.html in the top level dir and some other html files,
