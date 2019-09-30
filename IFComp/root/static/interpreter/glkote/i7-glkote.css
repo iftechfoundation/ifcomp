@@ -7,6 +7,11 @@
  * with it.
  */
 
+:root {
+  --glkote-mono-family: monaco, andale mono, lucidatypewriter, courier, courier new, monospace;
+  --glkote-prop-family: Georgia, "Times New Roman", Times, serif;
+}
+
 #windowport {
   width: 100%;
   height: 100%;
@@ -63,6 +68,11 @@
   font-size: 15px;
   line-height: 1.4;
   padding: 6px 10px 6px 10px;
+}
+
+.BufferWindow .reverse {
+  background-color: #000;
+  color: #ffe;
 }
 
 .BufferLine {

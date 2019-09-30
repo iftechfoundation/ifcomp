@@ -803,6 +803,18 @@ sub _build_subdir_named {
 sub _build_contents_data {
     my $self = shift;
 
+    # XXX
+    # Brutal hack to handle an entry with an unusually large number of files.
+    # (Without this, /ballot takes an additional 15 seconds to load.)
+    # Remove this once GitHub issue #180 is resolved.
+    # (https://github.com/iftechfoundation/ifcomp/issues/180)
+    if ( $self->id == 2117 ) {
+        return {
+            'platform' => 'website',
+            'play_file' => Path::Class::File->new('index.html'),
+        };
+    }
+
     my @content_files;
     $self->content_directory->recurse(
         callback => sub {
@@ -850,7 +862,8 @@ sub _build_contents_data {
     # - list of regexes for files required to exist
     # - optional additional validation func
     # Assuming all the regexes pass, the file matched by the first is
-    # what's used for the play file
+    # what's used for the play file.
+    # ORDER MATTERS. The first regex matched determines the platform.
     my @platforms = (
         [   'parchment',
             [   $INDEX_REGEX,       $I7_REGEX,
@@ -861,13 +874,14 @@ sub _build_contents_data {
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
-        [ 'adrift', [$I7_REGEX], $adrift_extra_check ],
+        [ 'adrift',         [$I7_REGEX], $adrift_extra_check ],
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
         [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
+        [ 'hugo',           [$HUGO_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
         [ 'hugo',           [$HUGO_REGEX] ],
 
@@ -1229,7 +1243,7 @@ game_options = {
 <hr></noscript>
 </div>
 <div id="loadingpane">
-<img src="/static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
+<img src="/static/interpreter/glkote/waiting.gif" alt="LOADING"><br>
 <em>&nbsp;&nbsp;&nbsp;Loading...</em>
 </div>
 <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
@@ -1315,13 +1329,13 @@ sub _mangle_quixe_head {
     # Re-aim interpreter links to our own Quixe interpreter.
     # (Via re-writing <script src="..." /> invocations.)
     $play_html =~ s{"interpreter/jquery-.*?min.js"}
-            {"/static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
+            {"/static/interpreter/glkote/jquery-3.4.1.min.js"};
     $play_html =~ s{"interpreter/glkote.min.js"}
-            {"/static/interpreter/quixe/lib/glkote.min.js"};
+            {"/static/interpreter/glkote/glkote.min.js"};
     $play_html =~ s{"interpreter/quixe.min.js"}
-            {"/static/interpreter/quixe/lib/quixe.min.js"};
+            {"/static/interpreter/quixe/quixe.min.js"};
     $play_html =~ s{"interpreter/glkote.css"}
-            {"/static/interpreter/quixe/media/i7-glkote.css"};
+            {"/static/interpreter/glkote/i7-glkote.css"};
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
@@ -1350,11 +1364,11 @@ EOF
     }
     else {
         return <<EOF;
-<script src="/static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
-<script src="/static/interpreter/quixe/lib/glkote.min.js"></script>
-<script src="/static/interpreter/quixe/lib/quixe.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/glkote.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/dialog.css">
+<script src="/static/interpreter/glkote/jquery-3.4.1.min.js"></script>
+<script src="/static/interpreter/glkote/glkote.min.js"></script>
+<script src="/static/interpreter/quixe/quixe.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/glkote.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/dialog.css">
 EOF
     }
 }

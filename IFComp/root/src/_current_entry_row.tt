@@ -53,6 +53,8 @@
             Alan [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'adrift' %]
             ADRIFT [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'hugo' %]
+            Hugo [% INCLUDE guide_link %]
         [% END %]
         [% END %]
         </em></p>
