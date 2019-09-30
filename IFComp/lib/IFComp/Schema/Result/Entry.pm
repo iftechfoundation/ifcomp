@@ -459,6 +459,7 @@ Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
 Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
 Readonly my $HTML_REGEX    => qr/\.html?$/i;
 Readonly my $INDEX_REGEX   => qr/^index\.html?$/i;
+Readonly my $HUGO_REGEX    => qr/\.hex$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
     'Cover.jpg',       'index.html', 'interpreter', 'play.html',
@@ -572,6 +573,7 @@ enum 'Platform', [
         windows
         alan
         adrift
+        hugo
         other
         )
 ];
@@ -859,7 +861,7 @@ sub _build_contents_data {
             [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
             $quixe_extra_check
         ],
-        [ 'adrift', [$I7_REGEX], $adrift_extra_check ],
+        [ 'adrift',         [$I7_REGEX], $adrift_extra_check ],
         [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
         [ 'inform',         [$I7_REGEX] ],
         [ 'tads',           [$TADS_REGEX] ],
@@ -867,6 +869,7 @@ sub _build_contents_data {
         [ 'quest',          [$QUEST_REGEX] ],
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
+        [ 'hugo',           [$HUGO_REGEX] ],
 
         # two possible cases for the "website" platform: either there's
         # an index.html in the top level dir and some other html files,
