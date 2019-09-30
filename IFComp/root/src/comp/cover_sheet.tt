@@ -78,6 +78,8 @@
             Alan 
         [% ELSIF entry.platform == 'adrift' %]
             ADRIFT 
+        [% ELSIF entry.platform == 'hugo' %]
+            Hugo 
         [% END %]
         [% END %]
         </em></p>
