@@ -803,6 +803,15 @@ sub _build_subdir_named {
 sub _build_contents_data {
     my $self = shift;
 
+    # XXX
+    # Brutal hack to handle an entry with an unusually large number of files.
+    # (Without this, /ballot takes an additional 15 seconds to load.)
+    # Remove this once GitHub issue #180 is resolved.
+    # (https://github.com/iftechfoundation/ifcomp/issues/180)
+    if ( $self->id eq 2117 ) {
+        return { 'platform' => 'other', 'play_file' => undef };
+    }
+
     my @content_files;
     $self->content_directory->recurse(
         callback => sub {
