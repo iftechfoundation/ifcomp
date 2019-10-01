@@ -1068,12 +1068,7 @@ sub update_content_directory {
     $self->clear_play_file;
 
     if ( $self->platform eq 'inform' ) {
-        if ( $self->is_zcode ) {
-            $self->_create_parchment_page;
-        }
-        else {
-            $self->_create_quixe_page;
-        }
+        $self->_create_glkote_page;
 
         # and then we have to recalculate again since doing this changes the
         # platform type and play file
@@ -1097,81 +1092,29 @@ sub _make_js_file {
     my ( $source_file, $js_file ) = @_;
     $js_file //= $source_file;
 
-    $js_file->spew( q/$(document).ready(function() {/
+    if ( $self->is_zcode ) {
+        $js_file->spew( q/$(document).ready(function() {/
+            . q/  game_options.game_format_name = game_options.engine_name = 'ZVM'/
+            . q/  game_options.blorb_gamechunk_type = 'ZCOD'/
+            . q/  game_options.vm = window.engine = new window.ZVM()/
+            . q/  game_options.Glk = window.Glk/
+            . q/  game_options.Dialog = window.Dialog/
+            . q/  game_options.GiDispa = window.GiDispa/
+            . q/  GiLoad.load_run(game_options, '/
+            . encode_base64( $source_file->slurp, '' )
+            . q/', 'base64');/
+            . q/});/ );
+    }
+    else {
+        $js_file->spew( q/$(document).ready(function() {/
             . q/  GiLoad.load_run(null, '/
             . encode_base64( $source_file->slurp, '' )
             . q/', 'base64');/
             . q/});/ );
-}
-
-sub _create_parchment_page {
-    my $self = shift;
-
-    my $title = $self->title;
-
-    # Search the content directory for the I7 file to link to.
-    my $i7_file = $self->inform_game_file;
-
-    unless ($i7_file) {
-        die "Could not find an I7 file in this entry's content directory.";
     }
-
-    $i7_file = $i7_file->basename;
-
-    my $entry_id = $self->id;
-
-    my $tag_text = $self->interpreter_tag_text;
-    my $html     = <<EOF
-<!DOCTYPE html>
-<html>
-<head>
-  <title>IFComp — $title — Play</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-$tag_text
-<script>
-parchment_options = {
-default_story: [ "$i7_file" ],
-lib_path: '/static/interpreter/parchment/',
-lock_story: 1,
-page_title: 0
-};
-
-ifRecorder.saveUrl = "/play/$entry_id/transcribe";
-ifRecorder.story.name = "$title";
-ifRecorder.story.version = "1";
-</script>
-
- </head>
-<body class="play">
-<div class="container">
-
-<div id="gameport">
-<div id="about">
-<h1>Parchment</h1>
-<p>is an interpreter for Interactive Fiction. <a href="https://github.com/curiousdannii/parchment">Find out more.</a></p>
-<noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
-</div>
-<div id="parchment"></div>
-</div>
-
-</div>
-<div class="interpretercredit"><a href="https://github.com/curiousdannii/parchment">Parchment for Inform 7</a></div>
-</body>
-</html>
-
-EOF
-        ;
-
-    my $html_file = $self->content_directory->file('index.html');
-    my $html_fh   = $html_file->openw;
-    $html_fh->binmode(':utf8');
-
-    print $html_fh $html;
-
 }
 
-sub _create_quixe_page {
+sub _create_glkote_page {
     my $self = shift;
 
     my $title = $self->title;
@@ -1354,11 +1297,14 @@ sub _build_interpreter_tag_text {
 
     if ( $self->is_zcode ) {
         return <<EOF;
-<script src="/static/interpreter/parchment/jquery.min.js"></script>
-<script src="/static/interpreter/parchment/parchment.min.js"></script>
-<script src="/static/interpreter/transcript_recorder/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/parchment.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/style.css">
+<script src="/static/interpreter/glkote/jquery-3.4.1.min.js"></script>
+<script src="/static/interpreter/glkote/glkote.min.js"></script>
+<script src="/static/interpreter/zvm/zvm.min.js"></script>
+<script src="/static/interpreter/zvm/dispatch.js"></script>
+<script src="/static/interpreter/glkote/gi_load.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/glkote.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/dialog.css">
+<link rel="stylesheet" type="text/css" href="/static/interpreter/zvm/zvm.css">
 EOF
     }
     else {
