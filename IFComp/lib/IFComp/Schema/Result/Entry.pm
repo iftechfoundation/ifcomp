@@ -883,7 +883,6 @@ sub _build_contents_data {
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'hugo',           [$HUGO_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
-        [ 'hugo',           [$HUGO_REGEX] ],
 
         # two possible cases for the "website" platform: either there's
         # an index.html in the top level dir and some other html files,
