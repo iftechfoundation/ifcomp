@@ -810,7 +810,7 @@ sub _build_contents_data {
     # (https://github.com/iftechfoundation/ifcomp/issues/180)
     if ( $self->id == 2117 ) {
         return {
-            'platform' => 'website',
+            'platform'  => 'website',
             'play_file' => Path::Class::File->new('index.html'),
         };
     }
@@ -883,6 +883,7 @@ sub _build_contents_data {
         [ 'alan',           [$ALAN_REGEX] ],
         [ 'hugo',           [$HUGO_REGEX] ],
         [ 'windows',        [$WINDOWS_REGEX] ],
+        [ 'hugo',           [$HUGO_REGEX] ],
 
         # two possible cases for the "website" platform: either there's
         # an index.html in the top level dir and some other html files,
