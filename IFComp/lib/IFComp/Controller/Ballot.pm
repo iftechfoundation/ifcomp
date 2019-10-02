@@ -98,7 +98,8 @@ sub index : Chained('fetch_entries') : PathPart('') : Args(0) {
     $c->stash->{zip_file_mb} = $c->config->{zip_file_mb};
 }
 
-sub vote : Chained('fetch_alphabetized_entries') : PathPart('vote') : Args(0) {
+sub vote : Chained('fetch_alphabetized_entries') : PathPart('vote') : Args(0)
+{
     my ( $self, $c ) = @_;
 
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
