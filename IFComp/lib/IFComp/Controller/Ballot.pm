@@ -42,7 +42,6 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
     }
     $c->stash->{user_is_author} = $user_is_author;
 
-    $c->log->debug( 'All done with this action.' . localtime );
 }
 
 sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
@@ -76,7 +75,6 @@ sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
         my $current_comp = $c->stash->{current_comp};
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
         $c->stash->{entries} = \@entries;
-        $c->log->debug( 'Stashed.' . localtime );
     }
 }
 
