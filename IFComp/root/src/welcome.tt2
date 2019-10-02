@@ -1,5 +1,5 @@
 <div class="jumbotron">
-      <div class="container"><a href="[% c.uri_for_action( '/comp/comp' ) %]"><img alt="The [% current_comp.year %] IF Comp" class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp.png"></a>
+      <div class="container"><a href="[% c.uri_for_action( '/comp/comp' ) %]"><img class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp-25.jpg" alt="Cartoon depicting a computer sitting on a lunar surface, its screen reading 'Our 25th Year!' It is surrounded by number of objects and creatures suggesting past IFComp winners: a pig, a rocketship, a plate with a taco on it, et cetera. The pig waves a banner emblazoned with 'IFComp!'"></a>
         <h1>The Interactive Fiction Competition</h1>
         <h2>An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
       </div>
