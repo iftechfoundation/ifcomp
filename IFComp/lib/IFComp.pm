@@ -25,7 +25,6 @@ use Catalyst qw/
     Session::Store::DBIC
     Session::State::Cookie
     Cache
-    PageCache
     /;
 
 extends 'Catalyst';
@@ -85,15 +84,6 @@ __PACKAGE__->config(
     },
     'Model::Covers' => { root_dir  => __PACKAGE__->path_to('file_store') },
     'Plugin::Cache' => { 'backend' => { class => "Cache::FastMmap", }, },
-    'Plugin::PageCache' => {
-        disable_index   => 1,
-        auto_check_user => 1,
-        auto_cache      => [
-            '/rules/?',  '/comp/.+', '/history/?', '/about/.*',
-            '/ballot.*', '/',
-        ],
-        cache_finalize_hook => 'cache_only_success',
-    },
 );
 
 # Start the application
