@@ -1187,8 +1187,10 @@ sub _create_quixe_page {
     # Create a JS file for this game.
     my $js_file = Path::Class::File->new( $i7_file . '.js' );
     $self->_make_js_file( $i7_file, $js_file );
+    my $toplevel_directory = $self->content_directory . '/';
 
-    my $js_filename = $js_file->basename;
+    my $js_filename = $js_file;
+    $js_filename =~ s/^$toplevel_directory//;
 
     my $entry_id = $self->id;
 

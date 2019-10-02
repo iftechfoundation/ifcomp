@@ -150,6 +150,7 @@ sub init_schema {
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
             [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
             [ 113, 1, 'Test Hugo game',                             1, 14 ],
+            [ 114, 1, 'Test subdir-based ulx game',                 1, 15 ],
         ],
     );
 
