@@ -145,6 +145,11 @@
   font-size: 14px;
 }
 
+.InputLine {
+  display: flex;
+  flex-direction: row;
+}
+
 /* The following are used for image alignment (in buffer windows). */
 
 .ImageMarginLeft {
