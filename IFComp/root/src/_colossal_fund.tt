@@ -15,7 +15,7 @@ Support IFComp and its authors through a charitable gift to <strong>The Colossal
 [% END %]
 
 [% IF cf.collected >= cf.goal %]
-<p class="text-center">We've reached our $[% cf.goal %] goal! Thanks, everyone!</p>
+<p class="text-center">The fund drive ended with a total $[% cf.goal %] raised! Thanks, everyone!</p>
 [% ELSE %]
 <p class="text-center">We've raised $[% cf.collected %] of our $[% cf.goal %] goal!</p>
 [% END %]
