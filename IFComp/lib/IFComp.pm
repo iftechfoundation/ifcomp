@@ -24,17 +24,11 @@ use Catalyst qw/
     Session
     Session::Store::DBIC
     Session::State::Cookie
-    Cache
     /;
 
 extends 'Catalyst';
 
 our $VERSION = '0.01';
-
-sub cache_only_success {
-    my $c = shift;
-    return $c->res->status == 200;
-}
 
 # Configure the application.
 #

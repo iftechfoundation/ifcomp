@@ -5,7 +5,6 @@ requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
 requires 'Catalyst::Model::Factory';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Authorization::Roles';
-requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::DBIC';
