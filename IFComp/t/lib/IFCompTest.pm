@@ -150,6 +150,7 @@ sub init_schema {
             [ 111, 1, 'Test ADRIFT game',                           1, 12 ],
             [ 112, 1, 'Quixe game, with extra stuff',               1, 13 ],
             [ 113, 1, 'Test Hugo game',                             1, 14 ],
+            [ 114, 1, 'Test subdir-based ulx game',                 1, 15 ],
         ],
     );
 
@@ -216,7 +217,7 @@ sub set_phase_after {
     my ( $schema, $phase ) = @_;
     my @phases = qw(announcement intents_open intents_close entries_due
         judging_begins judging_ends comp_closes);
-    my $past_ymd = DateTime->now->subtract( days => 2 )->ymd;
+    my $past_ymd   = DateTime->now->subtract( days => 2 )->ymd;
     my $future_ymd = DateTime->now->add( days => 2 )->ymd;
 
     my $hit    = 0;

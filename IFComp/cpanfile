@@ -36,6 +36,7 @@ requires 'MooseX::ClassAttribute';
 requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';
 requires 'namespace::autoclean';
+requires 'Readonly';
 requires 'Regexp::Common';
 requires 'SQL::Translator';
 requires 'Statistics::Basic';

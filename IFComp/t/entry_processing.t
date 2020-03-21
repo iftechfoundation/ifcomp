@@ -97,6 +97,11 @@ ok( $schema->resultset('Entry')->find(103)->supports_transcripts,
     'Supports transcripts.',
 );
 
+ok( file_contains( 101, 'index.html', qr{src="Naked glulx.gblorb.js"} ),
+    'Finds correct javascript file - entry 101' );
+ok( file_contains( 114, 'index.html', qr{src="Build/output.ulx.js"} ),
+    'Finds correct javascript file - entry 114' );
+
 note('Testing custom Inform websites...');
 is( $schema->resultset('Entry')->find(104)->platform,
     'inform-website', 'Platform is correct. (typical layout)',
