@@ -76,8 +76,7 @@ __PACKAGE__->config(
         ],
         ignore_extensions => [ 'tt2', 'tt', ],
     },
-    'Model::Covers' => { root_dir  => __PACKAGE__->path_to('file_store') },
-    'Plugin::Cache' => { 'backend' => { class => "Cache::FastMmap", }, },
+    'Model::Covers' => { root_dir => __PACKAGE__->path_to('file_store') },
 );
 
 # Start the application
