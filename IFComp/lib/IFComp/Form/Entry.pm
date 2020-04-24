@@ -27,6 +27,67 @@ has_field 'subtitle' => (
     maxlength => 128,
 );
 
+has_field 'platform' => (
+    type => 'Select',
+    empty_select => '-- Please choose an option --',
+    id => 'platform',
+    label => 'Gameplay platform',
+    options => [
+        {
+            value => 'website',
+            label => 'Browser-based JavaScript (including Twine)',
+        },
+        {
+            value => 'glulx',
+            label => 'Glulx, no website included',
+        },
+        {
+            value => 'quixe',
+            label => 'Glulx, released with a website',
+        },
+        {
+            value => 'inform',
+            label => 'Z-code, no website included',
+        },
+        {
+            value => 'parchment',
+            label => 'Z-code, released with a website',
+        },
+        {
+            value => 'quest',
+            label => 'Quest (download-only)',
+        },
+        {
+            value => 'quest-website',
+            label => 'Quest (online play available)',
+        },
+        {
+            value => 'tads',
+            label => 'TADS',
+        },
+        {
+            value => 'windows',
+            label => 'A Windows executable',
+        },
+        {
+            value => 'alan',
+            label => 'Alan',
+        },
+        {
+            value => 'hugo',
+            label => 'Hugo',
+        },
+        {
+            value => 'adrift',
+            label => 'ADRIFT',
+        },
+        {
+            value => 'other',
+            label => 'Other',
+        },
+    ],
+);
+
 has_field 'genre' => (
     type      => 'Text',
     maxlength => 48,
