@@ -34,7 +34,7 @@ ok( file_contains(
     'Links to local transcript recorder.',
 );
 is( $schema->resultset('Entry')->find(100)->platform,
-    'inform-website', 'Platform is correct.',
+    'inform', 'Platform is correct.',
 );
 ok( $schema->resultset('Entry')->find(100)->supports_transcripts,
     'Supports transcripts.',
@@ -49,7 +49,7 @@ ok( file_contains( 101, 'index.html', qr{/static/interpreter/quixe/} ),
     'Links to local interpreter.',
 );
 is( $schema->resultset('Entry')->find(101)->platform,
-    'inform-website', 'Platform is correct.',
+    'inform', 'Platform is correct.',
 );
 ok( $schema->resultset('Entry')->find(101)->supports_transcripts,
     'Supports transcripts.',
