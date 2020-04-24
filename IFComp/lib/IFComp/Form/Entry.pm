@@ -28,30 +28,29 @@ has_field 'subtitle' => (
 );
 
 has_field 'platform' => (
-    type => 'Select',
-    empty_select => '-- Please choose an option --',
-    id => 'platform',
-    label => 'Gameplay platform',
-    options => [
+    type         => 'Select',
+    id           => 'platform',
+    label        => 'Gameplay platform',
+    options      => [
         {
             value => 'website',
             label => 'Browser-based JavaScript (including Twine)',
         },
         {
-            value => 'glulx',
-            label => 'Glulx, no website included',
+            value => 'inform',
+            label => 'Glulx or Z-code, not packaged with a website',
         },
         {
             value => 'quixe',
-            label => 'Glulx, released with a website',
-        },
-        {
-            value => 'inform',
-            label => 'Z-code, no website included',
+            label => q{Glulx, using Inform's "Release with a website" feature},
         },
         {
             value => 'parchment',
-            label => 'Z-code, released with a website',
+            label => q{Z-code, using Inform's "Release with a website" feature},
+        },
+        {
+            value => 'inform-website',
+            label => 'Glulx or Z-code, presented within a custom website',
         },
         {
             value => 'quest',

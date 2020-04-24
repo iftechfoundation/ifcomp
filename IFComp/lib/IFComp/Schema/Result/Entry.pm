@@ -211,8 +211,8 @@ __PACKAGE__->table("entry");
 
   data_type: 'enum'
   default_value: 'other'
-  extra: {list => ["adrift","inform-website","inform","tads","quest-online","quest","alan","hugo","windows","website","other"]}
-  is_nullable: 0
+  extra: {list => ["adrift","inform-website","inform","parchment","quixe","tads","quest-online","quest","alan","hugo","windows","website","other"]}
+  is_nullable: 1
 
 =cut
 
@@ -324,6 +324,8 @@ __PACKAGE__->add_columns(
         "adrift",
         "inform-website",
         "inform",
+        "parchment",
+        "quixe",
         "tads",
         "quest-online",
         "quest",
@@ -334,7 +336,7 @@ __PACKAGE__->add_columns(
         "other",
       ],
     },
-    is_nullable => 0,
+    is_nullable => 1,
   },
 );
 
@@ -458,8 +460,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-24 12:59:56
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:magWzjoDufyABuoxtU1oRQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-04-24 17:22:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A+c+9ZjWdc4SbvYv+67k1w
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
@@ -827,7 +829,7 @@ sub _build_play_file {
 
     my $play_file;
     given ($self->platform) {
-        when ('parchment' || 'quixe' || 'inform-website' || 'quest-online' ) {
+        when ('parchment' || 'quixe' || /^inform/ || 'quest-online' ) {
             $play_file = $self->content_directory->file('index.html');
         }
         when ('website') {
@@ -1337,7 +1339,7 @@ sub _build_supports_transcripts {
 
     if (   ( $self->platform eq 'parchment' )
         || ( $self->platform eq 'quixe' )
-        || ( $self->platform eq 'inform-website' ) )
+        || ( $self->platform =~ /^inform/ ) )
     {
         return 1;
     }
