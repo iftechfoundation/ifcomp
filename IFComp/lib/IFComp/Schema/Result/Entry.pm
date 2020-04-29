@@ -829,23 +829,27 @@ sub _build_play_file {
 
     my $play_file;
     given ($self->platform) {
-        when ('parchment' || 'quixe' || /^inform/ || 'quest-online' ) {
-            $play_file = $self->content_directory->file('index.html');
+        when (/^parchment$|^quixe$|^inform|^quest-online$/ ) {
+            $play_file = Path::Class::File->new('index.html');
         }
         when ('website') {
             # For website games:
             # If 'index.html' exists at the top level, there we are.
             # Otherwise, check whether *one* HTML file exists at top.
-            $play_file = $self->content_directory->file('index.html');
-            unless (-e $play_file) {
+            if ( -e $self->content_directory->file('index.html') ) {
+                $play_file = Path::Class::File->new('index.html');
+            }
+            else {
                 # We use glob() here instead of a "friendlier" iteration over
                 # $content_directory->children, to avoid situations where
                 # an entry has a hundred thousand files and we end up making
                 # objects out of all of them every time we look at this game.
                 # (Yes, this has happened.)
-                my @html_filenames = glob($self->content_directory . "*.html");
+                my @html_filenames = glob($self->content_directory . "/*.html");
                 if (@html_filenames == 1) {
-                    $play_file = $html_filenames[0];
+                    $play_file =
+                        Path::Class::File->new($html_filenames[0])
+                        ->relative( $self->content_directory );
                 }
             }
         }

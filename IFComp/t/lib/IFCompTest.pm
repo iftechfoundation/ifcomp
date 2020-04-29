@@ -151,6 +151,7 @@ sub init_schema {
             [ 112, 1, 'Quixe game, with extra stuff',               1, 13, 'quixe', ],
             [ 113, 1, 'Test Hugo game',                             1, 14, 'hugo', ],
             [ 114, 1, 'Test subdir-based ulx game',                 1, 15, 'inform', ],
+            [ 115, 1, 'Test non-Inform website, no index.html',     1, 16, 'website', ],
         ],
     );
 
