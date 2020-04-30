@@ -76,6 +76,7 @@
               || entry.platform == 'inform-website'
               || entry.platform == 'quixe'
               || entry.platform == 'quest-online'
+              || entry.platform == 'inform'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
