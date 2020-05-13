@@ -28,60 +28,49 @@ has_field 'subtitle' => (
 );
 
 has_field 'platform' => (
-    type         => 'Select',
-    id           => 'platform',
-    label        => 'Gameplay platform',
-    options      => [
-        {
-            value => 'website',
+    type    => 'Select',
+    id      => 'platform',
+    label   => 'Gameplay platform',
+    options => [
+        {   value => 'website',
             label => 'Browser-based JavaScript (including Twine)',
         },
-        {
-            value => 'inform',
+        {   value => 'inform',
             label => 'Glulx or Z-code, not packaged with a website',
         },
-        {
-            value => 'quixe',
-            label => q{Glulx, using Inform's "Release with a website" feature},
+        {   value => 'quixe',
+            label =>
+                q{Glulx, using Inform's "Release with a website" feature},
         },
-        {
-            value => 'parchment',
-            label => q{Z-code, using Inform's "Release with a website" feature},
+        {   value => 'parchment',
+            label =>
+                q{Z-code, using Inform's "Release with a website" feature},
         },
-        {
-            value => 'inform-website',
+        {   value => 'inform-website',
             label => 'Glulx or Z-code, presented within a custom website',
         },
-        {
-            value => 'quest',
+        {   value => 'quest',
             label => 'Quest (download-only)',
         },
-        {
-            value => 'quest-website',
+        {   value => 'quest-website',
             label => 'Quest (online play available)',
         },
-        {
-            value => 'tads',
+        {   value => 'tads',
             label => 'TADS',
         },
-        {
-            value => 'windows',
+        {   value => 'windows',
             label => 'A Windows executable',
         },
-        {
-            value => 'alan',
+        {   value => 'alan',
             label => 'Alan',
         },
-        {
-            value => 'hugo',
+        {   value => 'hugo',
             label => 'Hugo',
         },
-        {
-            value => 'adrift',
+        {   value => 'adrift',
             label => 'ADRIFT',
         },
-        {
-            value => 'other',
+        {   value => 'other',
             label => 'Other',
         },
     ],

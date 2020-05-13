@@ -476,8 +476,8 @@ use Unicode::Normalize;
 use v5.10;
 
 use Readonly;
-Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
-Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
+Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $ZCODE_REGEX => qr/\.z\d$|\.zblorb$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
     'Cover.jpg',       'index.html', 'interpreter', 'play.html',
@@ -824,15 +824,17 @@ sub _find_fileset {
 }
 
 no warnings "experimental";
+
 sub _build_play_file {
     my $self = shift;
 
     my $play_file;
-    given ($self->platform) {
-        when (/^parchment$|^quixe$|^inform|^quest-online$/ ) {
+    given ( $self->platform ) {
+        when (/^parchment$|^quixe$|^inform|^quest-online$/) {
             $play_file = Path::Class::File->new('index.html');
         }
         when ('website') {
+
             # For website games:
             # If 'index.html' exists at the top level, there we are.
             # Otherwise, check whether *one* HTML file exists at top.
@@ -845,15 +847,16 @@ sub _build_play_file {
                 # an entry has a hundred thousand files and we end up making
                 # objects out of all of them every time we look at this game.
                 # (Yes, this has happened.)
-                my @html_filenames = glob($self->content_directory . "/*.html");
-                if (@html_filenames == 1) {
+                my @html_filenames =
+                    glob( $self->content_directory . "/*.html" );
+                if ( @html_filenames == 1 ) {
                     $play_file =
-                        Path::Class::File->new($html_filenames[0])
+                        Path::Class::File->new( $html_filenames[0] )
                         ->relative( $self->content_directory );
                 }
             }
         }
-        default { $play_file = undef } # By default, offer no online play.
+        default { $play_file = undef }    # By default, offer no online play.
     }
 
     return $play_file;

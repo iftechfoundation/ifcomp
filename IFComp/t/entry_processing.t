@@ -39,8 +39,8 @@ is( $schema->resultset('Entry')->find(100)->platform,
 ok( $schema->resultset('Entry')->find(100)->supports_transcripts,
     'Supports transcripts.',
 );
-is($schema->resultset('Entry')->find(100)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(100)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 
 note('Testing naked Glulx upload...');
@@ -57,8 +57,8 @@ is( $schema->resultset('Entry')->find(101)->platform,
 ok( $schema->resultset('Entry')->find(101)->supports_transcripts,
     'Supports transcripts.',
 );
-is($schema->resultset('Entry')->find(101)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(101)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 
 note('Testing Quixe upload...');
@@ -71,8 +71,8 @@ is( $schema->resultset('Entry')->find(102)->platform,
 ok( $schema->resultset('Entry')->find(102)->supports_transcripts,
     'Supports transcripts.',
 );
-is($schema->resultset('Entry')->find(102)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(102)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 ok( not( $schema->resultset('Entry')->find(102)->has_extra_content ),
     'Does not report having any extra content.' );
@@ -87,8 +87,8 @@ is( $schema->resultset('Entry')->find(112)->platform,
 ok( $schema->resultset('Entry')->find(112)->supports_transcripts,
     'Supports transcripts.',
 );
-is($schema->resultset('Entry')->find(112)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(112)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 ok( $schema->resultset('Entry')->find(112)->has_extra_content,
     'Reports having extra content.' );
@@ -105,8 +105,8 @@ ok( file_contains(
     ),
     'Links to local transcript recorder.',
 );
-is($schema->resultset('Entry')->find(103)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(103)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 ok( $schema->resultset('Entry')->find(103)->supports_transcripts,
     'Supports transcripts.',
@@ -121,15 +121,15 @@ note('Testing custom Inform websites...');
 is( $schema->resultset('Entry')->find(104)->platform,
     'inform-website', 'Platform is correct. (typical layout)',
 );
-is($schema->resultset('Entry')->find(104)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(104)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 
 is( $schema->resultset('Entry')->find(107)->platform,
     'inform-website', 'Platform is correct. (weird layout)',
 );
-is($schema->resultset('Entry')->find(107)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(107)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 
 TODO: {
@@ -146,8 +146,8 @@ TODO: {
 note('Testing hugo detection');
 is( $schema->resultset('Entry')->find(113)->platform,
     'hugo', 'Platform is correct' );
-is($schema->resultset('Entry')->find(113)->play_file,
-   undef, 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(113)->play_file,
+    undef, 'Play-file set correctly.',
 );
 
 note('Testing miscellaneous platform detection...');
@@ -157,8 +157,8 @@ is( $schema->resultset('Entry')->find(105)->platform,
 ok( not( $schema->resultset('Entry')->find(105)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(105)->play_file,
-   'index.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(105)->play_file,
+    'index.html', 'Play-file set correctly.',
 );
 
 is( $schema->resultset('Entry')->find(115)->platform,
@@ -167,8 +167,8 @@ is( $schema->resultset('Entry')->find(115)->platform,
 ok( not( $schema->resultset('Entry')->find(115)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(115)->play_file,
-   'my-game.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(115)->play_file,
+    'my-game.html', 'Play-file set correctly.',
 );
 
 is( $schema->resultset('Entry')->find(106)->platform,
@@ -177,10 +177,9 @@ is( $schema->resultset('Entry')->find(106)->platform,
 ok( not( $schema->resultset('Entry')->find(106)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(106)->play_file,
-   'my-game.html', 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(106)->play_file,
+    'my-game.html', 'Play-file set correctly.',
 );
-
 
 is( $schema->resultset('Entry')->find(108)->platform,
     'quest', 'Platform is correct. (quest)',
@@ -188,10 +187,9 @@ is( $schema->resultset('Entry')->find(108)->platform,
 ok( not( $schema->resultset('Entry')->find(108)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(113)->play_file,
-   undef, 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(113)->play_file,
+    undef, 'Play-file set correctly.',
 );
-
 
 is( $schema->resultset('Entry')->find(109)->platform,
     'tads', 'Platform is correct. (tads)',
@@ -199,8 +197,8 @@ is( $schema->resultset('Entry')->find(109)->platform,
 ok( not( $schema->resultset('Entry')->find(109)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(113)->play_file,
-   undef, 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(113)->play_file,
+    undef, 'Play-file set correctly.',
 );
 
 is( $schema->resultset('Entry')->find(110)->platform,
@@ -209,8 +207,8 @@ is( $schema->resultset('Entry')->find(110)->platform,
 ok( not( $schema->resultset('Entry')->find(110)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(113)->play_file,
-   undef, 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(113)->play_file,
+    undef, 'Play-file set correctly.',
 );
 
 is( $schema->resultset('Entry')->find(111)->platform,
@@ -219,8 +217,8 @@ is( $schema->resultset('Entry')->find(111)->platform,
 ok( not( $schema->resultset('Entry')->find(111)->supports_transcripts ),
     'Does not support transcripts.',
 );
-is($schema->resultset('Entry')->find(113)->play_file,
-   undef, 'Play-file set correctly.',
+is( $schema->resultset('Entry')->find(113)->play_file,
+    undef, 'Play-file set correctly.',
 );
 
 done_testing();

@@ -72,7 +72,7 @@ $mech->submit_form_ok(
             'entry.main_upload'  => "$FindBin::Bin/test_files/my_game.html",
             'entry.walkthrough_upload' =>
                 "$FindBin::Bin/test_files/walkthrough.txt",
-            'entry.platform'     => 'website',
+            'entry.platform' => 'website',
         },
     },
 );
