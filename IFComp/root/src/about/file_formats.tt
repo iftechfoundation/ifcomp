@@ -6,6 +6,14 @@
 
 <p>Most of these game formats will work on any modern computer, but some require additional software to run. You can identify the &#8220;flavor&#8221; of an IFComp game (and know what else you need to play it) by its main file&#8217;s extension, as described below.</p>
 
+<p>Note that many games in this competition are what's known as <a href="http://www.ifcomp.org/about/if#parserif">parser-based IF</a>, in the mode of Infocom&#8217;s classic text adventures. To play them, you type in commands like <strong>GET LAMP</strong> and <strong>KILL TROLL WITH SWORD</strong> and <strong>ASK ZOE ABOUT QUANTUM PHYSICS</strong> and so on. Playing these games as intended requires knowledge of (and comfort with) parser conventions. </p>
+
+<p>Some games contain some basic instructions if you e.g. type <strong>HELP</strong> as your first command. You can also find <a href="http://www.ifcomp.org/about/if#playingparserif">links to parser primers and tutorial games</a> on the ifcomp.org website.</p>
+
+<h3>Interpreters</h3>
+
+<p>Software which allows you to play the game submissions are called by the general-purpose term &#8220;Interpreter&#8221;. On the <a href="http://www.ifwiki.org/index.php/Main_Page">IF Wiki</a> there is a page with a <a href="http://www.ifwiki.org/index.php/Interpreter">list of interpreters</a> for several file formats and many operating systems which will guide you to what you need.</p>
+
 <h3 id="inform">Glulx and Z-Code games</h3>
 
 <p><strong>File extensions:</strong> <code>.gblorb</code>, <code>.zblorb</code>, <code>.ulx</code>, <code>.z5</code>, <code>.z8</code></p>
@@ -13,17 +21,10 @@
 <p>There are two ways to play these games, which are created using the <a href="http://inform7.com">Inform</a> IF authoring tool:</p>
 
 <ul>
-<li><p><a href="http://web.archive.org/web/20180201103659/http://inform7.com/if/interpreters/">Download an appropriate interpreter for your operating system</a>, and have it load the game file that (since you&#8217;re reading this) you&#8217;ve already downloaded.</p></li>
+<li><p><a href="http://www.ifwiki.org/index.php/Interpreter">Download an appropriate interpreter for your operating system</a>, and have it load the game file that (since you&#8217;re reading this) you&#8217;ve already downloaded.</p></li>
 <li><p><a href="/comp/">Play the game on the ifcomp.org website</a> by locating its entry in the game list and clicking its &#8220;Play Online&#8221; button or link.</p></li>
 </ul>
 
-<div class="alert alert-info">
-<p><strong>Special note for Mac users this year:</strong> The most recent version of macOS, Sierra, has demonstrated incompatibilities with several older interpreters, including Zoom, Spatterlight, and Gargoyle. If you have trouble running these programs, consider <a href="https://github.com/erkyrath/lectrote/releases">Lectrote</a>, a new interpreter by Andrew Plotkin. You can also try playing the games in a web browser, as described above.</p>
-</div>
-
-<p>Note that games in this format are usually <a href="http://www.ifcomp.org/about/if#parserif">parser-based IF</a>, in the mode of Infocom&#8217;s classic text adventures, the ones where you have to type in commands like <strong>GET LAMP</strong> and <strong>KILL TROLL WITH SWORD</strong> and <strong>ASK ZOE ABOUT QUANTUM PHYSICS</strong> and so on. Playing these games as intended requires knowledge of (and comfort with) parser conventions. </p>
-
-<p>Some games contain some basic instructions if you e.g. type <strong>HELP</strong> as your first command. You can also find <a href="http://www.ifcomp.org/about/if#playingparserif">links to parser primers and tutorial games</a> on the ifcomp.org website.</p>
 
 <h3 id="web">Web games</h3>
 
@@ -69,7 +70,7 @@
 
 <p><strong>File extensions:</strong> <code>.taf</code>, <code>.blorb</code></p>
 
-<p><a href="http://www.adrift.co">ADRIFT</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.adrift.co/files/ADRIFT5r.zip">a separate interpreter ("runner") program</a>, available for Windows.</p>
+<p><a href="http://www.adrift.co">ADRIFT</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.adrift.co/download">a separate interpreter ("runner") program</a>, available for Windows.</p>
 
 <p>You can also play ADRIFT games on Android using the <a href="https://play.google.com/store/apps/details?id=com.luxlunae.fabularium">Fabularium</a> interpreter.</p>
 
