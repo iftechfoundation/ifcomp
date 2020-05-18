@@ -470,7 +470,6 @@ use File::Copy qw( move );
 use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
-use IFComp::Blorb qw( determine_blorb_type );
 use Unicode::Normalize;
 
 use v5.10;
