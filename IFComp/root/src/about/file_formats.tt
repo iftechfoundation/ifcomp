@@ -6,8 +6,6 @@
 
 <p>Most of these game formats will work on any modern computer, but some require additional software to run. You can identify the &#8220;flavor&#8221; of an IFComp game (and know what else you need to play it) by its main file&#8217;s extension, as described below.</p>
 
-<p>Some games contain some basic instructions if you e.g. type <strong>HELP</strong> as your first command. You can also find <a href="http://www.ifcomp.org/about/if#playingparserif">links to parser primers and tutorial games</a> on the ifcomp.org website.</p>
-
 <h3 id="inform">Glulx and Z-Code games</h3>
 
 <p><strong>File extensions:</strong> <code>.gblorb</code>, <code>.zblorb</code>, <code>.ulx</code>, <code>.z5</code>, <code>.z8</code></p>
@@ -20,6 +18,8 @@
 </ul>
 
 <p>Note that games in this format are usually <a href="http://www.ifcomp.org/about/if#parserif">parser-based IF</a>, in the mode of Infocom&#8217;s classic text adventures. To play them, you type in commands like <strong>GET LAMP</strong> and <strong>KILL TROLL WITH SWORD</strong> and <strong>ASK ZOE ABOUT QUANTUM PHYSICS</strong> and so on. Playing these games as intended requires knowledge of (and comfort with) parser conventions. </p>
+
+<p>Some games contain some basic instructions if you e.g. type <strong>HELP</strong> as your first command. You can also find <a href="http://www.ifcomp.org/about/if#playingparserif">links to parser primers and tutorial games</a> on the ifcomp.org website.</p>
 
 <h3 id="web">Web games</h3>
 
