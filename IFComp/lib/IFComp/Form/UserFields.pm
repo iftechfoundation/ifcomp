@@ -6,8 +6,9 @@ with 'IFComp::Form::PasswordFields';
 use Regexp::Common qw( URI );
 
 has_field 'email' => (
-    type     => 'Email',
-    required => 1,
+    type      => 'Email',
+    required  => 1,
+    maxlength => 64,
 );
 
 has_field 'email_is_public' => (
@@ -37,8 +38,9 @@ has_field 'forum_handle' => (
 );
 
 has_field 'paypal' => (
-    type  => 'Email',
-    label => 'Paypal address',
+    type      => 'Email',
+    label     => 'Paypal address',
+    maxlength => 64,
 );
 
 has_field 'submit' => (
