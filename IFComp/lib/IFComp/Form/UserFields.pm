@@ -36,6 +36,11 @@ has_field 'forum_handle' => (
     label => 'Intfiction.org forum handle',
 );
 
+has_field 'paypal' => (
+    type  => 'Email',
+    label => 'Paypal address',
+);
+
 has_field 'submit' => (
     type         => 'Submit',
     value        => 'Register',
