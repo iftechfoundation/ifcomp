@@ -58,14 +58,17 @@ sub auth_check_token {
     my $token   = $c->req->param("token");
     my $user_id = $c->req->param("user_id");
 
-    $token = $self->decrypt_rijndael_256( $c, $token );
+    $token = decode_base64($token);
 
     unless ( $token && $user_id ) {
         return;
     }
 
+    $self->verify_request($c);
+
     my @tokens = $c->model("IFCompDB::AuthToken")->search(
-        {   token => $token,
+        {
+            token => $token,
             user  => $user_id
         },
         { order_by => { -desc => "created" } },
@@ -93,19 +96,9 @@ sub auth_login {
 
     my $email     = $c->req->param("email");
     my $password  = $c->req->param("password");
-    my $site_id   = $c->req->param("site_id") || $DEFAULT_SITE;
     my $client_id = $c->req->param("client_id") || "";
-    my $client_ip = $c->req->param("ip");
 
-    # Look up site by name
-    my $site =
-        $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } );
-    unless ($site) {
-        return {
-            error_code => "UNKNOWN SITE",
-            error_text => "Cannot find site '$site_id'",
-        };
-    }
+    $self->verify_request($c);
 
     unless ( $email && $password ) {
         return {
@@ -115,13 +108,13 @@ sub auth_login {
     }
 
     my @users =
-        $c->model("IFCompDB::User")->search( { email => $email } )->all;
+      $c->model("IFCompDB::User")->search( { email => $email } )->all;
     unless (@users) {
         return {
             error_code => "bad password",
             error_text =>
-                "The password passed in was invalid, or the account doesn't "
-                . "exist"
+              "The password passed in was invalid, or the account doesn't "
+              . "exist"
         };
     }
 
@@ -130,7 +123,7 @@ sub auth_login {
         return {
             error_code => "unverified",    # legacy
             error_text =>
-                "The login was valid, but the account has not been verified",
+              "The login was valid, but the account has not been verified",
         };
     }
 
@@ -139,15 +132,16 @@ sub auth_login {
         $opts{override} = "rijndael-128";
     }
 
-    if ( $self->check_password( $c, $user, $password, \%opts ) ) {
+    $password = decode_base64($password);
+
+    if ( $user->check_password($password) ) {
         $c->log->debug("Password check\n");
     }
     else {
         return {
             error_code => "bad password",    # legacy response
-            error_text =>
-                "The password passed in was invalid, or the account "
-                . "doesn't exist",
+            error_text => "The password passed in was invalid, or the account "
+              . "doesn't exist",
         };
     }
 
@@ -155,14 +149,14 @@ sub auth_login {
 
     # Delete old tokens for this user
     my @all =
-        $c->model("IFCompDB::AuthToken")->search( { user => $user->id } )
-        ->all;
+      $c->model("IFCompDB::AuthToken")->search( { user => $user->id } )->all;
     for (@all) {
         $_->delete;
     }
 
     my $token = $c->model("IFCompDB::AuthToken")->create(
-        {   user    => $user->id,
+        {
+            user    => $user->id,
             token   => $token_key,
             created => "CURRENT_TIMESTAMP",
         }
@@ -180,7 +174,7 @@ sub auth_verify {
     my $ret = {};
     if ( $self->auth_check_token($c) ) {
         my @users = $c->model("IFCompDB::User")
-            ->search( { id => $c->req->param("user_id") } )->all();
+          ->search( { id => $c->req->param("user_id") } )->all();
         $ret = { success => 1, "user" => $users[0]->get_api_fascade };
     }
     else {
@@ -199,9 +193,10 @@ sub auth_logout {
     my $ret = {};
     if ( $self->auth_check_token($c) ) {
         my @users = $c->model("IFCompDB::User")
-            ->search( { id => $c->req->param("user_id") } )->all();
-        my @all = $c->model("IFCompDB::AuthToken")
-            ->search( { user => $users[0]->id } )->all;
+          ->search( { id => $c->req->param("user_id") } )->all();
+        my @all =
+          $c->model("IFCompDB::AuthToken")->search( { user => $users[0]->id } )
+          ->all;
         for (@all) {
             $_->delete;
         }
@@ -246,56 +241,22 @@ sub check_password {
     return $user->check_password($plaintext);
 }
 
-sub encrypt_rijndael_256 {
-    my ( $self, $c, $plaintext ) = @_;
-
-    my $crypt_bin =
-        $c->config->path_to( "script", "encrypt-rijndael-256.php" )
-        ->stringify;
-    unless ( -e $crypt_bin ) {
-        $c->log->debug("Cannot find '$crypt_bin'\n");
-        return;
-    }
+sub verify_request {
+    my ( $self, $c ) = @_;
 
     my $site_id = $c->req->param("site_id") || $DEFAULT_SITE;
     my @site =
-        $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } )
-        ->all;
-    unless ( $site[0] ) {
-        $c->log->debug("No site '$site_id'\n");
-        return;
-    }
-
-    my $api_key = $site[0]->api_key;
-    my $cmd     = qq[/usr/bin/php $crypt_bin $plaintext $api_key];
-    my $hash    = qx[$cmd];
-    return $hash;
-}
-
-sub decrypt_rijndael_256 {
-    my ( $self, $c, $hash ) = @_;
-
-    my $crypt_bin =
-        $c->path_to( "script", "decrypt-rijndael-256.php" )->stringify;
-    unless ( -e $crypt_bin ) {
-        die "Cannot find '$crypt_bin'\n";
-    }
-
-    my $site_id = $c->req->param("site_id") || $DEFAULT_SITE;
-    my @site =
-        $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } )
-        ->all;
+      $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } )->all;
     unless ( $site[0] ) {
         die "No site '$site_id'\n";
     }
 
-    my $api_key = $site[0]->api_key;
+    my $site_key     = $site[0]->api_key;
+    my $provided_key = $c->req->param("key") || "";
 
-    my $cmd = qq[/usr/bin/php $crypt_bin $hash $api_key];
-
-    my $plaintext = qx($cmd);
-
-    return $plaintext;
+    unless ( $site_key eq $provided_key ) {
+        die "Key mismatch\n";
+    }
 }
 
 =encoding utf8
