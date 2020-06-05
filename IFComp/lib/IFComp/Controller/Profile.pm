@@ -67,8 +67,7 @@ sub auth_check_token {
     $self->verify_request($c);
 
     my @tokens = $c->model("IFCompDB::AuthToken")->search(
-        {
-            token => $token,
+        {   token => $token,
             user  => $user_id
         },
         { order_by => { -desc => "created" } },
@@ -108,13 +107,13 @@ sub auth_login {
     }
 
     my @users =
-      $c->model("IFCompDB::User")->search( { email => $email } )->all;
+        $c->model("IFCompDB::User")->search( { email => $email } )->all;
     unless (@users) {
         return {
             error_code => "bad password",
             error_text =>
-              "The password passed in was invalid, or the account doesn't "
-              . "exist"
+                "The password passed in was invalid, or the account doesn't "
+                . "exist"
         };
     }
 
@@ -123,7 +122,7 @@ sub auth_login {
         return {
             error_code => "unverified",    # legacy
             error_text =>
-              "The login was valid, but the account has not been verified",
+                "The login was valid, but the account has not been verified",
         };
     }
 
@@ -140,8 +139,9 @@ sub auth_login {
     else {
         return {
             error_code => "bad password",    # legacy response
-            error_text => "The password passed in was invalid, or the account "
-              . "doesn't exist",
+            error_text =>
+                "The password passed in was invalid, or the account "
+                . "doesn't exist",
         };
     }
 
@@ -149,14 +149,14 @@ sub auth_login {
 
     # Delete old tokens for this user
     my @all =
-      $c->model("IFCompDB::AuthToken")->search( { user => $user->id } )->all;
+        $c->model("IFCompDB::AuthToken")->search( { user => $user->id } )
+        ->all;
     for (@all) {
         $_->delete;
     }
 
     my $token = $c->model("IFCompDB::AuthToken")->create(
-        {
-            user    => $user->id,
+        {   user    => $user->id,
             token   => $token_key,
             created => "CURRENT_TIMESTAMP",
         }
@@ -174,7 +174,7 @@ sub auth_verify {
     my $ret = {};
     if ( $self->auth_check_token($c) ) {
         my @users = $c->model("IFCompDB::User")
-          ->search( { id => $c->req->param("user_id") } )->all();
+            ->search( { id => $c->req->param("user_id") } )->all();
         $ret = { success => 1, "user" => $users[0]->get_api_fascade };
     }
     else {
@@ -193,10 +193,10 @@ sub auth_logout {
     my $ret = {};
     if ( $self->auth_check_token($c) ) {
         my @users = $c->model("IFCompDB::User")
-          ->search( { id => $c->req->param("user_id") } )->all();
+            ->search( { id => $c->req->param("user_id") } )->all();
         my @all =
-          $c->model("IFCompDB::AuthToken")->search( { user => $users[0]->id } )
-          ->all;
+            $c->model("IFCompDB::AuthToken")
+            ->search( { user => $users[0]->id } )->all;
         for (@all) {
             $_->delete;
         }
@@ -246,7 +246,8 @@ sub verify_request {
 
     my $site_id = $c->req->param("site_id") || $DEFAULT_SITE;
     my @site =
-      $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } )->all;
+        $c->model("IFCompDB::FederatedSite")->search( { name => $site_id } )
+        ->all;
     unless ( $site[0] ) {
         die "No site '$site_id'\n";
     }
