@@ -58,8 +58,6 @@ sub auth_check_token {
     my $token   = $c->req->param("token");
     my $user_id = $c->req->param("user_id");
 
-    $token = decode_base64($token);
-
     unless ( $token && $user_id ) {
         return;
     }
