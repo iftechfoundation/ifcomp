@@ -1,4 +1,10 @@
+<style>
+.rating-controls { display: none }
+</style>
+
 <div class="container">
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
 <div class="jumbotron">
 <h2 style="text-align:center;">Download and Play</h2>
@@ -111,5 +117,8 @@
     [% END %]
 [% END %]
 
+[% IF c.user %]
+    [% INCLUDE _change_vote.tt %]
+[% END %]
 
 </div> <!-- .container -->
