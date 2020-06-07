@@ -15,7 +15,7 @@ The organization of the IFComp changed hands after its 2013 iteration, and the n
 
 This is a LAMP application whose server-side business logic is implemented in Perl, using a modern, Moose-based dialect, by way of the Catalyst web application framework.
 
-Note that the software additionally performs some goofy business involving system calls to a couple of custom PHP scripts (found in the `scripts/` directory) based on HTTP endpoints defined in `IFComp::Controller::Profile`. These are necessary to support a custom API for secure, federated logins used by a handful of other sites in the IF community. This controller and these scripts are otherwise not used by the IFComp itself; forks of this repository may feel free to disregard them.
+Note that the software additionally performs some goofy business based on HTTP endpoints defined in `IFComp::Controller::Profile`. These are necessary to support a custom API for secure, federated logins used by a handful of other sites in the IF community. This controller is otherwise not used by the IFComp itself; forks of this repository may feel free to disregard it.
 
 ### Branches
 
@@ -46,10 +46,6 @@ This should crunch though the installation of a bunch of Perl modules. It'll tak
 If you're planning on contributing to the project, you'll want some additional modules. Use the `--with-develop` option with the _cpanm_ command. eg.
 
     curl -fsSL https://cpanmin.us | perl - --installdeps --with-develop .
-
-#### PHP libraries
-
-You'll need to install both PHP and the PHP MCrypt module. Both should be available through your package manager of choice. (E.g. on Debian, `sudo apt-get install php5-mcrypt` will do the trick.)
 
 ### Application configuration
 
