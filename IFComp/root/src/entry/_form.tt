@@ -39,7 +39,7 @@
 [% END %]
 
 [% UNLESS entry.id %]
-<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title and subtitle. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] deadline.</p>
+<p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title, subtitle, and platform information. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] deadline.</p>
 [% form.field('submit').render %]
 <p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
 [% END %]
