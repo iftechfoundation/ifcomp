@@ -18,7 +18,6 @@ $( '.rating-select' ).change( function() {
             success.show();
         })
         .fail( function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus);
             failure.show();
         })
         .always( function() {
@@ -30,5 +29,4 @@ $( '.rating-select' ).change( function() {
 
 // Show rating controls only if JS is turned on.
 $( '.rating-controls' ).show();
-console.log("what");
 </script>
