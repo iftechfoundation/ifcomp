@@ -76,6 +76,22 @@ sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
         $c->stash->{entries} = \@entries;
     }
+
+    my %rating_for_entry;
+    if ( $c->user ) {
+        my $rating_rs = $c->model('IFCompDB::Vote')->search(
+            {   user => $c->user->id,
+                comp => $c->stash->{current_comp}->id,
+            },
+            { join => { entry => 'comp' }, },
+        );
+
+        while ( my $rating = $rating_rs->next ) {
+            $rating_for_entry{ $rating->entry->id } = $rating->score;
+        }
+    }
+    $c->stash->{rating_for_entry} = \%rating_for_entry;
+
 }
 
 sub fetch_alphabetized_entries : Chained('root') : PathPart('') :
@@ -105,21 +121,6 @@ sub vote : Chained('fetch_alphabetized_entries') : PathPart('vote') : Args(0)
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
         $c->detach('/error_403');
     }
-
-    my %rating_for_entry;
-    if ( $c->user ) {
-        my $rating_rs = $c->model('IFCompDB::Vote')->search(
-            {   user => $c->user->id,
-                comp => $c->stash->{current_comp}->id,
-            },
-            { join => { entry => 'comp' }, },
-        );
-
-        while ( my $rating = $rating_rs->next ) {
-            $rating_for_entry{ $rating->entry->id } = $rating->score;
-        }
-    }
-    $c->stash->{rating_for_entry} = \%rating_for_entry;
 
 }
 

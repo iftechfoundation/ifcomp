@@ -18,4 +18,5 @@
         <span id="rating-status-[% entry.id %]-failure" class="label label-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>
         </p>
     </div>
-    [% END %]
+
+[% END %]
