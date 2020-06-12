@@ -55,4 +55,6 @@ on 'develop' => sub {
   requires 'Code::TidyAll';
   requires 'DBIx::Class::Schema::Loader';
   requires 'Perl::Tidy';
+  requires 'DBD::mysql';
+  requires 'Catalyst::Devel';
 };
