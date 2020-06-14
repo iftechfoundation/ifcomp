@@ -1,7 +1,7 @@
 
 [% IF c.user.get_object.id != entry.author.id %]
 
-    <div class="rating-controls">
+    <div class="rating-controls" style="float: right;">
         <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">
             <option value="0">None</option>
             [% number = 1 %]

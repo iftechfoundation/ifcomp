@@ -25,7 +25,7 @@ sub index : Path : Args(2) {
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
 
-    my $ballot_uri      = $c->uri_for_action('/ballot');
+    my $ballot_uri      = $c->uri_for_action('/ballot/index');
     my $ballot_vote_uri = $c->uri_for_action('/ballot/vote');
     unless ( $c->req->referer =~ /^$ballot_uri/
         || $c->req->referer =~ /^$ballot_vote_uri/ )
