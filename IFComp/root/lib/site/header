@@ -2,9 +2,11 @@
 IF c.user;
     form_action = '/auth/logout';
     button_label = 'Sign out';
+    button_id = 'signout-button';
 ELSE;
     form_action = '/auth/login';
     button_label = 'Sign in / Register';
+    button_id = 'signin-button';
 END;
 %]
 <!-- BEGIN site/header -->
@@ -65,7 +67,7 @@ END;
               </li>
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
-            <button type="submit" class="btn btn-success">[% button_label %]</button> 
+            <button type="submit" id="[% button_id %]" class="btn btn-success">[% button_label %]</button> 
           </form>
           [% IF c.user %]
           <p class="navbar-text navbar-right"><a href="/user/edit_account">Welcome, [% c.user.name | html %]</a></p>

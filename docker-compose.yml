@@ -26,3 +26,8 @@ services:
             - "3306:3306"
         expose:
             - "3306"
+    selenium-chrome-standalone:
+        image: selenium/standalone-chrome
+        expose:
+            - 4444
+        shm_size: '2gb'
