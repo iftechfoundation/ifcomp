@@ -9,26 +9,6 @@ This is the software that runs [the Interactive Fiction Competition](http://ifco
 
 The organization of the IFComp changed hands after its 2013 iteration, and the new organizer elected to come at the role with, among other things, a wholly refreshed, public-facing web application. The software found in this repository resulted. We created its first draft over the course of the 2014 IFComp, and it has served the competition annually since then.
 
-## Repository info
-
-### Basics
-
-This is a LAMP application whose server-side business logic is implemented in Perl, using a modern, Moose-based dialect, by way of the Catalyst web application framework.
-
-Note that the software additionally performs some goofy business based on HTTP endpoints defined in `IFComp::Controller::Profile`. These are necessary to support a custom API for secure, federated logins used by a handful of other sites in the IF community. This controller is otherwise not used by the IFComp itself; forks of this repository may feel free to disregard it.
-
-### Branches
-
-* `master` is what's running at http://www.ifcomp.org right now.
-
-* `dev` is the shared development branch, corresponding to a (restricted-access) project staging server.
-
-### Code style
-
-We maintain a standard code style by way of [tidyall](https://metacpan.org/pod/distribution/Code-TidyAll/bin/tidyall). Note the presence of a `.tidyallrc` file at the top level of this repository.
-
-Before pushing up any new work on this repository, whether proposed or hotfix, please pass it through `tidyall` first.
-
 ## Installation and setup
 
 ### Installing dependencies
