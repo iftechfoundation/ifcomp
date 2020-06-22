@@ -46,12 +46,12 @@ As mentioned above, run your source through `tidyall` before submitting a PR. Th
 
 ### Running the tests
 
-There is a script called `IFComp/script/run_test.sh`
+There is a script called `IFComp/script/run_test.sh`. It will find the current `web` docker container, and issue it the appropriate test command based on the arguments. This way the unit tests are run inside the same docker container that the ifcomp server is running in.
 
 * If run with 0 arguments, it runs both the unit tests and tidyall
 
 * If run with the argument `t` or `xt` it runs just those subdirectories
 
-* If run with the name of a specific test (e.g. t/controller_Entry.t) then it
-will run just those unit test, in verbose mode.
+* If run with the name of a specific test (e.g. `run_test.sh controller_Entry.t`) then it
+will run just those unit test, but in verbose mode.
 
