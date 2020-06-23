@@ -93,8 +93,11 @@
         </div>
         [% END %]        
 
+        [% INCLUDE _rating_controls.tt %]
+        
     </div>
-    
+
+
 </div>
 
 <style>

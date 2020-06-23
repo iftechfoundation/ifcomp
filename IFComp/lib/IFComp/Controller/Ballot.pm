@@ -47,6 +47,8 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
 sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
     my ( $self, $c ) = @_;
 
+    update_ratings($c);
+
     # If we have an 'alphabetize' param defined, sort the games by alpha.
     # Otherwise, shuffle them, also seeding off the user's ID if we're in
     # personal-shuffle mode.
@@ -76,6 +78,7 @@ sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
         $c->stash->{entries} = \@entries;
     }
+
 }
 
 sub fetch_alphabetized_entries : Chained('root') : PathPart('') :
@@ -90,6 +93,7 @@ sub fetch_alphabetized_entries : Chained('root') : PathPart('') :
         sort { $a->sort_title cmp $b->sort_title } $current_comp->entries();
     $c->stash->{entries} = \@entries;
 
+    update_ratings($c);
 }
 
 sub index : Chained('fetch_entries') : PathPart('') : Args(0) {
@@ -105,21 +109,6 @@ sub vote : Chained('fetch_alphabetized_entries') : PathPart('vote') : Args(0)
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
         $c->detach('/error_403');
     }
-
-    my %rating_for_entry;
-    if ( $c->user ) {
-        my $rating_rs = $c->model('IFCompDB::Vote')->search(
-            {   user => $c->user->id,
-                comp => $c->stash->{current_comp}->id,
-            },
-            { join => { entry => 'comp' }, },
-        );
-
-        while ( my $rating = $rating_rs->next ) {
-            $rating_for_entry{ $rating->entry->id } = $rating->score;
-        }
-    }
-    $c->stash->{rating_for_entry} = \%rating_for_entry;
 
 }
 
@@ -168,6 +157,25 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         form  => $form,
         entry => $entry,
     );
+}
+
+sub update_ratings() {
+    my ($c) = @_;
+    my %rating_for_entry;
+
+    if ( $c->user ) {
+        my $rating_rs = $c->model('IFCompDB::Vote')->search(
+            {   user => $c->user->id,
+                comp => $c->stash->{current_comp}->id,
+            },
+            { join => { entry => 'comp' }, },
+        );
+
+        while ( my $rating = $rating_rs->next ) {
+            $rating_for_entry{ $rating->entry->id } = $rating->score;
+        }
+    }
+    $c->stash->{rating_for_entry} = \%rating_for_entry;
 }
 
 =encoding utf8

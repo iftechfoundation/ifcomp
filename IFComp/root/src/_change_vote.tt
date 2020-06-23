@@ -1,0 +1,32 @@
+<script>
+$( '.rating-select' ).change( function() {
+    var entry_id = $(this).data( 'entry' );
+    var spinner = $( '#rating-status-' + entry_id + '-spinner' );
+    var success = $( '#rating-status-' + entry_id + '-success' );
+    var failure = $( '#rating-status-' + entry_id + '-failure' );
+    var uri = 
+        '[% c.uri_for( '/vote' ) %]'
+        + '/'
+        + entry_id
+        + '/'
+        + $(this).val()
+    ;
+        
+    spinner.show();
+    $.get( uri, function() {} )
+        .done( function() {
+            success.show();
+        })
+        .fail( function(jqXHR, textStatus, errorThrown) {
+            failure.show();
+        })
+        .always( function() {
+            spinner.hide();
+        })
+    ;
+    
+} );
+
+// Show rating controls only if JS is turned on.
+$( '.rating-controls' ).show();
+</script>
