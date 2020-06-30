@@ -45,9 +45,9 @@
         && ( current_comp.status != 'closed_to_entries' )
        )
     %]
-        <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> &mdash;
+        <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> <em>(entry ID: [% entry.id %])</em> &mdash;
     [% ELSE %]
-        <em>[% entry.title %]</em> &mdash;
+        [% entry.title %] <em>(entry ID: [% entry.id %])</em> &mdash;
     [% END %]
     [% IF entry.main_file %]
         Entry complete
