@@ -45,6 +45,8 @@
             Web-based
         [% ELSIF entry.platform == 'tads' %]
             TADS [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'tads-web-ui' %]
+            TADS
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
             Quest [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'windows' %]
