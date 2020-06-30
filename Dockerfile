@@ -6,6 +6,7 @@ WORKDIR /ifcomp-build
 ADD ./IFComp/cpanfile /ifcomp-build
 
 RUN apt-get update && apt-get install -y default-mysql-client build-essential
+RUN apt-get install -y libpng-dev libjpeg-dev
 
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 RUN cd /ifcomp-build && cpanm -q -n --with-develop --installdeps --force .
