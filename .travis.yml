@@ -2,7 +2,7 @@
 sudo: false
 language: perl
 perl:
-  - "5.20.2"
+  - "5.30.2"
 env:
   - COVERAGE=1
 before_install:

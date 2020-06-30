@@ -27,10 +27,6 @@ If you're planning on contributing to the project, you'll want some additional m
 
     curl -fsSL https://cpanmin.us | perl - --installdeps --with-develop .
 
-#### PHP libraries
-
-You'll need to install both PHP and the PHP MCrypt module. Both should be available through your package manager of choice. (E.g. on Debian, `sudo apt-get install php5-mcrypt` will do the trick.)
-
 ### Application configuration
 
 Copy `conf/ifcomp_local.conf-dist` to `conf/ifcomp_local.conf` and then update the database pointers therein as appropriate.
