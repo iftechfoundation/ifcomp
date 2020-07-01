@@ -74,7 +74,7 @@
 
 <h3 id="september1%3Adeadlineforintents">[% intents_close_date %]: Deadline for intents</h3>
 
-<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry for by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (e.g. a Twine-built website, or an Inform Z-code file).</p>
+<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry form by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (a Twine-built website, fpr example, or an Inform Z-code file).</p>
 
 <p>This deadline exists to give the competition&#8217;s organizers time to plan. Knowing how many entries we can expect, and what kinds of games they&#8217;ll be, helps us a lot to prepare. Think of it as an RSVP.</p>
 
@@ -104,7 +104,7 @@
 
 <h3 id="updatesandjudges">Updates and judges</h3>
 
-<p>IFComp keeps makes <em>two</em> copies of each entry available: the entry as it stood the moment that the judging period began, and the most recent update made afterwards. Judges may choose to play and rate either one, depending upon their own preferences.</p>
+<p>IFComp makes <em>two</em> copies of each entry available: the entry as it stood the moment that the judging period began, and the most recent update made afterwards. Judges may choose to play and rate either one, depending upon their own preferences.</p>
 
 <p>Note that the competition invites judges to rate whatever version of an entry they happen to play. If a judge plays and rates a version of an entry that gets replaced by a later update, they are under no obligation to replay or re-rate that new version.</p>
 
@@ -150,8 +150,7 @@
 
 <p>If your game is written with Inform, then its ifcomp.org-based online-play version might support transcripts, via <a href="https://github.com/juhana/if-recorder">Juhana Leinonen’s &#8220;if-recorder&#8221;</a> software.</p>
 
-<p>The website&#8217;s software will do its best to set up transcript-recording by itself, without requiring any additional work from you. If transcripts are available, they’ll appear on your entry-management screen once judging begins.<br/>
-We don’t <em>guarantee</em> that this will work — but it probably will.</p>
+<p>The website&#8217;s software will do its best to set up transcript-recording by itself, without requiring any additional work from you. If transcripts are available, they’ll appear on your entry-management screen once judging begins. We don’t <em>guarantee</em> that this will work — but it probably will.</p>
 
 <h2 id="otherservices">Other services</h2>
 
@@ -167,7 +166,7 @@ We don’t <em>guarantee</em> that this will work — but it probably will.</p>
 
 <p>Unlike with the IF Archive, IFComp does <em>not</em> take care of creating or updating records in <a href="http://ifdb.tads.org">The Interative Fiction Database</a> about your IFComp entries. Some kind soul might put your game on IFDB, but there is no guarantee. </p>
 
-<p>While we don&#8217;t require it, we do recommend that IFComp authors do create or update IFDB pages about their own entries. (And yes, you are allowed to update your game’s IFDB page during the competition.)</p>
+<p>While we don&#8217;t require it, we do recommend that IFComp authors create or update IFDB pages about their own entries. (And yes, you are allowed to update your game’s IFDB page during the competition.)</p>
 
 <p>If you do want to ensure that your game appears on IFDB appropriately, it’s a good idea to swing by a few days after the competition ends to ensure that the IFDB points to your game’s permanent location on the IF Archive. And, of course, if do any post-comp releases, you’ll also want to update your IFDB page to reflect that.</p>
 
