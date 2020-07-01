@@ -32,17 +32,9 @@
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
-        [% IF entry.platform == 'parchment'
-                || entry.platform == 'inform-website'
-                || entry.platform == 'inform'
-                || entry.platform == 'quixe'
-                || entry.platform == 'quixe2'
-                || entry.platform == 'tads-web-ui'
-        %]
+        [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             Z-code [% INCLUDE guide_link %]
-            [% ELSIF entry.platform == 'tads-web-ui %]
-            TADS [% INCLUDE guide_link %]
             [% ELSE %]
             Glulx [% INCLUDE guide_link %]
             [% END %]
@@ -51,7 +43,7 @@
             [% END %]
         [% ELSIF entry.platform == 'website' %]
             Web-based
-        [% ELSIF entry.platform == 'tads' %]
+        [% ELSIF entry.platform == 'tads' || entry.platform == 'tads-web-ui' %]
             TADS [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
             Quest [% INCLUDE guide_link %]
