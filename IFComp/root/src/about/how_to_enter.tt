@@ -5,11 +5,17 @@
 <h1 style="text-align:center;">IFComp Author&#8217;s Handbook</h1>
 </div>
 
+[% intents_open_date = current_comp.intents_open.strftime( '%{month_name} %{day}' ) %]
+[% intents_close_date = current_comp.intents_close.strftime( '%{month_name} %{day}' ) %]
+[% entries_due_date = current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]
+[% judging_begins_date = current_comp.judging_begins.strftime( '%{month_name} %{day}' ) %]
+[% judging_ends_date = current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %]
+
 <p>This document summarizes everything you need to know to as an IFComp entrant, from the basics of submitting an entry to expectations for feedback and followup after the competition ends.</p>
 
 <p>Please feel free to direct any questions about the topics here to <a href="mailto:ifcomp@ifcomp.org">the competition organizers</a>, or ask the community on <a href="https://intfiction.org/c/competitions/ifcomp-all/">the pubic forums</a>.</p>
 
-<ul style="display: block;" id="mkreplaced-toc" class="max-6"><li class="notmissing"><a href="#howtoenterthecompetition" class="wiki-link">How to enter the competition</a><ul><li class="notmissing"><a href="#readtherulesandguidelines" class="wiki-link">Read the rules and guidelines</a></li><li class="notmissing"><a href="#submittheentryform" class="wiki-link">Submit the entry form</a></li><li class="notmissing"><a href="#previewyourentries" class="wiki-link">Preview your entries</a></li></ul></li><li class="notmissing"><a href="#compcommunications" class="wiki-link">Comp communications</a><ul><li class="notmissing"><a href="#pleaseusearealactiveemailaddress" class="wiki-link">Please use a real, active email address</a></li><li class="notmissing"><a href="#whenwritingidentifyyourgame" class="wiki-link">When writing, identify your game</a></li><li class="notmissing"><a href="#warnusaboutunusuallyshapedentries" class="wiki-link">Warn us about unusually shaped entries</a></li></ul></li><li class="notmissing"><a href="#importantdeadlines" class="wiki-link">Important deadlines</a><ul><li class="notmissing"><a href="#september1%3Adeadlineforintents" data-orig-id="september1%3Adeadlineforintents" class="wiki-link">September 1: Deadline for intents</a></li><li class="notmissing"><a href="#september28%3Afinalentrydeadline" data-orig-id="september28%3Afinalentrydeadline" class="wiki-link">September 28: Final entry deadline</a></li><li class="notmissing"><a href="#earlysubmissionsarewelcome" class="wiki-link">Early submissions are welcome</a></li></ul></li><li class="notmissing"><a href="#updatingyourgame" class="wiki-link">Updating your game</a><ul><li class="notmissing"><a href="#update-availabilityschedule" class="wiki-link">Update-availability schedule</a></li><li class="notmissing"><a href="#updatesandjudges" class="wiki-link">Updates and judges</a></li><li class="notmissing"><a href="#updatesandthearchive" class="wiki-link">Updates and the Archive</a></li></ul></li><li class="notmissing"><a href="#prizes" class="wiki-link">Prizes</a><ul><li class="notmissing"><a href="#thecolossalfund" class="wiki-link">The Colossal Fund</a></li><li class="notmissing"><a href="#prizepool" class="wiki-link">Prize pool</a></li><li class="notmissing"><a href="#beinganauthor-and-donor" class="wiki-link">Being an author-and-donor</a></li></ul></li><li class="notmissing"><a href="#collectingfeedbackfromjudges" class="wiki-link">Collecting feedback from judges</a><ul><li class="notmissing"><a href="#feedback" class="wiki-link">Feedback</a></li><li class="notmissing"><a href="#transcripts" class="wiki-link">Transcripts</a></li></ul></li><li class="notmissing"><a href="#otherservices" class="wiki-link">Other services</a><ul><li class="notmissing"><a href="#ifarchive" class="wiki-link">IF Archive</a></li><li class="notmissing"><a href="#ifdb" class="wiki-link">IFDB</a></li></ul></li><li class="notmissing"><a href="#goodluckandhavefun" class="wiki-link">Good luck and have fun</a></li></ul>
+<ul style="display: block;" id="mkreplaced-toc" class="max-6"><li class="notmissing"><a href="#howtoenterthecompetition" class="wiki-link">How to enter the competition</a><ul><li class="notmissing"><a href="#readtherulesandguidelines" class="wiki-link">Read the rules and guidelines</a></li><li class="notmissing"><a href="#submittheentryform" class="wiki-link">Submit the entry form</a></li><li class="notmissing"><a href="#previewyourentries" class="wiki-link">Preview your entries</a></li></ul></li><li class="notmissing"><a href="#compcommunications" class="wiki-link">Comp communications</a><ul><li class="notmissing"><a href="#pleaseusearealactiveemailaddress" class="wiki-link">Please use a real, active email address</a></li><li class="notmissing"><a href="#whenwritingidentifyyourgame" class="wiki-link">When writing, identify your game</a></li><li class="notmissing"><a href="#warnusaboutunusuallyshapedentries" class="wiki-link">Warn us about unusually shaped entries</a></li></ul></li><li class="notmissing"><a href="#importantdeadlines" class="wiki-link">Important deadlines</a><ul><li class="notmissing"><a href="#september1%3Adeadlineforintents" data-orig-id="september1%3Adeadlineforintents" class="wiki-link">[% intents_close_date %]: Deadline for intents</a></li><li class="notmissing"><a href="#september28%3Afinalentrydeadline" data-orig-id="september28%3Afinalentrydeadline" class="wiki-link">[% entries_due_date %]: Final entry deadline</a></li><li class="notmissing"><a href="#earlysubmissionsarewelcome" class="wiki-link">Early submissions are welcome</a></li></ul></li><li class="notmissing"><a href="#updatingyourgame" class="wiki-link">Updating your game</a><ul><li class="notmissing"><a href="#update-availabilityschedule" class="wiki-link">Update-availability schedule</a></li><li class="notmissing"><a href="#updatesandjudges" class="wiki-link">Updates and judges</a></li><li class="notmissing"><a href="#updatesandthearchive" class="wiki-link">Updates and the Archive</a></li></ul></li><li class="notmissing"><a href="#prizes" class="wiki-link">Prizes</a><ul><li class="notmissing"><a href="#thecolossalfund" class="wiki-link">The Colossal Fund</a></li><li class="notmissing"><a href="#prizepool" class="wiki-link">Prize pool</a></li><li class="notmissing"><a href="#beinganauthor-and-donor" class="wiki-link">Being an author-and-donor</a></li></ul></li><li class="notmissing"><a href="#collectingfeedbackfromjudges" class="wiki-link">Collecting feedback from judges</a><ul><li class="notmissing"><a href="#feedback" class="wiki-link">Feedback</a></li><li class="notmissing"><a href="#transcripts" class="wiki-link">Transcripts</a></li></ul></li><li class="notmissing"><a href="#otherservices" class="wiki-link">Other services</a><ul><li class="notmissing"><a href="#ifarchive" class="wiki-link">IF Archive</a></li><li class="notmissing"><a href="#ifdb" class="wiki-link">IFDB</a></li></ul></li><li class="notmissing"><a href="#goodluckandhavefun" class="wiki-link">Good luck and have fun</a></li></ul>
 
 
 
@@ -58,31 +64,31 @@
 
 <p>If you anticipate that your game may require extra effort on our end to manage or host &#8211; for example, if it contains tens of thousands of individual files &#8211; you should make us aware of that early, so that we can work out any potential issues together.</p>
 
-<p>If we can’t get any such issues sorted by competition launch on October 1, we may ask to host the game yourself off-site &#8211; and if that presents further problems, you may have to withdraw your entry.</p>
+<p>If we can’t get any such issues sorted by competition launch on [% judging_begins_date %], we may ask to host the game yourself off-site &#8211; and if that presents further problems, you may have to withdraw your entry.</p>
 
 <h2 id="importantdeadlines">Important deadlines</h2>
 
-<p>IFcomp begins to accept entries every year on July 1. After that, the two big dates to know about are the intent deadline of September 1, and the final entry deadline of September 28. <em>Your entry must meet both of these deadlines.</em></p>
+<p>IFcomp begins to accept entries every year on [% intents_open_date %]. After that, the two big dates to know about are the intent deadline of [% intents_close_date %], and the final entry deadline of [% entries_due_date %]. <em>Your entry must meet both of these deadlines.</em></p>
 
 <p>All deadlines expressed below are date-inclusive, and based in the Eastern time zone.</p>
 
-<h3 id="september1%3Adeadlineforintents">September 1: Deadline for intents</h3>
+<h3 id="september1%3Adeadlineforintents">[% intents_close_date %]: Deadline for intents</h3>
 
-<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry for by 11:59 PM Eastern time on <strong>September 1</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (e.g. a Twine-built website, or an Inform Z-code file).</p>
+<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry for by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (e.g. a Twine-built website, or an Inform Z-code file).</p>
 
 <p>This deadline exists to give the competition&#8217;s organizers time to plan. Knowing how many entries we can expect, and what kinds of games they&#8217;ll be, helps us a lot to prepare. Think of it as an RSVP.</p>
 
 <p>Note that <em>intents are not obligations</em>. While we certainly hope that you will follow your submitted intent with a full entry, there&#8217;s no penalty if you don&#8217;t. (<a href="https://ifcomp.org/about/guidelines#submitonlyfinishedwork">As we state in our guidelines</a>, we would rather that you hold onto an unfinished game for a future competition than see you submit an incomplete work.)</p>
 
-<h3 id="september28%3Afinalentrydeadline">September 28: Final entry deadline</h3>
+<h3 id="september28%3Afinalentrydeadline">[% entries_due_date %]: Final entry deadline</h3>
 
-<p>You must submit your entry, in its entirety, by 11:59 PM Eastern time on <strong>September 28</strong>.</p>
+<p>You must submit your entry, in its entirety, by 11:59 PM Eastern time on <strong>[% entries_due_date %]</strong>.</p>
 
-<p>For the sake of fairness, the competition organizers enforce this deadline very strictly. We will not accept any entries submitted after that final minute has passed. Preparing the Comp for judging takes focused work by the organizers, and we really do need all the entries lined up by then. So, yeah — September 28 is a real, actual deadline.</p>
+<p>For the sake of fairness, the competition organizers enforce this deadline very strictly. We will not accept any entries submitted after that final minute has passed. Preparing the Comp for judging takes focused work by the organizers, and we really do need all the entries lined up by then. So, yeah — [% entries_due_date %] is a real, actual deadline.</p>
 
 <h3 id="earlysubmissionsarewelcome">Early submissions are welcome</h3>
 
-<p>As with all deadlines, on-time is good, but earlier is better. You can submit your entire entry as early as July 1, if it happens to be done that soon.</p>
+<p>As with all deadlines, on-time is good, but earlier is better. You can submit your entire entry as early as [% intents_open_date %], if it happens to be done that soon.</p>
 
 <h2 id="updatingyourgame">Updating your game</h2>
 
@@ -90,11 +96,11 @@
 
 <h3 id="update-availabilityschedule">Update-availability schedule</h3>
 
-<p><strong>Before September 28</strong>, you can update your game as much as you want, using the website&#8217;s entry form. You can re-upload your game&#8217;s files, change its cover art, rewrite its blurb, and even change its title. No need to ask; just go for it!</p>
+<p><strong>Before [% entries_due_date %]</strong>, you can update your game as much as you want, using the website&#8217;s entry form. You can re-upload your game&#8217;s files, change its cover art, rewrite its blurb, and even change its title. No need to ask; just go for it!</p>
 
-<p><strong>Between September 28 and October 1</strong>, updating is unavailable. The organizers need the entries &#8220;frozen&#8221; during this time, in order to prepare the competition for judging.</p>
+<p><strong>Between [% entries_due_date %] and [% judging_begins_date %]</strong>, updating is unavailable. The organizers need the entries &#8220;frozen&#8221; during this time, in order to prepare the competition for judging.</p>
 
-<p><strong>After October 1</strong>, the updating controls come back, with a caveat: you must provide a “changelog entry” with your update, summarizing the reasons for your update. (The form will prompt you for one.) Judges will be able to see these changelogs.</p>
+<p><strong>After [% judging_begins_date %]</strong>, the updating controls come back, with a caveat: you must provide a “changelog entry” with your update, summarizing the reasons for your update. (The form will prompt you for one.) Judges will be able to see these changelogs.</p>
 
 <h3 id="updatesandjudges">Updates and judges</h3>
 
@@ -153,7 +159,7 @@ We don’t <em>guarantee</em> that this will work — but it probably will.</p>
 
 <h3 id="ifarchive">IF Archive</h3>
 
-<p>The IFComp organizers will upload all material you submit as part of your IFComp entry to the <a href="https://ifarchive.org">IF Archive</a> for permanent, public storage and accessibility. We will upload an archive containing all of the entries as they stood when judging began on October 1, and also upload all individual comp games as they stood when judging closed on November 15.</p>
+<p>The IFComp organizers will upload all material you submit as part of your IFComp entry to the <a href="https://ifarchive.org">IF Archive</a> for permanent, public storage and accessibility. We will upload an archive containing all of the entries as they stood when judging began on [% judging_begins_date %], and also upload all individual comp games as they stood when judging closed on [% judging_ends_date %].</p>
 
 <p>If you release a post-comp edition of your game, and wish to add it to the IF Archive (which you should!), you&#8217;ll need to do that yourself, outside of the Archive&#8217;s competition directories. <a href="http://ifarchive.org/misc/about.html">Contact the Archive staff</a> if you need assistance with that.</p>
 
