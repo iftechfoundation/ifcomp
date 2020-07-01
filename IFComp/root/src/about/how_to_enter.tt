@@ -74,7 +74,7 @@
 
 <h3 id="september1%3Adeadlineforintents">[% intents_close_date %]: Deadline for intents</h3>
 
-<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry form by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (a Twine-built website, fpr example, or an Inform Z-code file).</p>
+<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry form by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (a Twine-built website, for example, or an Inform Z-code file).</p>
 
 <p>This deadline exists to give the competition&#8217;s organizers time to plan. Knowing how many entries we can expect, and what kinds of games they&#8217;ll be, helps us a lot to prepare. Think of it as an RSVP.</p>
 
