@@ -36,12 +36,8 @@ $mech->content_contains(
     "Correct date for intents to open" );
 $mech->get('http://localhost/about/how_to_enter');
 $mech->content_contains(
-    "between " . $strstart . " and " . $strend . ".",
-    "How to Enter dates are dynamically displayed"
-);
-$mech->content_contains(
-    "up through the end of " . $strend . ",",
-    "How to Enter correctly displays entry due date"
+    "and the final entry deadline of " . $strend . ".",
+    "Author's Handbook dates are dynamically displayed"
 );
 
 IFCompTest::set_phase_after( $schema, 'judging_begins' );
