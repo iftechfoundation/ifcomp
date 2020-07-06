@@ -52,7 +52,7 @@ has_field 'platform' => (
         {   value => 'quest',
             label => 'Quest (download-only)',
         },
-        {   value => 'quest-website',
+        {   value => 'quest-online',
             label => 'Quest (online play available)',
         },
         {   value => 'tads',
