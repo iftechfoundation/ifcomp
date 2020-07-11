@@ -592,6 +592,7 @@ enum 'Platform', [
         windows
         alan
         adrift
+        adrift-online
         hugo
         other
         )
@@ -831,7 +832,7 @@ sub _build_play_file {
 
     my $play_file;
     given ( $self->platform ) {
-        when (/^parchment$|^quixe$|^inform|^quest-online$/) {
+        when (/^parchment$|^quixe$|^inform|-online$/) {
             $play_file = Path::Class::File->new('index.html');
         }
         when ('website') {

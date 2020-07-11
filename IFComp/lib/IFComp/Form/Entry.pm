@@ -73,7 +73,7 @@ has_field 'platform' => (
         {   value => 'adrift',
             label => 'ADRIFT (download-only)',
         },
-        {   value => 'adift-online',
+        {   value => 'adrift-online',
             label => 'ADRIFT (online play available)',
         },
         {   value => 'other',
