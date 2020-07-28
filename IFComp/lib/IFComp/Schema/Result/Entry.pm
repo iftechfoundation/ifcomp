@@ -1004,7 +1004,7 @@ sub update_content_directory {
         $self->clear_play_file;
     }
     elsif ( $self->platform eq 'quixe' ) {
-        $self->_mangle_quixe_head;
+        $self->_enable_quixe_recording;
     }
 }
 
@@ -1178,7 +1178,7 @@ EOF
 
 }
 
-sub _mangle_quixe_head {
+sub _enable_quixe_recording {
     my $self = shift;
 
     my $play_file = $self->content_directory->file('play.html');
