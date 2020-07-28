@@ -62,7 +62,9 @@ is( $schema->resultset('Entry')->find(101)->play_file,
 );
 
 note('Testing Quixe upload...');
-
+ok( file_contains( 102, 'play.html', qr{game_options\.recording_url} ),
+    'Configures the transcription service.',
+);
 is( $schema->resultset('Entry')->find(102)->platform,
     'quixe', 'Platform is correct.',
 );
@@ -90,6 +92,10 @@ ok( $schema->resultset('Entry')->find(112)->has_extra_content,
     'Reports having extra content.' );
 
 note('Testing Parchment...');
+
+ok( file_contains( 103, 'play.html', qr{parchment_options\.recording_url} ),
+    'Configures the transcription service.',
+);
 
 is( $schema->resultset('Entry')->find(103)->platform,
     'parchment', 'Platform is correct.',
