@@ -1003,11 +1003,10 @@ sub update_content_directory {
         # platform type and play file
         $self->clear_play_file;
     }
-    elsif ( $self->platform eq 'parchment' ) {
-        $self->_enable_recording('parchment_options');
-    }
-    elsif ( $self->platform eq 'quixe' ) {
-        $self->_enable_recording('game_options');
+    elsif (( $self->platform eq 'parchment' )
+        || ( $self->platform eq 'quixe' ) )
+    {
+        $self->_enable_recording;
     }
 }
 
@@ -1182,7 +1181,7 @@ EOF
 }
 
 sub _enable_recording {
-    my ( $self, $options_js_object ) = @_;
+    my ($self) = @_;
 
     my $play_file = $self->content_directory->file('play.html');
 
@@ -1196,6 +1195,17 @@ sub _enable_recording {
     }
 
     my $play_html = $play_file->slurp;
+
+    my $options_js_object;
+    if ( $play_html =~ m{game_options.*</head>}s ) {
+
+        # It's Quixe
+        $options_js_object = 'game_options';
+    }
+    else {
+        # It's Parchment
+        $options_js_object = 'parchment_options';
+    }
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
