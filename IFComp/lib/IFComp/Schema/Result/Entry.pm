@@ -1003,8 +1003,11 @@ sub update_content_directory {
         # platform type and play file
         $self->clear_play_file;
     }
+    elsif ( $self->platform eq 'parchment' ) {
+        $self->_enable_recording('parchment_options');
+    }
     elsif ( $self->platform eq 'quixe' ) {
-        $self->_enable_quixe_recording;
+        $self->_enable_recording('game_options');
     }
 }
 
@@ -1178,8 +1181,8 @@ EOF
 
 }
 
-sub _enable_quixe_recording {
-    my $self = shift;
+sub _enable_recording {
+    my ( $self, $options_js_object ) = @_;
 
     my $play_file = $self->content_directory->file('play.html');
 
@@ -1196,12 +1199,15 @@ sub _enable_quixe_recording {
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
-    my $entry_id = $self->id;
-    my $transcription_options =
-          "recording_url: '/play/$entry_id/transcribe',\n"
-        . "recording_format: 'simple',\n";
-    $play_html =~ s[(game_options\s*=\s*{\s*)]
-            [$1$transcription_options]s;
+    my $entry_id           = $self->id;
+    my $transcription_code = <<EOF;
+<script>
+$options_js_object.recording_url = '/play/$entry_id/transcribe'
+$options_js_object.recording_format = 'simple'
+</script>
+EOF
+
+    $play_html =~ s{</head>}{$transcription_code</head>};
 
     $play_file->spew($play_html);
 
