@@ -1003,13 +1003,10 @@ sub update_content_directory {
         # platform type and play file
         $self->clear_play_file;
     }
-    elsif ( $self->platform eq 'parchment' ) {
-        $self->_mangle_parchment_head;
-    }
-    elsif ( $self->platform eq 'quixe' ) {
-        $self->_make_js_file( $self->inform_game_file,
-            $self->inform_game_js_file );
-        $self->_mangle_quixe_head;
+    elsif (( $self->platform eq 'parchment' )
+        || ( $self->platform eq 'quixe' ) )
+    {
+        $self->_enable_recording;
     }
 }
 
@@ -1183,56 +1180,8 @@ EOF
 
 }
 
-sub _mangle_parchment_head {
-    my $self = shift;
-
-    my $title    = $self->title;
-    my $entry_id = $self->id;
-
-    my $game_file = $self->inform_game_file->basename;
-
-    my $play_file = $self->content_directory->file('play.html');
-
-    unless ( ( -e $play_file ) && $game_file ) {
-
-        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
-        # so we won't do anything.
-        return;
-    }
-
-    my $play_html = $play_file->slurp;
-
-    # Discard all invocations of interpreter/.
-    $play_html =~ s{<script src="interpreter/.*?</script>}{}g;
-    $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
-
-    # Add new head tags.
-    my $tag_text  = $self->interpreter_tag_text;
-    my $head_html = <<EOF;
-$tag_text
-<script>
-parchment_options = {
-default_story: [ "$game_file" ],
-lib_path: '/static/interpreter/parchment/',
-lock_story: 1,
-page_title: 0
-};
-
-ifRecorder.saveUrl = "/play/$entry_id/transcribe";
-ifRecorder.story.name = "$title";
-ifRecorder.story.version = "1";
-</script>
-
-EOF
-
-    $play_html =~ s{</head>}{$head_html\n</head>};
-
-    $play_file->spew($play_html);
-
-}
-
-sub _mangle_quixe_head {
-    my $self = shift;
+sub _enable_recording {
+    my ($self) = @_;
 
     my $play_file = $self->content_directory->file('play.html');
 
@@ -1247,25 +1196,28 @@ sub _mangle_quixe_head {
 
     my $play_html = $play_file->slurp;
 
-    # Re-aim interpreter links to our own Quixe interpreter.
-    # (Via re-writing <script src="..." /> invocations.)
-    $play_html =~ s{"interpreter/jquery-.*?min.js"}
-            {"/static/interpreter/glkote/jquery-3.4.1.min.js"};
-    $play_html =~ s{"interpreter/glkote.min.js"}
-            {"/static/interpreter/glkote/glkote.min.js"};
-    $play_html =~ s{"interpreter/quixe.min.js"}
-            {"/static/interpreter/quixe/quixe.min.js"};
-    $play_html =~ s{"interpreter/glkote.css"}
-            {"/static/interpreter/glkote/i7-glkote.css"};
+    my $options_js_object;
+    if ( $play_html =~ m{game_options.*</head>}s ) {
+
+        # It's Quixe
+        $options_js_object = 'game_options';
+    }
+    else {
+        # It's Parchment
+        $options_js_object = 'parchment_options';
+    }
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
-    my $entry_id = $self->id;
-    my $transcription_options =
-          "recording_url: '/play/$entry_id/transcribe',\n"
-        . "recording_format: 'simple',\n";
-    $play_html =~ s[(game_options\s*=\s*{\s*)]
-            [$1$transcription_options]s;
+    my $entry_id           = $self->id;
+    my $transcription_code = <<EOF;
+<script>
+$options_js_object.recording_url = '/play/$entry_id/transcribe'
+$options_js_object.recording_format = 'simple'
+</script>
+EOF
+
+    $play_html =~ s{</head>}{$transcription_code</head>};
 
     $play_file->spew($play_html);
 
