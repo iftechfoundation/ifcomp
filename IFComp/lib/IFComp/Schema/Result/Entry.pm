@@ -1037,6 +1037,7 @@ sub _create_parchment_page {
     <script>
         parchment_options = {
             default_story: [ "$i7_file" ],
+            lib_path: '/static/interpreter/',
             recording_url: '/play/$entry_id/transcribe',
             recording_label: '$title',
             recording_format: 'simple'
