@@ -611,12 +611,6 @@ has 'is_qualified' => (
     lazy_build => 1,
 );
 
-has 'interpreter_tag_text' => (
-    is         => 'ro',
-    isa        => 'Str',
-    lazy_build => 1,
-);
-
 has 'is_zcode' => (
     is         => 'ro',
     isa        => 'Bool',
@@ -1022,7 +1016,6 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $tag_text = $self->interpreter_tag_text;
     my $html     = <<EOF
 <!DOCTYPE html>
 <html>
@@ -1059,7 +1052,6 @@ sub _create_parchment_page {
     </div>
 </body>
 </html>
-
 EOF
     ;
 
@@ -1112,17 +1104,6 @@ EOF
 
     $play_file->spew($play_html);
 
-}
-
-sub _build_interpreter_tag_text {
-    my $self = shift;
-
-    return <<EOF;
-    <script src="/static/interpreter/jquery.min.js"></script>
-    <script src="/static/interpreter/ie.js" nomodule></script>
-    <script src="/static/interpreter/main.js" type="module"></script>
-    <link rel="stylesheet" href="/static/interpreter/web.css">
-EOF
 }
 
 sub _build_is_zcode {
