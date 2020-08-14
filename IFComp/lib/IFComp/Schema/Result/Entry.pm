@@ -1016,7 +1016,7 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $html     = <<EOF
+    my $html = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
@@ -1053,7 +1053,7 @@ sub _create_parchment_page {
 </body>
 </html>
 EOF
-    ;
+        ;
 
     my $html_file = $self->content_directory->file('index.html');
     my $html_fh   = $html_file->openw;
