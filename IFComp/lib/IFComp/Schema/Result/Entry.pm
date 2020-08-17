@@ -611,12 +611,6 @@ has 'is_qualified' => (
     lazy_build => 1,
 );
 
-has 'interpreter_tag_text' => (
-    is         => 'ro',
-    isa        => 'Str',
-    lazy_build => 1,
-);
-
 has 'is_zcode' => (
     is         => 'ro',
     isa        => 'Bool',
@@ -992,12 +986,7 @@ sub update_content_directory {
     $self->clear_play_file;
 
     if ( $self->platform eq 'inform' ) {
-        if ( $self->is_zcode ) {
-            $self->_create_parchment_page;
-        }
-        else {
-            $self->_create_quixe_page;
-        }
+        $self->_create_parchment_page;
 
         # and then we have to recalculate again since doing this changes the
         # platform type and play file
@@ -1010,19 +999,7 @@ sub update_content_directory {
     }
 }
 
-sub _make_js_file {
-    my $self = shift;
-
-    my ( $source_file, $js_file ) = @_;
-    $js_file //= $source_file;
-
-    $js_file->spew( q/$(document).ready(function() {/
-            . q/  GiLoad.load_run(null, '/
-            . encode_base64( $source_file->slurp, '' )
-            . q/', 'base64');/
-            . q/});/ );
-}
-
+# Create a Parchment page for ZCode and Glulx
 sub _create_parchment_page {
     my $self = shift;
 
@@ -1039,134 +1016,40 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $tag_text = $self->interpreter_tag_text;
-    my $html     = <<EOF
+    my $html = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IFComp &ndash; $title &ndash; Play</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-$tag_text
-<script>
-parchment_options = {
-default_story: [ "$i7_file" ],
-lib_path: '/static/interpreter/parchment/',
-lock_story: 1,
-page_title: 0
-};
-
-ifRecorder.saveUrl = "/play/$entry_id/transcribe";
-ifRecorder.story.name = "$title";
-ifRecorder.story.version = "1";
-</script>
-
- </head>
-<body class="play">
-<div class="container">
-
-<div id="gameport">
-<div id="about">
-<h1>Parchment</h1>
-<p>is an interpreter for Interactive Fiction. <a href="https://github.com/curiousdannii/parchment">Find out more.</a></p>
-<noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
-</div>
-<div id="parchment"></div>
-</div>
-
-</div>
-<div class="interpretercredit"><a href="https://github.com/curiousdannii/parchment">Parchment for Inform 7</a></div>
-</body>
-</html>
-
-EOF
-        ;
-
-    my $html_file = $self->content_directory->file('index.html');
-    my $html_fh   = $html_file->openw;
-    $html_fh->binmode(':utf8');
-
-    print $html_fh $html;
-
-}
-
-sub _create_quixe_page {
-    my $self = shift;
-
-    my $title = $self->title;
-
-    # Search the content directory for the I7 file to link to.
-    my $i7_file = $self->inform_game_file;
-
-    unless ($i7_file) {
-        die "Could not find an I7 file in this entry's content directory.";
-    }
-
-    # Create a JS file for this game.
-    my $js_file = Path::Class::File->new( $i7_file . '.js' );
-    $self->_make_js_file( $i7_file, $js_file );
-
-    my $js_filename = $js_file->relative( $self->content_directory );
-
-    my $entry_id = $self->id;
-
-    my $tag_text = $self->interpreter_tag_text;
-    my $html     = <<EOF
-<!DOCTYPE html>
-<html>
-<head>
-<title>IFComp &ndash; $title &ndash; Play</title>
-
-<meta name="viewport" content="width=device-width, user-scalable=no">
-
-$tag_text
-
-<style type="text/css">
-
-body {
-  margin: 0px;
-  height: 100%;
-}
-
-#gameport {
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  background: #CCAA88;
-  margin: 0px;
-}
-
-</style>
-
-<script type="text/javascript">
-game_options = {
-  use_query_story: false,
-  set_page_title: true,
-  recording_url: '/play/$entry_id/transcribe',
-  recording_label: '$title',
-  recording_format: 'simple'
-};
-</script>
-
-<script src="$js_filename" type="text/javascript"></script>
-
+    <meta charset="utf-8">
+    <title>IFComp &ndash; $title &ndash; Play</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <script src="/static/interpreter/jquery.min.js"></script>
+    <script src="/static/interpreter/ie.js" nomodule></script>
+    <script src="/static/interpreter/main.js" type="module"></script>
+    <link rel="stylesheet" href="/static/interpreter/web.css">
+    <script>
+        parchment_options = {
+            default_story: [ "$i7_file" ],
+            lib_path: '/static/interpreter/',
+            recording_url: '/play/$entry_id/transcribe',
+            recording_label: '$title',
+            recording_format: 'simple'
+        }
+    </script>
 </head>
 <body>
-
-<div id="gameport">
-<div id="windowport">
-<noscript><hr>
-<p>You'll need to turn on Javascript in your web browser to play this game.</p>
-<hr></noscript>
-</div>
-<div id="loadingpane">
-<img src="/static/interpreter/glkote/waiting.gif" alt="LOADING"><br>
-<em>&nbsp;&nbsp;&nbsp;Loading...</em>
-</div>
-<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-</div>
-
+    <div id="gameport">
+        <div id="windowport">
+            <noscript>
+                <p>You'll need to turn on Javascript in your web browser to play this game.</p>
+            </noscript>
+        </div>
+        <div id="loadingpane">
+            <img src="/static/interpreter/waiting.gif" alt="LOADING"><br>
+            <em>&nbsp;&nbsp;&nbsp;Loading...</em>
+        </div>
+        <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+    </div>
 </body>
 </html>
 EOF
@@ -1221,29 +1104,6 @@ EOF
 
     $play_file->spew($play_html);
 
-}
-
-sub _build_interpreter_tag_text {
-    my $self = shift;
-
-    if ( $self->is_zcode ) {
-        return <<EOF;
-<script src="/static/interpreter/parchment/jquery.min.js"></script>
-<script src="/static/interpreter/parchment/parchment.min.js"></script>
-<script src="/static/interpreter/transcript_recorder/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/parchment.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/style.css">
-EOF
-    }
-    else {
-        return <<EOF;
-<script src="/static/interpreter/glkote/jquery-3.4.1.min.js"></script>
-<script src="/static/interpreter/glkote/glkote.min.js"></script>
-<script src="/static/interpreter/quixe/quixe.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/glkote.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/glkote/dialog.css">
-EOF
-    }
 }
 
 sub _build_is_zcode {

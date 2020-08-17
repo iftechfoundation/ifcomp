@@ -25,13 +25,8 @@ sub file_contains ($$$) {
 
 note('Testing naked Z-Code upload...');
 ok( file_exists( 100, 'index.html' ), 'Generated an index.html file.', );
-ok( file_contains( 100, 'index.html', qr{/static/interpreter/parchment/} ),
+ok( file_contains( 100, 'index.html', qr{/static/interpreter/main.js} ),
     'Links to local parchment.',
-);
-ok( file_contains(
-        100, 'index.html', qr{/static/interpreter/transcript_recorder/}
-    ),
-    'Links to local transcript recorder.',
 );
 is( $schema->resultset('Entry')->find(100)->platform,
     'inform', 'Platform is correct.',
@@ -45,10 +40,7 @@ is( $schema->resultset('Entry')->find(100)->play_file,
 
 note('Testing naked Glulx upload...');
 ok( file_exists( 101, 'index.html' ), 'Generated an index.html file.', );
-ok( file_exists( 101, 'Naked glulx.gblorb.js' ),
-    'Generated a JavaScript game file.',
-);
-ok( file_contains( 101, 'index.html', qr{/static/interpreter/quixe/} ),
+ok( file_contains( 101, 'index.html', qr{/static/interpreter/main.js} ),
     'Links to local interpreter.',
 );
 is( $schema->resultset('Entry')->find(101)->platform,
@@ -107,11 +99,6 @@ is( $schema->resultset('Entry')->find(103)->play_file,
 ok( $schema->resultset('Entry')->find(103)->supports_transcripts,
     'Supports transcripts.',
 );
-
-ok( file_contains( 101, 'index.html', qr{src="Naked glulx.gblorb.js"} ),
-    'Finds correct javascript file - entry 101' );
-ok( file_contains( 114, 'index.html', qr{src="Build/output.ulx.js"} ),
-    'Finds correct javascript file - entry 114' );
 
 note('Testing custom Inform websites...');
 is( $schema->resultset('Entry')->find(104)->platform,
