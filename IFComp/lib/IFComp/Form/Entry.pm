@@ -13,7 +13,7 @@ has '+html_prefix' => ( default => 1 );
 
 use Readonly;
 Readonly my $MAX_FILE_SIZE => 10485760;
-Readonly my $MAX_GAME_SIZE => 78643200;
+Readonly my $MAX_GAME_SIZE => 262144000;
 Readonly my $MAX_ENTRIES   => 3;
 
 has_field 'title' => (
@@ -52,7 +52,7 @@ has_field 'platform' => (
         {   value => 'quest',
             label => 'Quest (download-only)',
         },
-        {   value => 'quest-website',
+        {   value => 'quest-online',
             label => 'Quest (online play available)',
         },
         {   value => 'tads',
@@ -71,7 +71,10 @@ has_field 'platform' => (
             label => 'Hugo',
         },
         {   value => 'adrift',
-            label => 'ADRIFT',
+            label => 'ADRIFT (download-only)',
+        },
+        {   value => 'adrift-online',
+            label => 'ADRIFT (online play available)',
         },
         {   value => 'other',
             label => 'Other',

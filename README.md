@@ -74,19 +74,23 @@ Assuming that you have all the necessary prerequisites (including the `plackup` 
 
 ## Contributors
 
-The project maintainer is Jason McIntosh ([jmac@jmac.org](jmac@jmac.org)).
+The project maintainer is Jason McIntosh (<jmac@jmac.org>).
 
-Major contributors to this codebase include:
+Other contributors to this repository include:
 
-* Adam Herzog ([adam@adamherzog.com](mailto:adam@adamherzog.com))
-* Joe Johnston ([joe.johnston@gmail.com](mailto:joe.johnston@gmail.com))
-* Jason McIntosh ([jmac@jmac.org](mailto:jmac@jmac.org)).
-* Dan Shiovitz ([dans@drizzle.com](mailto:dans@drizzle.com))
+* Jacqueline Ashwell
+* Dan Fabulich
+* Adam Herzog
+* Joe Johnston
+* Mark Musante
+* Dan Shiovitz
+* Amy Swartz
+* Dannii Willis
 
 For a list of contributors to the larger IFComp project, see [the IFComp credits page](http://www.ifcomp.org/about/contact).
 
 ## Copyright and license information
 
-Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
+Except where otherwise noted, the software found in this repository is copyright © 2017-2020 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
 
 This repository contains, in whole or in part, a number of third-party open-source IF-related tools. See the file LICENSE.md for further information.

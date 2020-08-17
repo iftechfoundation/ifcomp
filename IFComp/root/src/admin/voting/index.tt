@@ -169,7 +169,7 @@ $(function () {
                 <a name="entry-[% entry.id %]"></a>
                 <a href="[% c.uri_for("/admin/voting/" _ entry.id) %]">[% entry.title | html %]</a>
              </td>
-             <td>[% entry.author.name %]</td>
+             <td><a href="mailto:[% entry.author.email %]">[% entry.author.name %]</a></td>
              <td>[% entry.average_score %]</td>
              <td>[% entry.standard_deviation %]</td>
              <td>[% entry.votes_cast %]</td>
