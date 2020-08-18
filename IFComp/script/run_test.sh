@@ -26,7 +26,7 @@ fi
 cmd="cd /home/ifcomp/IFComp"
 if [ -z "$1" -o "$1" = "xt" ]
 then
-    cmd="$cmd && cpanm -qn Perl::Tidy Code::TidyAll"
+    cmd="$cmd && cpanm -qn Perl::Tidy Code::TidyAll Test::Code::TidyAll"
     if [ -z "$1" ]
     then
         cmd="$cmd && prove -l t xt"
