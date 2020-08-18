@@ -1,12 +1,19 @@
 So you want to be a developer
 =============================
 
-## Setup
+## Docker
 
-Assuming you've already installed [Docker](https://www.docker.com/), you
-should be able to just use `docker-compose build` to set things up and then
-`docker-compose up` to start the environment running. You can access the
-development environment on your localhost port 3000.
+We use [Docker](https://www.docker.com/) for our development environment. That link provides details on how to get docker up and running, but the basic steps are:
+
+* Go to Docker's [getting started](https://www.docker.com/get-started) page and downlaod the Docker Desktop for your OS
+* Install the docker desktop and start it running
+* Clone the ifcomp repo into a folder on your computer
+* From your shell, run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
+* Run `docker-compose up` which will start the docker images
+
+## Configuration
+
+### Overview
 
 The docker compose file starts three containers:
 
@@ -15,6 +22,38 @@ The docker compose file starts three containers:
  * `selenium-chrome-standalone` runs a headless chrome browser for testing selenium
 
  * `web` runs the [Catalyst](http://www.catalystframework.org/) server, which automatically restarts when you save changes
+
+Once the containers are up and running (`docker-compose up`) the `web` container will open a connection to port 3000. You should be able to point your browser at http://localhost:3000/ and see the login page.
+
+### Connecting to the database
+
+Connecting to the database manually will allow you to create a new user (or add columns/tables if the schema changed since you last rebased). You'll need to bea ble to do this too, there is no user you can log in with. Because the docker config does not support sending email, the easiest way to add a user is by accessing the database manually.
+
+First, get the container id:
+
+```
+$ ID=$(docker ps -f name=ifcomp_web --format '{{.ID}}')
+```
+
+Then, run a shell inside the container:
+
+```
+$ docker exec -it $ID bash
+```
+
+Inside the container, you can run the mysql command to connect to the database:
+
+```
+root@<CONTAINER ID>:/ifcomp-build# mysql -h mariadb ifcomp
+```
+
+From there, you can create a user:
+
+```
+MariaDB [ifcomp]> insert into user (name,password_md5,email,verified) values('test',MD5('test'),'test@example.com',1);
+```
+
+You should then be able to connect to http://localhost:3000/ and login with username `test@example.com` and password `test`. Note that you'll get a warning saying that your password is not secure (because we're using the md5 variant), but you can ignore that as nobody else but you are going to access the development environment. If you want to avoid this warning you'll need to create a bcrypt-encoded password and put that in the `password` field instead of the `password_md5` field.
 
 ## Repository info
 

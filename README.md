@@ -52,7 +52,13 @@ plackup ifcomp.psgi
 
 Assuming that you have all the necessary prerequisites (including the `plackup` program!) installed and available to your local Perl, this should launch the web application and bind it to localhost, port 5000, and write out access and error logs to the terminal. See the `plackup` manpage for various command-line configuration options (such as changing the port to use, or having the script automatically reload when it detects code changes).
 
-## Contributors
+## Contributing
+
+### Development environment
+
+We use docker for the development environment. If you're interested in helping out, ou can read more [on how to set things up](CONTRIBUTING.md). That doc will show you how to set up docker, how to run the development environment locally, and how to test the code.
+
+### Contributors
 
 The project maintainer is Jason McIntosh (<jmac@jmac.org>).
 
