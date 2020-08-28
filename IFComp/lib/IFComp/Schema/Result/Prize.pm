@@ -101,7 +101,8 @@ __PACKAGE__->table("prize");
 =head2 ships_internationally
 
   data_type: 'tinyint'
-  is_nullable: 1
+  default_value: 1
+  is_nullable: 0
 
 =cut
 
@@ -161,7 +162,7 @@ __PACKAGE__->add_columns(
   "location",
   { data_type => "char", is_nullable => 1, size => 64 },
   "ships_internationally",
-  { data_type => "tinyint", is_nullable => 1 },
+  { data_type => "tinyint", default_value => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -215,8 +216,8 @@ __PACKAGE__->belongs_to(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-08-17 15:45:20
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NbZzbYckvPD4cyvAOsk+Vw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-08-28 11:23:16
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0+w6BBICaEeC9HmxbMX5ng
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Prize.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete
