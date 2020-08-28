@@ -26,7 +26,7 @@ use DateTime;
 
 use Readonly;
 Readonly my $MAX_ENTRIES      => 3;
-Readonly my $MAX_COVER_HEIGHT => 350;
+Readonly my $MAX_COVER_HEIGHT => 700;
 
 has 'form' => (
     is         => 'ro',
