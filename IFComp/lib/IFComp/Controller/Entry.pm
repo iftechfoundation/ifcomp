@@ -21,12 +21,10 @@ use IFComp::Form::WithdrawEntry;
 
 use MIME::Types;
 use Imager;
-use File::Copy;
 use DateTime;
 
 use Readonly;
-Readonly my $MAX_ENTRIES      => 3;
-Readonly my $MAX_COVER_HEIGHT => 700;
+Readonly my $MAX_ENTRIES => 3;
 
 has 'form' => (
     is         => 'ro',
@@ -302,16 +300,7 @@ sub _process_form {
                     # scaled-down web copy.
                     $entry->web_cover_file->remove;
                     $entry->clear_web_cover_file;
-                    my $image = Imager->new( file => $entry->cover_file );
-                    if ( $image->getheight > $MAX_COVER_HEIGHT ) {
-                        my $resized_image =
-                            $image->scale( ypixels => $MAX_COVER_HEIGHT );
-                        $resized_image->write(
-                            file => $entry->web_cover_file );
-                    }
-                    else {
-                        copy( $entry->cover_file, $entry->web_cover_file );
-                    }
+                    $entry->create_web_cover_file;
                 }
             }
         }

@@ -473,6 +473,7 @@ use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
 use Unicode::Normalize;
+use File::Copy;
 
 use v5.10;
 
@@ -487,6 +488,10 @@ Readonly my @DEFAULT_PARCHMENT_CONTENT => (
 Readonly my @DEFAULT_INFORM_CONTENT => qw(
     index.html
 );
+
+# $MAX_COVER_HEIGHT: This should be *twice* the maximum display-height
+# (measured in CSS pixels) allowed by the ballot page for cover art.
+Readonly my $MAX_COVER_HEIGHT => 700;
 
 has 'sort_title' => (
     is         => 'ro',
@@ -917,6 +922,22 @@ sub cover_exists {
     else {
         return 0;
     }
+}
+
+sub create_web_cover_file {
+    my $self = shift;
+
+    return unless $self->cover_exists;
+
+    my $image = Imager->new( file => $self->cover_file );
+    if ( $image->getheight > $MAX_COVER_HEIGHT ) {
+        my $resized_image = $image->scale( ypixels => $MAX_COVER_HEIGHT );
+        $resized_image->write( file => $self->web_cover_file );
+    }
+    else {
+        copy( $self->cover_file, $self->web_cover_file );
+    }
+
 }
 
 # update_content_directory: Clean up (and possibly create) the content directory,
