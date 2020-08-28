@@ -94,7 +94,7 @@ ok( -e "$comp_dir/$id/web_cover/cover.png", "Cover web-version created." );
 
 my $web_cover_image =
     Imager->new( file => "$comp_dir/$id/web_cover/cover.png" );
-is( $web_cover_image->getheight, 350, "Web-cover is scaled down." );
+is( $web_cover_image->getheight, 700, "Web-cover is scaled down." );
 
 ######
 # Modify entry, changing to a smaller cover image
