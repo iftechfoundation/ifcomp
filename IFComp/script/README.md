@@ -12,6 +12,7 @@ may be found within the script itself.
  * `delete_unfulfilled_intents.pl` - This script marks every entry without a main file as disqualified. Useful for marking unfulfilled intents, post-deadline.
  * `populate_ifdb_ids.pl` - This script does its best to update the IFDB ID field for every game in the current year's comp.
  * `rebuild_entry_content_dirs` - This script rebuilds the 'content' directory for every entry. Useful if you change what's stored in those directories while a comp is underway.
+ * `resize_web_covers.pl` - Re-processes all the current comp's entries' covers, creating scaled-down versions for use by the ballot webpage. Useful if we wish to change the maximum image size displayed by the ballot.
  * `update_current_rating_tallies` - This script updates various derived-value fields for the current comp's qualified entry records. Can be cron as a regular crontask.
 
 ## Database utility scripts
