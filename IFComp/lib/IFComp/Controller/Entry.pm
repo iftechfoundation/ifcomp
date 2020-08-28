@@ -181,7 +181,7 @@ sub transcript : Chained('fetch_entry') : PathPart('transcript') : Args(1) {
     while ( my $transcript = $transcript_rs->next ) {
         if ( $current_input_count != $transcript->inputcount ) {
             $current_input_count = $transcript->inputcount;
-            push @inputs, $transcript->input;
+            push @inputs,      $transcript->input;
             push @output_sets, [];
         }
         push @{ $output_sets[-1] }, $transcript->output;
@@ -205,7 +205,7 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(0) {
     my $dtf         = $c->model('IFCompDB')->storage->datetime_parser;
     my $feedback_rs = $c->model('IFCompDB::Feedback')->search(
         {   author      => $author_id,
-            comp_closes => { '<', $dtf->format_datetime( DateTime->now ) },
+            comp_closes => { '<',  $dtf->format_datetime( DateTime->now ) },
             text        => { '!=', undef },
         },
         {   join     => { entry => 'comp' },
