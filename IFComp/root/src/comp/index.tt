@@ -56,61 +56,61 @@ The competition's very first run in 1995 split the entries into two categories: 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script>
 $(function () { 
-    var charts = [];
+    var charts = [
     [% FOR entry IN entries %]
-    charts.push(function() {
-        $('#vote-graph-[% entry.id %]').highcharts({
-            title: null,
-            credits: false,
-            legend: { enabled: false },
-            chart: {
-                type: 'column',
-                animation: false,
-                height: 125,
-            },
-            xAxis: {
-                categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            },
-            yAxis: {
-                title: { text: 'Vote count' },
-                endOnTick: false,
-                tickInterval: 5,
-            },
-            plotOptions: {
-                series: {
-                    animation: false,
-                    dataLabels: {
-                        enabled: false
-                    }
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    var vote_word;
-                    if ( this.y == 1 ) {
-                        vote_word = 'judge';
-                    }
-                    else {
-                        vote_word = 'judges';
-                    }
-                    return this.y 
-                        + ' ' 
-                        + vote_word 
-                        + ' gave this game a rating of ' 
-                        + this.x 
-                        + '.';
-                }
-            },
-            series: [{
-                data: [[% entry.total_1 %], [% entry.total_2 %], [% entry.total_3 %], [% entry.total_4 %], [% entry.total_5 %], [% entry.total_6 %], [% entry.total_7 %], [% entry.total_8 %], [% entry.total_9 %], [% entry.total_10 %]]         
-            }]
-        });
-    });
+        {
+            id: '[% entry.id %]',
+            data: [[% entry.total_1 %], [% entry.total_2 %], [% entry.total_3 %], [% entry.total_4 %], [% entry.total_5 %], [% entry.total_6 %], [% entry.total_7 %], [% entry.total_8 %], [% entry.total_9 %], [% entry.total_10 %]]
+        },
     [% END %]
+    ];
     function renderCharts() {
         if (charts.length) {
             var chart = charts.shift();
-            chart();
+            $('#vote-graph-'+chart.id).highcharts({
+                title: null,
+                credits: false,
+                legend: { enabled: false },
+                chart: {
+                    type: 'column',
+                    animation: false,
+                    height: 125,
+                },
+                xAxis: {
+                    categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                },
+                yAxis: {
+                    title: { text: 'Vote count' },
+                    endOnTick: false,
+                    tickInterval: 5,
+                },
+                plotOptions: {
+                    series: {
+                        animation: false,
+                        dataLabels: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        var vote_word;
+                        if ( this.y == 1 ) {
+                            vote_word = 'judge';
+                        }
+                        else {
+                            vote_word = 'judges';
+                        }
+                        return this.y 
+                            + ' ' 
+                            + vote_word 
+                            + ' gave this game a rating of ' 
+                            + this.x 
+                            + '.';
+                    }
+                },
+                series: [{data: chart.data}]
+            });
             setTimeout(renderCharts, 10);
         }
     }
