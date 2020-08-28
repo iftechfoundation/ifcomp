@@ -82,7 +82,7 @@ sub init_schema {
                 'http://example.com/',              1,
                 'user1_forum',
             ],
-            [   2, 'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
+            [   2,     'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'author@example.com', 1, undef, 1, undef,
             ],
             [   3,
