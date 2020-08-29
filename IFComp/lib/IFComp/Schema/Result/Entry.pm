@@ -474,6 +474,7 @@ use List::Compare;
 use MIME::Base64;
 use Unicode::Normalize;
 use File::Copy;
+use Imager;
 
 use v5.10;
 
