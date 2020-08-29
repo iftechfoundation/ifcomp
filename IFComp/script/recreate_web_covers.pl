@@ -4,7 +4,6 @@ use strict;
 use v5.10;
 
 use FindBin;
-use Imager;
 
 use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;

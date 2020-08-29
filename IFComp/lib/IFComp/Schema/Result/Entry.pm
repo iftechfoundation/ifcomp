@@ -927,6 +927,9 @@ sub cover_exists {
 sub create_web_cover_file {
     my $self = shift;
 
+    $self->web_cover_file->remove if -e $self->web_cover_file;
+    $self->clear_web_cover_file;
+
     return unless $self->cover_exists;
 
     my $image = Imager->new( file => $self->cover_file );

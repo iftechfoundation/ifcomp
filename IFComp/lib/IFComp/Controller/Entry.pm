@@ -298,8 +298,6 @@ sub _process_form {
 
                     # Cover art! Preserve as-is, but also make a possibly
                     # scaled-down web copy.
-                    $entry->web_cover_file->remove;
-                    $entry->clear_web_cover_file;
                     $entry->create_web_cover_file;
                 }
             }
