@@ -928,7 +928,9 @@ sub cover_exists {
 sub create_web_cover_file {
     my $self = shift;
 
-    $self->web_cover_file->remove if -e $self->web_cover_file;
+    if ( ( defined $self->web_cover_file ) && ( -e $self->web_cover_file ) ) {
+        $self->web_cover_file->remove;
+    }
     $self->clear_web_cover_file;
 
     return unless $self->cover_exists;

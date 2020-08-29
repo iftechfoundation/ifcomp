@@ -16,5 +16,6 @@ my $current_comp = $schema->resultset('Comp')->current_comp;
 for my $entry ( $current_comp->entries ) {
     $entry->create_web_cover_file;
     say sprintf( "Wrote new web cover file for (%s) %s",
-        $entry->id, $entry->title, );
+        $entry->id, $entry->title, )
+        if $entry->cover_exists;
 }
