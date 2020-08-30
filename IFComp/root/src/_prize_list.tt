@@ -42,7 +42,7 @@ USE Markdown;
             <p>[% IF prize.url %]<a href="[% prize.url %]">[% END %]<strong>[% prize.name | markdown | remove('</?p>') %]</strong>[% IF prize.url %]</a>[% END %]
             [% IF prize.notes %]<br />[% prize.notes | markdown | remove('</?p>') %][% END %]
             [% IF prize.location && !prize.ships_internationally %]
-                <br /><em>This prize ships only to addresses within [% prize.location %].</em>
+                <br /><em>This prize ships only to addresses within [% prize.location | html %].</em>
             [% END %]
             <br /><em>Donated by [% prize.donor %]</em>
             </p>

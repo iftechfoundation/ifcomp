@@ -2,7 +2,7 @@
 
     [% IF entry.cover_exists %]
         <div class="col-xs-4">
-            <a href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;"></a>
+            <a href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
         </div>
     [% END %]
     

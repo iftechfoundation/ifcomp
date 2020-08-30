@@ -11,6 +11,8 @@ We use [Docker](https://www.docker.com/) for our development environment. That l
 * From your shell, run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
 * Run `docker-compose up` which will start the docker images
 
+Note that you can also [set up a development environment by hand](https://github.com/iftechfoundation/ifcomp/wiki/Manual-Installation-and-Setup), if you don't want to use Docker for some reason.
+
 ## Configuration
 
 ### Overview

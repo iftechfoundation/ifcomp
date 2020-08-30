@@ -49,9 +49,9 @@ test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 
 on 'develop' => sub {
-  requires 'Code::TidyAll';
+  requires 'Code::TidyAll' => '== 0.78';
   requires 'DBIx::Class::Schema::Loader';
-  requires 'Perl::Tidy';
+  requires 'Perl::Tidy' => '== 20200822';
   requires 'DBD::mysql';
   requires 'Catalyst::Devel';
   requires 'Selenium::Remote::Driver';
