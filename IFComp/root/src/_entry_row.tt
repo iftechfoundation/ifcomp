@@ -2,7 +2,7 @@
 
     [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
         <div class="col-xs-4">
-            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
+            <img class="img-responsive" src="/static/images/covers/[% entry.ifdb_id %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy">
         </div>
     [% END %]
     
