@@ -2,28 +2,34 @@
 
 ## Overall copyright notice
 
-Except where otherwise noted, the software found in this repository is copyright © 2017 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
+Except where otherwise noted, the software found in this repository is copyright © 2020 [Interactive Fiction Technology Foundation](http://iftechfoundation.org). INTERACTIVE FICTION TECHNOLOGY FOUNDATION, IFCOMP and the IFTF trademarks are property of the Interactive Fiction Technology Foundation, a Delaware nonprofit corporation.
 
 ## Third-party software included in this project
 
 This software repository contains, in whole or in significant part, the following open-source projects, used under license. (See below for the full text of their respective licenses.)
 
+* [Emglken](https://github.com/curiousdannii/emglken) by Dannii Willis, via the MIT License
+
+* [GlkOte](https://github.com/erkyrath/glkote) by Andrew Plotkin, via the MIT License
+
+* [Parchment](https://github.com/curiousdannii/parchment/tree/ifcomp) by Dannii Willis, via the MIT License
+
 * [Quixe](https://github.com/erkyrath/quixe) by Andrew Plotkin, via the MIT License
 
-* [If-recorder](https://github.com/juhana/if-recorder) by Juhana Leinonen, via the MIT License
+* [RemGlk](https://github.com/erkyrath/remglk) by Andrew Plotkin, via the MIT License
 
-* [Parchment](https://github.com/curiousdannii/parchment) by Dannii Willis, via the Modified BSD License. It in turn uses [Gnusto](https://github.com/curiousdannii/gnusto), originally by Thomas Thurman, via the GNU Public License.
+* [TADS](https://github.com/cspiegel/terps/tree/master/tads) by Michael J. Roberts, via the GNU GPL v2.0 License
+
+* [ZVM](https://github.com/curiousdannii/ifvms.js) by Dannii Willis, via the MIT License
 
 ## Licenses used by included software
 
 The IFComp web application does not apply any of the following licenses to itself. It does make use of certain open-source projects (listed above) whose licenses stipulate the inclusion of their respective license texts whenever said projects get re-distributed. So, here they are.
 
-### <span id="quixe">MIT License (used by Quixe)</span>
+### <span id="mit">MIT License</span>
 
 The MIT License
 
-Copyright (c) 2010-2016, Andrew Plotkin
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -42,43 +48,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-### <span id="if-recorder">MIT License (used by if-recorder)</span>
-
-Copyright (C) 2011 by Juhana Leinonen <transcript@nitku.net>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-### <span id="parchment">Modified BSD license (used by Parchment)</span>
-
-Copyright 2017 Dannii Willis
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-### <span id="gnusto">GNU Public License (used by Gnusto)</span>
+### <span id="gpl2">GNU Public License v2.0</span>
 
 <pre>
 		    GNU GENERAL PUBLIC LICENSE
