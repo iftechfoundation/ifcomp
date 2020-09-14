@@ -31,16 +31,10 @@ Once the containers are up and running (`docker-compose up`) the `web` container
 
 Connecting to the database manually will allow you to create a new user (or add columns/tables if the schema changed since you last rebased). You'll need to bea ble to do this too, there is no user you can log in with. Because the docker config does not support sending email, the easiest way to add a user is by accessing the database manually.
 
-First, get the container id:
+First, run a shell inside the ifcomp_web container:
 
 ```
-$ ID=$(docker ps -f name=ifcomp_web --format '{{.ID}}')
-```
-
-Then, run a shell inside the container:
-
-```
-$ docker exec -it $ID bash
+$ ./ifcomp_web-shell.sh
 ```
 
 Inside the container, you can run the mysql command to connect to the database:
