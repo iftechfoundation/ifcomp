@@ -25,6 +25,7 @@ The login handler
 =cut
 
 use IFComp::Form::Login;
+use Crypt::Eksblowfish::Blowfish;
 
 sub login : Path('login') : Args(0) {
     my ( $self, $c ) = @_;
@@ -43,6 +44,7 @@ sub login : Path('login') : Args(0) {
             )
         {
             $c->log->debug("User authed\n") if ( $c->debug );
+            $self->_set_userid_cookie($c);
             $c->res->redirect('/');
         }
         else {
@@ -62,6 +64,30 @@ sub logout : Path('logout') : Args(0) {
         $c->logout;
     }
     $c->res->redirect('/');
+}
+
+sub _set_userid_cookie {
+    my ( $self, $c ) = @_;
+    my $key = $c->config->{blowfish_key};
+
+    unless ( defined $key ) {
+        $c->log->warn(
+            'No blowfish key configured! I will not set a userid cookie.');
+        return;
+    }
+
+    # Zero-pad the current user ID into an eight-character string, then
+    # turn that into octets, and then encrypt it with Blowfish.
+    # And then stuff that into a special cookie.
+
+    $c->res->cookies->{user_id} = {
+        domain => $c->req->uri->host,
+        value  => Crypt::Eksblowfish::Blowfish->new($key)->encrypt(
+            pack 'CCCCCCCC',
+            ( split //, sprintf '%08d', $c->user->id )
+        )
+    };
+
 }
 
 =encoding utf8
