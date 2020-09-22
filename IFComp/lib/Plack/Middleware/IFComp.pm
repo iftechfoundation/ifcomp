@@ -100,10 +100,6 @@ sub call {
             my $req = Plack::Request->new($env);
             my $key = $self->config->{blowfish_key};
 
-            use Data::Dumper;
-            warn Dumper( $self->config );
-            warn "And so, the key is " . $self->config->{blowfish_key};
-
             my $current_user_can_see_this_game = 0;
             my $encrypted_user_id              = $req->cookies->{user_id};
 
