@@ -78,7 +78,7 @@ sub _set_userid_cookie {
     }
 
     # Zero-pad the current user ID into an eight-character string, then
-    # turn that into octets, and then encrypt it with Blowfish.
+    # encrypt it with Blowfish, then base64-encode it.
     # And then stuff that into a special cookie.
     $c->res->cookies->{user_id} = {
         domain  => $c->req->uri->host,
