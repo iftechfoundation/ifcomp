@@ -26,6 +26,7 @@ The login handler
 
 use IFComp::Form::Login;
 use Crypt::Eksblowfish::Blowfish;
+use MIME::Base64;
 
 sub login : Path('login') : Args(0) {
     my ( $self, $c ) = @_;
@@ -79,12 +80,12 @@ sub _set_userid_cookie {
     # Zero-pad the current user ID into an eight-character string, then
     # turn that into octets, and then encrypt it with Blowfish.
     # And then stuff that into a special cookie.
-
     $c->res->cookies->{user_id} = {
-        domain => $c->req->uri->host,
-        value  => Crypt::Eksblowfish::Blowfish->new($key)->encrypt(
-            pack 'CCCCCCCC',
-            ( split //, sprintf '%08d', $c->user->id )
+        domain  => $c->req->uri->host,
+        expires => '+' . $c->config->{'Plugin::Session'}->{expires} . 'S',
+        value   => encode_base64(
+            Crypt::Eksblowfish::Blowfish->new($key)
+                ->encrypt( sprintf '%08d', $c->user->id )
         )
     };
 

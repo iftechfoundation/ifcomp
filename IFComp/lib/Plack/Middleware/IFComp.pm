@@ -24,17 +24,26 @@ has 'config' => (
 );
 
 sub _build_config {
-    my $self       = shift;
-    my $config_ref = Config::Any->load_files(
-        {   files => [
-                "$FindBin::Bin/conf/ifcomp_local.conf",
-                "$FindBin::Bin/conf/ifcomp.conf",
-            ],
-            flatten_to_hash => 1,
+    my $self         = shift;
+    my @config_files = (
+        "$FindBin::Bin/conf/ifcomp.conf",
+        "$FindBin::Bin/conf/ifcomp_local.conf",
+    );
+    my $file_data = Config::Any->load_files(
+        {   files           => \@config_files,
             use_ext         => 1,
+            flatten_to_hash => 1,
         },
     );
-    return $config_ref;
+    my %final_config;
+    for my $config_file (@config_files) {
+        my $config_data = $file_data->{$config_file};
+        foreach ( keys %$config_data ) {
+            $final_config{$_} = $config_data->{$_};
+        }
+    }
+
+    return \%final_config;
 }
 
 sub _build_schema {
@@ -42,12 +51,8 @@ sub _build_schema {
 
     my $connect_info_ref;
     my $config_ref = $self->config;
-    for my $file ( keys %$config_ref ) {
-        if ( $config_ref->{$file}->{'Model::IFCompDB'} ) {
-            $connect_info_ref =
-                $config_ref->{$file}->{'Model::IFCompDB'}->{connect_info};
-            last if $connect_info_ref;
-        }
+    if ( $config_ref->{'Model::IFCompDB'} ) {
+        $connect_info_ref = $config_ref->{'Model::IFCompDB'}->{connect_info};
     }
 
     unless ($connect_info_ref) {
@@ -89,14 +94,15 @@ sub call {
             && ( $entry->comp->status ne 'processing_votes' )
             && ( $entry->comp->status ne 'over' ) )
         {
-            # Peek into the current user's session data to make sure they're not
-            # the owner of this entry (and thus authorized to see it early)
-            # XXX This is fragile and rude. It was implemented quickly due to
-            #     a discovered security flaw. This should ideally use the same
-            #     objects used elsewhere for session & cookie management,
-            #     rather than these manual, literal peeks.
+            # Check for an encrypted 'user_id' cookie value to see if the
+            # current user is either the author of this entry or an IFComp
+            # curator. If so, then they're allowed to see the entry early.
             my $req = Plack::Request->new($env);
             my $key = $self->config->{blowfish_key};
+
+            use Data::Dumper;
+            warn Dumper( $self->config );
+            warn "And so, the key is " . $self->config->{blowfish_key};
 
             my $current_user_can_see_this_game = 0;
             my $encrypted_user_id              = $req->cookies->{user_id};
@@ -104,11 +110,10 @@ sub call {
             # See IFComp::Controller::Auth for how the user id gets encrypted
             # (and why it's decrypted the way it is, below).
             if ( $key && $encrypted_user_id ) {
-
                 my $user_id =
                     Crypt::Eksblowfish::Blowfish->new($key)
-                    ->decrypt( join q{},
-                    unpack( 'CCCCCCCC', $encrypted_user_id ) );
+                    ->decrypt( decode_base64($encrypted_user_id) );
+                $user_id =~ s/^0+//;
                 my $user = $self->schema->resultset('User')->find($user_id);
                 if ( defined $user ) {
                     if ( $user_id == $entry->author->id ) {
