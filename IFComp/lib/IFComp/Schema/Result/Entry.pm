@@ -832,7 +832,7 @@ sub _build_play_file {
 
     my $play_file;
     given ( $self->platform ) {
-        when (/^parchment$|^quixe$|^inform|-online$/) {
+        when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
             $play_file = Path::Class::File->new('index.html');
         }
         when ('website') {
