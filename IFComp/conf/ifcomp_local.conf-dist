@@ -7,3 +7,5 @@
     password db_password
   </connect_info>
 </Model::IFCompDB>
+
+user_id_cookie_key bigSECRET123

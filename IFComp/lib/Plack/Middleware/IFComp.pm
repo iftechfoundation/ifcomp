@@ -98,7 +98,7 @@ sub call {
             # current user is either the author of this entry or an IFComp
             # curator. If so, then they're allowed to see the entry early.
             my $req = Plack::Request->new($env);
-            my $key = $self->config->{blowfish_key};
+            my $key = $self->config->{user_id_cookie_key};
 
             my $current_user_can_see_this_game = 0;
             my $encrypted_user_id              = $req->cookies->{user_id};

@@ -69,7 +69,7 @@ sub logout : Path('logout') : Args(0) {
 
 sub _set_userid_cookie {
     my ( $self, $c ) = @_;
-    my $key = $c->config->{blowfish_key};
+    my $key = $c->config->{user_id_cookie_key};
 
     unless ( defined $key ) {
         $c->log->warn(
