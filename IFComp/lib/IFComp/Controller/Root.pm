@@ -2,6 +2,7 @@ package IFComp::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use MIME::Base64;
+use Crypt::Eksblowfish::Blowfish;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -102,7 +103,8 @@ sub _set_userid_cookie {
 
     unless ( defined $key ) {
         $c->log->warn(
-            'No user_id_cookie_key configured! I will not set a userid cookie.');
+            'No user_id_cookie_key configured! I will not set a userid cookie.'
+        );
         return;
     }
 
