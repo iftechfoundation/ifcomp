@@ -102,7 +102,7 @@ sub _set_userid_cookie {
 
     unless ( defined $key ) {
         $c->log->warn(
-            'No blowfish key configured! I will not set a userid cookie.');
+            'No user_id_cookie_key configured! I will not set a userid cookie.');
         return;
     }
 
