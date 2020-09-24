@@ -26,7 +26,6 @@ The login handler
 
 use IFComp::Form::Login;
 use Crypt::Eksblowfish::Blowfish;
-use MIME::Base64;
 
 sub login : Path('login') : Args(0) {
     my ( $self, $c ) = @_;
@@ -45,7 +44,6 @@ sub login : Path('login') : Args(0) {
             )
         {
             $c->log->debug("User authed\n") if ( $c->debug );
-            $self->_set_userid_cookie($c);
             $c->res->redirect('/');
         }
         else {
@@ -64,31 +62,15 @@ sub logout : Path('logout') : Args(0) {
     if ( $c->user ) {
         $c->logout;
     }
-    $c->res->redirect('/');
-}
 
-sub _set_userid_cookie {
-    my ( $self, $c ) = @_;
-    my $key = $c->config->{user_id_cookie_key};
-
-    unless ( defined $key ) {
-        $c->log->warn(
-            'No blowfish key configured! I will not set a userid cookie.');
-        return;
-    }
-
-    # Zero-pad the current user ID into an eight-character string, then
-    # encrypt it with Blowfish, then base64-encode it.
-    # And then stuff that into a special cookie.
+    # Clear the special user_id cookie set by the root controller for
+    # logged-in users.
     $c->res->cookies->{user_id} = {
-        domain  => $c->req->uri->host,
-        expires => '+' . $c->config->{'Plugin::Session'}->{expires} . 'S',
-        value   => encode_base64(
-            Crypt::Eksblowfish::Blowfish->new($key)
-                ->encrypt( sprintf '%08d', $c->user->id )
-        )
+        expires => '-1M',
+        value   => 'Deleted',
     };
 
+    $c->res->redirect('/');
 }
 
 =encoding utf8
