@@ -124,9 +124,9 @@ sub call {
 
             unless ($current_user_can_see_this_game) {
                 $res = [
-                    301,
-                    [ Location => '/' ],
-                    [   "<p>This work is not visible to the public at this time.</p>"
+                    403,
+                    [],
+                    [   "<p>This IFComp entry is not visible to the public at this time.</p>"
                     ],
                 ];
             }

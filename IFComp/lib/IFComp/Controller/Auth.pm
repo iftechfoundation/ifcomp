@@ -25,7 +25,6 @@ The login handler
 =cut
 
 use IFComp::Form::Login;
-use Crypt::Eksblowfish::Blowfish;
 
 sub login : Path('login') : Args(0) {
     my ( $self, $c ) = @_;
