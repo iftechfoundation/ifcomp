@@ -103,7 +103,7 @@ sub call {
             my $current_user_can_see_this_game = 0;
             my $encrypted_user_id              = $req->cookies->{user_id};
 
-            # See IFComp::Controller::Auth for how the user id gets encrypted
+            # See IFComp::Controller::Root for how the user id gets encrypted
             # (and why it's decrypted the way it is, below).
             if ( $key && $encrypted_user_id ) {
                 my $user_id =
