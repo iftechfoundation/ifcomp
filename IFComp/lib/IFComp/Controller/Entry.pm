@@ -124,7 +124,7 @@ sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
     my $file = $c->stash->{entry}->cover_file;
     if ( -e $file ) {
         my $image_data = $file->slurp;
-        $c->res->headers->header('Cache-Control' => 'max-age=86400');
+        $c->res->headers->header( 'Cache-Control' => 'max-age=86400' );
         if ( $file->basename =~ /png$/ ) {
             $c->res->content_type('image/png');
         }
