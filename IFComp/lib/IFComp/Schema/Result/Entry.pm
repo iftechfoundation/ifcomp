@@ -1032,7 +1032,7 @@ sub _create_parchment_page {
 
     my $title      = $self->title;
     my $safe_title = $title;
-    $safe_title =~ s/'/\'/g;
+    $safe_title =~ s/'//g;
 
     # Search the content directory for the I7 file to link to.
     my $i7_file = $self->inform_game_file;
