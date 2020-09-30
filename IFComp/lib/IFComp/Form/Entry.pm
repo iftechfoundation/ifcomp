@@ -13,7 +13,7 @@ has '+html_prefix' => ( default => 1 );
 
 use Readonly;
 Readonly my $MAX_FILE_SIZE => 10485760;
-Readonly my $MAX_GAME_SIZE => 78643200;
+Readonly my $MAX_GAME_SIZE => 262144000;
 Readonly my $MAX_ENTRIES   => 3;
 
 has_field 'title' => (
@@ -25,6 +25,61 @@ has_field 'title' => (
 has_field 'subtitle' => (
     type      => 'Text',
     maxlength => 128,
+);
+
+has_field 'platform' => (
+    type    => 'Select',
+    id      => 'platform',
+    label   => 'Gameplay platform',
+    options => [
+        {   value => 'website',
+            label => 'Browser-based JavaScript (including Twine)',
+        },
+        {   value => 'inform',
+            label => 'Glulx or Z-code, not packaged with a website',
+        },
+        {   value => 'quixe',
+            label =>
+                q{Glulx, using Inform's "Release with a website" feature},
+        },
+        {   value => 'parchment',
+            label =>
+                q{Z-code, using Inform's "Release with a website" feature},
+        },
+        {   value => 'inform-website',
+            label => 'Glulx or Z-code, presented within a custom website',
+        },
+        {   value => 'quest',
+            label => 'Quest (download-only)',
+        },
+        {   value => 'quest-online',
+            label => 'Quest (online play available)',
+        },
+        {   value => 'tads',
+            label => 'TADS (regular UI)',
+        },
+        {   value => 'tads-web-ui',
+            label => 'TADS 3.1 Web UI',
+        },
+        {   value => 'windows',
+            label => 'A Windows executable',
+        },
+        {   value => 'alan',
+            label => 'Alan',
+        },
+        {   value => 'hugo',
+            label => 'Hugo',
+        },
+        {   value => 'adrift',
+            label => 'ADRIFT (download-only)',
+        },
+        {   value => 'adrift-online',
+            label => 'ADRIFT (online play available)',
+        },
+        {   value => 'other',
+            label => 'Other',
+        },
+    ],
 );
 
 has_field 'genre' => (

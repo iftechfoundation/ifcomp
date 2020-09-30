@@ -1,7 +1,7 @@
 
 [% IF c.user.get_object.id != entry.author.id %]
 
-    <div class="rating-controls">
+    <div class="rating-controls" style="float: right;">
         <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">
             <option value="0">None</option>
             [% number = 1 %]
@@ -18,4 +18,5 @@
         <span id="rating-status-[% entry.id %]-failure" class="label label-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>
         </p>
     </div>
-    [% END %]
+
+[% END %]

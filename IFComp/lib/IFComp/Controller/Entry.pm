@@ -21,12 +21,10 @@ use IFComp::Form::WithdrawEntry;
 
 use MIME::Types;
 use Imager;
-use File::Copy;
 use DateTime;
 
 use Readonly;
-Readonly my $MAX_ENTRIES      => 3;
-Readonly my $MAX_COVER_HEIGHT => 350;
+Readonly my $MAX_ENTRIES => 3;
 
 has 'form' => (
     is         => 'ro',
@@ -183,7 +181,7 @@ sub transcript : Chained('fetch_entry') : PathPart('transcript') : Args(1) {
     while ( my $transcript = $transcript_rs->next ) {
         if ( $current_input_count != $transcript->inputcount ) {
             $current_input_count = $transcript->inputcount;
-            push @inputs, $transcript->input;
+            push @inputs,      $transcript->input;
             push @output_sets, [];
         }
         push @{ $output_sets[-1] }, $transcript->output;
@@ -207,7 +205,7 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(0) {
     my $dtf         = $c->model('IFCompDB')->storage->datetime_parser;
     my $feedback_rs = $c->model('IFCompDB::Feedback')->search(
         {   author      => $author_id,
-            comp_closes => { '<', $dtf->format_datetime( DateTime->now ) },
+            comp_closes => { '<',  $dtf->format_datetime( DateTime->now ) },
             text        => { '!=', undef },
         },
         {   join     => { entry => 'comp' },
@@ -300,18 +298,7 @@ sub _process_form {
 
                     # Cover art! Preserve as-is, but also make a possibly
                     # scaled-down web copy.
-                    $entry->web_cover_file->remove;
-                    $entry->clear_web_cover_file;
-                    my $image = Imager->new( file => $entry->cover_file );
-                    if ( $image->getheight > $MAX_COVER_HEIGHT ) {
-                        my $resized_image =
-                            $image->scale( ypixels => $MAX_COVER_HEIGHT );
-                        $resized_image->write(
-                            file => $entry->web_cover_file );
-                    }
-                    else {
-                        copy( $entry->cover_file, $entry->web_cover_file );
-                    }
+                    $entry->create_web_cover_file;
                 }
             }
         }

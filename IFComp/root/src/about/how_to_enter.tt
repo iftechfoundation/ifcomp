@@ -1,58 +1,177 @@
 <div class="container">
-[% meta.title = 'IFComp - How to enter' %]
+[% meta.title = 'IFComp - Author&#8217;s Handbook' %]
 <div class="container">
 <div class="jumbotron">
-<h1 style="text-align:center;">How to enter the IF Comp</h1>
-</div>
-<div class="page-header">
-<h1 id="readtherules">Read the rules</h1>
+<h1 style="text-align:center;">IFComp Author&#8217;s Handbook</h1>
 </div>
 
+[% intents_open_date = current_comp.intents_open.strftime( '%{month_name} %{day}' ) %]
+[% intents_close_date = current_comp.intents_close.strftime( '%{month_name} %{day}' ) %]
+[% entries_due_date = current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]
+[% judging_begins_date = current_comp.judging_begins.strftime( '%{month_name} %{day}' ) %]
+[% judging_ends_date = current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %]
+
+<p>This document summarizes everything you need to know to as an IFComp entrant, from the basics of submitting an entry to expectations for feedback and followup after the competition ends.</p>
+
+<p>Please feel free to direct any questions about the topics here to <a href="mailto:ifcomp@ifcomp.org">the competition organizers</a>, or ask the community on <a href="https://intfiction.org/c/competitions/ifcomp-all/">the public forums</a>.</p>
+
+<ul style="display: block;" id="mkreplaced-toc" class="max-6"><li class="notmissing"><a href="#howtoenterthecompetition" class="wiki-link">How to enter the competition</a><ul><li class="notmissing"><a href="#readtherulesandguidelines" class="wiki-link">Read the rules and guidelines</a></li><li class="notmissing"><a href="#submittheentryform" class="wiki-link">Submit the entry form</a></li><li class="notmissing"><a href="#previewyourentries" class="wiki-link">Preview your entries</a></li></ul></li><li class="notmissing"><a href="#compcommunications" class="wiki-link">Comp communications</a><ul><li class="notmissing"><a href="#pleaseusearealactiveemailaddress" class="wiki-link">Please use a real, active email address</a></li><li class="notmissing"><a href="#whenwritingidentifyyourgame" class="wiki-link">When writing, identify your game</a></li><li class="notmissing"><a href="#warnusaboutunusuallyshapedentries" class="wiki-link">Warn us about unusually shaped entries</a></li></ul></li><li class="notmissing"><a href="#importantdeadlines" class="wiki-link">Important deadlines</a><ul><li class="notmissing"><a href="#september1%3Adeadlineforintents" data-orig-id="september1%3Adeadlineforintents" class="wiki-link">[% intents_close_date %]: Deadline for intents</a></li><li class="notmissing"><a href="#september28%3Afinalentrydeadline" data-orig-id="september28%3Afinalentrydeadline" class="wiki-link">[% entries_due_date %]: Final entry deadline</a></li><li class="notmissing"><a href="#earlysubmissionsarewelcome" class="wiki-link">Early submissions are welcome</a></li></ul></li><li class="notmissing"><a href="#updatingyourgame" class="wiki-link">Updating your game</a><ul><li class="notmissing"><a href="#update-availabilityschedule" class="wiki-link">Update-availability schedule</a></li><li class="notmissing"><a href="#updatesandjudges" class="wiki-link">Updates and judges</a></li><li class="notmissing"><a href="#updatesandthearchive" class="wiki-link">Updates and the Archive</a></li></ul></li><li class="notmissing"><a href="#prizes" class="wiki-link">Prizes</a><ul><li class="notmissing"><a href="#thecolossalfund" class="wiki-link">The Colossal Fund</a></li><li class="notmissing"><a href="#prizepool" class="wiki-link">Prize pool</a></li><li class="notmissing"><a href="#beinganauthor-and-donor" class="wiki-link">Being an author-and-donor</a></li></ul></li><li class="notmissing"><a href="#collectingfeedbackfromjudges" class="wiki-link">Collecting feedback from judges</a><ul><li class="notmissing"><a href="#feedback" class="wiki-link">Feedback</a></li><li class="notmissing"><a href="#transcripts" class="wiki-link">Transcripts</a></li></ul></li><li class="notmissing"><a href="#otherservices" class="wiki-link">Other services</a><ul><li class="notmissing"><a href="#ifarchive" class="wiki-link">IF Archive</a></li><li class="notmissing"><a href="#ifdb" class="wiki-link">IFDB</a></li></ul></li><li class="notmissing"><a href="#goodluckandhavefun" class="wiki-link">Good luck and have fun</a></li></ul>
+
+
+
+<h2 id="howtoenterthecompetition">How to enter the competition</h2>
+
+<h3 id="readtherulesandguidelines">Read the rules and guidelines</h3>
 <p>Please read through <a href="/rules">the rules</a> at least once before you start preparing your entry. Familiarity with the rules with help you make sure your work will qualify for entry, and fill you in on conduct expected from entrants while the competition&#8217;s in play.</p>
+<p>After that, <a href="/about/guidelines">the guidelines</a> present some best-practice suggestions for authors, based on the collected community wisdom after many years of IF competitions. We strongly suggest you take the time to read this article, and think about how its advice might apply to your work. </p>
+<p>Having more polished, high-quality entries improves the experience of the competition for everyone, and gives those works&#8217; authors something to be proud of for a long, long time. (We did mention that <a href="/comp/">the results pages</a> go back to 1995, right?)</p>
 
-<p>You can discuss the rules (or any other facet of the competition) on <a href="http://www.intfiction.org/forum/">the IF community forum</a>. If you have any specific rules questions concerning your own work, please feel free to <a href="mailto:ifcomp@ifcomp.org">&#101;&#109;&#x61;&#105;&#108; &#x74;&#104;&#x65; &#x6f;&#114;&#x67;&#x61;&#x6e;&#105;&#x7a;&#x65;&#114; &#100;&#105;&#x72;&#x65;&#99;&#x74;&#x6c;&#x79;</a>.</p>
+<h3 id="submittheentryform">Submit the entry form</h3>
 
-<div class="page-header">
-<h1 id="readtheguidelines">Read the guidelines</h1>
-</div>
+<p>First, <a href="https://ifcomp.org/auth/login">sign in to your user account at ifcomp.org</a>, creating an account if you don&#8217;t already have one. (All accounts are free, private, and secure.)</p>
 
-<p><a href="/about/guidelines">The guidelines</a> present some best-practice suggestions for authors, based on the collected community wisdom after many years of IF competitions. We strongly suggest you take the time to read this article, and think about how its advice might apply to your work. </p>
+<p>Once you are signed in, visit the <a href="https://ifcomp.org/entry">Register or manage your entries</a> page (also available from the &#8220;Participate&#8221; menu in the website&#8217;s top navigation bar) and follow the prompts from there.</p>
 
-<p>Having more polished, high-quality entries improves the experience of the IF Comp for everyone, and gives those works&#8217; authors something to be proud of for a long, long time. (We did mention that <a href="/comp/">the results pages</a> go back to 1995, right?)</p>
+<p>Note that availability of these options changes depending upon the current phase of the IFComp, according to <a href="https://ifcomp.org/about/schedule">its annual schedule</a>.</p>
 
-<div class="page-header">
-<h1 id="login">Log in</h1>
-</div>
+<h3 id="previewyourentries">Preview your entries</h3>
 
-<p>If you haven&#8217;t already done so, tap that friendly green button you see up in the corner of your screen to log into this website. If you don&#8217;t already have an account here, you can create one. (All accounts are free, private, and secure.)</p>
+<p>After you&#8217;ve submitted an entry or intent, please do make use of <a href="/entry/preview">your entry preview page</a>. It lets you see exactly what your entry will look like on the public ballot, including its cover art, blurb, and a set of working link-buttons.</p>
 
-<div class="page-header">
-<h1 id="stateyourintenttoenter">State your intent to enter</h1>
-</div>
+<p>It&#8217;s your responsibility to make sure that your entry looks and works how you intend it to, both on the ballot and in play. If you run into any problems or questions here, please contact us.</p>
 
-<p>Once you&#8217;re logged in, go to <a href="/entry/">your entry page</a> and click &#8220;Enter a new game&#8221;. Then supply the title of the work you intend to submit. If you have more information about your game ready &#8211; or even the game itself (gee, you work fast) &#8211; you can submit that as well, but you don&#8217;t need all that just to declare intent.</p>
+<h2 id="compcommunications">Comp communications</h2>
 
-<p>If you want to, you can enter up to three games this way. (Most authors stick to just one, though.) Regardless, <strong>you must submit your intent to enter the competition between [% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %] and [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %].</strong></p>
+<p>Don’t hesitate to write <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a> with any questions, honest!</p>
 
-<div class="page-header">
-<h1 id="makeyourgame">Make your game</h1>
-</div>
+<h3 id="pleaseusearealactiveemailaddress">Please use a real, active email address</h3>
 
-<p>This part&#8217;s all up to you. </p>
+<p>Your ifcomp.org login <strong>must</strong> be a valid email address that you intend to check regularly over the course of IFComp. (If it isn&#8217;t, you can use the website&#8217;s <a href="https://ifcomp.org/user/edit_account">account-editing controls</a> to change your account&#8217;s email address.)</p>
 
-<p>Ponder those <a href="/about/guidelines">guidelines</a> about IF creation tools and techniques. Find advice from the community on <a href="http://www.intfiction.org/forum/">the forums</a>, or on <a href="http://ifmud.port4000.com">IFMud</a>. There&#8217;s no getting around that this is the hard part, though. (Hopefully, it&#8217;s also the fun part&#8230;)</p>
+<p>If we have questions about your entry and you can’t answer because you gave us a burner address, we may have to disqualify your entry. <em>This happens.</em></p>
 
-<p>Invest enough time to allow you to do your best creative work here!</p>
+<p>As always, we promise not to ever share or abuse your email. (The entry form lets you choose to share your email address with judges, but that’s an opt-in.)</p>
 
-<div class="page-header">
-<h1 id="updateyourentryuploadyourgame">Update your entry, upload your game</h1>
-</div>
+<p>You should get communications from ifcomp@ifcomp.org over the course of the comp, especially around the deadlines. If you don’t, something’s up: check your spam folder, and if you still don’t see anything from us, drop us a note at <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a>.</p>
 
-<p>Returning to your entry page, update your entry with the rest of your game&#8217;s information. This is when you can add a clever blurb, ponder using a pseudonym, and attach a subtle work of cover art.</p>
+<h3 id="whenwritingidentifyyourgame">When writing, identify your game</h3>
 
-<p>Most importantly, you&#8217;ll need to upload your actual game &#8211; as well as any supplemental files related to it, be they &#8220;feelies&#8221; or data files. The entry form itself explains what to upload, and how, in greater detail.</p>
+<p>When writing the organizers about a particular entry, <em>please mention your game’s name and its IFComp ID number</em>, which you can find next to its name on your entry-management screen. (And if you can&#8217;t find that ID number, just tell us the game&#8217;s name.)</p>
 
-<p>You can update and tweak your entry as much as you&#8217;d like, up through the end of [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %], Eastern time.</p>
+<p>This really helps us! We have a lot of authors and entries every year. Telling us the name and ID number of your game every time you write in with questions saves us a lot of look-up work, and eliminates any possible confusion in follow-up conversation.</p>
 
-<p>Good luck, and happy authoring!</p>
+<h3 id="warnusaboutunusuallyshapedentries">Warn us about unusually shaped entries</h3>
+
+<p>If you anticipate that your game may require extra effort on our end to manage or host &#8211; for example, if it contains tens of thousands of individual files &#8211; you should make us aware of that early, so that we can work out any potential issues together.</p>
+
+<p>If we can’t get any such issues sorted by competition launch on [% judging_begins_date %], we may ask to host the game yourself off-site &#8211; and if that presents further problems, you may have to withdraw your entry.</p>
+
+<h2 id="importantdeadlines">Important deadlines</h2>
+
+<p>IFcomp begins to accept entries every year on [% intents_open_date %]. After that, the two big dates to know about are the intent deadline of [% intents_close_date %], and the final entry deadline of [% entries_due_date %]. <em>Your entry must meet both of these deadlines.</em></p>
+
+<p>All deadlines expressed below are date-inclusive, and based in the Eastern time zone.</p>
+
+<h3 id="september1%3Adeadlineforintents">[% intents_close_date %]: Deadline for intents</h3>
+
+<p>If you intend to have an entry in this year&#8217;s IFComp, then you must submit your intent via the entry form by 11:59 PM Eastern time on <strong>[% intents_close_date %]</strong>. You can submit an intent without submitting a full entry &#8211; in fact, you can submit as little information as your game&#8217;s title, and the platform that it runs on (a Twine-built website, for example, or an Inform Z-code file).</p>
+
+<p>This deadline exists to give the competition&#8217;s organizers time to plan. Knowing how many entries we can expect, and what kinds of games they&#8217;ll be, helps us a lot to prepare. Think of it as an RSVP.</p>
+
+<p>Note that <em>intents are not obligations</em>. While we certainly hope that you will follow your submitted intent with a full entry, there&#8217;s no penalty if you don&#8217;t. (<a href="https://ifcomp.org/about/guidelines#submitonlyfinishedwork">As we state in our guidelines</a>, we would rather that you hold onto an unfinished game for a future competition than see you submit an incomplete work.)</p>
+
+<h3 id="september28%3Afinalentrydeadline">[% entries_due_date %]: Final entry deadline</h3>
+
+<p>You must submit your entry, in its entirety, by 11:59 PM Eastern time on <strong>[% entries_due_date %]</strong>.</p>
+
+<p>For the sake of fairness, the competition organizers enforce this deadline very strictly. We will not accept any entries submitted after that final minute has passed. Preparing the Comp for judging takes focused work by the organizers, and we really do need all the entries lined up by then. So, yeah — [% entries_due_date %] is a real, actual deadline.</p>
+
+<h3 id="earlysubmissionsarewelcome">Early submissions are welcome</h3>
+
+<p>As with all deadlines, on-time is good, but earlier is better. You can submit your entire entry as early as [% intents_open_date %], if it happens to be done that soon.</p>
+
+<h2 id="updatingyourgame">Updating your game</h2>
+
+<p>You can freely update your game until the final entry deadline, and then update it with some rules and restrictions during the judging period.</p>
+
+<h3 id="update-availabilityschedule">Update-availability schedule</h3>
+
+<p><strong>Before [% entries_due_date %]</strong>, you can update your game as much as you want, using the website&#8217;s entry form. You can re-upload your game&#8217;s files, change its cover art, rewrite its blurb, and even change its title. No need to ask; just go for it!</p>
+
+<p><strong>Between [% entries_due_date %] and [% judging_begins_date %]</strong>, updating is unavailable. The organizers need the entries &#8220;frozen&#8221; during this time, in order to prepare the competition for judging.</p>
+
+<p><strong>After [% judging_begins_date %]</strong>, the updating controls come back, with a caveat: you must provide a “changelog entry” with your update, summarizing the reasons for your update. (The form will prompt you for one.) Judges will be able to see these changelogs.</p>
+
+<h3 id="updatesandjudges">Updates and judges</h3>
+
+<p>IFComp makes <em>two</em> copies of each entry available: the entry as it stood the moment that the judging period began, and the most recent update made afterwards. Judges may choose to play and rate either one, depending upon their own preferences.</p>
+
+<p>Note that the competition invites judges to rate whatever version of an entry they happen to play. If a judge plays and rates a version of an entry that gets replaced by a later update, they are under no obligation to replay or re-rate that new version.</p>
+
+<h3 id="updatesandthearchive">Updates and the Archive</h3>
+
+<p>At the end of the competition, we will make both of these available to the IF Archive for permanent storage in its <a href="http://ifarchive.org/indexes/if-archive/games/">collection of IFComp entries</a>.</p>
+
+<p>(And, yes, if you don&#8217;t update your game after judging starts, then these two copies will be identical in all cases, and that&#8217;s just fine!)</p>
+
+<h2 id="prizes">Prizes</h2>
+
+<p>IFComp offers <a href="https://ifcomp.org/about/prizes">two kinds of prizes</a>: the Colossal Fund and a general Prize Pool.</p>
+
+<h3 id="thecolossalfund">The Colossal Fund</h3>
+
+<p>At the end of the year, the top two-thirds of so entries will earn a modest cash prize.</p>
+
+<p>The money comes via PayPal. If you can’t do PayPal, we’ll write you a check from a bank based in the United States. But we really prefer PayPal.</p>
+
+<p>We’ll contact you after the comp if you qualify for a Colossal Fund share. There’s a lot of post-comp stuff that happens, so you may not hear about it immediately, but we endeavor to get payments out by the end of the calendar year. </p>
+
+<h3 id="prizepool">Prize pool</h3>
+
+<p>At the end of the comp, we begin reaching out to authors in the order of placement, asking them which prize they’d like to claim.</p>
+
+<p>Physical prizes get postal-mailed from the donor to the claimant. Note that due to issues we have had over the years with posting physical prizes internationally, not all prizes may be available to all authors.</p>
+
+<h3 id="beinganauthor-and-donor">Being an author-and-donor</h3>
+
+<p>If you wish, you may certainly donate prizes and enter the competition during the same year, and we thank you in advance for your extra generosity! Please see <a href="https://ifcomp.org/about/prizes">the prize page</a> for more details about donating.</p>
+
+<h2 id="collectingfeedbackfromjudges">Collecting feedback from judges</h2>
+
+<p>All IFComp entries can collect anonymous feedback from judges, and some also automatically collect anonymous play-transcripts as well.</p>
+
+<h3 id="feedback">Feedback</h3>
+
+<p>We will reveal feedback collected about your game after the competition is all over, when the final results get posted. Feedback will be linked from your entry-management screen, and available to read and review for the remainder of the year.</p>
+
+<p>All feedback is anonymous by default (though judges can identify themselves within feedback text if they choose to). As with all IFComp communication, feedback is subject to the IFComp code of conduct, so if you find yourself in receipt of feedback that crosses the line from critique into harassment, please let us know.</p>
+
+<h3 id="transcripts">Transcripts</h3>
+
+<p>If your game is written with Inform, then its ifcomp.org-based online-play version might support transcripts, via <a href="https://github.com/juhana/if-recorder">Juhana Leinonen’s &#8220;if-recorder&#8221;</a> software.</p>
+
+<p>The website&#8217;s software will do its best to set up transcript-recording by itself, without requiring any additional work from you. If transcripts are available, they’ll appear on your entry-management screen once judging begins. We don’t <em>guarantee</em> that this will work — but it probably will.</p>
+
+<h2 id="otherservices">Other services</h2>
+
+<p>As an IFComp author, you should understand the relationship between the competition and other online services in the IF community, particularly the IF Archive and the IFDB.</p>
+
+<h3 id="ifarchive">IF Archive</h3>
+
+<p>The IFComp organizers will upload all material you submit as part of your IFComp entry to the <a href="https://ifarchive.org">IF Archive</a> for permanent, public storage and accessibility. We will upload an archive containing all of the entries as they stood when judging began on [% judging_begins_date %], and also upload all individual comp games as they stood when judging closed on [% judging_ends_date %].</p>
+
+<p>If you release a post-comp edition of your game, and wish to add it to the IF Archive (which you should!), you&#8217;ll need to do that yourself, outside of the Archive&#8217;s competition directories. <a href="http://ifarchive.org/misc/about.html">Contact the Archive staff</a> if you need assistance with that.</p>
+
+<h3 id="ifdb">IFDB</h3>
+
+<p>Unlike with the IF Archive, IFComp does <em>not</em> take care of creating or updating records in <a href="http://ifdb.tads.org">The Interative Fiction Database</a> about your IFComp entries. Some kind soul might put your game on IFDB, but there is no guarantee. </p>
+
+<p>While we don&#8217;t require it, we do recommend that IFComp authors create or update IFDB pages about their own entries. (And yes, you are allowed to update your game’s IFDB page during the competition.)</p>
+
+<p>If you do want to ensure that your game appears on IFDB appropriately, it’s a good idea to swing by a few days after the competition ends to ensure that the IFDB points to your game’s permanent location on the IF Archive. And, of course, if do any post-comp releases, you’ll also want to update your IFDB page to reflect that.</p>
+
+<h2 id="goodluckandhavefun">Good luck and have fun</h2>
+
+<p>And thank you for entering the Interactive Fiction Competition!</p>
+
 </div>

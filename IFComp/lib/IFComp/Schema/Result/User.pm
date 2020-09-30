@@ -46,6 +46,8 @@ __PACKAGE__->table("user");
   is_nullable: 0
   size: 128
 
+User's real name
+
 =head2 password
 
   data_type: 'char'
@@ -64,6 +66,8 @@ __PACKAGE__->table("user");
   default_value: (empty string)
   is_nullable: 0
   size: 64
+
+Email doubles as login ID
 
 =head2 email_is_public
 
@@ -118,6 +122,14 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 32
 
+=head2 paypal
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 64
+
+User's PayPal account name (usually an email address)
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -162,6 +174,8 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 36 },
   "forum_handle",
   { data_type => "char", is_nullable => 1, size => 32 },
+  "paypal",
+  { data_type => "char", is_nullable => 1, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -270,8 +284,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-09-17 13:13:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0GAZNFGyrHszTo/6wUZPKg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:17:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OHcMlyDlSbgVqzFqGczQRg
 
 __PACKAGE__->add_column(
     '+password' => {

@@ -1,13 +1,10 @@
 requires 'Archive::Zip';
-requires 'Cache::FastMmap';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Store::DBIx::Class', '>= 0.1506';
 requires 'Catalyst::Model::Factory';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Authorization::Roles';
-requires 'Catalyst::Plugin::Cache';
 requires 'Catalyst::Plugin::ConfigLoader';
-requires 'Catalyst::Plugin::PageCache';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::DBIC';
 requires 'Catalyst::Plugin::Static::Simple';
@@ -38,6 +35,7 @@ requires 'MooseX::ClassAttribute';
 requires 'MooseX::MarkAsMethods';
 requires 'MooseX::NonMoose';
 requires 'namespace::autoclean';
+requires 'Readonly';
 requires 'Regexp::Common';
 requires 'SQL::Translator';
 requires 'Statistics::Basic';
@@ -51,7 +49,11 @@ test_requires 'Test::More' => '0.88';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 
 on 'develop' => sub {
-  requires 'Code::TidyAll';
+  requires 'Code::TidyAll' => '== 0.78';
   requires 'DBIx::Class::Schema::Loader';
-  requires 'Perl::Tidy';
+  requires 'Perl::Tidy' => '== 20200822';
+  requires 'DBD::mysql';
+  requires 'Catalyst::Devel';
+  requires 'Selenium::Remote::Driver';
+  requires 'Test::Selenium::Remote::Driver';
 };

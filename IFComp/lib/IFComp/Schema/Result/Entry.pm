@@ -14,22 +14,15 @@ IFComp::Schema::Result::Entry
 use strict;
 use warnings;
 
-use Moose;
-use MooseX::NonMoose;
-use MooseX::MarkAsMethods autoclean => 1;
-extends 'DBIx::Class::Core';
 
-=head1 COMPONENTS LOADED
-
-=over 4
-
-=item * L<DBIx::Class::InflateColumn::DateTime>
-
-=back
+=head1 BASE CLASS: L<IFComp::Schema::Result>
 
 =cut
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+use Moose;
+use MooseX::NonMoose;
+use MooseX::MarkAsMethods autoclean => 1;
+extends 'IFComp::Schema::Result';
 
 =head1 TABLE: C<entry>
 
@@ -202,17 +195,24 @@ __PACKAGE__->table("entry");
   extra: {list => ["15 minutes or less","half an hour","one hour","an hour and a half","two hours","longer than two hours"]}
   is_nullable: 1
 
+=head2 genre
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 48
+
 =head2 style
 
   data_type: 'enum'
   extra: {list => ["parser","choice","other"]}
   is_nullable: 1
 
-=head2 genre
+=head2 platform
 
-  data_type: 'char'
+  data_type: 'enum'
+  default_value: 'other'
+  extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other"]}
   is_nullable: 1
-  size: 64
 
 =cut
 
@@ -307,14 +307,39 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 1,
   },
+  "genre",
+  { data_type => "char", is_nullable => 1, size => 48 },
   "style",
   {
     data_type => "enum",
     extra => { list => ["parser", "choice", "other"] },
     is_nullable => 1,
   },
-  "genre",
-  { data_type => "char", is_nullable => 1, size => 64 },
+  "platform",
+  {
+    data_type => "enum",
+    default_value => "other",
+    extra => {
+      list => [
+        "adrift",
+        "adrift-online",
+        "inform-website",
+        "inform",
+        "parchment",
+        "quixe",
+        "tads",
+        "tads-web-ui",
+        "quest-online",
+        "quest",
+        "alan",
+        "hugo",
+        "windows",
+        "website",
+        "other",
+      ],
+    },
+    is_nullable => 1,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -437,8 +462,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2018-06-30 16:08:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1LwIaqKI9MR4mCZSSrlxhQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-07-06 15:13:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ByWVRQ30bCjOIlthWQCxKw
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
@@ -447,19 +472,15 @@ use File::Copy qw( move );
 use Archive::Zip;
 use List::Compare;
 use MIME::Base64;
-use IFComp::Blorb qw( determine_blorb_type );
 use Unicode::Normalize;
+use File::Copy;
+use Imager;
+
+use v5.10;
 
 use Readonly;
-Readonly my $I7_REGEX      => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
-Readonly my $ZCODE_REGEX   => qr/\.z\d$|\.zblorb$/i;
-Readonly my $TADS_REGEX    => qr/\.gam$|\.t3$/i;
-Readonly my $QUEST_REGEX   => qr/\.quest$|\.aslx$/i;
-Readonly my $ALAN_REGEX    => qr/\.a3c$/i;
-Readonly my $WINDOWS_REGEX => qr/\.exe$/i;
-Readonly my $HTML_REGEX    => qr/\.html?$/i;
-Readonly my $INDEX_REGEX   => qr/^index\.html?$/i;
-Readonly my $HUGO_REGEX    => qr/\.hex$/i;
+Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $ZCODE_REGEX => qr/\.z\d$|\.zblorb$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
     'Cover.jpg',       'index.html', 'interpreter', 'play.html',
@@ -468,6 +489,10 @@ Readonly my @DEFAULT_PARCHMENT_CONTENT => (
 Readonly my @DEFAULT_INFORM_CONTENT => qw(
     index.html
 );
+
+# $MAX_COVER_HEIGHT: This should be *twice* the maximum display-height
+# (measured in CSS pixels) allowed by the ballot page for cover art.
+Readonly my $MAX_COVER_HEIGHT => 700;
 
 has 'sort_title' => (
     is         => 'ro',
@@ -573,24 +598,11 @@ enum 'Platform', [
         windows
         alan
         adrift
+        adrift-online
         hugo
         other
         )
 ];
-
-has 'contents_data' => (
-    is         => 'ro',
-    init_arg   => undef,
-    lazy_build => 1,
-    clearer    => 'clear_contents_data',
-);
-
-has 'platform' => (
-    is         => 'ro',
-    isa        => 'Platform',
-    lazy_build => 1,
-    clearer    => 'clear_platform',
-);
 
 has 'play_file' => (
     is         => 'ro',
@@ -602,12 +614,6 @@ has 'play_file' => (
 has 'is_qualified' => (
     is         => 'ro',
     isa        => 'Bool',
-    lazy_build => 1,
-);
-
-has 'interpreter_tag_text' => (
-    is         => 'ro',
-    isa        => 'Str',
     lazy_build => 1,
 );
 
@@ -800,100 +806,6 @@ sub _build_subdir_named {
     return $path;
 }
 
-sub _build_contents_data {
-    my $self = shift;
-
-    my @content_files;
-    $self->content_directory->recurse(
-        callback => sub {
-            push @content_files, $_[0]->relative( $self->content_directory );
-        }
-    );
-
-    # ensure a predictable order:
-    @content_files = sort { $a cmp $b } @content_files;
-
-    my $quixe_extra_check = sub {
-        if ( my $js_file = $self->inform_game_js_file ) {
-            my $fh         = $js_file->openr;
-            my $first_line = <$fh>;
-            return
-                scalar(
-                $first_line =~ /^\$\(document\)\.ready\(function\(\) \{/ );
-        }
-        return 0;
-    };
-
-    my $adrift_extra_check = sub {
-        try {
-            my $blorb_file = _find_file( qr/blorb$/, @content_files );
-            unless ($blorb_file) {
-                return 0;
-            }
-            $blorb_file = $blorb_file->absolute( $self->content_directory );
-            my $type = determine_blorb_type($blorb_file);
-            if ( $type eq 'adrift' ) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        }
-        catch {
-            warn $_;
-            return 0;
-        };
-    };
-
-    # This is a list of tuples of:
-    # - platform name
-    # - list of regexes for files required to exist
-    # - optional additional validation func
-    # Assuming all the regexes pass, the file matched by the first is
-    # what's used for the play file
-    my @platforms = (
-        [   'parchment',
-            [   $INDEX_REGEX,       $I7_REGEX,
-                qr/^play\.html?$/i, qr/^(interpreter\/)?parchment.*js$/i
-            ]
-        ],
-        [   'quixe',
-            [ $INDEX_REGEX, $I7_REGEX, qr/^(interpreter\/)?quixe.*js$/i ],
-            $quixe_extra_check
-        ],
-        [ 'adrift',         [$I7_REGEX], $adrift_extra_check ],
-        [ 'inform-website', [ $INDEX_REGEX, $I7_REGEX ] ],
-        [ 'inform',         [$I7_REGEX] ],
-        [ 'tads',           [$TADS_REGEX] ],
-        [ 'quest-online',   [ $INDEX_REGEX, $QUEST_REGEX ] ],
-        [ 'quest',          [$QUEST_REGEX] ],
-        [ 'alan',           [$ALAN_REGEX] ],
-        [ 'windows',        [$WINDOWS_REGEX] ],
-        [ 'hugo',           [$HUGO_REGEX] ],
-
-        # two possible cases for the "website" platform: either there's
-        # an index.html in the top level dir and some other html files,
-        # in which case we take the index.html file; or if that fails,
-        # then we consider the case where there's at least one html file
-        # in the top level dir, in which case we take it (or take the first
-        # alphabetically if there are multiple)
-        [ 'website', [ $INDEX_REGEX, $HTML_REGEX ] ],
-        [ 'website', [qr/^[^\/]+$HTML_REGEX/] ],
-    );
-
-    for my $platform_info (@platforms) {
-        my ( $name, $regexes, $extra_check ) = @$platform_info;
-        $extra_check = sub { return 1 }
-            unless defined $extra_check;
-        my @found_files = _find_fileset( $regexes, @content_files );
-        if ( @found_files && $extra_check->() ) {
-            return { 'platform' => $name, 'play_file' => $found_files[0] };
-        }
-    }
-
-    return { 'platform' => 'other', 'play_file' => undef };
-}
-
 sub _find_file {
     my ( $regex, @files ) = @_;
     for my $file (@files) {
@@ -913,16 +825,43 @@ sub _find_fileset {
     return @ret;
 }
 
-sub _build_platform {
-    my $self = shift;
-
-    return $self->contents_data->{'platform'};
-}
+no warnings "experimental";
 
 sub _build_play_file {
     my $self = shift;
 
-    return $self->contents_data->{'play_file'};
+    my $play_file;
+    given ( $self->platform ) {
+        when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
+            $play_file = Path::Class::File->new('index.html');
+        }
+        when ('website') {
+
+            # For website games:
+            # If 'index.html' exists at the top level, there we are.
+            # Otherwise, check whether *one* HTML file exists at top.
+            if ( -e $self->content_directory->file('index.html') ) {
+                $play_file = Path::Class::File->new('index.html');
+            }
+            else {
+                # We use glob() here instead of a "friendlier" iteration over
+                # $content_directory->children, to avoid situations where
+                # an entry has a hundred thousand files and we end up making
+                # objects out of all of them every time we look at this game.
+                # (Yes, this has happened.)
+                my @html_filenames =
+                    glob( $self->content_directory . "/*.html" );
+                if ( @html_filenames == 1 ) {
+                    $play_file =
+                        Path::Class::File->new( $html_filenames[0] )
+                        ->relative( $self->content_directory );
+                }
+            }
+        }
+        default { $play_file = undef }    # By default, offer no online play.
+    }
+
+    return $play_file;
 }
 
 sub _build_is_qualified {
@@ -984,6 +923,27 @@ sub cover_exists {
     else {
         return 0;
     }
+}
+
+sub create_web_cover_file {
+    my $self = shift;
+
+    if ( ( defined $self->web_cover_file ) && ( -e $self->web_cover_file ) ) {
+        $self->web_cover_file->remove;
+    }
+    $self->clear_web_cover_file;
+
+    return unless $self->cover_exists;
+
+    my $image = Imager->new( file => $self->cover_file );
+    if ( $image->getheight > $MAX_COVER_HEIGHT ) {
+        my $resized_image = $image->scale( ypixels => $MAX_COVER_HEIGHT );
+        $resized_image->write( file => $self->web_cover_file );
+    }
+    else {
+        copy( $self->cover_file, $self->web_cover_file );
+    }
+
 }
 
 # update_content_directory: Clean up (and possibly create) the content directory,
@@ -1050,47 +1010,23 @@ sub update_content_directory {
         $self->main_file->copy_to( $self->content_directory );
     }
 
-    $self->clear_contents_data;
-    $self->clear_platform;
     $self->clear_play_file;
 
     if ( $self->platform eq 'inform' ) {
-        if ( $self->is_zcode ) {
-            $self->_create_parchment_page;
-        }
-        else {
-            $self->_create_quixe_page;
-        }
+        $self->_create_parchment_page;
 
         # and then we have to recalculate again since doing this changes the
         # platform type and play file
-        $self->clear_contents_data;
-        $self->clear_platform;
         $self->clear_play_file;
     }
-    elsif ( $self->platform eq 'parchment' ) {
-        $self->_mangle_parchment_head;
-    }
-    elsif ( $self->platform eq 'quixe' ) {
-        $self->_make_js_file( $self->inform_game_file,
-            $self->inform_game_js_file );
-        $self->_mangle_quixe_head;
+    elsif (( $self->platform eq 'parchment' )
+        || ( $self->platform eq 'quixe' ) )
+    {
+        $self->_enable_recording;
     }
 }
 
-sub _make_js_file {
-    my $self = shift;
-
-    my ( $source_file, $js_file ) = @_;
-    $js_file //= $source_file;
-
-    $js_file->spew( q/$(document).ready(function() {/
-            . q/  GiLoad.load_run(null, '/
-            . encode_base64( $source_file->slurp, '' )
-            . q/', 'base64');/
-            . q/});/ );
-}
-
+# Create a Parchment page for ZCode and Glulx
 sub _create_parchment_page {
     my $self = shift;
 
@@ -1107,134 +1043,40 @@ sub _create_parchment_page {
 
     my $entry_id = $self->id;
 
-    my $tag_text = $self->interpreter_tag_text;
-    my $html     = <<EOF
+    my $html = <<EOF
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IFComp — $title — Play</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-$tag_text
-<script>
-parchment_options = {
-default_story: [ "$i7_file" ],
-lib_path: '/static/interpreter/parchment/',
-lock_story: 1,
-page_title: 0
-};
-
-ifRecorder.saveUrl = "/play/$entry_id/transcribe";
-ifRecorder.story.name = "$title";
-ifRecorder.story.version = "1";
-</script>
-
- </head>
-<body class="play">
-<div class="container">
-
-<div id="gameport">
-<div id="about">
-<h1>Parchment</h1>
-<p>is an interpreter for Interactive Fiction. <a href="https://github.com/curiousdannii/parchment">Find out more.</a></p>
-<noscript><p>Parchment requires Javascript. Please enable it in your browser.</p></noscript>
-</div>
-<div id="parchment"></div>
-</div>
-
-</div>
-<div class="interpretercredit"><a href="https://github.com/curiousdannii/parchment">Parchment for Inform 7</a></div>
-</body>
-</html>
-
-EOF
-        ;
-
-    my $html_file = $self->content_directory->file('index.html');
-    my $html_fh   = $html_file->openw;
-    $html_fh->binmode(':utf8');
-
-    print $html_fh $html;
-
-}
-
-sub _create_quixe_page {
-    my $self = shift;
-
-    my $title = $self->title;
-
-    # Search the content directory for the I7 file to link to.
-    my $i7_file = $self->inform_game_file;
-
-    unless ($i7_file) {
-        die "Could not find an I7 file in this entry's content directory.";
-    }
-
-    # Create a JS file for this game.
-    my $js_file = Path::Class::File->new( $i7_file . '.js' );
-    $self->_make_js_file( $i7_file, $js_file );
-
-    my $js_filename = $js_file->basename;
-
-    my $entry_id = $self->id;
-
-    my $tag_text = $self->interpreter_tag_text;
-    my $html     = <<EOF
-<!DOCTYPE html>
-<html>
-<head>
-<title>IFComp — $title — Play</title>
-
-<meta name="viewport" content="width=device-width, user-scalable=no">
-
-$tag_text
-
-<style type="text/css">
-
-body {
-  margin: 0px;
-  height: 100%;
-}
-
-#gameport {
-  position: absolute;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  background: #CCAA88;
-  margin: 0px;
-}
-
-</style>
-
-<script type="text/javascript">
-game_options = {
-  use_query_story: false,
-  set_page_title: true,
-  recording_url: '/play/$entry_id/transcribe',
-  recording_label: '$title',
-  recording_format: 'simple'
-};
-</script>
-
-<script src="$js_filename" type="text/javascript"></script>
-
+    <meta charset="utf-8">
+    <title>IFComp &ndash; $title &ndash; Play</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <script src="/static/interpreter/jquery.min.js"></script>
+    <script src="/static/interpreter/ie.js" nomodule></script>
+    <script src="/static/interpreter/main.js" type="module"></script>
+    <link rel="stylesheet" href="/static/interpreter/web.css">
+    <script>
+        parchment_options = {
+            default_story: [ "$i7_file" ],
+            lib_path: '/static/interpreter/',
+            recording_url: '/play/$entry_id/transcribe',
+            recording_label: '$title',
+            recording_format: 'simple'
+        }
+    </script>
 </head>
 <body>
-
-<div id="gameport">
-<div id="windowport">
-<noscript><hr>
-<p>You'll need to turn on Javascript in your web browser to play this game.</p>
-<hr></noscript>
-</div>
-<div id="loadingpane">
-<img src="/static/interpreter/quixe/media/waiting.gif" alt="LOADING"><br>
-<em>&nbsp;&nbsp;&nbsp;Loading...</em>
-</div>
-<div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
-</div>
-
+    <div id="gameport">
+        <div id="windowport">
+            <noscript>
+                <p>You'll need to turn on Javascript in your web browser to play this game.</p>
+            </noscript>
+        </div>
+        <div id="loadingpane">
+            <img src="/static/interpreter/waiting.gif" alt="LOADING"><br>
+            <em>&nbsp;&nbsp;&nbsp;Loading...</em>
+        </div>
+        <div id="errorpane" style="display:none;"><div id="errorcontent">...</div></div>
+    </div>
 </body>
 </html>
 EOF
@@ -1248,56 +1090,8 @@ EOF
 
 }
 
-sub _mangle_parchment_head {
-    my $self = shift;
-
-    my $title    = $self->title;
-    my $entry_id = $self->id;
-
-    my $game_file = $self->inform_game_file->basename;
-
-    my $play_file = $self->content_directory->file('play.html');
-
-    unless ( ( -e $play_file ) && $game_file ) {
-
-        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
-        # so we won't do anything.
-        return;
-    }
-
-    my $play_html = $play_file->slurp;
-
-    # Discard all invocations of interpreter/.
-    $play_html =~ s{<script src="interpreter/.*?</script>}{}g;
-    $play_html =~ s{<link.*?href="interpreter/.*?>}{}g;
-
-    # Add new head tags.
-    my $tag_text  = $self->interpreter_tag_text;
-    my $head_html = <<EOF;
-$tag_text
-<script>
-parchment_options = {
-default_story: [ "$game_file" ],
-lib_path: '/static/interpreter/parchment/',
-lock_story: 1,
-page_title: 0
-};
-
-ifRecorder.saveUrl = "/play/$entry_id/transcribe";
-ifRecorder.story.name = "$title";
-ifRecorder.story.version = "1";
-</script>
-
-EOF
-
-    $play_html =~ s{</head>}{$head_html\n</head>};
-
-    $play_file->spew($play_html);
-
-}
-
-sub _mangle_quixe_head {
-    my $self = shift;
+sub _enable_recording {
+    my ($self) = @_;
 
     my $play_file = $self->content_directory->file('play.html');
 
@@ -1312,51 +1106,31 @@ sub _mangle_quixe_head {
 
     my $play_html = $play_file->slurp;
 
-    # Re-aim interpreter links to our own Quixe interpreter.
-    # (Via re-writing <script src="..." /> invocations.)
-    $play_html =~ s{"interpreter/jquery-.*?min.js"}
-            {"/static/interpreter/quixe/lib/jquery-1.12.4.min.js"};
-    $play_html =~ s{"interpreter/glkote.min.js"}
-            {"/static/interpreter/quixe/lib/glkote.min.js"};
-    $play_html =~ s{"interpreter/quixe.min.js"}
-            {"/static/interpreter/quixe/lib/quixe.min.js"};
-    $play_html =~ s{"interpreter/glkote.css"}
-            {"/static/interpreter/quixe/media/i7-glkote.css"};
+    my $options_js_object;
+    if ( $play_html =~ m{game_options.*</head>}s ) {
+
+        # It's Quixe
+        $options_js_object = 'game_options';
+    }
+    else {
+        # It's Parchment
+        $options_js_object = 'parchment_options';
+    }
 
     # Activate transcription, aiming it at the local transcription action.
     # (Via injecting additional values into the game_options config object.)
-    my $entry_id = $self->id;
-    my $transcription_options =
-          "recording_url: '/play/$entry_id/transcribe',\n"
-        . "recording_format: 'simple',\n";
-    $play_html =~ s[(game_options\s*=\s*{\s*)]
-            [$1$transcription_options]s;
+    my $entry_id           = $self->id;
+    my $transcription_code = <<EOF;
+<script>
+$options_js_object.recording_url = '/play/$entry_id/transcribe'
+$options_js_object.recording_format = 'simple'
+</script>
+EOF
+
+    $play_html =~ s{</head>}{$transcription_code</head>};
 
     $play_file->spew($play_html);
 
-}
-
-sub _build_interpreter_tag_text {
-    my $self = shift;
-
-    if ( $self->is_zcode ) {
-        return <<EOF;
-<script src="/static/interpreter/parchment/jquery.min.js"></script>
-<script src="/static/interpreter/parchment/parchment.min.js"></script>
-<script src="/static/interpreter/transcript_recorder/if-recorder.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/parchment.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/parchment/style.css">
-EOF
-    }
-    else {
-        return <<EOF;
-<script src="/static/interpreter/quixe/lib/jquery-1.12.4.min.js"></script>
-<script src="/static/interpreter/quixe/lib/glkote.min.js"></script>
-<script src="/static/interpreter/quixe/lib/quixe.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/glkote.css">
-<link rel="stylesheet" type="text/css" href="/static/interpreter/quixe/media/dialog.css">
-EOF
-    }
 }
 
 sub _build_is_zcode {
@@ -1413,7 +1187,7 @@ sub _build_supports_transcripts {
 
     if (   ( $self->platform eq 'parchment' )
         || ( $self->platform eq 'quixe' )
-        || ( $self->platform eq 'inform-website' ) )
+        || ( $self->platform =~ /^inform/ ) )
     {
         return 1;
     }

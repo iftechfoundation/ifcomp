@@ -36,16 +36,27 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
         return;
     }
 
-    my @entries;
+    my $user_is_author = 0;
+    if ( $c->user && $c->user->get_object->current_comp_entries ) {
+        $user_is_author = 1;
+    }
+    $c->stash->{user_is_author} = $user_is_author;
+
+}
+
+sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
+    my ( $self, $c ) = @_;
+
+    update_ratings($c);
 
     # If we have an 'alphabetize' param defined, sort the games by alpha.
     # Otherwise, shuffle them, also seeding off the user's ID if we're in
     # personal-shuffle mode.
     if ( $c->req->params->{alphabetize} ) {
-        @entries = sort { $a->sort_title cmp $b->sort_title }
-            $current_comp->entries();
+        $c->forward('fetch_alphabetized_entries');
     }
     else {
+        my @entries;
         $c->stash->{is_shuffled} = 1;
         my $seed = '';
         if ( $c->user && $c->req->params->{personalize} ) {
@@ -63,44 +74,41 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
         else {
             $order_by = "rand($seed)";
         }
+        my $current_comp = $c->stash->{current_comp};
         @entries = $current_comp->entries( {}, { order_by => $order_by, } );
+        $c->stash->{entries} = \@entries;
     }
-    $c->stash->{entries} = \@entries;
 
-    my $user_is_author = 0;
-    if ( $c->user && $c->user->get_object->current_comp_entries ) {
-        $user_is_author = 1;
-    }
-    $c->stash->{user_is_author} = $user_is_author;
 }
 
-sub index : Chained('root') : PathPart('') : Args(0) {
+sub fetch_alphabetized_entries : Chained('root') : PathPart('') :
+    CaptureArgs(0) {
+    my ( $self, $c ) = @_;
+
+    my @entries;
+
+    my $current_comp = $c->stash->{current_comp};
+
+    @entries =
+        sort { $a->sort_title cmp $b->sort_title } $current_comp->entries();
+    $c->stash->{entries} = \@entries;
+
+    update_ratings($c);
+}
+
+sub index : Chained('fetch_entries') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->stash->{zip_file_mb} = $c->config->{zip_file_mb};
 }
 
-sub vote : Chained('root') : PathPart('vote') : Args(0) {
+sub vote : Chained('fetch_alphabetized_entries') : PathPart('vote') : Args(0)
+{
     my ( $self, $c ) = @_;
 
     if ( $c->stash->{current_comp}->status ne 'open_for_judging' ) {
         $c->detach('/error_403');
     }
-
-    my %rating_for_entry;
-    if ( $c->user ) {
-        my $rating_rs = $c->model('IFCompDB::Vote')->search(
-            {   user => $c->user->id,
-                comp => $c->stash->{current_comp}->id,
-            },
-            { join => { entry => 'comp' }, },
-        );
-
-        while ( my $rating = $rating_rs->next ) {
-            $rating_for_entry{ $rating->entry->id } = $rating->score;
-        }
-    }
-    $c->stash->{rating_for_entry} = \%rating_for_entry;
 
 }
 
@@ -149,6 +157,25 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         form  => $form,
         entry => $entry,
     );
+}
+
+sub update_ratings() {
+    my ($c) = @_;
+    my %rating_for_entry;
+
+    if ( $c->user ) {
+        my $rating_rs = $c->model('IFCompDB::Vote')->search(
+            {   user => $c->user->id,
+                comp => $c->stash->{current_comp}->id,
+            },
+            { join => { entry => 'comp' }, },
+        );
+
+        while ( my $rating = $rating_rs->next ) {
+            $rating_for_entry{ $rating->entry->id } = $rating->score;
+        }
+    }
+    $c->stash->{rating_for_entry} = \%rating_for_entry;
 }
 
 =encoding utf8

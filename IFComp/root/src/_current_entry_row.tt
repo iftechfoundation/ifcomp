@@ -2,7 +2,7 @@
 
     [% IF entry.cover_exists %]
         <div class="col-xs-4">
-            <a href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;"></a>
+            <a href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
         </div>
     [% END %]
     
@@ -43,7 +43,7 @@
             [% END %]
         [% ELSIF entry.platform == 'website' %]
             Web-based
-        [% ELSIF entry.platform == 'tads' %]
+        [% ELSIF entry.platform == 'tads' || entry.platform == 'tads-web-ui' %]
             TADS [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
             Quest [% INCLUDE guide_link %]
@@ -51,8 +51,10 @@
             Windows executable
         [% ELSIF entry.platform == 'alan' %]
             Alan [% INCLUDE guide_link %]
-        [% ELSIF entry.platform == 'adrift' %]
+        [% ELSIF entry.platform == 'adrift' || entry.platform == 'adrift-online' %]
             ADRIFT [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'hugo' %]
+            Hugo [% INCLUDE guide_link %]
         [% END %]
         [% END %]
         </em></p>
@@ -74,6 +76,9 @@
               || entry.platform == 'inform-website'
               || entry.platform == 'quixe'
               || entry.platform == 'quest-online'
+              || entry.platform == 'inform'
+              || entry.platform == 'tads-web-ui'
+              || entry.platform == 'adrift-online'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
@@ -91,8 +96,11 @@
         </div>
         [% END %]        
 
+        [% INCLUDE _rating_controls.tt %]
+        
     </div>
-    
+
+
 </div>
 
 <style>

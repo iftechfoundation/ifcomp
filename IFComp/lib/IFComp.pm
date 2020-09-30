@@ -24,18 +24,11 @@ use Catalyst qw/
     Session
     Session::Store::DBIC
     Session::State::Cookie
-    Cache
-    PageCache
     /;
 
 extends 'Catalyst';
 
 our $VERSION = '0.01';
-
-sub cache_only_success {
-    my $c = shift;
-    return $c->res->status == 200;
-}
 
 # Configure the application.
 #
@@ -52,8 +45,8 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header                      => 1, # Send X-Catalyst header
-    encoding               => 'UTF-8',
-    'Plugin::ConfigLoader' => { file => "conf/" }
+    encoding                                    => 'UTF-8',
+    'Plugin::ConfigLoader'                      => { file => "conf/" }
     ,    # Load configs from the conf dir
     'Plugin::Authentication' => {
         default_realm => "default",
@@ -83,17 +76,7 @@ __PACKAGE__->config(
         ],
         ignore_extensions => [ 'tt2', 'tt', ],
     },
-    'Model::Covers' => { root_dir  => __PACKAGE__->path_to('file_store') },
-    'Plugin::Cache' => { 'backend' => { class => "Cache::FastMmap", }, },
-    'Plugin::PageCache' => {
-        disable_index   => 1,
-        auto_check_user => 1,
-        auto_cache      => [
-            '/rules/?',  '/comp/.+', '/history/?', '/about/.*',
-            '/ballot.*', '/',
-        ],
-        cache_finalize_hook => 'cache_only_success',
-    },
+    'Model::Covers' => { root_dir => __PACKAGE__->path_to('file_store') },
 );
 
 # Start the application

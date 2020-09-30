@@ -61,6 +61,15 @@ sub logout : Path('logout') : Args(0) {
     if ( $c->user ) {
         $c->logout;
     }
+
+    # Clear the special user_id cookie set by the root controller for
+    # logged-in users.
+    $c->res->cookies->{user_id} = {
+        domain  => $c->req->uri->host,
+        expires => '-1M',
+        value   => 'Deleted',
+    };
+
     $c->res->redirect('/');
 }
 

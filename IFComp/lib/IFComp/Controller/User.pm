@@ -42,6 +42,7 @@ sub register : Path('register') : Args(0) {
                 forum_handle    => $form->field('forum_handle')->value,
                 url             => $form->field('url')->value,
                 email_is_public => $form->field('email_is_public')->value,
+                paypal          => $form->field('paypal')->value,
             }
         );
 
