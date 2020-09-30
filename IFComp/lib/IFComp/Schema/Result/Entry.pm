@@ -1030,7 +1030,9 @@ sub update_content_directory {
 sub _create_parchment_page {
     my $self = shift;
 
-    my $title = $self->title;
+    my $title      = $self->title;
+    my $safe_title = $title;
+    $safe_title =~ s/'//g;
 
     # Search the content directory for the I7 file to link to.
     my $i7_file = $self->inform_game_file;
@@ -1059,7 +1061,7 @@ sub _create_parchment_page {
             default_story: [ "$i7_file" ],
             lib_path: '/static/interpreter/',
             recording_url: '/play/$entry_id/transcribe',
-            recording_label: '$title',
+            recording_label: '$safe_title',
             recording_format: 'simple'
         }
     </script>
