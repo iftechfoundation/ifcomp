@@ -127,6 +127,7 @@ sub _cover {
     my $file = $c->stash->{entry}->$method;
     if ( -e $file ) {
         my $image_data = $file->slurp;
+        $c->res->headers->header( 'Cache-Control' => 'max-age=86400' );
         if ( $file->basename =~ /png$/ ) {
             $c->res->content_type('image/png');
         }
