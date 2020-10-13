@@ -20,7 +20,7 @@
 
 <p>However you choose to test, the mere act of it will all but guarantee that the work you submit to the competition shall be immeasurably more polished and ready for public scrutiny than a wholly untested work.</p>
 
-<p>You can recruit testers from your friends and family, or use resources like <a href="https://intfiction.org/c/playing/beta-testing">the intfiction.org forum</a> to find helpful volunteers from the IF community. </p>
+<p>You can recruit testers from your friends and family, or use resources like <a href="https://intfiction.org/c/playing/beta-testing">the intfiction.org forum</a> to find helpful volunteers from the IF community. (Don&#8217;t forget to include your <a href="#writeastrongblurb">blurb</a> in your call for testers, and ask testers to review your blurb, in addition to the game itself.)</p>
 
 <p>Once they become active, please <em>credit your testers within your game</em>. Conspicuously display their names in a manner appropriate to the work, such as in a &#8220;Credits&#8221; link in a hypertext game, or via the ABOUT command in a parser IF. Not only is it the right and proper way to acknowledge all the time and attention they spent to help improve your work, but it clearly communicates to players that you cared enough about the game to have it properly playtested. Some IFComp judges will refuse to play or review games that don&#8217;t clearly identify any playtesters, dismissing them &#8211; and not without justification &#8211; as not worth their time.</p>
 
@@ -63,6 +63,12 @@
 <p>Feel free to <a href="/comp/">browse past years&#8217; blurbs</a>, noting the various approaches that high-ranking games&#8217; authors have taken. They include pithy one-sentence teasers, evocative quotes from history or literature, and short summaries in the style of a paperback novel&#8217;s back cover, among others. Blurbs have no set format, other than brevity.</p>
 
 <p>Get creative and craft a blurb appropriate to your game that will draw players in, making them hungry to see more, and suggesting its worthiness as an investment of those players&#8217; time.</p>
+
+<p>Ask your playtesters to review your blurb, including its content warning. Ask what excites them about the blurb, ask whether it accurately describes the game they tested, and ask whether there are any interesting features about the game that you have omitted.</p>
+
+<p>You can also ask people who <em>haven&#8217;t</em> played your game to review your blurb. You can&#8217;t post your game publicly before the competition starts, but you <em>can</em> post your blurb publicly, allowing you to get feedback from folks who aren&#8217;t already familiar with your game. This way, you can find out whether the blurb is exciting (or whether it even makes sense) to people who haven&#8217;t played your game yet.</p>
+
+<p>See also: <a href="https://heterogenoustasks.wordpress.com/2019/09/03/how-to-write-a-good-if-comp-blurb/">How to Write a Good IFComp Blurb</a></p>
 
 <div class="page-header">
 <h1 id="useanifauthoringtool">Use an IF authoring tool</h1>
