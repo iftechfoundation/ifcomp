@@ -65,7 +65,7 @@ All entries are in and being prepared for release. The judging period will begin
 [% ELSIF current_comp.status == 'open_for_judging' %]
 <a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] Interactive Fiction Competition are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games by [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %]. <a href="[% c.uri_for('/about/schedule') %]">See the full schedule</a>.
 [% ELSIF current_comp.status == 'processing_votes' %]
-Voting has closed! We're tallying up the results now. Final results will be posted within two days. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
+Voting has closed! We're tallying up the results now. Final results will be posted soon. <a href="[% c.uri_for('/about/schedule') %]">See the full schedule</a>. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
 [% ELSE %]
 The [% current_comp.year %] IFComp is over. Congratulations to the first-place winner[% IF current_comp.winners.size > 1 %]s[% END %], [% winner_count = 1 %][% FOR winner IN current_comp.winners %]<em>[% winner.title %]</em> by [% INCLUDE author_name.tt entry=winner suppress_links=1 | trim %][% IF winner_count < current_comp.winners.size %] and [% END %][% winner_count = winner_count + 1 %][% END %]!</p>
 

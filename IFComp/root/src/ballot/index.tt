@@ -43,7 +43,7 @@
 <p>(Because you have entries in this year's competition, your votes won't count towards the main IFComp scores, but rather towards the Miss Congeniality side-contest.)</p>
 [% END %]
 [% ELSE %]
-<p><strong>The ballot box has closed!</strong> The deadline for rating games has passed, and we're now tallying up the results. Results will be posted to this website within 24 hours.</p>
+<p><strong>The ballot box has closed!</strong> The deadline for rating games has passed, and we're now tallying up the results. Results will be posted to this website soon.</p>
 <p>You can continue to download or play this year's games as much as you'd like, in the meantime!</p>
 [% END %]
 </div>
