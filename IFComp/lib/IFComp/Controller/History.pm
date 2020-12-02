@@ -25,8 +25,18 @@ sub index : Path : Args(0) {
 
     $c->stash->{template} = 'history/history.tt';
 
+    # Fetch the current comp, so that we can exclude it from the
+    # winners list if it isn't over yet.
+    my $current_comp  = $c->model('IFCompDB::Comp')->current_comp;
+    my @comp_sql_args = ();
+    unless ( $current_comp->status eq 'over' ) {
+        @comp_sql_args = ( comp => { '!=', $current_comp->id } );
+    }
+
     my @winners = $c->model('IFCompDB::Entry')->search(
-        { place => 1, },
+        {   place => 1,
+            @comp_sql_args,
+        },
         {   join     => ['comp'],
             order_by => 'comp.year desc',
         },
