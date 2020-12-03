@@ -13,9 +13,11 @@ use Readonly;
 use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
 
+use open ':std', ':encoding(UTF-8)';
+
 Readonly my $PAUSE_BETWEEN_QUERIES => 1;
 
-my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
+my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '',{ mysql_enable_utf8 => 1} );
 $schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
 
 my $current_comp = $schema->resultset('Comp')->current_comp;
@@ -37,8 +39,9 @@ for my $entry ( $current_comp->entries ) {
 
     my $response = $ua->get($uri);
 
+    my $escaped_title = quotemeta $title;
     my ($ifdb_id) = $response->content
-        =~ m{<tuid>([\w\d]+?)</tuid><title>\s*$title\s*</title>}i;
+        =~ m{<tuid>([\w\d]+?)</tuid><title>\s*$escaped_title\s*</title>}i;
     if ($ifdb_id) {
         $entry->ifdb_id($ifdb_id);
         $entry->update;
