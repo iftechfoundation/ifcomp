@@ -45,7 +45,8 @@ for my $entry ( $current_comp->entries ) {
         warn "$title has the IFDB $ifdb_id\n";
     }
     else {
-        warn "WARNING: Couldn't find an IFDB ID for $title.\n";
+        my $entry_id = $entry->id;
+        warn "*** WARNING: Couldn't find an IFDB ID for $title ($entry_id).\n";
     }
 
     sleep($PAUSE_BETWEEN_QUERIES);
