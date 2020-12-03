@@ -30,6 +30,7 @@ requires 'JSON::Any';
 requires 'JSON::XS';
 requires 'Lingua::EN::Numbers::Ordinate';
 requires 'List::Compare';
+requires 'LWP::Protocol::https';
 requires 'Moose';
 requires 'MooseX::ClassAttribute';
 requires 'MooseX::MarkAsMethods';
