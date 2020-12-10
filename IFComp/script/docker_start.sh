@@ -18,6 +18,8 @@ then
     script/ifcomp_deploy_db.pl
 fi
 
+echo "starting apache" 1>&2
+service apache2 start
 
 echo "starting server" 1>&2
-script/ifcomp_server.pl -r
+script/ifcomp_server.pl -r -p 5000
