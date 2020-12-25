@@ -17,7 +17,8 @@ use open ':std', ':encoding(UTF-8)';
 
 Readonly my $PAUSE_BETWEEN_QUERIES => 1;
 
-my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '',{ mysql_enable_utf8 => 1} );
+my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '',
+    { mysql_enable_utf8 => 1 } );
 $schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
 
 my $current_comp = $schema->resultset('Comp')->current_comp;
@@ -49,7 +50,8 @@ for my $entry ( $current_comp->entries ) {
     }
     else {
         my $entry_id = $entry->id;
-        warn "*** WARNING: Couldn't find an IFDB ID for $title ($entry_id).\n";
+        warn
+            "*** WARNING: Couldn't find an IFDB ID for $title ($entry_id).\n";
     }
 
     sleep($PAUSE_BETWEEN_QUERIES);
