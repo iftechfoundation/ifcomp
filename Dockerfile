@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y apt-utils \
     build-essential \
     libpng-dev \
     libjpeg-dev \
-    apache2
+    apache2 \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -L http://cpanmin.us | perl - App::cpanminus
 RUN cd /ifcomp-build && cpanm -q -n --with-develop --installdeps --force .
