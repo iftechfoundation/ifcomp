@@ -13,15 +13,15 @@ RUN apt-get update && apt-get install -y apt-utils \
     apache2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L http://cpanmin.us | perl - App::cpanminus
-RUN cd /ifcomp-build && cpanm -q -n --with-develop --installdeps --force .
-
 COPY dev/001-ifcomp.conf /etc/apache2/sites-available
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-RUN a2enmod proxy proxy_http rewrite headers && \
-    a2dissite 000-default && \
-    a2ensite 001-ifcomp
-RUN sed -i 's/Listen 80/Listen 3000/' /etc/apache2/ports.conf
+
+RUN curl -L http://cpanmin.us | perl - App::cpanminus \
+    && cd /ifcomp-build && cpanm -q -n --with-develop --installdeps --force . \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf \
+    && a2enmod proxy proxy_http rewrite headers \
+    && a2dissite 000-default \
+    && a2ensite 001-ifcomp \
+    && sed -i 's/Listen 80/Listen 3000/' /etc/apache2/ports.conf
 
 EXPOSE 3000
 
