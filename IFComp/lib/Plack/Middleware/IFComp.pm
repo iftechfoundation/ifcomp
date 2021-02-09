@@ -5,7 +5,6 @@ extends 'Plack::Middleware';
 
 use IFComp::Schema;
 use Config::Any;
-use FindBin;
 use Plack::Request;
 use MIME::Base64;
 use Storable qw( thaw );
@@ -25,11 +24,8 @@ has 'config' => (
 
 sub _build_config {
     my $self         = shift;
-    my @config_files = (
-        "$FindBin::Bin/conf/ifcomp.conf",
-        "$FindBin::Bin/conf/ifcomp_local.conf",
-    );
-    my $file_data = Config::Any->load_files(
+    my @config_files = ( "conf/ifcomp.conf", "conf/ifcomp_local.conf", );
+    my $file_data    = Config::Any->load_files(
         {   files           => \@config_files,
             use_ext         => 1,
             flatten_to_hash => 1,
