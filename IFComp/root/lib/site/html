@@ -3,7 +3,7 @@
  <head>
   <title>[% meta.title or site.title %]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/ifcomp.css" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
@@ -21,7 +21,36 @@ padding: 9px 0;
  <body>
 [% content %]
  <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script type="text/javascript">
+    const dark_mode_toggle = document.getElementById('dark_mode_toggle');
+    window.addEventListener('load', () => {
+        if (dark_mode_toggle) {
+            dark_mode_setup();
+            dark_mode_toggle.addEventListener('change', () => {
+                toggle_dark_mode();
+            });
+        }
+    });
+
+    function dark_mode_setup() {
+        const dark_mode_on = localStorage.getItem('dark_mode') !== null &&
+                             localStorage.getItem('dark_mode') === 'dark';
+        dark_mode_toggle.checked = dark_mode_on;
+        dark_mode_on ? document.body.setAttribute('data-theme', 'dark') :
+                       document.body.removeAttribute('data-theme');
+    }
+
+    function toggle_dark_mode() {
+        if (dark_mode_toggle.checked) {
+            document.body.setAttribute('data-theme', 'dark');
+            localStorage.setItem('dark_mode', 'dark');
+        } else {
+            document.body.removeAttribute('data-theme');
+            localStorage.removeItem('dark_mode');
+        }
+    }
+ </script>
  [% INCLUDE scripts %]
  </body>
 </html>
