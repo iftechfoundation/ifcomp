@@ -41,3 +41,26 @@ a.donate-link {
 a.donate-link:hover {
   color: white !important;
 }
+
+[data-theme="dark"] {
+  background-color: #111 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .jumbotron {
+  background-color: #111 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .transparent-img-bg {
+  background-color: #eee;
+}
+
+[data-theme="dark"] a {
+  color: #6ae;
+}
+
+[data-theme="dark"] .form-control {
+  background-color: #444;
+  color: #eee;
+}
