@@ -77,4 +77,14 @@ a.donate-link:hover {
 
 [data-theme="dark"] .mode-toggle-link {
   border-radius: 25px;
+  color: #222;
+}
+
+[data-theme="dark"] .alert-info {
+  background-color: #114;
+  color: #eee;
+}
+
+[data-theme="dark"] .alert-info a {
+  color: #8bf;
 }
