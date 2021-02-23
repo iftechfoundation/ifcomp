@@ -68,8 +68,10 @@ END;
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
             <button type="submit" id="[% button_id %]" class="btn btn-success">[% button_label %]</button>
-            <input type="checkbox" class="custom-control-input" id="dark_mode_toggle">
-            <a href='#'><label class="custom-control-label" for="dark_mode_toggle">Dark Mode</label></a>
+            <input type="checkbox" class="custom-control-input" style="height:0; width:0" id="dark_mode_toggle">
+            <a href='#'><label id="dark_mode_override"
+                               class="custom-control-label mode-toggle-link"
+                               for="dark_mode_toggle">Dark Mode</label></a>
           </form>
 
           [% IF c.user %]

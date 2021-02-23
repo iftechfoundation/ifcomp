@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
 <html>
+<!DOCTYPE HTML>
  <head>
   <title>[% meta.title or site.title %]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,33 +23,62 @@ padding: 9px 0;
  <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script type="text/javascript">
+
     const dark_mode_toggle = document.getElementById('dark_mode_toggle');
+    const dark_mode_override = document.getElementById('dark_mode_override');
+    var dark_mode_preferred;
+
     window.addEventListener('load', () => {
+        dark_mode_preferred = (window.matchMedia &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches);
+
         if (dark_mode_toggle) {
             dark_mode_setup();
             dark_mode_toggle.addEventListener('change', () => {
                 toggle_dark_mode();
             });
         }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            dark_mode_preferred = e.matches;
+            if (dark_mode_toggle) {
+            }
+            dark_mode_setup();
+        });
+
     });
 
+    function update_ui(is_dark) {
+        if (is_dark) {
+              document.body.setAttribute('data-theme', 'dark');
+              dark_mode_override.style.background = "#ddd";
+              dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
+        } else {
+              document.body.removeAttribute('data-theme');
+              dark_mode_override.style.background = '';
+              dark_mode_override.innerHTML = "  Dark Mode  ";
+        }
+    }
+
     function dark_mode_setup() {
-        const dark_mode_on = localStorage.getItem('dark_mode') !== null &&
-                             localStorage.getItem('dark_mode') === 'dark';
-        dark_mode_toggle.checked = dark_mode_on;
-        dark_mode_on ? document.body.setAttribute('data-theme', 'dark') :
-                       document.body.removeAttribute('data-theme');
+        let overridden = localStorage.getItem('dark_mode') !== null &&
+                           localStorage.getItem('dark_mode') === 'override';
+        dark_mode_toggle.checked = overridden;
+        update_ui((dark_mode_preferred && !overridden) ||
+            (!dark_mode_preferred && overridden));
     }
 
     function toggle_dark_mode() {
-        if (dark_mode_toggle.checked) {
-            document.body.setAttribute('data-theme', 'dark');
-            localStorage.setItem('dark_mode', 'dark');
-        } else {
-            document.body.removeAttribute('data-theme');
+        let do_dark = (dark_mode_preferred && !dark_mode_toggle.checked) ||
+                        (!dark_mode_preferred && dark_mode_toggle.checked);
+        update_ui(do_dark);
+        if (dark_mode_preferred == do_dark) {
             localStorage.removeItem('dark_mode');
+        } else {
+            localStorage.setItem('dark_mode', 'override');
         }
     }
+
  </script>
  [% INCLUDE scripts %]
  </body>

@@ -61,6 +61,20 @@ a.donate-link:hover {
 }
 
 [data-theme="dark"] .form-control {
-  background-color: #444;
+  background-color: #222;
   color: #eee;
+}
+
+[data-theme="dark"] .panel-heading {
+  background-color: #333;
+  color: #eee;
+}
+
+[data-theme="dark"] .panel-body {
+  background-color: #222;
+  color: #eee;
+}
+
+[data-theme="dark"] .mode-toggle-link {
+  border-radius: 25px;
 }
