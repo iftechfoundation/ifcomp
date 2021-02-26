@@ -2,7 +2,7 @@
  <footer class="container">
  <hr /> 
   <div class="pull-left" style="width: 25%; margin-right:2em; margin-bottom: 1ex;">
-   <a href="http://iftechfoundation.org"><img class="img-responsive transparent-img-bg" src="/static/images/iftf_logo.png" alt="Interactive Fiction Technology Foundation" /></a>
+   <a href="http://iftechfoundation.org"><img class="img-responsive transparent-img-bg" id="iftf-logo" src="/static/images/iftf_logo.png" alt="Interactive Fiction Technology Foundation" /></a>
   </div>
   <div>
 <p>The Interactive Fiction Competition is a public service of <a href="http://iftechfoundation.org">the Interactive Fiction Technology Foundation</a>, and <a href="http://iftechfoundation.org/give/">funded by IF supporters like you</a>.</p>

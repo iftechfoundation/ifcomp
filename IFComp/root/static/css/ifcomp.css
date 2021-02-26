@@ -52,10 +52,6 @@ a.donate-link:hover {
   color: #eee;
 }
 
-[data-theme="dark"] .transparent-img-bg {
-  background-color: #eee;
-}
-
 [data-theme="dark"] a {
   color: #6ae;
 }
@@ -87,4 +83,36 @@ a.donate-link:hover {
 
 [data-theme="dark"] .alert-info a {
   color: #8bf;
+}
+
+[data-theme="dark"] .alert-warning {
+  background-color: #333;
+  color: #db8;
+  border-color: #555;
+}
+
+[data-theme="dark"] .label {
+  color: #222;
+}
+
+[data-theme="dark"] .pager li>a {
+  background-color: #222;
+  color: #8bf;
+}
+
+[data-theme="dark"] .btn-default {
+  background-color: #222;
+  color: #8bf;
+}
+
+[data-theme="dark"] .pagination>li>a {
+  background-color: #222;
+  color: #eee;
+  border-color: #666;
+}
+
+[data-theme="dark"] .pagination>.active>a {
+  background-color: #444;
+  color: #eee;
+  border-color: #666;
 }
