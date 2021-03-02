@@ -34,7 +34,7 @@ for my $entry ( $current_comp->entries ) {
 
     my $query_string = "$title published:$year";
     $query_string =~ s/ /+/g;
-    my $uri = "http://ifdb.tads.org/search?xml&game&searchfor=$query_string";
+    my $uri = "https://ifdb.org/search?xml&game&searchfor=$query_string";
 
     print "$uri\n\n";
 
