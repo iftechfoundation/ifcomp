@@ -1,35 +1,27 @@
-<html>
 <!DOCTYPE HTML>
+<html>
  <head>
   <title>[% meta.title or site.title %]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/ifcomp.css" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
   <style type="text/css">
-body {
-padding-top: 60px;
-padding-bottom: 40px;
-}
-.sidebar-nav {
-padding: 9px 0;
-}
 [% PROCESS ttsite.css %]
   </style>
- </head>
- <body>
-[% content %]
- <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <script type="text/javascript">
 
-    const dark_mode_toggle = document.getElementById('dark_mode_toggle');
-    const dark_mode_override = document.getElementById('dark_mode_override');
-    const iftf_logo = document.getElementById('iftf-logo');
+ <script type="text/javascript">
+    var dark_mode_toggle;
+    var dark_mode_override;
+    var iftf_logo;
     var dark_mode_preferred;
 
     window.addEventListener('load', () => {
+        dark_mode_toggle = document.getElementById('dark_mode_toggle');
+        dark_mode_override = document.getElementById('dark_mode_override');
+        iftf_logo = document.getElementById('iftf-logo');
         dark_mode_preferred = (window.matchMedia &&
                     window.matchMedia('(prefers-color-scheme: dark)').matches);
 
@@ -53,20 +45,21 @@ padding: 9px 0;
               dark_mode_override.style.background = "#ddd";
               dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
               iftf_logo.src = "/static/images/iftf_logo-dark.png";
+              document.body.style.backgroundColor = "#111";
         } else {
               document.body.removeAttribute('data-theme');
-              dark_mode_override.style.background = '';
+              dark_mode_override.style.background = '#111';
               dark_mode_override.innerHTML = "  Dark Mode  ";
               iftf_logo.src = "/static/images/iftf_logo.png";
+              document.body.style.backgroundColor = "";
         }
     }
 
     function dark_mode_setup() {
-        let overridden = localStorage.getItem('dark_mode') !== null &&
+        let wants_dark = localStorage.getItem('dark_mode') !== null &&
                            localStorage.getItem('dark_mode') === 'override';
-        dark_mode_toggle.checked = overridden;
-        update_ui((dark_mode_preferred && !overridden) ||
-            (!dark_mode_preferred && overridden));
+        dark_mode_toggle.checked = wants_dark;
+        update_ui(dark_mode_preferred || wants_dark);
     }
 
     function toggle_dark_mode() {
@@ -81,6 +74,25 @@ padding: 9px 0;
     }
 
  </script>
+
+ </head>
+ <body>
+
+ <script>
+    (function() {
+        var color = "#fff";
+        if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+                    localStorage.getItem('dark_mode') === 'override') {
+            color = "#111";
+            document.body.style.backgroundColor = color;
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    })();
+ </script>
+
+[% content %]
+ <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+ <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  [% INCLUDE scripts %]
  </body>
 </html>
