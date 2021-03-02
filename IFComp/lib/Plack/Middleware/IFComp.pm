@@ -74,8 +74,7 @@ sub call {
             && ( $entry->comp->id ne $current_comp->id )
             && $entry->ifdb_id )
         {
-            my $ifdb_url =
-                'https://ifdb.org/viewgame?id=' . $entry->ifdb_id;
+            my $ifdb_url = 'https://ifdb.org/viewgame?id=' . $entry->ifdb_id;
             $res = [
                 301,
                 [ Location => $ifdb_url ],
