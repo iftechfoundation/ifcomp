@@ -1,1 +1,1 @@
-http://ifdb.tads.org/viewgame?id=[% entry.ifdb_id %]
+https://ifdb.org/viewgame?id=[% entry.ifdb_id %]

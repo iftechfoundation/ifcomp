@@ -75,7 +75,7 @@ sub call {
             && $entry->ifdb_id )
         {
             my $ifdb_url =
-                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id;
+                'https://ifdb.org/viewgame?id=' . $entry->ifdb_id;
             $res = [
                 301,
                 [ Location => $ifdb_url ],
