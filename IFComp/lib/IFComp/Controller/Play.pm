@@ -37,7 +37,7 @@ sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
         }
         else {
             $c->res->redirect(
-                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id );
+                'https://ifdb.org/viewgame?id=' . $entry->ifdb_id );
         }
     }
     else {

@@ -129,8 +129,8 @@
 <h2 id="gameswithtutorialelements">Games with tutorial elements</h2>
 
 <ul>
-<li><p><a href="http://zarfhome.com/dreamhold/">Andrew Plotkin&#8217;s <em>The Dreamhold</em></a> and <a href="http://ifdb.tads.org/viewgame?id=9p8kh3im2j9h2881">Emily Short&#8217;s <em>Bronze</em></a> both present rich fantasy adventures that feature a companion &#8220;tutorial voice&#8221;, which the player is free to switch on and off at will.</p></li>
-<li><p><a href="http://blue-lacuna.textories.com/">Aaron Reed&#8217;s <em>Blue Lacuna</em></a> and <a href="http://ifdb.tads.org/viewgame?id=aearuuxv83plclpl">Emily Short&#8217;s <em>Counterfeit Monkey</em></a> are both very long and complex stories nonetheless written to accomodate new players. They both begin with smaller prologues, allowing new players to get comfortable with the parser before things start to open up. They also allow players to choose whether to fill the game world with puzzles to solve, or focus instead on story.</p></li>
+<li><p><a href="http://zarfhome.com/dreamhold/">Andrew Plotkin&#8217;s <em>The Dreamhold</em></a> and <a href="https://ifdb.org/viewgame?id=9p8kh3im2j9h2881">Emily Short&#8217;s <em>Bronze</em></a> both present rich fantasy adventures that feature a companion &#8220;tutorial voice&#8221;, which the player is free to switch on and off at will.</p></li>
+<li><p><a href="http://blue-lacuna.textories.com/">Aaron Reed&#8217;s <em>Blue Lacuna</em></a> and <a href="https://ifdb.org/viewgame?id=aearuuxv83plclpl">Emily Short&#8217;s <em>Counterfeit Monkey</em></a> are both very long and complex stories nonetheless written to accomodate new players. They both begin with smaller prologues, allowing new players to get comfortable with the parser before things start to open up. They also allow players to choose whether to fill the game world with puzzles to solve, or focus instead on story.</p></li>
 </ul>
 
 <div class="page-header">
@@ -139,13 +139,13 @@
 
 <p>The People&#8217;s Republic of Interactive Fiction, a Boston-based IF interest group, hosts <a href="http://pr-if.org/play/">a handpicked shortlist of IF works suitable for newcomers</a> &#8211; either because they&#8217;re specifically designed that way, or because they&#8217;re widely considered to be good examples of the form. All the games on the list are playable in a web browser.</p>
 
-<p>Naturally, we also invite you to browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="http://ifdb.tads.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p>
+<p>Naturally, we also invite you to browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="https://ifdb.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p>
 <div class="page-header">
 <h1 id="elsewhereontheweb">IF resources around the web</h1>
 </div>
 
 
-<p><a href="http://ifdb.tads.org">The Interactive Fiction Database</a>, created by Mike Roberts, is the web&#8217;s clearinghouse for all things IF. It lists most every work of IF since the birth of the medium, and invites users to contribute new entries, reviews, and other commentary. It provides assistance for downloading and playing most of the games it knows about, and also offers in-browser play when available.</p>
+<p><a href="https://ifdb.org">The Interactive Fiction Database</a>, created by Mike Roberts, is the web&#8217;s clearinghouse for all things IF. It lists most every work of IF since the birth of the medium, and invites users to contribute new entries, reviews, and other commentary. It provides assistance for downloading and playing most of the games it knows about, and also offers in-browser play when available.</p>
 
 <p><a href="http://www.intfiction.org/forum/">The Interactive Fiction Community Forum</a> acts as the central web-based discussion space for the IF community. A glance at <a href="http://www.intfiction.org/forum/search.php?search_id=active_topics&amp;sid=90a13e9f3b01c9f4845075f7fa2c2250">its &#8220;view active topics&#8221; page</a> shows the what folks are talking about at the moment, but the whole board is worth exploring, and fresh topics are always welcome. The forum is maintained by Mike Snyder and moderated by a team of community volunteers.</p>
 
