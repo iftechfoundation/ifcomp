@@ -124,3 +124,31 @@ a.donate-link:hover {
     color: #eee;
     border-color: #666;
 }
+
+[data-theme="dark"] .fake-link {
+    color: #88f;
+}
+
+[data-theme="dark"] h1>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h2>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h3>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h4>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h5>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h6>small {
+    color: #aaa;
+}
