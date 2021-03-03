@@ -19,6 +19,7 @@
     var dark_mode_preferred;
 
     window.addEventListener('load', () => {
+        iftf_logo = document.getElementById('iftf-logo');
         dark_mode_toggle = document.getElementById('dark_mode_toggle');
         dark_mode_override = document.getElementById('dark_mode_override');
         dark_mode_preferred = (window.matchMedia &&
@@ -46,6 +47,7 @@
                 dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
             }
             iftf_logo.src = "/static/images/iftf_logo-dark.png";
+            console.log("logo dark");
             document.body.style.backgroundColor = "#111";
         } else {
             document.body.removeAttribute('data-theme');
@@ -54,6 +56,7 @@
                 dark_mode_override.innerHTML = "  Dark Mode  ";
             }
             iftf_logo.src = "/static/images/iftf_logo.png";
+            console.log("logo light");
             document.body.style.backgroundColor = "";
         }
     }
@@ -83,23 +86,20 @@
 
  </head>
  <body>
-[% content %]
 
  <script>
     (function() {
-        iftf_logo = document.getElementById('iftf-logo');
         var color = "#fff";
         if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
                     localStorage.getItem('dark_mode') === 'override') {
             color = "#111";
             document.body.style.backgroundColor = color;
             document.body.setAttribute('data-theme', 'dark');
-            if (iftf_logo) {
-                iftf_logo.src = "/static/images/iftf_logo-dark.png";
-            }
         }
     })();
  </script>
+
+[% content %]
 
  <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
