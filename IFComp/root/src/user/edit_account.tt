@@ -9,15 +9,5 @@
 <div class="col-sm-6">
 [% form.render %]
 </div>
-<div class="col-sm-6">
-<h3 class="text-center">Toggle Site Theme</h3>
-<h4 class="text-center">
-    <input type="checkbox"
-           class="custom-control-input" hidden id="dark_mode_toggle">
-    <a href='#'><label id="dark_mode_override"
-       class="custom-control-label mode-toggle-link"
-       for="dark_mode_toggle">Dark Mode</label></a>
-</h4>
-</div
 </div>
 </div>
