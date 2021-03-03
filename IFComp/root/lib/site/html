@@ -42,14 +42,18 @@
     function update_ui(is_dark) {
         if (is_dark) {
               document.body.setAttribute('data-theme', 'dark');
-              dark_mode_override.style.background = "#ddd";
-              dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
+              if (dark_mode_override) {
+                  dark_mode_override.style.background = "#ddd";
+                  dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
+              }
               iftf_logo.src = "/static/images/iftf_logo-dark.png";
               document.body.style.backgroundColor = "#111";
         } else {
               document.body.removeAttribute('data-theme');
-              dark_mode_override.style.background = '#111';
-              dark_mode_override.innerHTML = "  Dark Mode  ";
+              if (dark_mode_override) {
+                  dark_mode_override.style.background = '';
+                  dark_mode_override.innerHTML = "  Dark Mode  ";
+              }
               iftf_logo.src = "/static/images/iftf_logo.png";
               document.body.style.backgroundColor = "";
         }
@@ -58,7 +62,10 @@
     function dark_mode_setup() {
         let wants_dark = localStorage.getItem('dark_mode') !== null &&
                            localStorage.getItem('dark_mode') === 'override';
-        dark_mode_toggle.checked = wants_dark;
+
+        if (dark_mode_toggle) {
+            dark_mode_toggle.checked = wants_dark;
+        }
         update_ui(dark_mode_preferred || wants_dark);
     }
 
