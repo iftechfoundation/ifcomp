@@ -47,7 +47,6 @@
                 dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
             }
             iftf_logo.src = "/static/images/iftf_logo-dark.png";
-            console.log("logo dark");
             document.body.style.backgroundColor = "#111";
         } else {
             document.body.removeAttribute('data-theme');
@@ -56,7 +55,6 @@
                 dark_mode_override.innerHTML = "  Dark Mode  ";
             }
             iftf_logo.src = "/static/images/iftf_logo.png";
-            console.log("logo light");
             document.body.style.backgroundColor = "";
         }
     }
