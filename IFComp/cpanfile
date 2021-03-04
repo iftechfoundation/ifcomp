@@ -55,6 +55,7 @@ on 'develop' => sub {
   requires 'Perl::Tidy' => '== 20200822';
   requires 'DBD::mysql';
   requires 'Catalyst::Devel';
+  requires 'Module::Install::CPANfile';
   requires 'Selenium::Remote::Driver';
   requires 'Test::Selenium::Remote::Driver';
 };
