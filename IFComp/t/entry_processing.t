@@ -150,10 +150,9 @@ is( $schema->resultset('Entry')->find(115)->platform,
 ok( not( $schema->resultset('Entry')->find(115)->supports_transcripts ),
     'Does not support transcripts.',
 );
-
-# is( $schema->resultset('Entry')->find(115)->play_file,
-#     'my-game.html', 'Play-file set correctly.',
-# );
+is( $schema->resultset('Entry')->find(115)->play_file,
+    'my-game.html', 'Play-file set correctly.',
+);
 
 is( $schema->resultset('Entry')->find(106)->platform,
     'website', 'Platform is correct. (single HTML file)',
