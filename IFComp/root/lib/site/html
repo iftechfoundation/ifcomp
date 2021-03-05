@@ -90,8 +90,6 @@
         var color = "#fff";
         if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
                     localStorage.getItem('dark_mode') === 'override') {
-            color = "#111";
-            document.body.style.backgroundColor = color;
             document.body.setAttribute('data-theme', 'dark');
         }
     })();
