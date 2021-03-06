@@ -129,6 +129,39 @@ a.donate-link:hover {
     color: #88f;
 }
 
+[data-theme="dark"] .dropdown-menu {
+    background-color: #222;
+}
+
+[data-theme="dark"] .dropdown-menu>li>a {
+    color: #aaa;
+}
+
+[data-theme="dark"] .dropdown-menu>li>a:hover {
+    color: #ddd;
+    background-color: #444;
+}
+
+[data-theme="dark"] img.author-link {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .highcharts-background {
+    fill: #222;
+    stroke: #888;
+}
+
+[data-theme="dark"] .highcharts-subtitle,
+.highcharts-credits, .highcharts-container text,
+.highcharts-axis-title {
+    stroke: #ccc;
+}
+
+[data-theme="dark"] .highcharts-color-1 {
+    fill: #9696ab;
+    stroke: #9696ab;
+}
+
 [data-theme="dark"] h1>small {
     color: #aaa;
 }

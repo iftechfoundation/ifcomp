@@ -68,10 +68,10 @@ END;
               </li>
               <li>
                 <input type="checkbox"
-                       class="custom-control-input" hidden id="dark_mode_toggle">
-                <a href='#'><label id="dark_mode_override"
-                   class="custom-control-label mode-toggle-link"
-                   for="dark_mode_toggle">Dark Mode</label></a>
+                       class="custom-control-input" hidden id="dark_mode_toggle" />
+                    <a href="#"><label id="dark_mode_override" style="cursor: pointer;"
+                       class="custom-control-label mode-toggle-link"
+                       for="dark_mode_toggle">Dark Mode</label></a>
               </li>
           </ul>
           <form class="navbar-form navbar-right" role="form" action="[% form_action %]" method="POST">
