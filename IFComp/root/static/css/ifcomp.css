@@ -147,8 +147,7 @@ a.donate-link:hover {
 }
 
 [data-theme="dark"] .highcharts-background {
-    fill: #222;
-    stroke: #888;
+    fill: #111;
 }
 
 [data-theme="dark"] .highcharts-subtitle,
