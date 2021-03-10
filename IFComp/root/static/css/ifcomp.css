@@ -1,3 +1,11 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    padding: 9px 0;
+}
+
 .label-first-place {
     background-color: #428bca
 }
@@ -35,9 +43,144 @@ code {
 }
 
 a.donate-link {
-  color: #5EB75F !important;
+    color: #5EB75F !important;
 }
 
 a.donate-link:hover {
-  color: white !important;
+    color: white !important;
+}
+
+[data-theme="dark"] {
+    background-color: #111 !important;
+    color: #eee;
+}
+
+[data-theme="dark"] .jumbotron {
+    background-color: #111 !important;
+    color: #eee;
+}
+
+[data-theme="dark"] a {
+    color: #6ae;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #222;
+    color: #eee;
+}
+
+[data-theme="dark"] .panel-heading {
+    background-color: #333;
+    color: #eee;
+}
+
+[data-theme="dark"] .panel-body {
+    background-color: #222;
+    color: #eee;
+}
+
+[data-theme="dark"] .mode-toggle-link {
+    border-radius: 25px;
+    color: #222;
+}
+
+[data-theme="dark"] .alert-info {
+    background-color: #114;
+    color: #eee;
+}
+
+[data-theme="dark"] .alert-info a {
+    color: #8bf;
+}
+
+[data-theme="dark"] .alert-warning {
+    background-color: #333;
+    color: #db8;
+    border-color: #555;
+}
+
+[data-theme="dark"] .label {
+    color: #222;
+}
+
+[data-theme="dark"] .pager li>a {
+    background-color: #222;
+    color: #8bf;
+}
+
+[data-theme="dark"] .btn-default {
+    background-color: #222;
+    color: #8bf;
+}
+
+[data-theme="dark"] .pagination>li>a {
+    background-color: #222;
+    color: #eee;
+    border-color: #666;
+}
+
+[data-theme="dark"] .pagination>.active>a {
+    background-color: #444;
+    color: #eee;
+    border-color: #666;
+}
+
+[data-theme="dark"] .fake-link {
+    color: #88f;
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background-color: #222;
+}
+
+[data-theme="dark"] .dropdown-menu>li>a {
+    color: #aaa;
+}
+
+[data-theme="dark"] .dropdown-menu>li>a:hover {
+    color: #ddd;
+    background-color: #444;
+}
+
+[data-theme="dark"] img.author-link {
+    filter: invert(1);
+}
+
+[data-theme="dark"] .highcharts-background {
+    fill: #111;
+}
+
+[data-theme="dark"] .highcharts-subtitle,
+.highcharts-credits, .highcharts-container text,
+.highcharts-axis-title {
+    stroke: #ccc;
+}
+
+[data-theme="dark"] .highcharts-color-1 {
+    fill: #9696ab;
+    stroke: #9696ab;
+}
+
+[data-theme="dark"] h1>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h2>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h3>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h4>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h5>small {
+    color: #aaa;
+}
+
+[data-theme="dark"] h6>small {
+    color: #aaa;
 }

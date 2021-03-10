@@ -3,25 +3,102 @@
  <head>
   <title>[% meta.title or site.title %]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="color-scheme" content="light dark">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="/static/css/ifcomp.css" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
   <style type="text/css">
-body {
-padding-top: 60px;
-padding-bottom: 40px;
-}
-.sidebar-nav {
-padding: 9px 0;
-}
 [% PROCESS ttsite.css %]
   </style>
+
+ <script type="text/javascript">
+    var dark_mode_toggle;
+    var dark_mode_override;
+    var iftf_logo;
+    var dark_mode_preferred;
+
+    window.addEventListener('load', () => {
+        iftf_logo = document.getElementById('iftf-logo');
+        dark_mode_toggle = document.getElementById('dark_mode_toggle');
+        dark_mode_override = document.getElementById('dark_mode_override');
+        dark_mode_preferred = (window.matchMedia &&
+                    window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        if (dark_mode_toggle) {
+            dark_mode_setup();
+            dark_mode_toggle.addEventListener('change', () => {
+                toggle_dark_mode();
+            });
+        }
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            dark_mode_preferred = e.matches;
+            dark_mode_setup();
+        });
+
+    });
+
+    function update_ui(is_dark) {
+        if (is_dark) {
+            document.body.setAttribute('data-theme', 'dark');
+            if (dark_mode_override) {
+                dark_mode_override.style.background = "#ddd";
+                dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
+            }
+            iftf_logo.src = "/static/images/iftf_logo-dark.png";
+            document.body.style.backgroundColor = "#111";
+        } else {
+            document.body.removeAttribute('data-theme');
+            if (dark_mode_override) {
+                dark_mode_override.style.background = '';
+                dark_mode_override.innerHTML = "  Dark Mode  ";
+            }
+            iftf_logo.src = "/static/images/iftf_logo.png";
+            document.body.style.backgroundColor = "";
+        }
+    }
+
+    function dark_mode_setup() {
+        let wants_dark = localStorage.getItem('dark_mode') !== null &&
+                           localStorage.getItem('dark_mode') === 'override';
+
+        if (dark_mode_toggle) {
+            dark_mode_toggle.checked = wants_dark;
+        }
+        update_ui(dark_mode_preferred || wants_dark);
+    }
+
+    function toggle_dark_mode() {
+        let do_dark = (dark_mode_preferred && !dark_mode_toggle.checked) ||
+                        (!dark_mode_preferred && dark_mode_toggle.checked);
+        update_ui(do_dark);
+        if (dark_mode_preferred == do_dark) {
+            localStorage.removeItem('dark_mode');
+        } else {
+            localStorage.setItem('dark_mode', 'override');
+        }
+    }
+
+ </script>
+
  </head>
  <body>
+
+ <script>
+    (function() {
+        var color = "#fff";
+        if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
+                    localStorage.getItem('dark_mode') === 'override') {
+            document.body.setAttribute('data-theme', 'dark');
+        }
+    })();
+ </script>
+
 [% content %]
+
  <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+ <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  [% INCLUDE scripts %]
  </body>
 </html>
