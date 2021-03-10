@@ -4,8 +4,6 @@
 
 <div class="container">
 
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
 <div class="jumbotron">
 <h2 style="text-align:center;">Download and Play</h2>
 <h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
