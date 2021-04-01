@@ -46,7 +46,7 @@
                 dark_mode_override.style.background = "#ddd";
                 dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
             }
-            iftf_logo.src = "/static/images/iftf_logo-dark.png";
+            iftf_logo.src = "/static/images/iftf_logo-dark.svg";
             document.body.style.backgroundColor = "#111";
         } else {
             document.body.removeAttribute('data-theme');
@@ -54,7 +54,7 @@
                 dark_mode_override.style.background = '';
                 dark_mode_override.innerHTML = "  Dark Mode  ";
             }
-            iftf_logo.src = "/static/images/iftf_logo.png";
+            iftf_logo.src = "/static/images/iftf_logo.svg";
             document.body.style.backgroundColor = "";
         }
     }
