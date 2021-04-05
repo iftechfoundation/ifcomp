@@ -30,7 +30,7 @@ for my $entry ( $current_comp->entries ) {
             next;
         }
 
-        copy( $entry->cover_file, "$images_directory/$ifdb_id" );
+        copy( $entry->web_cover_file, "$images_directory/$ifdb_id" );
     }
 }
 

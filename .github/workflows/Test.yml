@@ -1,0 +1,57 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  Test-Linux:
+    runs-on: ubuntu-20.04
+    container:
+      image: perl:5.30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up perl dependency cache
+        uses: actions/cache@v2
+        env:
+          cache-name: perllib
+        with:
+          path: ~/perl5
+          key: Test-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/cpanfile') }}
+      - name: Install local::lib
+        run: |
+          cpanm --quiet --local-lib $HOME/perl5 local::lib
+      - name: Check perl version and env vars
+        run: |
+          eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+          perl -V
+      - name: Install dependencies
+        run: |
+          eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+          cd IFComp
+          cpanm --notest --quiet --installdeps --with-develop --local-lib $HOME/perl5 .
+      - name: Build
+        run: |
+          eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+          cd IFComp
+          perl Makefile.PL
+          make
+      - name: Run tests
+        run: |
+          eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+          cd IFComp
+          make test
+      - name: Run tests (with coverage)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+          cd IFComp
+          cpanm --notest --quiet --local-lib $HOME/perl5 Devel::Cover::Report::Coveralls
+          cover -test -report Coveralls

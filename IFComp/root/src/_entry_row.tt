@@ -1,3 +1,19 @@
+[% USE HTML %]
+[% metadata = [];
+IF entry.genre;
+    metadata.push(HTML.escape(entry.genre.ucfirst));
+END;
+
+IF entry.playtime;
+    metadata.push(entry.playtime.ucfirst);
+END;
+
+IF entry.style == 'parser';
+    metadata.push( 'Parser-based' );
+ELSIF entry.style == 'choice';
+    metadata.push( 'Choice-based' );
+END;
+%]
 <div class="row">
 
     [% IF c.model('Cover').exists_for_ifdb_id( entry.ifdb_id ) %]
@@ -11,6 +27,9 @@
         [% FILTER html_para %]
         	[% entry.blurb %]
         [% END %]
+
+        <p><em>[% metadata.join(' &bull; ') %]</em></p>
+
         [% IF entry.miss_congeniality_place %]
         <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="[% c.uri_for( '/about/comp#misscongenialityawards' ) %]">Miss Congeniality Awards</a></em>.</p>
         [% END %]

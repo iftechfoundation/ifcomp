@@ -37,7 +37,7 @@ sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
         }
         else {
             $c->res->redirect(
-                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id );
+                'https://ifdb.org/viewgame?id=' . $entry->ifdb_id );
         }
     }
     else {
@@ -127,6 +127,7 @@ sub _cover {
     my $file = $c->stash->{entry}->$method;
     if ( -e $file ) {
         my $image_data = $file->slurp;
+        $c->res->headers->header( 'Cache-Control' => 'max-age=86400' );
         if ( $file->basename =~ /png$/ ) {
             $c->res->content_type('image/png');
         }

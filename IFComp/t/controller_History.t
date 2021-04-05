@@ -19,4 +19,14 @@ ok( my $mech =
 
 $mech->get_ok('http://localhost/history');
 
+$mech->content_like(
+    qr/Test Quixe game/,
+    "Last year's winner is on the history page",
+);
+
+$mech->content_unlike(
+    qr/Test Z-code game/,
+    "Current year's winner is not on the history page",
+);
+
 done_testing();

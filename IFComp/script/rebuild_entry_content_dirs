@@ -3,6 +3,8 @@
 # This script rebuilds the 'content' directory for every entry.
 # Useful if you change what's stored in those directories while
 # a comp is underway.
+#
+# Call with arguments to rebuild only those entries.
 
 use warnings;
 use strict;
@@ -16,9 +18,14 @@ use IFComp::Schema;
 my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
 $schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
 
-my $current_comp = $schema->resultset( 'Comp' )->current_comp;
+my @entries = map { $schema->resultset( 'Entry' )->find($_) } @ARGV;
 
-for my $entry ( $current_comp->entries ) {
+unless (@entries) {
+    my $current_comp = $schema->resultset( 'Comp' )->current_comp;
+    @entries = $current_comp->entries;
+}
+
+for my $entry ( @entries ) {
     next unless $entry->main_file;
     print "Updating " . $entry->title . " by " . $entry->author->name . " (" . $entry->platform .")...\n";
     try {

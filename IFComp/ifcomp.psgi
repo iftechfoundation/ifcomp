@@ -13,10 +13,10 @@ builder {
     enable "IFComp";
     enable "Plack::Middleware::Static",
         path => qr{^/static/},
-        root => "$FindBin::Bin/root";
+        root => "root";
     enable "Plack::Middleware::Static",
         path         => qr{^/\d+/},
-        root         => "$FindBin::Bin/entries",
+        root         => "entries",
         content_type => sub {
         Plack::MIME->mime_type( $_[0] ) || mimetype( $_[0] );
         },

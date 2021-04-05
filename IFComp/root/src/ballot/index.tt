@@ -21,7 +21,7 @@
 
 </div>
 <div class="col-sm-3">
-<a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/download_all.png' ) %]" alt="Download all the entries" /></a>
+<a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download all the entries" /></a>
 </div>
 </div> <!-- .row -->
 
@@ -29,7 +29,7 @@
 
 <div class="row">
 <div class="col-sm-2">
-<a href="/ballot/vote"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/judge.png' ) %]" alt="Judge the entries" /></a>
+<a href="/ballot/vote"><img class="img-responsive hidden-xs" src="[% c.uri_for( '/static/images/judge.svg' ) %]" alt="Judge the entries" /></a>
 </div>
 
 <div class="col-sm-10">
@@ -41,7 +41,7 @@
 <p>(Because you have entries in this year's competition, your votes won't count towards the main IFComp scores, but rather towards the Miss Congeniality side-contest.)</p>
 [% END %]
 [% ELSE %]
-<p><strong>The ballot box has closed!</strong> The deadline for rating games has passed, and we're now tallying up the results. Results will be posted to this website within 24 hours.</p>
+<p><strong>The ballot box has closed!</strong> The deadline for rating games has passed, and we're now tallying up the results. Results will be posted to this website soon.</p>
 <p>You can continue to download or play this year's games as much as you'd like, in the meantime!</p>
 [% END %]
 </div>

@@ -1,5 +1,5 @@
 <div class="jumbotron">
-      <div class="container"><a href="[% c.uri_for_action( '/comp/comp' ) %]"><img class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/ifcomp-blank-screen.jpg" alt="Cartoon depicting a computer sitting on a lunar surface. It is surrounded by number of objects and creatures suggesting past IFComp winners: a pig, a rocketship, a plate with a taco on it, et cetera. The pig waves a banner emblazoned with 'IFComp!'"></a>
+      <div class="container"><a href="[% c.uri_for_action( '/comp/comp' ) %]"><img class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/2020-Logo-for-Website.jpg" alt="Cartoon depicting a computer sitting on a lunar surface. It is surrounded by number of objects and creatures suggesting past IFComp winners: a pig, a rocketship, a plate with a taco on it, et cetera. The pig waves a banner emblazoned with 'IFComp!'"></a>
         <h1>The Interactive Fiction Competition</h1>
         <h2>An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
       </div>
@@ -65,7 +65,7 @@ All entries are in and being prepared for release. The judging period will begin
 [% ELSIF current_comp.status == 'open_for_judging' %]
 <a href="[% c.uri_for('/ballot') %]">The games of the [% current_comp.year %] Interactive Fiction Competition are ready for judging!</a> <em>Anyone can be a judge</em>: just play and <a href="[% c.uri_for('/ballot/vote') %]">rate</a> at least five games by [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %]. <a href="[% c.uri_for('/about/schedule') %]">See the full schedule</a>.
 [% ELSIF current_comp.status == 'processing_votes' %]
-Voting has closed! We're tallying up the results now. Final results will be posted within two days. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
+Voting has closed! We're tallying up the results now. Final results will be posted soon. <a href="[% c.uri_for('/about/schedule') %]">See the full schedule</a>. (You can still <a href="[% c.uri_for('/comp') %]">browse and play the games</a>, in the meantime.)
 [% ELSE %]
 The [% current_comp.year %] IFComp is over. Congratulations to the first-place winner[% IF current_comp.winners.size > 1 %]s[% END %], [% winner_count = 1 %][% FOR winner IN current_comp.winners %]<em>[% winner.title %]</em> by [% INCLUDE author_name.tt entry=winner suppress_links=1 | trim %][% IF winner_count < current_comp.winners.size %] and [% END %][% winner_count = winner_count + 1 %][% END %]!</p>
 

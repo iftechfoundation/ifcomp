@@ -5,7 +5,6 @@ extends 'Plack::Middleware';
 
 use IFComp::Schema;
 use Config::Any;
-use FindBin;
 use Plack::Request;
 use MIME::Base64;
 use Storable qw( thaw );
@@ -25,11 +24,8 @@ has 'config' => (
 
 sub _build_config {
     my $self         = shift;
-    my @config_files = (
-        "$FindBin::Bin/conf/ifcomp.conf",
-        "$FindBin::Bin/conf/ifcomp_local.conf",
-    );
-    my $file_data = Config::Any->load_files(
+    my @config_files = ( "conf/ifcomp.conf", "conf/ifcomp_local.conf", );
+    my $file_data    = Config::Any->load_files(
         {   files           => \@config_files,
             use_ext         => 1,
             flatten_to_hash => 1,
@@ -78,8 +74,7 @@ sub call {
             && ( $entry->comp->id ne $current_comp->id )
             && $entry->ifdb_id )
         {
-            my $ifdb_url =
-                'http://ifdb.tads.org/viewgame?id=' . $entry->ifdb_id;
+            my $ifdb_url = 'https://ifdb.org/viewgame?id=' . $entry->ifdb_id;
             $res = [
                 301,
                 [ Location => $ifdb_url ],
@@ -103,7 +98,7 @@ sub call {
             my $current_user_can_see_this_game = 0;
             my $encrypted_user_id              = $req->cookies->{user_id};
 
-            # See IFComp::Controller::Auth for how the user id gets encrypted
+            # See IFComp::Controller::Root for how the user id gets encrypted
             # (and why it's decrypted the way it is, below).
             if ( $key && $encrypted_user_id ) {
                 my $user_id =

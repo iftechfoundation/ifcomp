@@ -1,5 +1,28 @@
 #! /bin/bash
 
+#
+# Convenience script to make it easy to run the unit tests from within
+# the docker environment.
+#
+# Start docker (for example 'docker-compose up'), and then execute
+# this script from the command line. It will locate the web container 
+# and run a bash shell within it which will execute the tests.
+#
+# You can also specify a test name, which it will look for under
+# the IFComp/t subdirectory and run just that one in verbose mode.
+#
+# Options:
+#
+#       run_test.sh             Run all the tests, both unit and tidy.
+#
+#       run_test.sh xt          Run just the tidy tests
+#
+#       run_test.sh t           Run just the unit tests
+#
+#       run_test.sh $TESTNAME   Run just the test $TESTNAME in verbose mode
+#
+#
+
 container=$(docker ps | grep ifcomp_web | awk '{print $1}')
 
 if [ -z "$container" ]
@@ -26,7 +49,6 @@ fi
 cmd="cd /home/ifcomp/IFComp"
 if [ -z "$1" -o "$1" = "xt" ]
 then
-    cmd="$cmd && cpanm -qn Perl::Tidy Code::TidyAll Test::Code::TidyAll"
     if [ -z "$1" ]
     then
         cmd="$cmd && prove -l t xt"
