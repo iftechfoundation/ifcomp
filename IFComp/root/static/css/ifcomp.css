@@ -113,6 +113,11 @@ a.donate-link:hover {
     color: #8bf;
 }
 
+[data-theme="dark"] .btn-primary {
+    background-color: #225;
+    color: #8bf;
+}
+
 [data-theme="dark"] .pagination>li>a {
     background-color: #222;
     color: #eee;
@@ -144,6 +149,14 @@ a.donate-link:hover {
 
 [data-theme="dark"] img.author-link {
     filter: invert(1);
+}
+
+[data-theme="dark"] img.download-img-link {
+    content: url("/static/images/download_all-dm.svg");
+}
+
+[data-theme="dark"] img.judge-img-link {
+    content: url("/static/images/judge-dm.svg");
 }
 
 [data-theme="dark"] .highcharts-background {
