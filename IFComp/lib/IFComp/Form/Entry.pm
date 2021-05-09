@@ -105,7 +105,7 @@ has_field 'playtime' => (
     ],
 );
 
-has_field 'warning' => ( type => 'Text', );
+has_field 'warning' => ( type => 'Text', maxlength => 250 );
 
 has_field 'style' => (
     type         => 'Select',
@@ -210,6 +210,15 @@ before 'validate_form' => sub {
         $self->field('title')->required(0);
     }
 };
+
+sub validate_warning {
+    my $self = shift;
+    my ($field) = @_;
+
+    if ( length( $field->value ) > 250 ) {
+        $field->add_error("Content Warning is limited to 250 characters");
+    }
+}
 
 sub validate_reveal_pseudonym {
     my $self = shift;
