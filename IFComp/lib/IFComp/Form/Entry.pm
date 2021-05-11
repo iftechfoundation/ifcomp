@@ -211,15 +211,6 @@ before 'validate_form' => sub {
     }
 };
 
-sub validate_warning {
-    my $self = shift;
-    my ($field) = @_;
-
-    if ( length( $field->value ) > 250 ) {
-        $field->add_error("Content Warning is limited to 250 characters");
-    }
-}
-
 sub validate_reveal_pseudonym {
     my $self = shift;
     my ($field) = @_;
