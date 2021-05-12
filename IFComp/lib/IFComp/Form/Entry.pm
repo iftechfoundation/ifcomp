@@ -105,7 +105,7 @@ has_field 'playtime' => (
     ],
 );
 
-has_field 'warning' => ( type => 'Text', );
+has_field 'warning' => ( type => 'Text', maxlength => 250 );
 
 has_field 'style' => (
     type         => 'Select',
