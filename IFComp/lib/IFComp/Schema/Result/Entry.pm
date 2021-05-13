@@ -214,6 +214,12 @@ __PACKAGE__->table("entry");
   extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other"]}
   is_nullable: 1
 
+=head2 code
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 10
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -340,6 +346,8 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 1,
   },
+  "code",
+  { data_type => "char", is_nullable => 1, size => 10 },
 );
 
 =head1 PRIMARY KEY
@@ -398,6 +406,21 @@ __PACKAGE__->belongs_to(
   "IFComp::Schema::Result::Comp",
   { id => "comp" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+);
+
+=head2 entry_coauthors
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::EntryCoauthor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "entry_coauthors",
+  "IFComp::Schema::Result::EntryCoauthor",
+  { "foreign.entry" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 entry_updates
@@ -462,8 +485,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-07-06 15:13:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ByWVRQ30bCjOIlthWQCxKw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-19 22:44:48
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z/uT9DnhNUlS96TrH/cgUg
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;

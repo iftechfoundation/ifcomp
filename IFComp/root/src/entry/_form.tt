@@ -46,6 +46,13 @@
 </div>
 </div>
 
+<div class="panel panel-default">
+<div class="panel-heading"><h2>Co-authors</h2></div>
+<div class="panel-body">
+<p>Co-authors can add themselves to your game using the code <code>[% entry.code %]</code>.</p>
+</div>
+</div>
+</div>
 
 <div class="panel panel-default">
 <div class="panel-heading"><h2>Blurb and cover art</h2></div>

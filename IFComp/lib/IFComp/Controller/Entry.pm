@@ -1,6 +1,7 @@
 package IFComp::Controller::Entry;
 use Moose;
 use namespace::autoclean;
+use String::Random;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -18,6 +19,7 @@ Catalyst Controller.
 
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
+use IFComp::Form::Coauthorship;
 
 use MIME::Types;
 use Imager;
@@ -38,6 +40,12 @@ has 'withdrawal_form' => (
     lazy_build => 1,
 );
 
+has 'coauthorship_form' => (
+    is         => 'ro',
+    isa        => 'IFComp::Form::Coauthorship',
+    lazy_build => 1,
+);
+
 has 'entry' => (
     is  => 'rw',
     isa => 'Maybe[IFComp::Schema::Result::Entry]',
@@ -52,11 +60,14 @@ sub root : Chained('/') : PathPart('entry') : CaptureArgs(0) {
     }
 
     my @entries = $c->user->get_object->current_comp_entries;
+    my @collabs = $c->model('IFCompDB::EntryCoauthor')->search({ coauthor => $c->user });
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
 
     $c->stash(
+        form         => $self->form,
         entries      => \@entries,
+        collabs      => \@collabs,
         current_comp => $current_comp,
     );
 
@@ -90,9 +101,14 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
+    my $gen = String::Random->new;
+    $gen->{'I'} = [ 'A'..'Z', 'a'..'z', '0'..'9', '_' ];
+    my $code = $gen->randpattern('I' x 20);
+
     my %new_result_args = (
         comp   => $c->stash->{current_comp},
         author => $c->user->get_object->id,
+        code   => $code,
     );
 
     $c->stash( entry =>
@@ -225,6 +241,10 @@ sub _build_withdrawal_form {
     return IFComp::Form::WithdrawEntry->new;
 }
 
+sub _build_coauthorship_form {
+    return IFComp::Form::Coauthorship->new;
+}
+
 sub _process_form {
     my ( $self, $c ) = @_;
 
@@ -323,6 +343,10 @@ sub _process_withdrawal_form {
 
     $c->stash->{withdrawal_form} = $self->withdrawal_form;
 
+}
+
+sub _process_coauthorship_form {
+    # TODO
 }
 
 =encoding utf8

@@ -78,6 +78,17 @@
 <p>The competition is not currently open to new entries.</p>
 [% END %]
 
+<h2>Add Co-authorship</h2>
+
+<form method="post" enctype="multipart/form-data">
+[% IF collabs.size %]
+Insert code here to list co-authors.
+[% ELSE %]
+You are not listed on any games as a co-author.
+[% coauthorship_form.render %]
+[% END %]
+</form>
+
 <h2>View your feedback</h2>
 <p><a href="[% c.uri_for_action( '/entry/feedback' ) %]">View all the feedback your entries have collected.</a></p>
 
