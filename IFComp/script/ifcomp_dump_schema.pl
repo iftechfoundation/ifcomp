@@ -16,5 +16,5 @@ make_schema_at(
         # Add markers around generated code to avoid tidying
         filter_generated_code => sub { return "#<<<\n$_[2]\n#>>>"; },
     },
-    [ 'dbi:mysql:ifcomp', 'root', '' ],
+    [ 'dbi:mysql:ifcomp:mariadb', 'root', '' ],
 );
