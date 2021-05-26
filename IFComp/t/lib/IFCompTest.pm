@@ -57,6 +57,9 @@ sub init_schema {
     my $entry_directory = Path::Class::Dir->new("$FindBin::Bin/entries");
     $schema->entry_directory($entry_directory);
 
+    IFCompTestData->copy_test_files(
+        "$FindBin::Bin/test_files/entries" => $entry_directory );
+
     return $schema;
 }
 
@@ -172,4 +175,3 @@ consulting colleague of Jason's, who stole it in turn from DBIC...)
 
 This method removes the test SQLite database in t/db/IFComp.db
 and then creates a new database populated with default test data.
-

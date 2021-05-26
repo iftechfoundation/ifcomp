@@ -2,7 +2,9 @@ package IFCompTestData;
 use strict;
 use warnings;
 
-use DateTime;
+use DateTime qw();
+use Path::Class qw();
+use File::Copy::Recursive qw(dircopy);
 
 use Readonly;
 Readonly my $SALT => '123456';
@@ -114,6 +116,30 @@ sub add_test_data_to_schema {
     return;
 }
 
+sub copy_test_files {
+    my ( $class, %directory_map ) = @_;
+
+    # %directory_map is a map of source directories to destination directories.
+    #
+    # Both source and destination directories should be full paths.
+    #
+    # Each destination directory will be removed, recreated, and then the
+    # contents of the source directory will be copied over.
+    foreach my $source ( keys %directory_map ) {
+        my $source_dir = Path::Class::Dir->new($source);
+        unless ( -d "$source_dir" ) {
+            warn "Missing test file directory: $source_dir";
+            next;
+        }
+
+        my $dest_dir = Path::Class::Dir->new( $directory_map{$source} );
+        $dest_dir->rmtree();
+        $dest_dir->mkpath();
+
+        dircopy( $source_dir, $dest_dir );
+    }
+}
+
 1;
 
 __END__
@@ -140,3 +166,12 @@ as well as by the developer environment.
 
 Populates C<$schema> with test data. The schema must already be connected and
 deployed.
+
+=head2 copy_test_files(source_dir1 => dest_dir1, ... )
+
+Copies directories of test files into their final locations.
+
+Both source_dir and dest_dir should be full paths.
+
+The destination directories will be destroyed before the test files are copied
+in.
