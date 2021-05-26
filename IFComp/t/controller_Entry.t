@@ -68,10 +68,11 @@ $mech->submit_form_ok(
     {   form_number => 2,
         fields      => {
             'entry.title'        => 'Super-Fun Game',
-            'entry.cover_upload' => "$FindBin::Bin/test_files/cover.png",
-            'entry.main_upload'  => "$FindBin::Bin/test_files/my_game.html",
+            'entry.cover_upload' => "$FindBin::Bin/test_files/misc/cover.png",
+            'entry.main_upload' =>
+                "$FindBin::Bin/test_files/misc/my_game.html",
             'entry.walkthrough_upload' =>
-                "$FindBin::Bin/test_files/walkthrough.txt",
+                "$FindBin::Bin/test_files/misc/walkthrough.txt",
             'entry.platform' => 'website',
         },
     },
@@ -104,8 +105,9 @@ $mech->get_ok("http://localhost/entry/$entry_id/update");
 $mech->submit_form_ok(
     {   form_number => 2,
         fields      => {
-            'entry.title'        => 'Super-Fun Game',
-            'entry.cover_upload' => "$FindBin::Bin/test_files/tiny_cover.png",
+            'entry.title' => 'Super-Fun Game',
+            'entry.cover_upload' =>
+                "$FindBin::Bin/test_files/misc/tiny_cover.png",
         },
     },
 );
@@ -143,8 +145,9 @@ $mech->get_ok("http://localhost/entry/$entry_id/update");
 $mech->submit_form_ok(
     {   form_number => 2,
         fields      => {
-            'entry.title'        => 'Super-Fun Game',
-            'entry.cover_upload' => "$FindBin::Bin/test_files/bad_image.png",
+            'entry.title' => 'Super-Fun Game',
+            'entry.cover_upload' =>
+                "$FindBin::Bin/test_files/misc/bad_image.png",
         },
     },
 );
