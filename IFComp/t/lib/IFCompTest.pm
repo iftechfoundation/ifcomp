@@ -16,9 +16,9 @@ $ENV{EMAIL_SENDER_TRANSPORT} = 'Test';
 
 use utf8;
 use Carp qw(croak);
+use DateTime qw();
 use English;
 use File::Path qw(make_path remove_tree);
-use FindBin;
 
 use IFComp::Schema;
 
@@ -218,7 +218,6 @@ sub process_test_entries {
 # Set the comp to a specific phase
 #
 sub set_phase_after {
-    use DateTime;
     my ( $schema, $phase ) = @_;
     my @phases = qw(announcement intents_open intents_close entries_due
         judging_begins judging_ends comp_closes);
