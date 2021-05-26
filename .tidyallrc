@@ -1,5 +1,0 @@
-ignore = IFComp/inc/**/*
-
-[PerlTidy]
-select = **/*.{pl,pm,t,psgi}
-argv = --profile=$ROOT/IFComp/.perltidyrc

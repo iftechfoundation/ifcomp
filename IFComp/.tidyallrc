@@ -1,0 +1,5 @@
+ignore = inc/**/*
+
+[PerlTidy]
+select = **/*.{pl,pm,t,psgi}
+argv = --profile=$ROOT/.perltidyrc
