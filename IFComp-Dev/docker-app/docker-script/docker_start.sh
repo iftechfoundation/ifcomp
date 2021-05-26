@@ -14,6 +14,9 @@ if [ $? != 0 ]
 then
     echo "Deploying database"
     /opt/IFComp/script/ifcomp_deploy_db.pl
+
+    echo "Deploying test data"
+    /opt/IFComp-Dev/script/load_test_data.pl
 fi
 
 echo "Starting IFComp server"
