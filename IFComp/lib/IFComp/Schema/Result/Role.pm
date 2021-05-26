@@ -42,9 +42,8 @@ __PACKAGE__->table("role");
 =head2 name
 
   data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
-  size: 8
+  is_nullable: 1
+  size: 16
 
 =cut
 
@@ -57,7 +56,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "name",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 8 },
+  { data_type => "char", is_nullable => 1, size => 16 },
 );
 
 =head1 PRIMARY KEY
@@ -91,8 +90,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MioYhalzINLNppRA32+v2Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-26 01:33:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O3vRC5cNavf4f7iyG6o3OA
 # These lines were loaded from '/home/jjohn/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/IFComp/Schema/Result/Role.pm' found in @INC.
 # They are now part of the custom portion of this file
 # for you to hand-edit.  If you do not either delete

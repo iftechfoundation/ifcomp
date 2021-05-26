@@ -85,7 +85,6 @@ __PACKAGE__->table("comp");
 =head2 organizer
 
   data_type: 'char'
-  default_value: (empty string)
   is_nullable: 0
   size: 64
 
@@ -138,7 +137,7 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
   },
   "organizer",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 64 },
+  { data_type => "char", is_nullable => 0, size => 64 },
 );
 
 =head1 PRIMARY KEY
@@ -201,8 +200,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FSIQivDIPdUQpicNmtCw2Q
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-26 01:36:50
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:h6mBFZDliFO37V+/lUkCOQ
 
 use DateTime::Moonpig;
 use Moose::Util::TypeConstraints;

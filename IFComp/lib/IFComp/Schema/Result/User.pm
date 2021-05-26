@@ -128,8 +128,6 @@ Email doubles as login ID
   is_nullable: 1
   size: 64
 
-User's PayPal account name (usually an email address)
-
 =cut
 
 __PACKAGE__->add_columns(
@@ -284,8 +282,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-06-02 13:17:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OHcMlyDlSbgVqzFqGczQRg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-26 01:36:50
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ULwcJUdKVjLtghT8jrK7Mg
 
 __PACKAGE__->add_column(
     '+password' => {
