@@ -5,10 +5,6 @@ use Carp qw( cluck );
 
 $SIG{__WARN__} = sub { cluck shift };
 
-use base qw( Exporter );
-our @EXPORT    = qw( elt );
-our @EXPORT_OK = qw( elt );
-
 use FindBin;
 
 $ENV{CATALYST_CONFIG}        = "$FindBin::Bin/conf/ifcomp.conf";
