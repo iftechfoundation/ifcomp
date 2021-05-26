@@ -16,8 +16,6 @@ use lib ("$FindBin::Bin/lib");
 use IFCompTest;
 my $schema = IFCompTest->init_schema();
 
-IFComp::Schema->entry_directory(
-    Path::Class::Dir->new("$FindBin::Bin/entries") );
 ok( my $mech =
         Test::WWW::Mechanize::Catalyst->new( catalyst_app => 'IFComp' ),
     'Created mech object'

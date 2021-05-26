@@ -54,9 +54,7 @@ sub init_schema {
 
     IFCompTestData->add_test_data_to_schema($schema);
 
-    my $entry_directory =
-        Path::Class::Dir->new("$FindBin::Bin/platform_test_entries");
-
+    my $entry_directory = Path::Class::Dir->new("$FindBin::Bin/entries");
     $schema->entry_directory($entry_directory);
 
     return $schema;
