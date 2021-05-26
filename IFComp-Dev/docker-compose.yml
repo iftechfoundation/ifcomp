@@ -1,0 +1,47 @@
+version: '3.2'
+services:
+    app:
+        build:
+          context: ..
+          dockerfile: IFComp-Dev/docker-app/Dockerfile
+        ports:
+            - "13000:3000"
+        expose:
+            - "3000"
+        depends_on:
+            - "db"
+        volumes:
+            - type: bind
+              source: ../IFComp
+              target: /opt/IFComp
+              volume:
+                  nocopy: true
+            - type: bind
+              source: ./docker-app/docker-script
+              target: /opt/IFComp-Dev/script
+              volume:
+                  nocopy: true
+    web:
+        build: ./docker-web
+        ports:
+            - "8080:80"
+        expose:
+            - "80"
+        depends_on:
+            - "app"
+        volumes:
+            - type: bind
+              source: ../IFComp
+              target: /opt/IFComp
+              volume:
+                  nocopy: true
+    db:
+        image: mariadb:10.3
+        environment:
+            MYSQL_DATABASE: 'ifcomp'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+            MYSQL_ROOT_PASSWORD: ''
+        ports:
+            - "13306:3306"
+        expose:
+            - "3306"
