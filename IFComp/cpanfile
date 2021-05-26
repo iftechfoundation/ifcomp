@@ -56,6 +56,4 @@ on 'develop' => sub {
   requires 'DBD::mysql';
   requires 'Catalyst::Devel';
   requires 'Module::Install::CPANfile';
-  requires 'Selenium::Remote::Driver';
-  requires 'Test::Selenium::Remote::Driver';
 };

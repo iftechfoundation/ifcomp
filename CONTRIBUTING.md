@@ -8,7 +8,7 @@ We use [Docker](https://www.docker.com/) for our development environment. That l
 * Go to Docker's [getting started](https://www.docker.com/get-started) page and downlaod the Docker Desktop for your OS
 * Install the docker desktop and start it running
 * Clone the ifcomp repo into a folder on your computer
-* From your shell, run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
+* From your shell, change to the directory `IFComp-Dev` and run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
 * Run `docker-compose up` which will start the docker images
 
 Note that you can also [set up a development environment by hand](https://github.com/iftechfoundation/ifcomp/wiki/Manual-Installation-and-Setup), if you don't want to use Docker for some reason.
@@ -19,28 +19,28 @@ Note that you can also [set up a development environment by hand](https://github
 
 The docker compose file starts three containers:
 
- * `mariadb` runs the database
+ * `app` runs the [Catalyst](http://www.catalystframework.org/) server, which automatically restarts when you save changes
 
- * `selenium-chrome-standalone` runs a headless chrome browser for testing selenium
+ * `web` runs Apache, which servers static files and proxies requests to the `app` service.
+ 
+ * `db` runs the MariaDB database
 
- * `web` runs the [Catalyst](http://www.catalystframework.org/) server, which automatically restarts when you save changes
-
-Once the containers are up and running (`docker-compose up`) the `web` container will open a connection to port 3000. You should be able to point your browser at http://localhost:3000/ and see the login page.
+Once the containers are up and running (`docker-compose up`) the `app` container will be available on port 8080. You should be able to point your browser at http://localhost:8080/ and see the IFComp homepage.
 
 ### Connecting to the database
 
 Connecting to the database manually will allow you to create a new user (or add columns/tables if the schema changed since you last rebased). You'll need to bea ble to do this too, there is no user you can log in with. Because the docker config does not support sending email, the easiest way to add a user is by accessing the database manually.
 
-First, run a shell inside the ifcomp_web container:
+First, run a shell inside the ifcomp_app container:
 
 ```
-$ ./ifcomp_web-shell.sh
+$ ./script/shell.sh
 ```
 
 Inside the container, you can run the mysql command to connect to the database:
 
 ```
-root@<CONTAINER ID>:/ifcomp-build# mysql -h mariadb ifcomp
+root@<CONTAINER ID>:/opt/IFComp# mysql -h db ifcomp
 ```
 
 From there, you can create a user:
@@ -49,7 +49,7 @@ From there, you can create a user:
 MariaDB [ifcomp]> insert into user (name,password_md5,email,verified) values('test',MD5('test'),'test@example.com',1);
 ```
 
-You should then be able to connect to http://localhost:3000/ and login with username `test@example.com` and password `test`. Note that you'll get a warning saying that your password is not secure (because we're using the md5 variant), but you can ignore that as nobody else but you are going to access the development environment. If you want to avoid this warning you'll need to create a bcrypt-encoded password and put that in the `password` field instead of the `password_md5` field.
+You should then be able to connect to http://localhost:8080/ and login with username `test@example.com` and password `test`. Note that you'll get a warning saying that your password is not secure (because we're using the md5 variant), but you can ignore that as nobody else but you are going to access the development environment. If you want to avoid this warning you'll need to create a bcrypt-encoded password and put that in the `password` field instead of the `password_md5` field.
 
 ## Repository info
 

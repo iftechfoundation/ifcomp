@@ -23,7 +23,7 @@
 #
 #
 
-container=$(docker ps | grep ifcomp_web | awk '{print $1}')
+container=$(docker ps | grep ifcomp-dev_app | awk '{print $1}')
 
 if [ -z "$container" ]
 then
@@ -39,14 +39,14 @@ fi
 
 if [ -n "$1" -a "$1" != "xt" ]
 then
-    if [ ! -f "$topdir/IFComp/t/$1" ]
+    if [ ! -f "$topdir/t/$1" ]
     then
         echo test "$1" not found
         exit 1
     fi
 fi
 
-cmd="cd /home/ifcomp/IFComp"
+cmd="cd /opt/IFComp"
 if [ -z "$1" -o "$1" = "xt" ]
 then
     if [ -z "$1" ]
