@@ -13,7 +13,7 @@ We use [Docker](https://www.docker.com/) for our development environment. That l
 
 Note that you can also [set up a development environment by hand](https://github.com/iftechfoundation/ifcomp/wiki/Manual-Installation-and-Setup), if you don't want to use Docker for some reason.
 
-## Configuration
+## Developer Environment
 
 ### Overview
 
@@ -27,29 +27,41 @@ The docker compose file starts three containers:
 
 Once the containers are up and running (`docker-compose up`) the `app` container will be available on port 8080. You should be able to point your browser at http://localhost:8080/ and see the IFComp homepage.
 
-### Connecting to the database
+### Executing Commands
 
-Connecting to the database manually will allow you to create a new user (or add columns/tables if the schema changed since you last rebased). You'll need to bea ble to do this too, there is no user you can log in with. Because the docker config does not support sending email, the easiest way to add a user is by accessing the database manually.
+You can execute commands directly on the app service by running `docker-compose exec app COMMAND`.
 
-First, run a shell inside the ifcomp_app container:
+There are a number of convenience scripts in `IFcomp-Dev/script` as well.
 
-```
-$ ./script/shell.sh
-```
+ * shell.sh
+ 
+   This script will get you a bash shell in the app instance.
+ 
+ * tidyall.sh
+ 
+   This script will execute `tidyall -a`, ensuring that the codebase confirms to the projects coding style. See below for additional information.
+ 
+ * prove.sh
+  
+   Execute `prove` on the app instance. Any arguments will be passed through, so can run `./script/prove.sh -s` to shuffle the tests, or `./script/prove.sh t/test.t` to run just the test.t file.
+  
+ * load_test_data.sh
+ 
+   Resets the development database and test files. See below for additional information.
 
-Inside the container, you can run the mysql command to connect to the database:
+### Test Data and Files
 
-```
-root@<CONTAINER ID>:/opt/IFComp# mysql -h db ifcomp
-```
+The first time you run `docker-compose up`, a new database will be deployed, test data will be installed, and test files will be copied into place.
 
-From there, you can create a user:
+The database data and test files are the same data and files used by the tests in IFComp/t.
 
-```
-MariaDB [ifcomp]> insert into user (name,password_md5,email,verified) values('test',MD5('test'),'test@example.com',1);
-```
+At any time, you can completely reset your database and test files by running `./script/load_test_data.sh`. *WARNING*: This will completely reset your database, and replace _all_ of the files in your `entries` directory.
 
-You should then be able to connect to http://localhost:8080/ and login with username `test@example.com` and password `test`. Note that you'll get a warning saying that your password is not secure (because we're using the md5 variant), but you can ignore that as nobody else but you are going to access the development environment. If you want to avoid this warning you'll need to create a bcrypt-encoded password and put that in the `password` field instead of the `password_md5` field.
+Additional data can be added by editing IFComp/t/lib/IFCompTestData.
+
+Additional test entries can be added by placing the files into IFComp/t/test_files/entries.
+
+It's necessary to run `./script/load_test_data.sh` after adding data or test entries.
 
 ## Repository info
 
@@ -67,7 +79,7 @@ Note that the software additionally performs some goofy business involving syste
 
 ### Code style
 
-We maintain a standard code style by way of [tidyall](https://metacpan.org/pod/distribution/Code-TidyAll/bin/tidyall). Note the presence of a `.tidyallrc` file at the top level of this repository.
+We maintain a standard code style by way of [tidyall](https://metacpan.org/pod/distribution/Code-TidyAll/bin/tidyall). Note the presence of a `.tidyallrc` file in the IFComp directory.
 
 Before pushing up any new work on this repository, whether proposed or hotfix, please pass it through `tidyall` first.
 
@@ -77,14 +89,10 @@ Before pushing up any new work on this repository, whether proposed or hotfix, p
 
 There are a number of unit tests under the `IFComp/t` subdirectory which all pass. When making changes to the code, try to add a test for it.
 
-As mentioned above, run your source through `tidyall` before submitting a PR. There is a script which will also do this under the `IFComp/xt` subdirectory.
+As mentioned above, run your source through `tidyall` before submitting a PR. There is a test that all code conforms to the code style as well. If this test fails, you'll need to run `./script/tidyall.sh` to format the code appropriately.
 
 ### Running the tests
 
-There is a script called `IFComp/script/run_test.sh`. It will find the current `web` docker container, and issue it the appropriate test command based on the arguments. This way the unit tests are run inside the same docker container that the ifcomp server is running in.
+There is a script called `IFComp-Dev/script/prove.sh`. It will execute `prove` on the app service, which will execute all of the tests in the `IFComp/t` directory.
 
-* If run with 0 arguments, it runs both the unit tests and tidyall
-
-* If run with the argument `t` or `xt` it runs just those subdirectories
-
-* If run with the name of a specific test (e.g. `run_test.sh controller_Entry.t`) then it will run just that unit test, but in verbose mode.
+Any arguments will be passed through, so you can, for example, run `./script/prove.sh -s` to shuffle the tests, or `./script/prove.sh t/test.t` to run just the test.t file.

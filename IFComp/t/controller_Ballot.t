@@ -29,8 +29,9 @@ $mech->get_ok('http://localhost/entry/create');
 $mech->submit_form_ok(
     {   form_number => 2,
         fields      => {
-            'entry.title'       => 'Balloting Game',
-            'entry.main_upload' => "$FindBin::Bin/test_files/my_game.html",
+            'entry.title' => 'Balloting Game',
+            'entry.main_upload' =>
+                "$FindBin::Bin/test_files/misc/my_game.html",
         },
     },
     'Submitted a declaration'
