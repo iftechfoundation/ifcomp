@@ -60,6 +60,8 @@ sub init_schema {
     IFCompTestData->copy_test_files(
         "$FindBin::Bin/test_files/entries" => $entry_directory );
 
+    IFCompTestData->process_entries($schema);
+
     return $schema;
 }
 
@@ -105,9 +107,7 @@ sub _log_in_as {
 
 sub process_test_entries {
     my ( $class, $schema ) = @_;
-    for my $entry ( $schema->resultset('Entry')->all ) {
-        $entry->update_content_directory;
-    }
+    IFCompTestData->process_entries($schema);
 }
 
 #

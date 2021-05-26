@@ -19,4 +19,7 @@ say "Copying test files into place";
 IFCompTestData->copy_test_files(
     "/opt/IFComp/t/test_files/entries" => "/opt/IFComp/entries" );
 
+say "Processing entries";
+IFCompTestData->process_entries($schema);
+
 say "Done";

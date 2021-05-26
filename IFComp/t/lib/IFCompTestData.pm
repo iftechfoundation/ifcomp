@@ -140,6 +140,13 @@ sub copy_test_files {
     }
 }
 
+sub process_entries {
+    my ( $class, $schema ) = @_;
+    for my $entry ( $schema->resultset('Entry')->all ) {
+        $entry->update_content_directory;
+    }
+}
+
 1;
 
 __END__
@@ -175,3 +182,7 @@ Both source_dir and dest_dir should be full paths.
 
 The destination directories will be destroyed before the test files are copied
 in.
+
+=head2 process_entries($schema)
+
+Call C<update_content_directory()> on each entry in the schema.
