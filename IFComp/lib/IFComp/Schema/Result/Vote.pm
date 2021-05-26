@@ -58,18 +58,17 @@ __PACKAGE__->table("vote");
   is_foreign_key: 1
   is_nullable: 0
 
+=head2 ip
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 16
+
 =head2 time
 
   data_type: 'datetime'
   datetime_undef_if_invalid: 1
   is_nullable: 1
-
-=head2 ip
-
-  data_type: 'char'
-  default_value: (empty string)
-  is_nullable: 0
-  size: 15
 
 =cut
 
@@ -97,14 +96,14 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable => 0,
   },
+  "ip",
+  { data_type => "char", is_nullable => 1, size => 16 },
   "time",
   {
     data_type => "datetime",
     datetime_undef_if_invalid => 1,
     is_nullable => 1,
   },
-  "ip",
-  { data_type => "char", default_value => "", is_nullable => 0, size => 15 },
 );
 
 =head1 PRIMARY KEY
@@ -118,22 +117,6 @@ __PACKAGE__->add_columns(
 =cut
 
 __PACKAGE__->set_primary_key("id");
-
-=head1 UNIQUE CONSTRAINTS
-
-=head2 C<user>
-
-=over 4
-
-=item * L</user>
-
-=item * L</entry>
-
-=back
-
-=cut
-
-__PACKAGE__->add_unique_constraint("user", ["user", "entry"]);
 
 =head1 RELATIONS
 
@@ -169,8 +152,8 @@ __PACKAGE__->belongs_to(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07047 @ 2017-07-05 11:06:47
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RVvPb6r6iuBRONnsSlb8gg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-26 01:36:50
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MH+dXiE0xxCAOgDuoSod5w
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
