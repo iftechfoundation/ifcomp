@@ -3,4 +3,4 @@ conf/ifcomp_local.conf
 entries
 root/lib/config/colossal
 root/static/downloads
-t/platform_test_entries/*/content
+t/entries
