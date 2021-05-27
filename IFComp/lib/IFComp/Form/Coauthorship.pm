@@ -13,6 +13,16 @@ has_field 'add_code' => (
     label   => 'Code given by primary author',
 );
 
+has_field 'pseudonym' => (
+    type    => 'Text',
+    label   => 'Displayed name',
+);
+
+has_field 'reveal_pseudonym' => (
+    type    => 'Checkbox',
+    label   => 'Reveal pseudonym'
+);
+
 has_field 'confirm' => (
     type     => 'Checkbox',
     label    => "Remove myself from this game",
@@ -20,8 +30,7 @@ has_field 'confirm' => (
 
 has_field 'submit' => (
     type         => 'Submit',
-    value        => 'Update',
-    element_attr => { class => 'btn btn-danger', },
+    value        => 'Add Co-authorship',
 );
 
 1;

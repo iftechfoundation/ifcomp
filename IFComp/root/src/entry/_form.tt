@@ -50,6 +50,47 @@
 <div class="panel-heading"><h2>Co-authors</h2></div>
 <div class="panel-body">
 <p>Co-authors can add themselves to your game using the code <code>[% entry.code %]</code>.</p>
+<div class="checkbox">
+  <label for="regenerate_code">
+    <input type="checkbox" name="regenerate_code" id="regenerate_code" class="checkbox" />
+    Generate a new code
+  </label>
+[% IF collabs.size %]
+  (Doing so will not remove any existing co-authors from this entry)
+[% END %]
+</div>
+[% IF collabs.size %]
+  <table class="table">
+  <thead>
+    <tr><th>Co-Author</th><th>Pseudonym</th><th>Reveal after comp?</th><th>Remove Co-Author</th></tr>
+  <thead>
+  <tbody>
+  [% FOR collab IN collabs %]
+    <tr>
+    <td>[% collab.coauthor.name %]</td>
+    <td>
+    [% IF collab.pseudonym %]
+      (writing as) [% collab.pseudonym %]
+    [% END %]
+    </td>
+    <td>
+      [% IF collab.reveal_pseudonym %]
+        Yes
+      [% ELSIF collab.pseudonym %]
+        No
+      [% ELSE %]
+        n/a
+      [% END %]
+    </td>
+    <td>
+      <input type="checkbox" name="remove_coauthor" id="remove_coauthor" value="[% collab.coauthor.id %]" />
+    </td>
+    </tr>
+  [% END %]
+  </table>
+[% ELSE %]
+   Currently there are no co-authors registered for this entry.
+[% END %]
 </div>
 </div>
 </div>

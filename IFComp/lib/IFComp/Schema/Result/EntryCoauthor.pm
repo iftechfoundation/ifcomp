@@ -46,6 +46,17 @@ __PACKAGE__->table("entry_coauthor");
   is_foreign_key: 1
   is_nullable: 1
 
+=head2 pseudonym
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 128
+
+=head2 reveal_pseudonym
+
+  data_type: 'tinyint'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -63,6 +74,10 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable => 1,
   },
+  "pseudonym",
+  { data_type => "char", is_nullable => 1, size => 128 },
+  "reveal_pseudonym",
+  { data_type => "tinyint", is_nullable => 1 },
 );
 
 =head1 RELATIONS
@@ -109,8 +124,8 @@ __PACKAGE__->belongs_to(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-19 22:44:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6Jkq5bN4TlegJOML9J5jbg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-21 10:35:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IzXcL4MwuCeAelSkZmNOLA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

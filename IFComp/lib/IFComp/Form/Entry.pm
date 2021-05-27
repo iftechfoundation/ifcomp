@@ -135,11 +135,6 @@ has_field 'reveal_pseudonym' => (
     type => 'Checkbox',
 );
 
-has_field 'collaborator_delete' => {
-    type  => 'Checkbox',
-    label => 'Remove co-author',
-};
-
 has_field 'email' => (
     type      => 'Email',
     label     => 'Contact email to display for this game',

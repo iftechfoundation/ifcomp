@@ -31,7 +31,6 @@
 <li><a href="http://www.intfiction.org/forum/">Visit the intfiction.org forums</a> to discuss the comp and ask questions, or <a href="/about/contact">contact the organizers.</a></li>
 </ul>
 <p>That's it. Good luck!</p>
-</ul>
 </div>
 [% END %]
 
@@ -78,15 +77,72 @@
 <p>The competition is not currently open to new entries.</p>
 [% END %]
 
-<h2>Add Co-authorship</h2>
+<h2>Co-authorships</h2>
 
-<form method="post" enctype="multipart/form-data">
-[% IF collabs.size %]
-Insert code here to list co-authors.
-[% ELSE %]
-You are not listed on any games as a co-author.
-[% coauthorship_form.render %]
+[% IF coauthor_error %]
+  <div class="alert alert-danger">
+    <p>[% coauthor_error %]</p>
+  </div>
 [% END %]
+
+<h4>Add yourself as co-author</h4>
+<form method="post" enctype="multipart/form-data">
+<div class="row">
+<div class="col-md-4">If you've been given a code by the primary author of a game, enter it here:</div>
+<div class="col-md-4"><input type="text" placeholder="Code given by primary author" name="coauthorship.add_code" id="coauthorship.add_code" value="" class="form-control" /></div>
+<div class="col-md-4"><input type="submit" name="coauthorship.submit" id="coauthorship.submit" value="Add co-authorship" class="btn btn-primary" /></div>
+</div>
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-8"><input type="text" name="coauthorship.pseudonym" id="coauthorship.pseudonym" placeholder="Enter pseudohym if desired" value="" class="form-control" /></div>
+</div>
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-8 checkbox"><label for="coauthorship.reveal_pseudonym"><input type="checkbox" name="coauthorship.reveal_pseudonym" id="coauthorship.reveal_pseudonym" class="checkbox" />Reveal pseudonym after the end of the competition</label></div>
+</div>
+</form>
+
+[% IF collabs.size %]
+<h4>Games you are listed as co-author on</h4>
+  <table class="table">
+  <thead><tr><th>Game Title</th><th>Primary Author</th>
+  <th>Co-author</th><th>Pseudonym Reveal</th><th>Remove?</th></thead>
+  <tbody>
+    [% FOR collab IN collabs %]
+      <tr>
+        <td>[% collab.entry.title %]</td>
+        <td>[% collab.entry.author.name %]</td>
+        <td>
+          [% IF collab.pseudonym %]
+            (writing as) [% collab.pseudonym %]
+          [% ELSE %]
+            [% c.user.name %]
+          [% END %]
+        </td>
+        <td>
+          [% IF collab.pseudonym %]
+            [% IF collab.reveal_pseudonym %]
+              Yes
+            [% ELSE %]
+              No
+            [% END %]
+          [% ELSE %]
+            n/a
+          [% END %]
+        </td>
+        <td><form method="post" enctype="multipart/form-data">
+          <input type="submit" name="coauthorship.remove.submit"
+            id="coauthorship.remove.[% collab.entry.id %]"
+            value="Remove co-authorship" class="btn btn-link"/>
+          <input type="hidden" name="coauthorship.remove"
+            value="[% collab.entry.id %]"/>
+          </form>
+        </td>
+    [% END %]
+  </tbody>
+  </table>
+[% END %]
+
 </form>
 
 <h2>View your feedback</h2>
