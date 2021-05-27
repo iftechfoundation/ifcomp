@@ -48,6 +48,11 @@ sub add_test_data_to_schema {
                 'Connie Curator',
                 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'curator@example.com', 1, undef, 1, undef,
+            ],
+            [   5,
+                'David Developer',
+                'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'developer@example.com', 1, undef, 1, undef,
             ]
         ],
     );

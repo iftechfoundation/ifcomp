@@ -60,15 +60,17 @@ sub root : Chained('/') : PathPart('entry') : CaptureArgs(0) {
     }
 
     my @entries = $c->user->get_object->current_comp_entries;
-    my @collabs = $c->model('IFCompDB::EntryCoauthor')->search({ coauthor => $c->user });
+    my @collabs = $c->model('IFCompDB::EntryCoauthor')
+        ->search( { coauthor => $c->user->get_object->id } );
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
 
     $c->stash(
-        form         => $self->form,
-        entries      => \@entries,
-        collabs      => \@collabs,
-        current_comp => $current_comp,
+        form              => $self->form,
+        coauthorship_form => $self->coauthorship_form,
+        entries           => \@entries,
+        collabs           => \@collabs,
+        current_comp      => $current_comp,
     );
 
 }
@@ -88,6 +90,8 @@ sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
 
 sub list : Chained('root') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
+    $self->_process_coauthorship_form($c);
 }
 
 sub preview : Chained('root') : PathPart('preview') : Args(0) {
@@ -102,8 +106,8 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
     }
 
     my $gen = String::Random->new;
-    $gen->{'I'} = [ 'A'..'Z', 'a'..'z', '0'..'9', '_' ];
-    my $code = $gen->randpattern('I' x 20);
+    $gen->{'I'} = [ 'A' .. 'Z', 'a' .. 'z', '0' .. '9', '_' ];
+    my $code = $gen->randpattern( 'I' x 20 );
 
     my %new_result_args = (
         comp   => $c->stash->{current_comp},
@@ -128,6 +132,11 @@ sub update : Chained('fetch_entry') : PathPart('update') : Args(0) {
     {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
+
+    my $entry   = $c->stash->{entry};
+    my @collabs = $c->model('IFCompDB::EntryCoauthor')
+        ->search( { entry => $entry->id } );
+    $c->stash->{collabs} = \@collabs;
 
     $self->_process_form($c);
 
@@ -324,6 +333,30 @@ sub _process_form {
             }
         }
 
+        if ( $params_ref->{"regenerate_code"} ) {
+            my $gen = String::Random->new;
+            $gen->{'I'} = [ 'A' .. 'Z', 'a' .. 'z', '0' .. '9', '_' ];
+            my $code = $gen->randpattern( 'I' x 20 );
+
+            $entry->code($code);
+            $entry->update;
+        }
+
+        my @removals = $params_ref->{"remove_coauthor"};
+        if (@removals) {
+            for my $r (@removals) {
+                my $coauthors = $c->model('IFCompDB::EntryCoauthor')->search(
+                    {   entry    => $entry->id,
+                        coauthor => $r,
+                    }
+                );
+                $coauthors->delete;
+            }
+            my @collabs = $c->model('IFCompDB::EntryCoauthor')
+                ->search( { coauthor => $c->user->get_object->id } );
+            $c->stash->{collabs} = \@collabs;
+        }
+
         $c->flash->{entry_updated} = 1;
         return 1;
     }
@@ -346,7 +379,64 @@ sub _process_withdrawal_form {
 }
 
 sub _process_coauthorship_form {
-    # TODO
+    my ( $self, $c ) = @_;
+    my $code     = $c->req->parameters->{"coauthorship.add_code"};
+    my $redirect = 0;
+
+    if ( defined($code) && $code ne "" ) {
+        my $entry = $c->model('IFCompDB::Entry')->find( { code => $code } );
+
+        if ( defined($entry) ) {
+            my $found =
+                $c->model('IFCompDB::EntryCoauthor')
+                ->find(
+                { entry => $entry->id, coauthor => $c->user->get_object->id }
+                );
+
+            if ($found) {
+                $c->stash->{coauthor_error} =
+                    "You are already a coauthor for that game";
+            }
+            else {
+                my $settings = {
+                    coauthor         => $c->user->get_object,
+                    reveal_pseudonym => 0
+                };
+                $redirect = 1;
+                if ( $c->req->parameters->{"coauthorship.pseudonym"} ne "" ) {
+                    $settings->{"pseudonym"} =
+                        $c->req->parameters->{"coauthorship.pseudonym"};
+                }
+                if ( $c->req->parameters->{"coauthorship.reveal_pseudonym"} eq
+                    "on" )
+                {
+                    $settings->{"reveal_pseudonym"} = 1;
+                }
+                $entry->add_to_entry_coauthors($settings);
+            }
+        }
+        else {
+            $c->stash->{coauthor_error} =
+                "The code '$code' does not belong to any game";
+        }
+    }
+    elsif ( $c->req->parameters->{"coauthorship.remove.submit"} ) {
+        my $entry_id = $c->req->parameters->{"coauthorship.remove"};
+        my $join_table =
+            $c->model('IFCompDB::EntryCoauthor')
+            ->search(
+            { entry => $entry_id, coauthor => $c->user->get_object->id } );
+
+        # This should work but doesn't:
+        # $entry->remove_from_entry_coauthors({ coauthor => $c->user->get_object });
+        $join_table->delete;
+        $redirect = 1;
+    }
+
+    if ($redirect) {
+        $c->res->redirect( $c->uri_for_action('/entry/list') );
+    }
+    $c->stash->{coauthorship_form} = $self->coauthorship_form;
 }
 
 =encoding utf8

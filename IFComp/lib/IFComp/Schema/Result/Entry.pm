@@ -218,7 +218,7 @@ __PACKAGE__->table("entry");
 
   data_type: 'char'
   is_nullable: 1
-  size: 10
+  size: 32
 
 =cut
 
@@ -347,7 +347,7 @@ __PACKAGE__->add_columns(
     is_nullable => 1,
   },
   "code",
-  { data_type => "char", is_nullable => 1, size => 10 },
+  { data_type => "char", is_nullable => 1, size => 32 },
 );
 
 =head1 PRIMARY KEY
@@ -485,8 +485,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-19 22:44:48
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Z/uT9DnhNUlS96TrH/cgUg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-21 10:35:45
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4+5tJp3kjSsqE6bL7tVCmQ
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
