@@ -24,13 +24,13 @@ has_field 'reveal_pseudonym' => (
 );
 
 has_field 'pseudonym' => (
-    type    => 'Text',
-    label   => 'Displayed name',
+    type  => 'Text',
+    label => 'Displayed name',
 );
 
 has_field 'reveal_pseudonym' => (
-    type    => 'Checkbox',
-    label   => 'Reveal pseudonym'
+    type  => 'Checkbox',
+    label => 'Reveal pseudonym'
 );
 
 has_field 'confirm' => (
