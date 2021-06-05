@@ -335,8 +335,13 @@ sub _process_form {
 
         if ( $params_ref->{"regenerate_code"} ) {
             my $gen = String::Random->new;
+<<<<<<< HEAD
             $gen->{'I'} = [ 'A' .. 'Z', 'a' .. 'z', '0' .. '9', '_' ];
             my $code = $gen->randpattern( 'I' x 20 );
+=======
+            $gen->{'I'} = [ 'A'..'Z', 'a'..'z', '0'..'9', '_' ];
+            my $code = $gen->randpattern('I' x 20);
+>>>>>>> b5f7ea6ba8bf1feb119eeff61bf55ac2c37911bc
 
             $entry->code($code);
             $entry->update;
@@ -346,6 +351,7 @@ sub _process_form {
         if (@removals) {
             for my $r (@removals) {
                 my $coauthors = $c->model('IFCompDB::EntryCoauthor')->search(
+<<<<<<< HEAD
                     {   entry    => $entry->id,
                         coauthor => $r,
                     }
@@ -354,6 +360,15 @@ sub _process_form {
             }
             my @collabs = $c->model('IFCompDB::EntryCoauthor')
                 ->search( { coauthor => $c->user->get_object->id } );
+=======
+                    { entry => $entry->id,
+                      coauthor => $r,
+                    });
+                $coauthors->delete;
+            }
+            my @collabs = $c->model('IFCompDB::EntryCoauthor')->search(
+                { coauthor => $c->user->get_object->id });
+>>>>>>> b5f7ea6ba8bf1feb119eeff61bf55ac2c37911bc
             $c->stash->{collabs} = \@collabs;
         }
 
@@ -380,6 +395,7 @@ sub _process_withdrawal_form {
 
 sub _process_coauthorship_form {
     my ( $self, $c ) = @_;
+<<<<<<< HEAD
     my $code     = $c->req->parameters->{"coauthorship.add_code"};
     my $redirect = 0;
 
@@ -410,10 +426,31 @@ sub _process_coauthorship_form {
                 if ( $c->req->parameters->{"coauthorship.reveal_pseudonym"} eq
                     "on" )
                 {
+=======
+    my $code = $c->req->parameters->{"coauthorship.add_code"};
+    my $redirect = 0;
+
+    if ( defined($code) && $code ne "" ) {
+        my $entry = $c->model('IFCompDB::Entry')->find({ code => $code });
+
+        if ( defined($entry) ) {
+            my $found = $c->model('IFCompDB::EntryCoauthor')->find({ entry => $entry->id, coauthor => $c->user->get_object->id });
+
+            if ( $found ) {
+                $c->stash->{coauthor_error} = "You are already a coauthor for that game";
+            } else {
+                my $settings = { coauthor => $c->user->get_object, reveal_pseudonym => 0 };
+                $redirect = 1;
+                if ( $c->req->parameters->{"coauthorship.pseudonym"} ne "" ) {
+                    $settings->{"pseudonym"} = $c->req->parameters->{"coauthorship.pseudonym"};
+                }
+                if ( $c->req->parameters->{"coauthorship.reveal_pseudonym"} eq "on" ) {
+>>>>>>> b5f7ea6ba8bf1feb119eeff61bf55ac2c37911bc
                     $settings->{"reveal_pseudonym"} = 1;
                 }
                 $entry->add_to_entry_coauthors($settings);
             }
+<<<<<<< HEAD
         }
         else {
             $c->stash->{coauthor_error} =
@@ -427,13 +464,25 @@ sub _process_coauthorship_form {
             ->search(
             { entry => $entry_id, coauthor => $c->user->get_object->id } );
 
+=======
+        } else {
+            $c->stash->{ coauthor_error } = "The code '$code' does not belong to any game";
+        }
+    } elsif ( $c->req->parameters->{"coauthorship.remove.submit"} ) {
+        my $entry_id = $c->req->parameters->{"coauthorship.remove"};
+        my $join_table = $c->model('IFCompDB::EntryCoauthor')->search({ entry => $entry_id, coauthor => $c->user->get_object->id });
+>>>>>>> b5f7ea6ba8bf1feb119eeff61bf55ac2c37911bc
         # This should work but doesn't:
         # $entry->remove_from_entry_coauthors({ coauthor => $c->user->get_object });
         $join_table->delete;
         $redirect = 1;
     }
 
+<<<<<<< HEAD
     if ($redirect) {
+=======
+    if ( $redirect ) {
+>>>>>>> b5f7ea6ba8bf1feb119eeff61bf55ac2c37911bc
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
     $c->stash->{coauthorship_form} = $self->coauthorship_form;

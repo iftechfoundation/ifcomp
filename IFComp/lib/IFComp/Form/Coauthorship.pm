@@ -23,6 +23,16 @@ has_field 'reveal_pseudonym' => (
     label => 'Reveal pseudonym'
 );
 
+has_field 'pseudonym' => (
+    type    => 'Text',
+    label   => 'Displayed name',
+);
+
+has_field 'reveal_pseudonym' => (
+    type    => 'Checkbox',
+    label   => 'Reveal pseudonym'
+);
+
 has_field 'confirm' => (
     type  => 'Checkbox',
     label => "Remove myself from this game",
