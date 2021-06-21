@@ -216,6 +216,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 entry_coauthors
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::EntryCoauthor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "entry_coauthors",
+  "IFComp::Schema::Result::EntryCoauthor",
+  { "foreign.coauthor_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 feedbacks
 
 Type: has_many
@@ -278,8 +293,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:15:12
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:U3j+5AHlB+GQIR3SBFOTww
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:17:07
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dLZfI/MkFnpP2Yo5c7MxUA
 
 __PACKAGE__->add_column(
     '+password' => {
