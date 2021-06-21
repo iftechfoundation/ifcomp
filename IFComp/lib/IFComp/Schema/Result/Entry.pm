@@ -214,6 +214,13 @@ __PACKAGE__->table("entry");
   extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other"]}
   is_nullable: 1
 
+=head2 coauthor_code
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 20
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -340,6 +347,8 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 1,
   },
+  "coauthor_code",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 20 },
 );
 
 =head1 PRIMARY KEY
@@ -355,6 +364,18 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
+
+=head2 C<coauthor_code>
+
+=over 4
+
+=item * L</coauthor_code>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("coauthor_code", ["coauthor_code"]);
 
 =head2 C<ifdb_id>
 
@@ -462,8 +483,11 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-07-06 15:13:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ByWVRQ30bCjOIlthWQCxKw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 02:35:30
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DLmbAMU+5gpdD67fdimP5w
+
+__PACKAGE__->add_columns( '+coauthor_code' =>
+        { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
@@ -475,6 +499,7 @@ use MIME::Base64;
 use Unicode::Normalize;
 use File::Copy;
 use Imager;
+use String::Random;
 
 use v5.10;
 
@@ -1204,6 +1229,38 @@ sub _build_latest_update {
     my $updates_rs =
         $self->entry_updates->search( {}, { order_by => 'time desc', } );
     return $updates_rs->next;
+}
+
+##############################################################################
+
+has '_string_random' => (
+    is         => 'ro',
+    isa        => 'String::Random',
+    lazy_build => 1,
+);
+
+sub _build__string_random {
+    my $self = shift;
+    my $gen  = String::Random->new;
+    $gen->{'I'} = [ 'A' .. 'Z', 'a' .. 'z', '0' .. '9', '_' ];
+    return $gen;
+}
+
+sub _generate_unique_coauthor_code {
+    my $self = shift;
+    my $rs   = $self->result_source->resultset;
+    my $code;
+    do {
+        $code = $self->_string_random->randpattern( 'I' x 20 );
+    } until ( $rs->search( { coauthor_code => $code } )->count == 0 );
+    return $code;
+}
+
+sub reset_coauthor_code {
+    my $self = shift;
+    my $code = $self->_generate_unique_coauthor_code;
+    $self->coauthor_code($code);
+    $self->update();
 }
 
 __PACKAGE__->meta->make_immutable;
