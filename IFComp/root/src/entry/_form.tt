@@ -50,6 +50,13 @@
     <div class="panel-heading"><h2>Co-authors</h2></div>
     <div class="panel-body">
         <p>Co-authors can add themselves to your game using the code <code>[% entry.coauthor_code %]</code>.</p>
+
+        <div class="checkbox">
+            <label for="regenerate_coauthor_code">
+                <input type="checkbox" name="regenerate_coauthor_code" id="regenerate_coauthor_code" class="checkbox" />
+                Generate a new code
+            </label>
+        </div>
     </div>
 </div>
 

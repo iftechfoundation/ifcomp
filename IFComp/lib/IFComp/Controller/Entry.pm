@@ -304,6 +304,10 @@ sub _process_form {
             }
         }
 
+        if ( $params_ref->{'regenerate_coauthor_code'} ) {
+            $entry->reset_coauthor_code();
+        }
+
         $c->flash->{entry_updated} = 1;
         return 1;
     }
