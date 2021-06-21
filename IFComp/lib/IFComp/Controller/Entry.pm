@@ -131,6 +131,8 @@ sub update : Chained('fetch_entry') : PathPart('update') : Args(0) {
     $self->_process_form($c);
 
     $self->_process_withdrawal_form($c);
+
+    $c->stash( collabs => [ $c->stash->{'entry'}->entry_coauthors()->all ] );
 }
 
 sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
@@ -325,6 +327,12 @@ sub _process_form {
 
         if ( $params_ref->{'regenerate_coauthor_code'} ) {
             $entry->reset_coauthor_code();
+        }
+
+        my @removals = $params_ref->{"remove_coauthor"};
+        for my $coauthor_id (@removals) {
+            $entry->entry_coauthors->search( { coauthor_id => $coauthor_id } )
+                ->delete();
         }
 
         $c->flash->{entry_updated} = 1;
