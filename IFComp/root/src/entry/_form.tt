@@ -46,6 +46,7 @@
 </div>
 </div>
 
+[% IF entry.id %]
 <div class="panel panel-default">
     <div class="panel-heading"><h2>Co-authors</h2></div>
     <div class="panel-body">
@@ -97,6 +98,7 @@
         [% END %]
     </div>
 </div>
+[% END %]
 
 <div class="panel panel-default">
 <div class="panel-heading"><h2>Blurb and cover art</h2></div>
