@@ -381,7 +381,9 @@ sub _process_coauthorship_form {
                 $settings->{"pseudonym"} =
                     $params->{"coauthorship.pseudonym"};
             }
-            if ( $params->{"coauthorship.reveal_pseudonym"} eq "on" ) {
+            if (   $params->{"coauthorship.reveal_pseudonym"}
+                && $params->{"coauthorship.reveal_pseudonym"} eq "on" )
+            {
                 $settings->{"reveal_pseudonym"} = 1;
             }
             $entry->add_to_entry_coauthors($settings);
