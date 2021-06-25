@@ -173,4 +173,31 @@ $mech->content_contains(
     "Creation page dates are shown dynamically"
 );
 
+######
+# Add a coauthor
+######
+IFCompTest::log_in_as_judge($mech);
+$mech->get_ok("http://localhost/entry");
+$mech->submit_form_ok(
+    {   form_number => 2,
+        fields =>
+            { 'coauthorship.add_coauthor_code' => $entry->coauthor_code, },
+    },
+);
+is( $entry->entry_coauthors->count(), 1 );
+
+######
+# Withdraw an entry
+######
+IFCompTest::log_in_as_author($mech);
+$mech->get_ok("http://localhost/entry/$entry_id/update");
+$mech->submit_form_ok(
+    {   form_number => 3,
+        fields      => { 'withdrawal.confirm' => 1, },
+    },
+);
+ok( !$schema->resultset('Entry')->find($entry_id),
+    'The withdrawn entry has been removed from database'
+);
+
 done_testing();

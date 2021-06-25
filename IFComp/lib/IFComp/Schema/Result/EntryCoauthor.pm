@@ -118,15 +118,15 @@ __PACKAGE__->belongs_to(
   {
     is_deferrable => 1,
     join_type     => "LEFT",
-    on_delete     => "RESTRICT",
+    on_delete     => "CASCADE",
     on_update     => "RESTRICT",
   },
 );
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:17:07
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:x34LvjyUf5fnHaqVRuyPjQ
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-25 01:48:38
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2bqOVYRFncg/F2skd4eCmg
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
