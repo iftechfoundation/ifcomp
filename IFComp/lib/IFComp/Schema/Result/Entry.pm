@@ -1124,8 +1124,10 @@ sub _enable_recording {
     my $entry_id           = $self->id;
     my $transcription_code = <<EOF;
 <script>
-$options_js_object.recording_url = '/play/$entry_id/transcribe'
-$options_js_object.recording_format = 'simple'
+if ($options_js_object) {
+    $options_js_object.recording_url = '/play/$entry_id/transcribe'
+    $options_js_object.recording_format = 'simple'
+}
 </script>
 EOF
 
