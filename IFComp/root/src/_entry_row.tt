@@ -24,6 +24,14 @@ END;
     
     <div class="col-xs-8">
         <p><strong>[% INCLUDE author_name.tt %]</strong></p>
+        [% IF entry.entry_coauthors %]
+            <p><strong>Co-written by:</strong>
+            [% FOREACH coauthor IN entry.entry_coauthors %]
+                [% INCLUDE coauthor_name.tt %]
+            [% END %]
+            </p>
+        [% END %]
+
         [% FILTER html_para %]
         	[% entry.blurb %]
         [% END %]

@@ -54,7 +54,14 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 [% FOR entry IN entries %]
 <tr>
     [% IF entry.is_qualified %]
-    <td><strong><a href="/ballot#entry-[% entry.id %]">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]</td>
+    <td><strong><a href="/ballot#entry-[% entry.id %]">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]
+        [% IF entry.entry_coauthors %]
+            and co-written by:
+            [% FOREACH coauthor IN entry.entry_coauthors %]
+                [% INCLUDE coauthor_name.tt %]
+            [% END %]
+        [% END %]
+    </td>
     <td style="text-align:left; width:40%">[% IF c.user %] [% INCLUDE _rating_controls.tt %] <noscript><span class="label label-danger">Enable JavaScript to rate!</span></noscript>[% ELSE %] <span class="label label-default">Log in to rate!</span>[% END %]</td>
     [% END %]
 </tr>
