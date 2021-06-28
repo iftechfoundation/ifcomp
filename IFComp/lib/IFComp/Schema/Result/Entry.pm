@@ -517,7 +517,6 @@ use Imager;
 use String::Random;
 use Digest::MD5 ('md5_hex');
 
-
 use v5.10;
 
 use Readonly;
@@ -1268,7 +1267,9 @@ sub _generate_unique_coauthor_code {
     my $rs   = $self->result_source->resultset;
     my $code;
     do {
-        $code = substr(md5_hex($self->_string_random->randpattern( 'I' x 20 )), 0, 20);
+        $code =
+            substr( md5_hex( $self->_string_random->randpattern( 'I' x 20 ) ),
+            0, 20 );
     } until ( $rs->search( { coauthor_code => $code } )->count == 0 );
     return $code;
 }
