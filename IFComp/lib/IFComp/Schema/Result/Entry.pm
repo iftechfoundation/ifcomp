@@ -211,7 +211,7 @@ __PACKAGE__->table("entry");
 
   data_type: 'enum'
   default_value: 'other'
-  extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other"]}
+  extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other","adventuron","choicescript","ink","texture","twine","unity"]}
   is_nullable: 1
 
 =cut
@@ -336,6 +336,12 @@ __PACKAGE__->add_columns(
         "windows",
         "website",
         "other",
+        "adventuron",
+        "choicescript",
+        "ink",
+        "texture",
+        "twine",
+        "unity",
       ],
     },
     is_nullable => 1,
@@ -462,8 +468,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2020-07-06 15:13:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ByWVRQ30bCjOIlthWQCxKw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-28 03:46:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oIsQ4UIGiO5kiKUpaNbppw
 
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
