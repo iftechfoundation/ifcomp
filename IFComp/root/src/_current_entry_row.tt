@@ -91,6 +91,12 @@
               || entry.platform == 'inform'
               || entry.platform == 'tads-web-ui'
               || entry.platform == 'adrift-online'
+              || entry.platform == 'adventuron'
+              || entry.platform == 'choicescript'
+              || entry.platform == 'ink'
+              || entry.platform == 'texture'
+              || entry.platform == 'twine'
+              || entry.platform == 'unity'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
