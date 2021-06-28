@@ -1,0 +1,3 @@
+Greetings, [% user.name %],
+
+-- obtain body of email from jacq --
