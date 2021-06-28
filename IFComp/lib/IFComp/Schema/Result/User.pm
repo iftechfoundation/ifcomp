@@ -399,6 +399,15 @@ sub send_password_reset_email {
     $self->_send_email_and_reset_token('reset_password');
 }
 
+sub send_judge_reminder_email {
+    my $self = shift;
+
+    my $kit = Email::MIME::Kit->new(
+        { source => $self->_path_to_email_subdir('author_reminder'), } );
+    my $email = $kit->assemble( { user => $self, } );
+    my $success = sendmail($email);
+}
+
 sub _send_email_and_reset_token {
     my $self = shift;
     my ($subdir) = @_;
