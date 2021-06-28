@@ -841,6 +841,12 @@ sub _build_play_file {
         when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
             $play_file = Path::Class::File->new('index.html');
         }
+        when ('adventuron')   { continue; }
+        when ('choicescript') { continue; }
+        when ('ink')          { continue; }
+        when ('texture')      { continue; }
+        when ('twine')        { continue; }
+        when ('unity')        { continue; }
         when ('website') {
 
             # For website games:
