@@ -98,14 +98,7 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
     $c->stash( entry =>
             $c->model('IFCompDB::Entry')->new_result( \%new_result_args ) );
     if ( $self->_process_form($c) ) {
-        my $entry_count = $c->model('IFCompDB::Entry')->search(
-            {   author => $c->user->get_object->id,
-                comp   => $c->stash->{current_comp}->id,
-            }
-        )->count;
-        if ($entry_count == 1) {
-            $c->user->send_judge_reminder_email;
-        }
+        $c->user->send_judge_reminder_email;
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 }
