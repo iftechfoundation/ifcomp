@@ -211,7 +211,7 @@ __PACKAGE__->table("entry");
 
   data_type: 'enum'
   default_value: 'other'
-  extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other"]}
+  extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other","adventuron","choicescript","ink","texture","twine","unity"]}
   is_nullable: 1
 
 =head2 coauthor_code
@@ -343,6 +343,12 @@ __PACKAGE__->add_columns(
         "windows",
         "website",
         "other",
+        "adventuron",
+        "choicescript",
+        "ink",
+        "texture",
+        "twine",
+        "unity",
       ],
     },
     is_nullable => 1,
@@ -498,8 +504,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:17:06
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RMFVUSe1+5/aDGct3hdWCw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-28 03:46:05
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oIsQ4UIGiO5kiKUpaNbppw
 
 __PACKAGE__->add_columns( '+coauthor_code' =>
         { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );
@@ -876,6 +882,12 @@ sub _build_play_file {
         when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
             $play_file = Path::Class::File->new('index.html');
         }
+        when ('adventuron')   { continue; }
+        when ('choicescript') { continue; }
+        when ('ink')          { continue; }
+        when ('texture')      { continue; }
+        when ('twine')        { continue; }
+        when ('unity')        { continue; }
         when ('website') {
 
             # For website games:
@@ -1165,8 +1177,10 @@ sub _enable_recording {
     my $entry_id           = $self->id;
     my $transcription_code = <<EOF;
 <script>
-$options_js_object.recording_url = '/play/$entry_id/transcribe'
-$options_js_object.recording_format = 'simple'
+if ($options_js_object) {
+    $options_js_object.recording_url = '/play/$entry_id/transcribe'
+    $options_js_object.recording_format = 'simple'
+}
 </script>
 EOF
 

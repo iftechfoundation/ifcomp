@@ -63,6 +63,18 @@
             ADRIFT [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'hugo' %]
             Hugo [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'adventuron' %]
+            Adventuron [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'choicescript' %]
+            ChoiceScript [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'ink' %]
+            Ink [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'texture' %]
+            Texture [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'twine' %]
+            Twine [% INCLUDE guide_link %]
+        [% ELSIF entry.platform == 'unity' %]
+            Unity [% INCLUDE guide_link %]
         [% END %]
         [% END %]
         </em></p>
@@ -87,6 +99,12 @@
               || entry.platform == 'inform'
               || entry.platform == 'tads-web-ui'
               || entry.platform == 'adrift-online'
+              || entry.platform == 'adventuron'
+              || entry.platform == 'choicescript'
+              || entry.platform == 'ink'
+              || entry.platform == 'texture'
+              || entry.platform == 'twine'
+              || entry.platform == 'unity'
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
