@@ -55,7 +55,7 @@ sub root : Chained('/') : PathPart('entry') : CaptureArgs(0) {
 
     unless ( $c->user ) {
         $c->res->redirect('/auth/login');
-        return;
+        $c->detach();
     }
 
     my @entries = $c->user->get_object->current_comp_entries;
