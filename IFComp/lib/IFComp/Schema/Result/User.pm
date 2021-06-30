@@ -399,7 +399,7 @@ sub send_password_reset_email {
     $self->_send_email_and_reset_token('reset_password');
 }
 
-sub send_judge_reminder_email {
+sub send_author_reminder_email {
     my $self = shift;
 
     my $kit = Email::MIME::Kit->new(
