@@ -4,11 +4,11 @@ use warnings;
 
 use DBIx::Class::Schema::Loader qw/make_schema_at/;
 use FindBin;
-use lib "$FindBin::Bin/../lib";
+use lib "$FindBin::Bin/../../IFComp/lib";
 
 make_schema_at(
     'IFComp::Schema',
-    {   dump_directory          => "$FindBin::Bin/../lib",
+    {   dump_directory          => "$FindBin::Bin/../../IFComp/lib",
         overwrite_modifications => 1,
 
         result_base_class => 'IFComp::Schema::Result',
@@ -16,5 +16,5 @@ make_schema_at(
         # Add markers around generated code to avoid tidying
         filter_generated_code => sub { return "#<<<\n$_[2]\n#>>>"; },
     },
-    [ 'dbi:mysql:ifcomp', 'root', '' ],
+    [ 'dbi:mysql:database=ifcomp;hostname=db', 'root', '' ],
 );

@@ -197,3 +197,8 @@ a.donate-link:hover {
 [data-theme="dark"] h6>small {
     color: #aaa;
 }
+
+[data-theme="dark"] .well {
+    color: #ddd;
+    background-color: #444;
+}

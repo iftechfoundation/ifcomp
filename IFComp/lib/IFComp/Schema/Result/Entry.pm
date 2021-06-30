@@ -214,6 +214,13 @@ __PACKAGE__->table("entry");
   extra: {list => ["adrift","adrift-online","inform-website","inform","parchment","quixe","tads","tads-web-ui","quest-online","quest","alan","hugo","windows","website","other","adventuron","choicescript","ink","texture","twine","unity"]}
   is_nullable: 1
 
+=head2 coauthor_code
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 20
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -346,6 +353,8 @@ __PACKAGE__->add_columns(
     },
     is_nullable => 1,
   },
+  "coauthor_code",
+  { data_type => "char", default_value => "", is_nullable => 0, size => 20 },
 );
 
 =head1 PRIMARY KEY
@@ -361,6 +370,18 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
+
+=head2 C<coauthor_code>
+
+=over 4
+
+=item * L</coauthor_code>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("coauthor_code", ["coauthor_code"]);
 
 =head2 C<ifdb_id>
 
@@ -404,6 +425,21 @@ __PACKAGE__->belongs_to(
   "IFComp::Schema::Result::Comp",
   { id => "comp" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
+);
+
+=head2 entry_coauthors
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::EntryCoauthor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "entry_coauthors",
+  "IFComp::Schema::Result::EntryCoauthor",
+  { "foreign.entry_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
 );
 
 =head2 entry_updates
@@ -471,6 +507,9 @@ __PACKAGE__->has_many(
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-28 03:46:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oIsQ4UIGiO5kiKUpaNbppw
 
+__PACKAGE__->add_columns( '+coauthor_code' =>
+        { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );
+
 use Moose::Util::TypeConstraints;
 use Lingua::EN::Numbers::Ordinate;
 use Path::Class::Dir;
@@ -481,6 +520,8 @@ use MIME::Base64;
 use Unicode::Normalize;
 use File::Copy;
 use Imager;
+use String::Random;
+use Digest::MD5 ('md5_hex');
 
 use v5.10;
 
@@ -1218,6 +1259,40 @@ sub _build_latest_update {
     my $updates_rs =
         $self->entry_updates->search( {}, { order_by => 'time desc', } );
     return $updates_rs->next;
+}
+
+##############################################################################
+
+has '_string_random' => (
+    is         => 'ro',
+    isa        => 'String::Random',
+    lazy_build => 1,
+);
+
+sub _build__string_random {
+    my $self = shift;
+    my $gen  = String::Random->new;
+    $gen->{'I'} = [ 'A' .. 'Z', 'a' .. 'z', '0' .. '9', '_' ];
+    return $gen;
+}
+
+sub _generate_unique_coauthor_code {
+    my $self = shift;
+    my $rs   = $self->result_source->resultset;
+    my $code;
+    do {
+        $code =
+            substr( md5_hex( $self->_string_random->randpattern( 'I' x 20 ) ),
+            0, 20 );
+    } until ( $rs->search( { coauthor_code => $code } )->count == 0 );
+    return $code;
+}
+
+sub reset_coauthor_code {
+    my $self = shift;
+    my $code = $self->_generate_unique_coauthor_code;
+    $self->coauthor_code($code);
+    $self->update();
 }
 
 __PACKAGE__->meta->make_immutable;

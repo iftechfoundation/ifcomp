@@ -1,0 +1,16 @@
+[% IF !loop.first && loop.last %]
+    and
+[% END %]
+[% IF coauthor.reveal_pseudonym
+      && (
+        !current_comp
+        || ( comp && ( comp.year != current_comp.year ) )
+        || ( current_comp.status == 'over' )
+      )
+%]
+    [% coauthor.coauthor.name | html %] (writing as “[% coauthor.pseudonym | html %]”)[% IF !loop.last %],[% END %]
+[% ELSIF coauthor.pseudonym %]
+    [% coauthor.pseudonym | html %][% IF !loop.last %],[% END %]
+[% ELSE %]
+    [% coauthor.coauthor.name | html %][% IF !loop.last %],[% END %]
+[% END %]

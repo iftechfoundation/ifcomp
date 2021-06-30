@@ -46,8 +46,6 @@ __PACKAGE__->table("user");
   is_nullable: 0
   size: 128
 
-User's real name
-
 =head2 password
 
   data_type: 'char'
@@ -66,8 +64,6 @@ User's real name
   default_value: (empty string)
   is_nullable: 0
   size: 64
-
-Email doubles as login ID
 
 =head2 email_is_public
 
@@ -220,6 +216,21 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
+=head2 entry_coauthors
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::EntryCoauthor>
+
+=cut
+
+__PACKAGE__->has_many(
+  "entry_coauthors",
+  "IFComp::Schema::Result::EntryCoauthor",
+  { "foreign.coauthor_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 feedbacks
 
 Type: has_many
@@ -282,8 +293,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-05-26 01:36:50
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ULwcJUdKVjLtghT8jrK7Mg
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:17:07
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dLZfI/MkFnpP2Yo5c7MxUA
 
 __PACKAGE__->add_column(
     '+password' => {

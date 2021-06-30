@@ -4,7 +4,7 @@ use warnings;
 
 use base 'DBIx::Class';
 
-__PACKAGE__->load_components( 'EncodedColumn', 'InflateColumn::DateTime',
-    'Core', );
+__PACKAGE__->load_components( 'DynamicDefault', 'EncodedColumn',
+    'InflateColumn::DateTime', 'Core', );
 
 1;

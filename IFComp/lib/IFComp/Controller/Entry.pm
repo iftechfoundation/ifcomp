@@ -16,6 +16,7 @@ Catalyst Controller.
 
 =cut
 
+use IFComp::Form::Coauthorship;
 use IFComp::Form::Entry;
 use IFComp::Form::WithdrawEntry;
 
@@ -29,6 +30,12 @@ Readonly my $MAX_ENTRIES => 3;
 has 'form' => (
     is         => 'ro',
     isa        => 'IFComp::Form::Entry',
+    lazy_build => 1,
+);
+
+has 'coauthorship_form' => (
+    is         => 'ro',
+    isa        => 'IFComp::Form::Coauthorship',
     lazy_build => 1,
 );
 
@@ -77,6 +84,14 @@ sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
 
 sub list : Chained('root') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
+    $self->_process_coauthorship_form($c);
+
+    my @collabs = $c->user->entry_coauthors;
+    $c->stash(
+        collabs           => \@collabs,
+        coauthorship_form => $self->coauthorship_form,
+    );
 }
 
 sub preview : Chained('root') : PathPart('preview') : Args(0) {
@@ -116,6 +131,8 @@ sub update : Chained('fetch_entry') : PathPart('update') : Args(0) {
     $self->_process_form($c);
 
     $self->_process_withdrawal_form($c);
+
+    $c->stash( collabs => [ $c->stash->{'entry'}->entry_coauthors()->all ] );
 }
 
 sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
@@ -221,6 +238,10 @@ sub _build_form {
     return IFComp::Form::Entry->new;
 }
 
+sub _build_coauthorship_form {
+    return IFComp::Form::Coauthorship->new;
+}
+
 sub _build_withdrawal_form {
     return IFComp::Form::WithdrawEntry->new;
 }
@@ -304,11 +325,82 @@ sub _process_form {
             }
         }
 
+        if ( $params_ref->{'regenerate_coauthor_code'} ) {
+            $entry->reset_coauthor_code();
+        }
+
+        my @removals = $params_ref->{"remove_coauthor"};
+        for my $coauthor_id (@removals) {
+            $entry->entry_coauthors->search( { coauthor_id => $coauthor_id } )
+                ->delete();
+        }
+
         $c->flash->{entry_updated} = 1;
         return 1;
     }
     else {
         return 0;
+    }
+}
+
+sub _process_coauthorship_form {
+    my ( $self, $c ) = @_;
+
+    my $user   = $c->user->get_object;
+    my $params = $c->req->parameters;
+    my $code   = $params->{"coauthorship.add_coauthor_code"};
+    my $ec_rs  = $c->model('IFCompDB::EntryCoauthor');
+
+    if ( defined($code) && $code ne "" ) {
+        if ( $self->coauthorship_form->process( params => $params ) ) {
+
+            my $entry =
+                $c->model('IFCompDB::Entry')
+                ->find( { coauthor_code => $code } );
+
+            unless ( defined($entry) ) {
+                $c->stash( coauthor_error =>
+                        "The code '$code' does not belong to any game", );
+                return;
+            }
+
+            if ( $entry->author->id == $user->id ) {
+                $c->stash( coauthor_error =>
+                        "You can't be a coauthor of your own game", );
+                return;
+            }
+
+            if ( $ec_rs->find( { entry => $entry, coauthor => $user } ) ) {
+                $c->stash( coauthor_error =>
+                        "You are already a coauthor for that game", );
+                return;
+            }
+
+            my $settings = { coauthor => $user, };
+            if ( $params->{"coauthorship.pseudonym"} ne "" ) {
+                $settings->{"pseudonym"} =
+                    $params->{"coauthorship.pseudonym"};
+            }
+            if (   $params->{"coauthorship.reveal_pseudonym"}
+                && $params->{"coauthorship.reveal_pseudonym"} eq "on" )
+            {
+                $settings->{"reveal_pseudonym"} = 1;
+            }
+            $entry->add_to_entry_coauthors($settings);
+
+            $c->res->redirect( $c->uri_for_action('/entry/list') );
+            $c->detach();
+        }
+        else {
+            $c->stash( coauthor_error =>
+                    join( "\n", $self->coauthorship_form->errors ) );
+        }
+    }
+    elsif ( $params->{"coauthorship.remove.submit"} ) {
+        my $entry_id = $params->{"coauthorship.remove"};
+        $user->entry_coauthors->search( { entry_id => $entry_id } )->delete();
+        $c->res->redirect( $c->uri_for_action('/entry/list') );
+        $c->detach();
     }
 }
 

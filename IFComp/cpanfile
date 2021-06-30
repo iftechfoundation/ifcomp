@@ -18,6 +18,7 @@ requires 'DateTime::Format::MySQL';
 requires 'DateTime::Format::SQLite';
 requires 'DateTime::Moonpig';
 requires 'DBIx::Class::EncodedColumn';
+requires 'DBIx::Class::DynamicDefault';
 requires 'Email::MIME::Kit';
 requires 'Email::MIME::Kit::Renderer::TT';
 requires 'Email::Sender::Simple';
@@ -45,6 +46,7 @@ requires 'Template::Plugin::DateTime';
 requires 'Template::Plugin::Markdown';
 requires 'Try::Tiny';
 requires 'Unicode::Normalize';
+requires 'String::Random';
 
 test_requires 'File::Copy::Recursive';
 test_requires 'Test::More' => '0.88';
