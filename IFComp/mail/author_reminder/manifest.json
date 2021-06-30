@@ -5,7 +5,7 @@
     ],
     "header": [
         { "From": "IFComp Organizer <ifcomp@ifcomp.org>" },
-        { "Subject": "-- obtain email subject from jacq --" },
+        { "Subject": "IFComp Entry Registration: Please Read" },
         { "To": "[% user.email %]" }
     ],
     "alternatives": [
