@@ -113,6 +113,7 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
     $c->stash( entry =>
             $c->model('IFCompDB::Entry')->new_result( \%new_result_args ) );
     if ( $self->_process_form($c) ) {
+        $c->user->send_author_reminder_email;
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 }

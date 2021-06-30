@@ -1,0 +1,17 @@
+{
+    "renderer": [
+        "TT",
+        { "strict": 0 }
+    ],
+    "header": [
+        { "From": "IFComp Organizer <ifcomp@ifcomp.org>" },
+        { "Subject": "IFComp Entry Registration: Please Read" },
+        { "To": "[% user.email %]" }
+    ],
+    "alternatives": [
+        {
+            "type": "text/plain",
+            "path": "body.tt"
+        }
+    ]
+}
