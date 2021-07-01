@@ -23,10 +23,10 @@ any ambiguities in the rules listed below.</p>
 <a href="mailto:ifcomp@ifcomp.org">contact the organizers</a>.</p>
 
 <div class="alert alert-info">
-<p><strong>Rules updates for 2017:</strong> We have updated the text of two rules for the sake of clarity, without changing the intent of either.</p>
+<p><STRONG>In 2021, we have updated the following rules:</STRONG></p>
 <ul>
-<li>Judge rule 7, requiring that judges make a good-faith effort to play any entry they rate.</li>
-<li>Author rule 2, IFComp's long-standing requirement that entries cost nothing to play.</li>
+<li>Judge Rule 4, which previously stated that authors may not judge the entries, will be changed for 2021 so that authors may additionally participate as judges, but cannot rate their own entries. This rule will be evaluated after the 2021 IFComp, with feedback from the community.</li>
+<li>Author Rule 3 has been updated to explicitly state that publicly shared source code does not count as a prior release, and Judge Rule 5 has been refined, without changing its intent, to address the scenario of someone who compiles and plays source code prior to October 1st.</li>
 </ul>
 </div>
 
@@ -62,12 +62,11 @@ entries. You may freely use the intfiction.org forum set aside for public comp d
 </li>
 
 <li>
-<p><strong>A competition author may not judge the entries.</strong> That is, if you've entered any games this year, you may not vote in this year's IFComp.</p>
-<p>That said, we encourage authors to participate in each year's "Miss Congeniality" side-contest, which grants authors the ability to vote for other authors' games.</p>
+<p><STRONG>Authors may also participate as judges, but may not rate their own entries.</STRONG> Authors’ votes will be tallied as part of the competition results, as well as for the “Miss Congeniality” side contest (where authors vote on one another’s games).</p>
 </li>
 
 <li>
-<p><strong>Judges may not rate any games they have beta-tested.</strong></p>
+<p><STRONG>Judges may not rate any game that they played prior to the start of the judging period on October 1st.</STRONG> This includes playing that game as a credited beta-tester, or compiling and playing available source code.</p>
 </li>
 
 <li>
@@ -97,15 +96,12 @@ entries. You may freely use the intfiction.org forum set aside for public comp d
 
 <p>You retain the copyright to any games you enter, and may do whatever you wish with your work after the competition ends. That said, by entering IFComp, you grant the Interactive Fiction Technology Foundation (IFComp's organizing body) the non-exclusive right to distribute, without limit, all material you submit to the competition.</p></li>
 
-<li><p><strong>All entries must be previously unreleased at the opening of
-judging.</strong> By "unreleased", we generally mean that a qualifying entry has never been widely distributed, sold, or made available for public play or download prior to the competition.</p>
-<p><strong>Note that this rule does
-not prevent you from <a href="/about/guidelines#testing">having your game tested by a few beta-testers</a></strong>, as
-long as you know who each of those beta-testers are. The author must know who has had
-access to copies of their games before the competition. If you have placed a version of your game
-on the web, then the link to to play or download the game cannot have been publicly handed out.</p>
-<p><strong>The competition considers translations of
-previously-released works into another written language as new works.</strong> Therefore, this rule does not disqualify such translations from entry.</p>
+<li><p><STRONG>All entries must be previously unreleased at the opening of judging.</STRONG> By "unreleased", we generally mean that a qualifying entry has never been widely distributed, sold, or made available for public play or download prior to the competition.
+
+Note that this rule does not prevent you from <a href=“https://ifcomp.org/about/guidelines”>having your game privately beta-tested</a>, which is encouraged. It does require you to limit access to testers in some fashion appropriate to the game’s format. This can include password-protecting an online game, distributing a downloadable game to a limited pool of people, and so on.
+Publicly shared source code does not count as a release.
+
+The competition considers translations of previously-released works into another written language as new works. Therefore, this rule does not disqualify such translations from entry.</p>
 
 <p>If you
 are unsure whether your game meets this rule, please <a
