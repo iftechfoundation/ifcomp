@@ -882,14 +882,12 @@ sub _build_play_file {
         when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
             $play_file = Path::Class::File->new('index.html');
         }
-        when ('adventuron')   { continue; }
-        when ('choicescript') { continue; }
-        when ('ink')          { continue; }
-        when ('texture')      { continue; }
-        when ('twine')        { continue; }
-        when ('unity')        { continue; }
-        when ('website') {
-
+        when (
+            [   'adventuron', 'choicescript', 'ink', 'texture',
+                'twine',      'unity',        'website'
+            ]
+            )
+        {
             # For website games:
             # If 'index.html' exists at the top level, there we are.
             # Otherwise, check whether *one* HTML file exists at top.
