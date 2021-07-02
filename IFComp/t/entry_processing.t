@@ -204,4 +204,70 @@ is( $schema->resultset('Entry')->find(113)->play_file,
     undef, 'Play-file set correctly.',
 );
 
+note('Testing Adventuron game');
+is( $schema->resultset('Entry')->find(116)->platform,
+    'adventuron', 'Platform is correct. (adventuron)',
+);
+ok( not( $schema->resultset('Entry')->find(116)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(116)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
+note('Testing ChoiceScript game');
+is( $schema->resultset('Entry')->find(117)->platform,
+    'choicescript', 'Platform is correct. (choicescript)',
+);
+ok( not( $schema->resultset('Entry')->find(117)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(117)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
+note('Testing Ink game');
+is( $schema->resultset('Entry')->find(118)->platform,
+    'ink', 'Platform is correct. (ink)',
+);
+ok( not( $schema->resultset('Entry')->find(118)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(118)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
+note('Testing Texture game');
+is( $schema->resultset('Entry')->find(119)->platform,
+    'texture', 'Platform is correct. (texture)',
+);
+ok( not( $schema->resultset('Entry')->find(119)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(119)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
+note('Testing Twine game');
+is( $schema->resultset('Entry')->find(120)->platform,
+    'twine', 'Platform is correct. (twine)',
+);
+ok( not( $schema->resultset('Entry')->find(120)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(120)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
+note('Testing Unity game');
+is( $schema->resultset('Entry')->find(121)->platform,
+    'unity', 'Platform is correct. (unity)',
+);
+ok( not( $schema->resultset('Entry')->find(121)->supports_transcripts ),
+    'Does not support transcripts.',
+);
+is( $schema->resultset('Entry')->find(121)->play_file,
+    'index.html', 'Play-file set correctly.',
+);
+
 done_testing();
