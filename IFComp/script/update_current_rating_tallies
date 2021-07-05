@@ -27,21 +27,21 @@ for my $entry ( $current_comp->entries ) {
     my @scores;
 
     for my $score ( 1..10 ) {
-    	my $count = $vote_rs->search(
-	        {
-	            entry => $entry->id,
-    	        score => $score,
+        my $count = $vote_rs->search(
+            {
+                entry => $entry->id,
+                score => $score,
             },
             {
                 bind  => [ $current_comp->id, $current_comp->id, $current_comp->id  ],
             },
         )->count;
 
-    	$votes{ "total_$score" } = $count;
-	    $total_votes += $count;
-    	foreach ( 1..$count ) {
-	        push @scores, $score;
-    	}
+        $votes{ "total_$score" } = $count;
+        $total_votes += $count;
+        foreach ( 1..$count ) {
+            push @scores, $score;
+        }
     }
 
     next unless $total_votes;
@@ -50,10 +50,10 @@ for my $entry ( $current_comp->entries ) {
     $mean = mean( @scores );
 
     my %update_args = (
-	average_score => $mean,
-	standard_deviation => $standard_dev,
-	votes_cast => $total_votes,
-	%votes,
+        average_score => $mean,
+        standard_deviation => $standard_dev,
+        votes_cast => $total_votes,
+        %votes,
     );
 
     $entry->update ( \%update_args );

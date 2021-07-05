@@ -53,8 +53,12 @@ __PACKAGE__->result_source_instance->is_virtual(1);
 
 __PACKAGE__->result_source_instance->view_definition(
     q[
-select v.* from entry e, vote v left join entry o on (v.user = o.author and o.comp = ?) where e.comp = ? and v.entry = e.id and (o.author is null or o.is_disqualified = 1) and v.user in (select user from vote, entry where entry.id = vote.entry and entry.comp = ? group by user having count(score) >= 5)
-]
+        select v.* from entry e, vote v
+        where e.comp = ? and v.entry = e.id
+            and v.user in (select user from vote, entry
+                            where entry.id = vote.entry and entry.comp = ?
+                            group by user having count(score) >= 5)
+    ]
 );
 
 1;
