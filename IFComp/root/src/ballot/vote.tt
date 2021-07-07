@@ -22,7 +22,7 @@
 [% IF c.user %]
     [% IF c.user.get_object.current_comp_entries %]
     <div class="alert alert-info" >
-    <p><strong>Welcome, author!</strong> Because you have at least one game in the running this year, any ratings you submit via this ballot will apply not towards the main competition, but instead towards the Miss Congeniality side-contest, where competition authors rate one anothers' works. Please do participate!</p>
+    <p><strong>Welcome, author!</strong> Because you have at least one game in the running this year, any ratings you submit via this ballot will apply both towards the main competition, and towards the Miss Congeniality side-contest, where competition authors and co-authors rate one anothers' works. Please do participate!</p>
     
     <p>(Yes, your own game(s) appear on this ballot, with the voting controls conspicuously absent.)</p>
     </div>

@@ -40,8 +40,12 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
     if ( $c->user && $c->user->get_object->current_comp_entries ) {
         $user_is_author = 1;
     }
-    $c->stash->{user_is_author} = $user_is_author;
+    my @collabs = $c->user->entry_coauthors;
 
+    $c->stash(
+        user_is_author => $user_is_author,
+        collabs        => \@collabs
+    );
 }
 
 sub fetch_entries : Chained('root') : PathPart('') : CaptureArgs(0) {
