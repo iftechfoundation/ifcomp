@@ -37,10 +37,11 @@ sub root : Chained('/') : PathPart('ballot') : CaptureArgs(0) {
     }
 
     my $user_is_author = 0;
+    my @collabs        = ();
     if ( $c->user && $c->user->get_object->current_comp_entries ) {
         $user_is_author = 1;
+        @collabs = $c->user->entry_coauthors;
     }
-    my @collabs = $c->user->entry_coauthors;
 
     $c->stash(
         user_is_author => $user_is_author,
