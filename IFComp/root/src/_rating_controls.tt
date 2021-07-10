@@ -10,8 +10,8 @@
 
 [% IF valid %]
 
-    <div id="rating-controls" style="float: right;">
-        <p>Your rating: <select data-entry="[% entry.id %]" id="rating-select">
+    <div class="rating-controls" id="rating-controls" style="float: right;">
+        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select" id="rating-select">
             <option value="0">None</option>
             [% number = 1 %]
             [% WHILE number <= 10 %]
