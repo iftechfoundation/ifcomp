@@ -68,6 +68,24 @@ sub index : Path : Args(2) {
         return;
     }
 
+    if ( $entry->author->id == $c->user->id ) {
+        $c->res->code(403);
+        $c->res->body("You may not vote on an entry you authored.");
+        return;
+    }
+
+    my $coauthorship = $c->model('IFCompDB::EntryCoauthor')->search(
+        {   entry_id    => $entry_id,
+            coauthor_id => $c->user->id,
+        },
+    )->single;
+
+    if ($coauthorship) {
+        $c->res->code(403);
+        $c->res->body("You may not vote on an entry you co-authored");
+        return;
+    }
+
     $score = undef unless $score;
 
     if ( $score > 0 ) {
