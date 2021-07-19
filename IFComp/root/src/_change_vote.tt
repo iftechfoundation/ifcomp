@@ -1,5 +1,5 @@
 <script>
-$( '.rating-select' ).change( function() {
+document.getElementById( 'rating-select' ).change( function() {
     var entry_id = $(this).data( 'entry' );
     var spinner = $( '#rating-status-' + entry_id + '-spinner' );
     var success = $( '#rating-status-' + entry_id + '-success' );
@@ -28,5 +28,5 @@ $( '.rating-select' ).change( function() {
 } );
 
 // Show rating controls only if JS is turned on.
-$( '.rating-controls' ).show();
+document.getElementById( 'rating-controls' ).show();
 </script>

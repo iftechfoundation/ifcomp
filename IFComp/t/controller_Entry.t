@@ -26,7 +26,7 @@ foreach ( $schema->entry_directory->children( no_hidden => 1 ) ) {
     $_->rmtree;
 }
 
-IFCompTest::log_in_as_author($mech);
+IFCompTest::log_in_as_curator($mech);
 
 $mech->get_ok('http://localhost/entry');
 $mech->content_like( qr/You have not declared/,
@@ -41,6 +41,8 @@ $entry_id = $entry_id + 1;
 ######
 # Add a new entry
 ######
+
+IFCompTest::log_in_as_author($mech);
 
 $mech->get_ok('http://localhost/entry/create');
 

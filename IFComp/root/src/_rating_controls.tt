@@ -1,8 +1,17 @@
+[% valid = c.user.get_object.id != entry.author.id %]
+[% IF valid %]
+    [% FOR coauthor IN collabs %]
+        [% IF coauthor.entry_id == entry.id %]
+            [% valid = 0 %]
+            [% LAST %]
+        [% END %]
+    [% END %]
+[% END %]
 
-[% IF c.user.get_object.id != entry.author.id %]
+[% IF valid %]
 
-    <div class="rating-controls" style="float: right;">
-        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">
+    <div class="rating-controls" id="rating-controls" style="float: right;">
+        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select" id="rating-select">
             <option value="0">None</option>
             [% number = 1 %]
             [% WHILE number <= 10 %]
