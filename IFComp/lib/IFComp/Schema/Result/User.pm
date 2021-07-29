@@ -469,14 +469,9 @@ sub _path_to_email_subdir {
         $subdir);
 }
 
-sub current_comp_entries {
+sub _valid_entries {
     my $self = shift;
-
-    my $current_comp =
-        $self->result_source->schema->resultset('Comp')->current_comp;
-
-    my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
-
+    my ( $current_comp, $entries_rs ) = @_;
     if (   ( $current_comp->status eq 'accepting_intents' )
         || ( $current_comp->status eq 'closed_to_intents' ) )
     {
@@ -485,6 +480,80 @@ sub current_comp_entries {
     else {
         return grep { $_->is_qualified } $entries_rs->all;
     }
+}
+
+sub current_comp_entries {
+    my $self = shift;
+
+    my $current_comp =
+        $self->result_source->schema->resultset('Comp')->current_comp;
+
+    my $entries_rs = $self->entries->search( { comp => $current_comp->id } );
+
+    return $self->_valid_entries( $current_comp, $entries_rs );
+}
+
+sub current_comp_coauthored_entries {
+    my $self         = shift;
+    my $db           = $self->result_source->schema;
+    my $current_comp = $db->resultset('Comp')->current_comp;
+
+    my $coauthorships = $self->entry_coauthors->search_related( 'entry',
+        { 'entry.comp' => $current_comp->id } );
+
+    return $self->_valid_entries( $current_comp, $coauthorships );
+}
+
+sub current_comp_coauthorships {
+    my $self = shift;
+    my $current_comp =
+        $self->result_source->schema->resultset('Comp')->current_comp;
+
+    my $entries = $self->entry_coauthors->search_related( 'entry',
+        { 'entry.comp' => $current_comp->id } );
+    return $entries->search_related('entry_coauthors');
+}
+
+sub is_primary_author {
+    my $self = shift;
+    if ( $self->current_comp_entries > 0 ) {
+        return 1;
+    }
+    return 0;
+}
+
+sub is_coauthor {
+    my $self = shift;
+    if ( $self->current_comp_coauthored_entries > 0 ) {
+        return 1;
+    }
+    return 0;
+}
+
+sub is_current_comp_author {
+    my $self = shift;
+
+    if ( $self->is_primary_author || $self->is_coauthor ) {
+        return 1;
+    }
+
+    return 0;
+}
+
+sub is_author_or_coauthor_of {
+    my $self = shift;
+    my ($entry) = shift;
+
+    if ( $entry->author->id == $self->id) {
+        return 1;
+    }
+
+    my $count = $self->entry_coauthors->search( { entry_id => $entry->id });
+    if ($count > 0) {
+        return 1;
+    }
+
+    return 0;
 }
 
 __PACKAGE__->meta->make_immutable;

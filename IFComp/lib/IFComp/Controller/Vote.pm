@@ -68,21 +68,9 @@ sub index : Path : Args(2) {
         return;
     }
 
-    if ( $entry->author->id == $c->user->id ) {
+    if ( $c->user->is_author_or_coauthor_of($entry) ) {
         $c->res->code(403);
-        $c->res->body("You may not vote on an entry you authored.");
-        return;
-    }
-
-    my $coauthorship = $c->model('IFCompDB::EntryCoauthor')->search(
-        {   entry_id    => $entry_id,
-            coauthor_id => $c->user->id,
-        },
-    )->single;
-
-    if ($coauthorship) {
-        $c->res->code(403);
-        $c->res->body("You may not vote on an entry you co-authored");
+        $c->res->body("You may not vote on an entry you authored or co-authored.");
         return;
     }
 
