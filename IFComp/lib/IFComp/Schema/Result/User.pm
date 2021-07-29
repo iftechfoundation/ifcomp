@@ -544,12 +544,12 @@ sub is_author_or_coauthor_of {
     my $self = shift;
     my ($entry) = shift;
 
-    if ( $entry->author->id == $self->id) {
+    if ( $entry->author->id == $self->id ) {
         return 1;
     }
 
-    my $count = $self->entry_coauthors->search( { entry_id => $entry->id });
-    if ($count > 0) {
+    my $count = $self->entry_coauthors->search( { entry_id => $entry->id } );
+    if ( $count > 0 ) {
         return 1;
     }
 
