@@ -70,7 +70,8 @@ sub index : Path : Args(2) {
 
     if ( $c->user->is_author_or_coauthor_of($entry) ) {
         $c->res->code(403);
-        $c->res->body("You may not vote on an entry you authored or co-authored.");
+        $c->res->body(
+            "You may not vote on an entry you authored or co-authored.");
         return;
     }
 
