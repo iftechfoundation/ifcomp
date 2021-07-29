@@ -87,7 +87,7 @@ sub list : Chained('root') : PathPart('') : Args(0) {
 
     $self->_process_coauthorship_form($c);
 
-    my @collabs = $c->user->entry_coauthors;
+    my @collabs = $c->user->current_comp_coauthorships;
     $c->stash(
         collabs           => \@collabs,
         coauthorship_form => $self->coauthorship_form,

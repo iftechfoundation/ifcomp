@@ -1,5 +1,6 @@
+[% BLOCK scripts %]
 <script>
-document.getElementById( 'rating-select' ).change( function() {
+$( '.rating-select' ).change( function() {
     var entry_id = $(this).data( 'entry' );
     var spinner = $( '#rating-status-' + entry_id + '-spinner' );
     var success = $( '#rating-status-' + entry_id + '-success' );
@@ -28,5 +29,6 @@ document.getElementById( 'rating-select' ).change( function() {
 } );
 
 // Show rating controls only if JS is turned on.
-document.getElementById( 'rating-controls' ).show();
+$( '.rating-controls' ).show();
 </script>
+[% END %]
