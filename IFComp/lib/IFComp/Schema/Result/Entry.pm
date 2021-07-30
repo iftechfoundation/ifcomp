@@ -631,26 +631,6 @@ has 'inform_game_js_file' => (
     lazy_build => 1,
 );
 
-enum 'Platform', [
-    qw(
-        html
-        website
-        quixe
-        parchment
-        inform
-        inform-website
-        tads
-        quest
-        quest-online
-        windows
-        alan
-        adrift
-        adrift-online
-        hugo
-        other
-        )
-];
-
 has 'play_file' => (
     is         => 'ro',
     isa        => 'Maybe[Path::Class::File]',
