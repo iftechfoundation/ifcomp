@@ -69,7 +69,7 @@ We'd love to have you join us as a judge! It's as easy as logging in, creating a
 </table>
 
 [% IF c.user %]
-    before [% INCLUDE _change_vote.tt %] after
+    [% PROCESS _change_vote.tt %]
 [% END %]
 
 </div>
