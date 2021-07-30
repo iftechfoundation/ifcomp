@@ -556,13 +556,6 @@ has 'directory' => (
     clearer    => 'clear_directory',
 );
 
-has 'directory_name' => (
-    is         => 'ro',
-    isa        => 'Maybe[Str]',
-    lazy_build => 1,
-    clearer    => 'clear_directory_name',
-);
-
 has 'main_file' => (
     is         => 'ro',
     isa        => 'Maybe[Path::Class::File]',
@@ -721,22 +714,6 @@ sub _build_sort_title {
     $title =~ s/\p{NonspacingMark}//g;
 
     return $title;
-}
-
-sub _build_directory_name {
-    my $self = shift;
-
-    return $self->_directory_name_from( $self->title );
-}
-
-sub _directory_name_from {
-    my $self = shift;
-    my ($name) = @_;
-
-    $name =~ s/\s+/_/g;
-    $name =~ s/[^\w\d]//g;
-
-    return $name;
 }
 
 sub _build_directory {
