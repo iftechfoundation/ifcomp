@@ -810,25 +810,6 @@ sub _build_subdir_named {
     return $path;
 }
 
-sub _find_file {
-    my ( $regex, @files ) = @_;
-    for my $file (@files) {
-        return $file if $file->stringify =~ $regex;
-    }
-    return undef;
-}
-
-sub _find_fileset {
-    my ( $regexes, @files ) = @_;
-    my @ret;
-    for my $regex (@$regexes) {
-        my $found = _find_file( $regex, @files );
-        return () unless defined $found;
-        push @ret, $found;
-    }
-    return @ret;
-}
-
 no warnings "experimental";
 
 sub _build_play_file {
