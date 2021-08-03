@@ -1234,6 +1234,19 @@ sub reset_coauthor_code {
     $self->update();
 }
 
+sub ok_to_reveal_pseudonym {
+    my $self = shift;
+
+    if (   ( $self->author_pseudonym )
+        && ( $self->comp->ok_to_reveal_pseudonyms && $self->reveal_pseudonym )
+        )
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

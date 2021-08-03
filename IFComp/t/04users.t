@@ -38,7 +38,7 @@ my $primary_author =
     $schema->resultset('User')->find( { email => 'nobody@example.com' } );
 is( $primary_author->id,                                          1 );
 is( $primary_author->is_current_comp_author,                      1 );
-is( $primary_author->is_coauthor,                                 0 );
+is( $primary_author->is_coauthor,                                 1 );
 is( $primary_author->is_author_or_coauthor_of($coauthored_entry), 1 );
 
 my $not_an_author =
@@ -47,7 +47,11 @@ is( $not_an_author->id,                     4 );
 is( $not_an_author->is_current_comp_author, 0 );
 is( $not_an_author->is_coauthor,            0 );
 
-#is( $not_an_author->is_author_or_coauthor_of($coauthored_entry), 1 );
+my $not_a_coauthor =
+    $schema->resultset('User')
+    ->find( { email => 'votecounter@example.com' } );
+is( $not_a_coauthor->is_current_comp_author, 1 );
+is( $not_a_coauthor->is_coauthor,            0 );
 
 my $coauthor =
     $schema->resultset('User')->find( { email => 'author@example.com' } );

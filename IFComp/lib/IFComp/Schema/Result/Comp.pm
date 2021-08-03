@@ -337,5 +337,12 @@ sub forum_handles {
 
 }
 
+sub ok_to_reveal_pseudonyms {
+    my $self = shift;
+    my $now  = DateTime::Moonpig->now( time_zone => 'local' );
+
+    return ( $now > $self->comp_closes ) ? 1 : 0;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

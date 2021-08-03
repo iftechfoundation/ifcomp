@@ -19,4 +19,14 @@ ok( my $mech =
 
 $mech->get_ok('http://localhost/comp');
 
+IFCompTest::set_phase_after( $schema, 'intents_open' );
+my $current_comp = $schema->resultset('Comp')->current_comp;
+is( $current_comp->ok_to_reveal_pseudonyms,
+    0, "do not reveal pseudonyms during the comp" );
+
+IFCompTest::set_phase_after( $schema, 'comp_closes' );
+$current_comp = $schema->resultset('Comp')->current_comp;
+is( $current_comp->ok_to_reveal_pseudonyms,
+    1, "pseudonyms can be revealed now if desired" );
+
 done_testing();
