@@ -128,6 +128,24 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-25 01:48:38
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:2bqOVYRFncg/F2skd4eCmg
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+sub display_name {
+    my $self = shift;
+
+    if ( $self->pseudonym eq "" ) {
+        return $self->coauthor->name;
+    }
+
+    if (   $self->entry->comp->ok_to_reveal_pseudonyms
+        && $self->reveal_pseudonym )
+    {
+        return
+              $self->coauthor->name
+            . " (writing as "
+            . $self->pseudonym . ")";
+    }
+
+    return $self->pseudonym;
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
