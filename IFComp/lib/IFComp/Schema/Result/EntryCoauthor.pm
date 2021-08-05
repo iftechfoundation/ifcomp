@@ -131,11 +131,11 @@ __PACKAGE__->belongs_to(
 sub display_name {
     my $self = shift;
 
-    if ( $self->pseudonym eq "" ) {
+    if ( !$self->pseudonym ) {
         return $self->coauthor->name;
     }
 
-    if (   $self->entry->comp->ok_to_reveal_pseudonyms
+    if ( $self->entry->comp->ok_to_reveal_pseudonyms
         && $self->reveal_pseudonym )
     {
         return

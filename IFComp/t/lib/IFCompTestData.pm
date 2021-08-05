@@ -184,6 +184,7 @@ sub add_test_data_to_schema {
         [   [ 'entry_id', 'coauthor_id', 'pseudonym', 'reveal_pseudonym', ],
             [ 101,        2,             'Looking-Glass Girl', 0 ],
             [ 102,        2,             'Wonderland Witch',   1 ],
+            [ 108,        1,             undef,                0 ],
             [ 109,        1,             'Mysterious User',    1 ],
         ],
     );

@@ -205,25 +205,31 @@ ok( !$schema->resultset('Entry')->find($entry_id),
 IFCompTest::set_phase_after( $schema, 'judging_begins' );
 my $coauthored_101 = $schema->resultset('Entry')->find( { id => 101 } );
 my $coauthored_102 = $schema->resultset('Entry')->find( { id => 102 } );
+my $coauthored_108 = $schema->resultset('Entry')->find( { id => 108 } );
 my $coauthored_109 = $schema->resultset('Entry')->find( { id => 109 } );
 my @coauthors_101  = $coauthored_101->entry_coauthors;
 my @coauthors_102  = $coauthored_102->entry_coauthors;
+my @coauthors_108  = $coauthored_108->entry_coauthors;
 my @coauthors_109  = $coauthored_109->entry_coauthors;
 is( $coauthors_101[0]->display_name, "Looking-Glass Girl" );
 is( $coauthors_102[0]->display_name,
     "Alice Author (writing as Wonderland Witch)" );
+is($coauthors_108[0]->display_name, "user1");
 is( $coauthors_109[0]->display_name, "Mysterious User" );
 
 IFCompTest::set_phase_after( $schema, 'comp_closes' );
 $coauthored_101 = $schema->resultset('Entry')->find( { id => 101 } );
 $coauthored_102 = $schema->resultset('Entry')->find( { id => 102 } );
+$coauthored_108 = $schema->resultset('Entry')->find( { id => 108 } );
 $coauthored_109 = $schema->resultset('Entry')->find( { id => 109 } );
 @coauthors_101  = $coauthored_101->entry_coauthors;
 @coauthors_102  = $coauthored_102->entry_coauthors;
+@coauthors_108  = $coauthored_108->entry_coauthors;
 @coauthors_109  = $coauthored_109->entry_coauthors;
 is( $coauthors_101[0]->display_name, "Looking-Glass Girl" );
 is( $coauthors_102[0]->display_name,
     "Alice Author (writing as Wonderland Witch)" );
+is($coauthors_108[0]->display_name, "user1");
 is( $coauthors_109[0]->display_name, "user1 (writing as Mysterious User)" );
 
 done_testing();
