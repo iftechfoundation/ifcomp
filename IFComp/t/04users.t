@@ -32,14 +32,16 @@ $u2->password('plaintext3');
 isnt( $u2->password, 'plaintext3' );
 ok( $u2->check_password('plaintext3') );
 
-my $coauthored_entry = $schema->resultset('Entry')->find( { id => 101 } );
+my $coauthored_a = $schema->resultset('Entry')->find( { id => 101 } );
+my $coauthored_b = $schema->resultset('Entry')->find( { id => 108 } );
 
 my $primary_author =
-    $schema->resultset('User')->find( { email => 'nobody@example.com' } );
-is( $primary_author->id,                                          1 );
-is( $primary_author->is_current_comp_author,                      1 );
-is( $primary_author->is_coauthor,                                 1 );
-is( $primary_author->is_author_or_coauthor_of($coauthored_entry), 1 );
+    $schema->resultset('User')
+    ->find( { email => 'votecounter@example.com' } );
+is( $primary_author->id,                                      3 );
+is( $primary_author->is_current_comp_author,                  1 );
+is( $primary_author->is_coauthor,                             1 );
+is( $primary_author->is_author_or_coauthor_of($coauthored_b), 1 );
 
 my $not_an_author =
     $schema->resultset('User')->find( { email => 'curator@example.com' } );
@@ -48,16 +50,15 @@ is( $not_an_author->is_current_comp_author, 0 );
 is( $not_an_author->is_coauthor,            0 );
 
 my $not_a_coauthor =
-    $schema->resultset('User')
-    ->find( { email => 'votecounter@example.com' } );
+    $schema->resultset('User')->find( { email => 'nobody@example.com' } );
 is( $not_a_coauthor->is_current_comp_author, 1 );
 is( $not_a_coauthor->is_coauthor,            0 );
 
 my $coauthor =
     $schema->resultset('User')->find( { email => 'author@example.com' } );
-is( $coauthor->id,                                          2 );
-is( $coauthor->is_coauthor,                                 1 );
-is( $coauthor->is_current_comp_author,                      1 );
-is( $coauthor->is_author_or_coauthor_of($coauthored_entry), 1 );
+is( $coauthor->id,                                      2 );
+is( $coauthor->is_coauthor,                             1 );
+is( $coauthor->is_current_comp_author,                  1 );
+is( $coauthor->is_author_or_coauthor_of($coauthored_a), 1 );
 
 done_testing();
