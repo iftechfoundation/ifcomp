@@ -113,7 +113,7 @@
     </div>
 </form>
 
-[% IF collabs.size %]
+[% IF c.user.get_object.current_comp_coauthorships %]
 <h4>Games you are listed as co-author on</h4>
 <table class="table">
     <thead>
@@ -125,7 +125,7 @@
             <th>Remove?</th>
     </thead>
     <tbody>
-        [% FOR collab IN collabs %]
+        [% FOR collab IN c.user.get_object.current_comp_coauthorships %]
         <tr>
             <td>[% collab.entry.title | html %]</td>
             <td>[% collab.entry.author.name | html %]</td>

@@ -1,14 +1,4 @@
-[% valid = c.user.get_object.id != entry.author.id %]
-[% IF valid %]
-    [% FOR coauthor IN collabs %]
-        [% IF coauthor.entry_id == entry.id %]
-            [% valid = 0 %]
-            [% LAST %]
-        [% END %]
-    [% END %]
-[% END %]
-
-[% IF valid %]
+[% IF c.user.get_object.can_vote_for(entry) %]
 
     <div class="rating-controls" style="float: right;">
         <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">

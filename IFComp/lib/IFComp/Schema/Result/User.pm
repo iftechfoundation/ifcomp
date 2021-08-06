@@ -556,6 +556,23 @@ sub is_author_or_coauthor_of {
     return 0;
 }
 
+sub can_vote_for {
+    my $self = shift;
+    my ($entry) = shift;
+
+    if ( $entry->author->id == $self->id ) {
+        return 0;
+    }
+
+    foreach my $game ( $self->current_comp_coauthorships ) {
+        if ( $game->entry->id == $entry->id ) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

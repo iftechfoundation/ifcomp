@@ -135,7 +135,7 @@ sub display_name {
         return $self->coauthor->name;
     }
 
-    if ( $self->entry->comp->ok_to_reveal_pseudonyms
+    if (   $self->entry->comp->ok_to_reveal_pseudonyms
         && $self->reveal_pseudonym )
     {
         return
