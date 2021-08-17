@@ -44,6 +44,8 @@ my $prizes_ref = $old_comp_dbh->selectall_arrayref(
 
 push @$prizes_ref, $new_comp_schema->resultset( 'Prize' )->all;
 
+binmode(STDOUT, ":utf8");
+
 my %prizes;
 my %seen;
 for my $prize_ref ( @$prizes_ref ) {
