@@ -10,10 +10,12 @@
 
 use warnings;
 use strict;
+use FindBin;
 
 use 5.10.0;
 
 use DBI;
+use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
 use Scalar::Util qw( blessed );
 
@@ -31,8 +33,8 @@ my %category_for = (
     special => 'Conditional prizes',
 );
 
-my $old_comp_dbh = DBI->connect( 'dbi:mysql:old_ifcomp', 'root', '', { mysql_enable_utf8 => 1} );
-my $new_comp_schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '', { mysql_enable_utf8 => 1} );
+my $old_comp_dbh = DBI->connect( 'dbi:mysql:old_ifcomp:db', 'root', '', { mysql_enable_utf8 => 1} );
+my $new_comp_schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp:db', 'root', '', { mysql_enable_utf8 => 1} );
 
 my $prizes_ref = $old_comp_dbh->selectall_arrayref(
     'select prize.name as prize_name, donator, pseudonym, prizedesc, '
