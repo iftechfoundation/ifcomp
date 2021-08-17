@@ -556,13 +556,6 @@ has 'directory' => (
     clearer    => 'clear_directory',
 );
 
-has 'directory_name' => (
-    is         => 'ro',
-    isa        => 'Maybe[Str]',
-    lazy_build => 1,
-    clearer    => 'clear_directory_name',
-);
-
 has 'main_file' => (
     is         => 'ro',
     isa        => 'Maybe[Path::Class::File]',
@@ -630,26 +623,6 @@ has 'inform_game_js_file' => (
     isa        => 'Maybe[Path::Class::File]',
     lazy_build => 1,
 );
-
-enum 'Platform', [
-    qw(
-        html
-        website
-        quixe
-        parchment
-        inform
-        inform-website
-        tads
-        quest
-        quest-online
-        windows
-        alan
-        adrift
-        adrift-online
-        hugo
-        other
-        )
-];
 
 has 'play_file' => (
     is         => 'ro',
@@ -741,22 +714,6 @@ sub _build_sort_title {
     $title =~ s/\p{NonspacingMark}//g;
 
     return $title;
-}
-
-sub _build_directory_name {
-    my $self = shift;
-
-    return $self->_directory_name_from( $self->title );
-}
-
-sub _directory_name_from {
-    my $self = shift;
-    my ($name) = @_;
-
-    $name =~ s/\s+/_/g;
-    $name =~ s/[^\w\d]//g;
-
-    return $name;
 }
 
 sub _build_directory {
@@ -851,25 +808,6 @@ sub _build_subdir_named {
     }
 
     return $path;
-}
-
-sub _find_file {
-    my ( $regex, @files ) = @_;
-    for my $file (@files) {
-        return $file if $file->stringify =~ $regex;
-    }
-    return undef;
-}
-
-sub _find_fileset {
-    my ( $regexes, @files ) = @_;
-    my @ret;
-    for my $regex (@$regexes) {
-        my $found = _find_file( $regex, @files );
-        return () unless defined $found;
-        push @ret, $found;
-    }
-    return @ret;
 }
 
 no warnings "experimental";
