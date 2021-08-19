@@ -13,7 +13,7 @@ has '+html_prefix' => ( default => 1 );
 
 use Readonly;
 Readonly my $MAX_FILE_SIZE => 10485760;
-Readonly my $MAX_GAME_SIZE => 262144000;
+Readonly my $MAX_GAME_SIZE => 536870912;
 Readonly my $MAX_ENTRIES   => 3;
 
 has_field 'title' => (
