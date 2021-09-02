@@ -1242,6 +1242,7 @@ sub _build_supports_transcripts {
 
     if (   ( $self->platform eq 'parchment' )
         || ( $self->platform eq 'quixe' )
+        || ( $self->platform eq 'tads' )
         || ( $self->platform =~ /^inform/ ) )
     {
         return 1;
