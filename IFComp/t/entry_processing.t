@@ -180,9 +180,6 @@ ok( file_exists( 109, 'index.html' ), 'Generated an index.html file.', );
 ok( file_contains( 109, 'index.html', qr{/static/interpreter/main.js} ),
     'Links to local interpreter.',
 );
-is( $schema->resultset('Entry')->find(109)->platform,
-    'inform', 'Platform is correct.',
-);
 ok( $schema->resultset('Entry')->find(109)->supports_transcripts,
     'Supports transcripts.',
 );
