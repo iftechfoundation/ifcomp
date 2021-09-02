@@ -1210,7 +1210,9 @@ sub _build_has_extra_content {
     my $self = shift;
 
     my @default_list;
-    if ( $self->platform =~ /^inform/ ) {
+    if (   ( $self->platform =~ /^inform/ )
+        || ( $self->platform eq 'tads' ) )
+    {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif (( $self->platform eq 'parchment' )
