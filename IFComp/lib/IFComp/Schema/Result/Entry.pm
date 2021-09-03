@@ -526,7 +526,7 @@ use Digest::MD5 ('md5_hex');
 use v5.10;
 
 use Readonly;
-Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$/i;
+Readonly my $I7_REGEX    => qr/\.z\d$|\.[gz]?blorb$|\.ulx$|\.gam$|\.t3$/i;
 Readonly my $ZCODE_REGEX => qr/\.z\d$|\.zblorb$/i;
 
 Readonly my @DEFAULT_PARCHMENT_CONTENT => (
@@ -817,7 +817,7 @@ sub _build_play_file {
 
     my $play_file;
     given ( $self->platform ) {
-        when (/^parchment$|^quixe$|^inform|-online$|-web-ui$/) {
+        when (/^parchment$|^quixe$|^inform|-online$|-web-ui$|^tads$/) {
             $play_file = Path::Class::File->new('index.html');
         }
         when (
@@ -1001,7 +1001,7 @@ sub update_content_directory {
 
     $self->clear_play_file;
 
-    if ( $self->platform eq 'inform' ) {
+    if ( $self->platform eq 'inform' || $self->platform eq 'tads' ) {
         $self->_create_parchment_page;
 
         # and then we have to recalculate again since doing this changes the
@@ -1148,7 +1148,9 @@ sub _build_has_extra_content {
     my $self = shift;
 
     my @default_list;
-    if ( $self->platform =~ /^inform/ ) {
+    if (   ( $self->platform =~ /^inform/ )
+        || ( $self->platform eq 'tads' ) )
+    {
         @default_list = @DEFAULT_INFORM_CONTENT;
     }
     elsif (( $self->platform eq 'parchment' )
@@ -1180,6 +1182,7 @@ sub _build_supports_transcripts {
 
     if (   ( $self->platform eq 'parchment' )
         || ( $self->platform eq 'quixe' )
+        || ( $self->platform eq 'tads' )
         || ( $self->platform =~ /^inform/ ) )
     {
         return 1;
