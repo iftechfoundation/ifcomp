@@ -57,14 +57,14 @@
                 <input type="checkbox" name="regenerate_coauthor_code" id="regenerate_coauthor_code" class="checkbox" />
                 Generate a new code
             </label>
-            [% IF collabs.size %]
+            [% IF entry.entry_coauthors %]
                 (Doing so will not remove any existing co-authors from this entry)
             [% END %]
         </div>
 
         <hr/>
 
-        [% IF collabs.size %]
+        [% IF entry.entry_coauthors %]
         <table class="table">
             <thead>
                 <tr>
@@ -75,7 +75,7 @@
                 </tr>
             </thead>
             <tbody>
-                [% FOR collab IN collabs %]
+                [% FOR collab IN entry.entry_coauthors %]
                 <tr>
                     <td>[% collab.coauthor.name | html %]</td>
                     <td>

@@ -1,3 +1,4 @@
+[% BLOCK scripts %]
 <script>
 $( '.rating-select' ).change( function() {
     var entry_id = $(this).data( 'entry' );
@@ -30,3 +31,4 @@ $( '.rating-select' ).change( function() {
 // Show rating controls only if JS is turned on.
 $( '.rating-controls' ).show();
 </script>
+[% END %]

@@ -103,22 +103,12 @@
         <div class="well" id="entry-[% entry.id %]">
             [% INCLUDE _entry_title.tt include_permalink = 1 %]
             [% INCLUDE _current_entry_row.tt %]
-            <!--
-            <div style="text-align: right;">
-                [% IF c.user %]
-                    [% INCLUDE _rating_controls.tt %]
-                    <noscript><span class="label label-danger">Enable JavaScript to rate!</span></noscript>
-                [% ELSE %]
-                    <span class="label label-default">Log in to rate!</span>
-                [% END %]
-            </div>
-            -->
         </div>
     [% END %]
 [% END %]
 
 [% IF c.user %]
-    [% INCLUDE _change_vote.tt %]
+    [% PROCESS _change_vote.tt %]
 [% END %]
 
 </div> <!-- .container -->

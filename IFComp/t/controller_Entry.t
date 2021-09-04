@@ -26,7 +26,7 @@ foreach ( $schema->entry_directory->children( no_hidden => 1 ) ) {
     $_->rmtree;
 }
 
-IFCompTest::log_in_as_author($mech);
+IFCompTest::log_in_as_curator($mech);
 
 $mech->get_ok('http://localhost/entry');
 $mech->content_like( qr/You have not declared/,
@@ -41,6 +41,8 @@ $entry_id = $entry_id + 1;
 ######
 # Add a new entry
 ######
+
+IFCompTest::log_in_as_author($mech);
 
 $mech->get_ok('http://localhost/entry/create');
 
@@ -199,5 +201,48 @@ $mech->submit_form_ok(
 ok( !$schema->resultset('Entry')->find($entry_id),
     'The withdrawn entry has been removed from database'
 );
+
+# Check pseudonyms during comp
+IFCompTest::set_phase_after( $schema, 'judging_begins' );
+my $coauthored_101 = $schema->resultset('Entry')->find( { id => 101 } );
+my $coauthored_102 = $schema->resultset('Entry')->find( { id => 102 } );
+my $coauthored_108 = $schema->resultset('Entry')->find( { id => 108 } );
+my $coauthored_109 = $schema->resultset('Entry')->find( { id => 109 } );
+my $author_101     = $coauthored_101->author;
+my $author_102     = $coauthored_102->author;
+my $author_108     = $coauthored_108->author;
+my $author_109     = $coauthored_109->author;
+my @coauthors_101  = $coauthored_101->entry_coauthors;
+my @coauthors_102  = $coauthored_102->entry_coauthors;
+my @coauthors_108  = $coauthored_108->entry_coauthors;
+my @coauthors_109  = $coauthored_109->entry_coauthors;
+is( $coauthors_101[0]->display_name, "Looking-Glass Girl" );
+is( $coauthors_102[0]->display_name,
+    "Alice Author (writing as Wonderland Witch)" );
+is( $coauthors_108[0]->display_name, "Victor Votecounter" );
+is( $coauthors_109[0]->display_name, "Mysterious User" );
+
+# During comp, judges may not vote for games that they authored or coauthored
+is( $author_101->can_vote_for($coauthored_101),                 0 );
+is( $author_102->can_vote_for($coauthored_102),                 0 );
+is( $coauthors_101[0]->coauthor->can_vote_for($coauthored_101), 0 );
+is( $coauthors_101[0]->coauthor->can_vote_for($coauthored_108), 1 );
+
+# Check pseudonyms after comp is done
+IFCompTest::set_phase_after( $schema, 'comp_closes' );
+$coauthored_101 = $schema->resultset('Entry')->find( { id => 101 } );
+$coauthored_102 = $schema->resultset('Entry')->find( { id => 102 } );
+$coauthored_108 = $schema->resultset('Entry')->find( { id => 108 } );
+$coauthored_109 = $schema->resultset('Entry')->find( { id => 109 } );
+@coauthors_101  = $coauthored_101->entry_coauthors;
+@coauthors_102  = $coauthored_102->entry_coauthors;
+@coauthors_108  = $coauthored_108->entry_coauthors;
+@coauthors_109  = $coauthored_109->entry_coauthors;
+is( $coauthors_101[0]->display_name, "Looking-Glass Girl" );
+is( $coauthors_102[0]->display_name,
+    "Alice Author (writing as Wonderland Witch)" );
+is( $coauthors_108[0]->display_name, "Victor Votecounter" );
+is( $coauthors_109[0]->display_name,
+    "Victor Votecounter (writing as Mysterious User)" );
 
 done_testing();

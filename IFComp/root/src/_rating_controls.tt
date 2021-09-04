@@ -1,5 +1,4 @@
-
-[% IF c.user.get_object.id != entry.author.id %]
+[% IF c.user.get_object.can_vote_for(entry) %]
 
     <div class="rating-controls" style="float: right;">
         <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select">
