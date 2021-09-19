@@ -1,0 +1,36 @@
+[% BLOCK scripts %]
+<script>
+var filter_style = "all";
+var filter_playtime = "all";
+var filter_platform = "all";
+
+function updateDisplay() {
+    $('div[id ^= "entry-"]').show();
+    if (filter_style != "all") {
+        $('[id ^= "entry-"').filter(`[ifcomp-style != "${filter_style}"]`).hide();
+    }
+    if (filter_playtime != "all") {
+        $('[id ^= "entry-"').filter(`[ifcomp-playtime != "${filter_playtime}"]`).hide();
+    }
+    if (filter_platform != "all") {
+        $('[id ^= "entry-"').filter(`[ifcomp-platform != "${filter_platform}"]`).hide();
+    }
+}
+
+function filterByStyle(how) {
+    filter_style = how;
+    updateDisplay();
+}
+
+function filterByPlaytime(how) {
+    filter_playtime = how;
+    updateDisplay();
+}
+
+function filterByPlatform(how) {
+    filter_platform = how;
+    updateDisplay();
+}
+
+</script>
+[% END %]
