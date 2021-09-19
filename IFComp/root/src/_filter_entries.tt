@@ -1,34 +1,65 @@
 [% BLOCK scripts %]
 <script>
-var filter_style = "all";
-var filter_playtime = "all";
-var filter_platform = "all";
+const $playtimeSelect = document.querySelector('.playtime-select');
+const $styleSelect = document.querySelector('.style-select');
+const $platformSelect = document.querySelector('.platform-select');
+
+var filter_style = new Array();
+var filter_playtime = new Array();
+var filter_platform = new Array();
 
 function updateDisplay() {
     $('div[id ^= "entry-"]').show();
-    if (filter_style != "all") {
-        $('[id ^= "entry-"').filter(`[ifcomp-style != "${filter_style}"]`).hide();
+    if (filter_style.length !== 0) {
+        $('[id ^= "entry-"').each(function() {
+            if (!filter_style.includes($(this).attr('ifcomp-style'))) {
+                $(this).hide();
+            }
+        });
     }
-    if (filter_playtime != "all") {
-        $('[id ^= "entry-"').filter(`[ifcomp-playtime != "${filter_playtime}"]`).hide();
+    if (filter_playtime.length !== 0) {
+        $('[id ^= "entry-"').each(function() {
+            if (!filter_playtime.includes($(this).attr('ifcomp-playtime'))) {
+                $(this).hide();
+            }
+        });
     }
-    if (filter_platform != "all") {
-        $('[id ^= "entry-"').filter(`[ifcomp-platform != "${filter_platform}"]`).hide();
+    if (filter_platform.length !== 0) {
+        $('[id ^= "entry-"').each(function() {
+            if (!filter_platform.includes($(this).attr('ifcomp-platform'))) {
+                $(this).hide();
+            }
+        });
     }
 }
 
-function filterByStyle(how) {
-    filter_style = how;
+$playtimeSelect.onchange = function () {
+    if (this.value == "playtime-all") {
+        $(this).val([]);
+        filter_playtime = new Array();
+    } else {
+        filter_playtime = $(this).val();
+    }
     updateDisplay();
 }
 
-function filterByPlaytime(how) {
-    filter_playtime = how;
+$styleSelect.onchange = function() {
+    if (this.value == "style-all") {
+        $(this).val([]);
+        filter_style = new Array();
+    } else {
+        filter_style = $(this).val();
+    }
     updateDisplay();
 }
 
-function filterByPlatform(how) {
-    filter_platform = how;
+$platformSelect.onchange = function() {
+    if (this.value == "platform-all") {
+        $(this).val([]);
+        filter_platform = new Array();
+    } else {
+        filter_platform = $(this).val();
+    }
     updateDisplay();
 }
 

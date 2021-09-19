@@ -98,48 +98,65 @@
     </p>
 [% END %]
 
-<div class="row"><div class="col-sm-1"></div><div class="col-sm-9">
+<div class="row">
+    <div class="col-sm-3"></div>
 
-<div class="btn-group" data-toggle="buttons"> Playtime:
-<label for="playtime-all"><input type="radio" id="playtime-all" name="ifcomp-playtime" onclick="filterByPlaytime('all')" checked/>All</label>
-| <label for="playtime-15"><input type="radio" id="playtime-15" name="ifcomp-playtime" onclick="filterByPlaytime('15 minutes or less')" >15 Minutes or Less</label>
-| <label for="playtime-30"><input type="radio" id="playtime-30" name="ifcomp-playtime" onclick="filterByPlaytime('half an hour')" >Half an Hour</label>
-| <label for="playtime-60"><input type="radio" id="playtime-60" name="ifcomp-playtime" onclick="filterByPlaytime('one hour')" >One Hour</label>
-| <label for="playtime-90"><input type="radio" id="playtime-90" name="ifcomp-playtime" onclick="filterByPlaytime('an hour and a half')" >An Hour and a Half</label>
-| <label for="playtime-120"><input type="radio" id="playtime-120" name="ifcomp-playtime" onclick="filterByPlaytime('two hours')" >Two Hours</label>
-| <label for="playtime-gt120"><input type="radio" id="playtime-gt120" name="ifcomp-playtime" onclick="filterByPlaytime('longer than two hours')" >Longer than Two Hours</label>
-| <label for="playtime-other"><input type="radio" id="playtime-other" name="ifcomp-playtime" onclick="filterByPlaytime('other')" />No Playtime Specified</label>
+    <div class="col-sm-2" align=center>
+    <p>Playtime</p>
+    <select multiple size=8 class="playtime-select">
+    <option value="playtime-all">All</option>
+    <option value="15 minutes or less">15 minutes or less</option>
+    <option value="half an hour">Half an Hour</option>
+    <option value="one hour">One Hour</option>
+    <option value="an hour and a half">An Hour and a Half</option>
+    <option value="two hours">Two Hours</option>
+    <option value="more than two hours">More than Two Hours</option>
+    <option value="other">No Playtime Specified</option>
+    </select>
+
+    </div>
+
+
+
+    <div class="col-sm-2" align=center>
+    <p>Style:</p>
+    <select multiple size=4 class="style-select">
+    <option value="style-all">All</option>
+    <option value="parser">Parser</option>
+    <option value="choice">Choice</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+
+
+    <div class="col-sm-2" align=center>
+    <p> Platform:</p>
+    <select multiple size=8 class="platform-select">
+    <option value="platform-all">All</option>
+    <option value="adrift">Adrift</option>
+    <option value="inform">Inform</option>
+    <option value="parchment">Parchment</option>
+    <option value="quixe">Quixe</option>
+    <option value="tads">TADS</option>
+    <option value="quest">Quest</option>
+    <option value="alan">Alan</option>
+    <option value="hugo">Hugo</option>
+    <option value="windows">Windows</option>
+    <option value="website">Website</option>
+    <option value="adventuron">Adventuron</option>
+    <option value="choicescript">ChoiceScript</option>
+    <option value="ink">Texture</option>
+    <option value="twine">Twine</option>
+    <option value="unity">Unity</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+
 </div>
 
-<div class="btn-group" data-toggle="buttons"> Style:
-<label for="style-all"><input type="radio" id="style-all" name="ifcomp-style" onclick="filterByStyle('all')" checked>All</label>
-| <label for="style-parser"><input type="radio" id="style-parser" name="ifcomp-style" onclick="filterByStyle('parser')">Parser</label>
-| <label for="style-choice"><input type="radio" id="style-choice" name="ifcomp-style" onclick="filterByStyle('choice')">Choice</label>
-| <label for="style-other"><input type="radio" id="style-other" name="ifcomp-style" onclick="filterByStyle('other')">No Style Specified</label>
+<div class="row" align=center>
+<p>NOTE: you can use Ctrl-click / &#8984;-Click to select multiple items from the lists above. Clicking on "All" at the top will clear the selections</p>
 </div>
-
-<div class="btn-group" data-toggle="buttons"> Platform:
-| <label for="platform-all"><input type="radio" id="platform-all" name="ifcomp-platform" onclick="filterByPlatform('all')" checked>All</label>
-| <label for="platform-adrift"><input type="radio" id="platform-adrift" name="ifcomp-platform" onclick="filterByPlatform('adrift')">Adrift</label>
-| <label for="platform-inform"><input type="radio" id="platform-inform" name="ifcomp-platform" onclick="filterByPlatform('inform')">Inform</label>
-| <label for="platform-parchment"><input type="radio" id="platform-parchment" name="ifcomp-platform" onclick="filterByPlatform('parchment')">Parchment</label>
-| <label for="platform-quixe"><input type="radio" id="platform-quixe" name="ifcomp-platform" onclick="filterByPlatform('quixe')">Quixe</label>
-| <label for="platform-tads"><input type="radio" id="platform-tads" name="ifcomp-platform" onclick="filterByPlatform('tads')">TADS</label>
-| <label for="platform-quest"><input type="radio" id="platform-quest" name="ifcomp-platform" onclick="filterByPlatform('quest')">Quest</label>
-| <label for="platform-alan"><input type="radio" id="platform-alan" name="ifcomp-platform" onclick="filterByPlatform('alan')">Alan</label>
-| <label for="platform-hugo"><input type="radio" id="platform-hugo" name="ifcomp-platform" onclick="filterByPlatform('hugo')">Hugo</label>
-| <label for="platform-windows"><input type="radio" id="platform-windows" name="ifcomp-platform" onclick="filterByPlatform('windows')">Windows</label>
-| <label for="platform-website"><input type="radio" id="platform-website" name="ifcomp-platform" onclick="filterByPlatform('website')">Website</label>
-| <label for="platform-adventuron"><input type="radio" id="platform-adventuron" name="ifcomp-platform" onclick="filterByPlatform('adventuron')">Adventuron</label>
-| <label for="platform-choicescript"><input type="radio" id="platform-choicescript" name="ifcomp-platform" onclick="filterByPlatform('choicescript')">ChoiceScript</label>
-| <label for="platform-ink"><input type="radio" id="platform-ink" name="ifcomp-platform" onclick="filterByPlatform('ink')">Ink</label>
-| <label for="platform-texture"><input type="radio" id="platform-texture" name="ifcomp-platform" onclick="filterByPlatform('texture')">Texture</label>
-| <label for="platform-twine"><input type="radio" id="platform-twine" name="ifcomp-platform" onclick="filterByPlatform('twine')">Twine</label>
-| <label for="platform-unity"><input type="radio" id="platform-unity" name="ifcomp-platform" onclick="filterByPlatform('unity')">Unity</label>
-| <label for="platform-other"><input type="radio" id="platform-other" name="ifcomp-platform" onclick="filterByPlatform('other')">Other</label>
-</div>
-
-</div></div>
 
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
