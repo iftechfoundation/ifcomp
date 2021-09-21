@@ -179,7 +179,8 @@
 
 [% IF c.user %]
     [% PROCESS _change_vote.tt %]
-    [% PROCESS _filter_entries.tt %]
 [% END %]
+
+[% PROCESS _filter_entries.tt %]
 
 </div> <!-- .container -->
