@@ -1,0 +1,80 @@
+[% BLOCK scripts %]
+<script>
+const $playtimeSelect = document.querySelector('.playtime-select');
+const $styleSelect = document.querySelector('.style-select');
+const $platformSelect = document.querySelector('.platform-select');
+
+var filter_style = new Array();
+var filter_playtime = new Array();
+var filter_platform = new Array();
+
+$("#no-visible-games").hide();
+
+function updateDisplay() {
+    var count = $('div[id ^= "entry-"]').length;
+
+    $('div[id ^= "entry-"]').show();
+    if (filter_style.length !== 0) {
+        $('[id ^= "entry-"').filter(":visible").each(function() {
+            if (!filter_style.includes($(this).attr('ifcomp-style'))) {
+                $(this).hide();
+                count -= 1;
+            }
+        });
+    }
+    if (filter_playtime.length !== 0) {
+        $('[id ^= "entry-"').filter(":visible").each(function() {
+            if (!filter_playtime.includes($(this).attr('ifcomp-playtime'))) {
+                $(this).hide();
+                count -= 1;
+            }
+        });
+    }
+    if (filter_platform.length !== 0) {
+        $('[id ^= "entry-"').filter(":visible").each(function() {
+            if (!filter_platform.includes($(this).attr('ifcomp-platform'))) {
+                $(this).hide();
+                count -= 1;
+            }
+        });
+    }
+
+    if (count == 0) {
+        $('div[id = "no-visible-games"]').show();
+    } else {
+        $('div[id = "no-visible-games"]').hide();
+    }
+}
+
+$playtimeSelect.onchange = function () {
+    if (this.value == "playtime-all") {
+        $(this).val([]);
+        filter_playtime = new Array();
+    } else {
+        filter_playtime = $(this).val();
+    }
+    updateDisplay();
+}
+
+$styleSelect.onchange = function() {
+    if (this.value == "style-all") {
+        $(this).val([]);
+        filter_style = new Array();
+    } else {
+        filter_style = $(this).val();
+    }
+    updateDisplay();
+}
+
+$platformSelect.onchange = function() {
+    if (this.value == "platform-all") {
+        $(this).val([]);
+        filter_platform = new Array();
+    } else {
+        filter_platform = $(this).val();
+    }
+    updateDisplay();
+}
+
+</script>
+[% END %]

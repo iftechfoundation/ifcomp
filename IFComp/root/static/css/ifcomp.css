@@ -202,3 +202,8 @@ a.donate-link:hover {
     color: #ddd;
     background-color: #444;
 }
+
+[data-theme="dark"] option {
+    background-color: #111;
+    color:  #aaa;
+}

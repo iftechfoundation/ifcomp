@@ -98,17 +98,89 @@
     </p>
 [% END %]
 
+<div class="row">
+    <div class="col-sm-3"></div>
+
+    <div class="col-sm-2" align=center>
+    <p><u>Playtime</u></p>
+    <select multiple size=8 class="playtime-select">
+    <option value="playtime-all">All</option>
+    <option value="15 minutes or less">15 minutes or less</option>
+    <option value="half an hour">Half an Hour</option>
+    <option value="one hour">One Hour</option>
+    <option value="an hour and a half">An Hour and a Half</option>
+    <option value="two hours">Two Hours</option>
+    <option value="more than two hours">More than Two Hours</option>
+    <option value="other">No Playtime Specified</option>
+    </select>
+
+    </div>
+
+
+
+    <div class="col-sm-2" align=center>
+    <p><u>Style</u></p>
+    <select multiple size=4 class="style-select">
+    <option value="style-all">All</option>
+    <option value="parser">Parser</option>
+    <option value="choice">Choice</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+
+
+    <div class="col-sm-2" align=center>
+    <p><u>Platform</u></p>
+    <select multiple size=8 class="platform-select">
+    <option value="platform-all">All</option>
+    <option value="adrift">Adrift</option>
+    <option value="inform">Inform</option>
+    <option value="parchment">Parchment</option>
+    <option value="quixe">Quixe</option>
+    <option value="tads">TADS</option>
+    <option value="quest">Quest</option>
+    <option value="alan">Alan</option>
+    <option value="hugo">Hugo</option>
+    <option value="windows">Windows</option>
+    <option value="website">Website</option>
+    <option value="adventuron">Adventuron</option>
+    <option value="choicescript">ChoiceScript</option>
+    <option value="ink">Texture</option>
+    <option value="twine">Twine</option>
+    <option value="unity">Unity</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+
+</div>
+
+<div class="row" align=center style="padding-top: 1em;">
+<p>NOTE: you can use Ctrl-click / &#8984;-Click to select multiple items from the lists above. Clicking on "All" at the top will clear the selections</p>
+</div>
+
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
-        <div class="well" id="entry-[% entry.id %]">
+        <div class="well" id="entry-[% entry.id %]"
+             ifcomp-style="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
+             ifcomp-playtime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
+             ifcomp-platform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"
+             >
             [% INCLUDE _entry_title.tt include_permalink = 1 %]
             [% INCLUDE _current_entry_row.tt %]
         </div>
     [% END %]
 [% END %]
 
+<div class="row" id="no-visible-games">
+    <div class="well">
+        <p align=center><strong>No games match your chosen criteria</strong></p>
+    </div>
+</div>
+
 [% IF c.user %]
     [% PROCESS _change_vote.tt %]
 [% END %]
+
+[% PROCESS _filter_entries.tt %]
 
 </div> <!-- .container -->
