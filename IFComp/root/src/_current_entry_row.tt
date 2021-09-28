@@ -91,7 +91,7 @@
         </div>
         [%# END %]
         
-        [% IF entry.platform == 'parchment' 
+        [% IF (entry.platform == 'parchment'
               || entry.platform == 'website'
               || entry.platform == 'inform-website'
               || entry.platform == 'quixe'
@@ -105,7 +105,8 @@
               || entry.platform == 'ink'
               || entry.platform == 'texture'
               || entry.platform == 'twine'
-              || entry.platform == 'unity'
+              || entry.platform == 'unity')
+              && entry.id != 2429 && entry.id != 2448 && entry.id != 2437
         %]
         <div class="play-button">
         <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
