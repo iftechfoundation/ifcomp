@@ -98,6 +98,66 @@
     </p>
 [% END %]
 
+[% platform = {
+        total => 0
+        adrift => 0
+        inform => 0
+        parchment => 0
+        quixe => 0
+        tads => 0
+        quest => 0
+        alan => 0
+        hugo => 0
+        windows => 0
+        website => 0
+        adventuron => 0
+        choicescript => 0
+        ink => 0
+        texture => 0
+        twine => 0
+        unity => 0
+        other => 0
+    }
+%]
+[% FOR entry IN entries %]
+    [% platform.total = platform.total + 1 %]
+    [% IF entry.platform == 'adrift' || entry.platform == 'adrift-online' %]
+        [% platform.adrift = platform.adrift + 1 %]
+    [% ELSIF entry.platform == 'inform-website' || entry.platform == 'inform' %]
+        [% platform.inform = platform.inform + 1 %]
+    [% ELSIF entry.platform == 'parchment' %]
+        [% platform.parchment = platform.parchment + 1 %]
+    [% ELSIF entry.platform == 'quixe' %]
+        [% platform.quixe = platform.quixe + 1 %]
+    [% ELSIF entry.platform == 'tads-web-ui' || entry.platform == 'tads' %]
+        [% platform.tads = platform.tads + 1 %]
+    [% ELSIF entry.platform == 'quest-online' || entry.platform == 'quest' %]
+        [% platform.quest = platform.quest + 1 %]
+    [% ELSIF entry.platform == 'alan' %]
+        [% platform.alan = platform.alan + 1 %]
+    [% ELSIF entry.platform == 'hugo' %]
+        [% platform.hugo = platform.hugo + 1 %]
+    [% ELSIF entry.platform == 'windows' %]
+        [% platform.windows = platform.windows + 1 %]
+    [% ELSIF entry.platform == 'website' %]
+        [% platform.website = platform.website + 1 %]
+    [% ELSIF entry.platform == 'adventuron' %]
+        [% platform.adventuron = platform.adventuron + 1 %]
+    [% ELSIF entry.platform == 'choicescript' %]
+        [% platform.choicescript = platform.choicescript + 1 %]
+    [% ELSIF entry.platform == 'ink' %]
+        [% platform.ink = platform.ink + 1 %]
+    [% ELSIF entry.platform == 'texture' %]
+        [% platform.texture = platform.texture + 1 %]
+    [% ELSIF entry.platform == 'twine' %]
+        [% platform.twine = platform.twine + 1 %]
+    [% ELSIF entry.platform == 'unity' %]
+        [% platform.unity = platform.unity + 1 %]
+    [% ELSE %]
+        [% platform.other = platform.other + 1 %]
+    [% END %]
+[% END %]
+
 <div class="row">
     <div class="col-sm-3"></div>
 
@@ -133,23 +193,57 @@
     <p><u>Platform</u></p>
     <select multiple size=8 class="platform-select">
     <option value="platform-all">All</option>
-    <option value="adrift,adrift-online">Adrift</option>
-    <option value="inform,inform-website">Inform</option>
-    <option value="parchment">Parchment</option>
-    <option value="quixe">Quixe</option>
-    <option value="tads,tads-web-ui">TADS</option>
-    <option value="quest,quest-online">Quest</option>
-    <option value="alan">Alan</option>
-    <option value="hugo">Hugo</option>
-    <option value="windows">Windows</option>
-    <option value="website">Website</option>
-    <option value="adventuron">Adventuron</option>
-    <option value="choicescript">ChoiceScript</option>
-    <option value="ink">Ink</option>
-    <option value="texture">Texture</option>
-    <option value="twine">Twine</option>
-    <option value="unity">Unity</option>
-    <option value="other">Other</option>
+    [% IF platform.adrift > 0 %]
+        <option value="adrift,adrift-online">Adrift</option>
+    [% END %]
+    [% IF platform.inform > 0 %]
+        <option value="inform,inform-website">Inform</option>
+    [% END %]
+    [% IF platform.parchment > 0 %]
+        <option value="parchment">Parchment</option>
+    [% END %]
+    [% IF platform.quixe > 0 %]
+        <option value="quixe">Quixe</option>
+    [% END %]
+    [% IF platform.tads > 0 %]
+        <option value="tads,tads-web-ui">TADS</option>
+    [% END %]
+    [% IF platform.quest > 0 %]
+        <option value="quest,quest-online">Quest</option>
+    [% END %]
+    [% IF platform.alan > 0 %]
+        <option value="alan">Alan</option>
+    [% END %]
+    [% IF platform.hugo > 0 %]
+        <option value="hugo">Hugo</option>
+    [% END %]
+    [% IF platform.windows > 0 %]
+        <option value="windows">Windows</option>
+    [% END %]
+    [% IF platform.website > 0 %]
+        <option value="website">Website</option>
+    [% END %]
+    [% IF platform.adventuron > 0 %]
+        <option value="adventuron">Adventuron</option>
+    [% END %]
+    [% IF platform.choicescript > 0 %]
+        <option value="choicescript">ChoiceScript</option>
+    [% END %]
+    [% IF platform.ink > 0 %]
+        <option value="ink">Ink</option>
+    [% END %]
+    [% IF platform.texture > 0 %]
+        <option value="texture">Texture</option>
+    [% END %]
+    [% IF platform.twine > 0 %]
+        <option value="twine">Twine</option>
+    [% END %]
+    [% IF platform.unity > 0 %]
+        <option value="unity">Unity</option>
+    [% END %]
+    [% IF platform.other > 0 %]
+        <option value="other">Other</option>
+    [% END %]
     </select>
     </div>
 
