@@ -32,7 +32,13 @@ function updateDisplay() {
     }
     if (filter_platform.length !== 0) {
         $('[id ^= "entry-"').filter(":visible").each(function() {
-            if (!filter_platform.includes($(this).attr('ifcomp-platform'))) {
+            var found = false;
+            filter_platform.forEach(entry => {
+                entry.split(",").forEach(p => {
+                    if (p.includes($(this).attr('ifcomp-platform'))) { found = true; }
+                })
+            });
+            if (!found) {
                 $(this).hide();
                 count -= 1;
             }
