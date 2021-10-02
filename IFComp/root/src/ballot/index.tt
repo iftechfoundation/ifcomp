@@ -133,19 +133,20 @@
     <p><u>Platform</u></p>
     <select multiple size=8 class="platform-select">
     <option value="platform-all">All</option>
-    <option value="adrift">Adrift</option>
-    <option value="inform">Inform</option>
+    <option value="adrift,adrift-online">Adrift</option>
+    <option value="inform,inform-website">Inform</option>
     <option value="parchment">Parchment</option>
     <option value="quixe">Quixe</option>
-    <option value="tads">TADS</option>
-    <option value="quest">Quest</option>
+    <option value="tads,tads-web-ui">TADS</option>
+    <option value="quest,quest-online">Quest</option>
     <option value="alan">Alan</option>
     <option value="hugo">Hugo</option>
     <option value="windows">Windows</option>
     <option value="website">Website</option>
     <option value="adventuron">Adventuron</option>
     <option value="choicescript">ChoiceScript</option>
-    <option value="ink">Texture</option>
+    <option value="ink">Ink</option>
+    <option value="texture">Texture</option>
     <option value="twine">Twine</option>
     <option value="unity">Unity</option>
     <option value="other">Other</option>
