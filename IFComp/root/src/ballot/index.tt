@@ -99,7 +99,6 @@
 [% END %]
 
 [% platform = {
-        total => 0
         adrift => 0
         inform => 0
         parchment => 0
@@ -120,7 +119,6 @@
     }
 %]
 [% FOR entry IN entries %]
-    [% platform.total = platform.total + 1 %]
     [% IF entry.platform == 'adrift' || entry.platform == 'adrift-online' %]
         [% platform.adrift = platform.adrift + 1 %]
     [% ELSIF entry.platform == 'inform-website' || entry.platform == 'inform' %]
@@ -170,7 +168,7 @@
     <option value="one hour">One Hour</option>
     <option value="an hour and a half">An Hour and a Half</option>
     <option value="two hours">Two Hours</option>
-    <option value="more than two hours">More than Two Hours</option>
+    <option value="longer than two hours">Longer than Two Hours</option>
     <option value="other">No Playtime Specified</option>
     </select>
 

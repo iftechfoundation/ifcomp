@@ -35,7 +35,7 @@ function updateDisplay() {
             var found = false;
             filter_platform.forEach(entry => {
                 entry.split(",").forEach(p => {
-                    if (p.includes($(this).attr('ifcomp-platform'))) { found = true; }
+                    if (p === $(this).attr('ifcomp-platform')) { found = true; }
                 })
             });
             if (!found) {
