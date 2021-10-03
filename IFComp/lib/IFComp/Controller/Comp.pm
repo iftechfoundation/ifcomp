@@ -46,12 +46,7 @@ sub fetch_comp : Chained('/') : PathPart('comp') : CaptureArgs(1) {
     my $comp = $c->model('IFCompDB::Comp')->search( { year => $comp_year, } )
         ->single;
 
-    if ( $comp && $comp->status eq 'open_for_judging' ) {
-        $c->res->redirect( $c->uri_for_action('/ballot/index') );
-        $c->detach;
-        return;
-    }
-    elsif ( not($comp) || $comp->status ne 'over' ) {
+    if ( not($comp) ) {
         $c->res->redirect( $c->uri_for_action('/index') );
         $c->detach;
         return;
@@ -62,6 +57,22 @@ sub fetch_comp : Chained('/') : PathPart('comp') : CaptureArgs(1) {
 
 sub index : Chained('fetch_comp') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
+
+    my $comp = $c->stash->{comp};
+
+    # If the comp's underway, bounce the user to the ballot page instead.
+    if ( ( $comp->status eq 'open_for_judging' ) ) {
+        $c->res->redirect( $c->uri_for_action('/ballot/index') );
+        $c->detach;
+        return;
+    }
+
+    # If the comp's neither underway nor over, bounce to the front page.
+    elsif ( $comp->status ne 'over' ) {
+        $c->res->redirect( $c->uri_for_action('/index') );
+        $c->detach;
+        return;
+    }
 
     $c->stash->{entries} = [
         $c->stash->{comp}->entries->search(
@@ -78,7 +89,6 @@ sub index : Chained('fetch_comp') : PathPart('') : Args(0) {
         { order_by => 'year' },
     )->get_column('year')->all;
 
-    my $comp = $c->stash->{comp};
     $c->stash->{comp_years} = \@comp_years;
     if ( $comp->year > $comp_years[0] ) {
         $c->stash->{previous_year} = $comp->year - 1;
@@ -97,6 +107,27 @@ sub index : Chained('fetch_comp') : PathPart('') : Args(0) {
     else {
         $c->stash->{view_is_compact} = 0;
     }
+}
+
+sub cover_sheet : Chained('fetch_comp') : PathPart('cover_sheet') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    unless ( $c->check_user_roles('curator') ) {
+        $c->res->redirect( $c->uri_for_action('/comp/comp') );
+        return;
+    }
+
+    my @entries =
+        $c->stash->{comp}->entries->search(
+            { is_disqualified => 0, },
+            { order_by        => 'title', },
+        )->all
+    ;
+
+    @entries = sort { $a->sort_title cmp $b->sort_title } @entries;
+
+    $c->stash->{entries} = \@entries;
+    $c->stash->{template} = 'comp/cover_sheet.tt';
 }
 
 sub _get_tie_hash {

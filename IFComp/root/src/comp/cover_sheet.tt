@@ -1,0 +1,98 @@
+<div class="container">
+
+<div class="jumbotron">
+<h1 style="text-align:center;">The Games of the [% comp.year %] IFComp</h1>
+</div>
+
+<div class="page-header">
+<h1>Welcome</h1>
+</div>
+
+<p>This document lists all the entries of the [% comp.year %] Annual Interactive
+Fiction Competition, with their cover art, blurbs, and other author-supplied
+information exactly as they stood when the competition opened for public
+judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp.year %].</p>
+
+<p><strong>To play the games</strong>, please find and explore the folder labeled "Games" that accompanied this document. It contains a complete collection of all the listed work. <a href="http://ifarchive.org/indexes/if-archiveXgamesXcompetition[% comp.year %].html">You can always download a fresh copy of this collection from the IF Archive website</a>.</p>
+
+<p>The <a href="http://ifcomp.org/comp/[% comp.year %]">online version of this page</a> features controls and links that can help you download and play these games individually.</p>
+
+<p>You may also wish to read <a href="index.html">some further notes about the [% comp.year %] IFComp</a>, including a list of the volunteers who helped make it possible, and advice for playing the different kinds of games found among the entries.</p>
+
+<div class="page-header">
+<h1>The games</h1>
+</div>
+
+[% FOR entry IN entries %]
+    <div class="well" id="entry-[% entry.id %]">
+    [% INCLUDE _entry_title.tt %]
+<div class="row">
+
+    [% IF entry.cover_exists %]
+        <div class="col-xs-4">
+            <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
+        </div>
+    [% END %]
+
+    <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
+        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
+        [% FILTER html_para %]
+            [% entry.blurb | html %]
+        [% END %]
+
+        [% IF entry.warning %]
+            <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
+        [% END %]
+
+        <p><em>
+        [% IF entry.genre %]
+        [% entry.genre.ucfirst | html %] •
+        [% END %]
+
+        [% IF entry.playtime %]
+        [% entry.playtime.ucfirst %] •
+        [% END %]
+
+        [% IF entry.style == 'parser' %]
+        Parser-based •
+        [% ELSIF entry.style == 'choice' %]
+        Choice-based •
+        [% END %]
+
+        [% UNLESS entry.platform == 'other' %]
+        [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
+            [% IF entry.is_zcode %]
+            Z-code
+            [% ELSE %]
+            Glulx
+            [% END %]
+            [% IF entry.has_extra_content %]
+            • Download includes additional content
+            [% END %]
+        [% ELSIF entry.platform == 'website' %]
+            Web-based
+        [% ELSIF entry.platform == 'tads' %]
+            TADS
+        [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
+            Quest
+        [% ELSIF entry.platform == 'windows' %]
+            Windows executable
+        [% ELSIF entry.platform == 'alan' %]
+            Alan
+        [% ELSIF entry.platform == 'adrift' %]
+            ADRIFT
+        [% ELSIF entry.platform == 'hugo' %]
+            Hugo
+        [% END %]
+        [% END %]
+        </em></p>
+
+
+    </div>
+
+</div>
+    </div>
+[% END %]
+
+
+</div> <!-- .container -->
