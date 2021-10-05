@@ -2,5 +2,6 @@
 conf/ifcomp_local.conf
 entries
 root/lib/config/colossal
+root/lib/data
 root/static/downloads
 t/entries
