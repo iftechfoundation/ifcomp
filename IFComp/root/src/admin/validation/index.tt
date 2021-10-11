@@ -1,9 +1,25 @@
 <div class="container">
 <h1>Unverified users</h1>
-<p>This is a list of all accounts that are registered with ifcomp but have not been validated</p>
-<ul>
+<p>This is a list of all accounts that are registered with ifcomp but have not been validated. Click on a row to copy the link to the clipboard</p>
+<table class="table table-striped">
+<thead><tr><th>Name</th><th>Email</th><th>Validation Code</th></thead>
+<tbody>
 [% FOR u IN badlist %]
-    <li>[% u.name %] ([% u.email %]), copy validation link: | https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %] |</li>
+    <tr onClick="copyme('https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %]')"><td>[% u.name %]</td><td>[% u.email %]</td>
+    <td width="70%">https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %]</td></tr>
 [% END %]
-</ul>
+</tbody></table>
 </div>
+
+[% BLOCK scripts %]
+<script>
+async function copyme(x) {
+    try {
+        await navigator.clipboard.writeText(x);
+        alert("Copied!");
+    } catch (err) {
+        alert(`Failed to copy - ${err}`);
+    }
+}
+</script>
+[% END %]
