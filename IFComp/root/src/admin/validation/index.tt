@@ -1,7 +1,7 @@
 <div class="container">
 <h1>Unverified users</h1>
 <p>This is a list of all accounts that are registered with ifcomp but have not been validated. Click on a row to copy the link to the clipboard</p>
-<table class="table table-striped">
+<table class="table">
 <thead><tr><th>Name</th><th>Email</th><th>Validation Code</th></thead>
 <tbody>
 [% FOR u IN badlist %]
