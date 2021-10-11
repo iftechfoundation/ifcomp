@@ -1,0 +1,9 @@
+<div class="container">
+<h1>Unverified users</h1>
+<p>This is a list of all accounts that are registered with ifcomp but have not been validated</p>
+<ul>
+[% FOR u IN badlist %]
+    <li>[% u.name %] ([% u.email %]), copy validation link: | https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %] |</li>
+[% END %]
+</ul>
+</div>

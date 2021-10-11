@@ -14,6 +14,9 @@
         [% IF c.check_user_roles( 'curator' ) %]
         <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>
         [% END %]
+        [% IF c.check_user_roles( 'cheez' ) %]
+        <li><a href="[% c.uri_for('/admin/validation/') %]">User Validation</a></li>
+        [% END %]
      </ul>
      
 </div>
