@@ -24,7 +24,7 @@ if (navigator.clipboard === undefined) {
 }
 
 async function copyme(x) {
-    if (navigator.clipoboard === undefined) {
+    if (navigator.clipboard === undefined) {
         return;
     }
     try {
