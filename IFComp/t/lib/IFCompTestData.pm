@@ -48,15 +48,27 @@ sub add_test_data_to_schema {
                 'Connie Curator',
                 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'curator@example.com', 1, undef, 1, undef,
-            ]
+            ],
+            [   5,
+                'Cheddar Cheez',
+                'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'cheez@example.com', 1, undef, 1, undef,
+            ],
         ],
     );
 
-    $schema->populate( 'Role',
-        [ [ 'id', 'name' ], [ 1, 'votecounter' ], [ 2, 'curator' ] ] );
+    $schema->populate(
+        'Role',
+        [   [ 'id', 'name' ],
+            [ 1,    'votecounter' ],
+            [ 2,    'curator' ],
+            [ 3,    'cheez' ],
+        ]
+    );
 
-    $schema->populate( 'UserRole',
-        [ [ 'id', 'user', 'role' ], [ 1, 3, 1, ], [ 2, 4, 2 ] ],
+    $schema->populate(
+        'UserRole',
+        [ [ 'id', 'user', 'role' ], [ 1, 3, 1 ], [ 2, 4, 2 ], [ 3, 5, 3 ], ],
     );
 
     # There are two comps - last year and this year. The current comp is open

@@ -1,0 +1,38 @@
+<div class="container">
+<h1>Unverified users</h1>
+<p>This is a list of all accounts that are registered with ifcomp but have not been validated. <span id="copyvalid">Click on a row to copy the link to the clipboard</span></p>
+<table class="table table-condensed">
+<thead><tr><th style="width: 10%;">Name</th><th style="width: 20%;">Email</th><th style="width: 70%;">Validation Code</th></thead>
+<tbody>
+[% FOR u IN badlist %]
+    <tr>
+    <td style="width: 10%;">[% u.name %]</td><td style="width: 20%;">[% u.email %]</td>
+    <td style="width: 70%; white-space: nowrap;" id="row-[% u.id %]" title="Click to copy validation link" onClick="copyme('https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %]')">
+    https://ifcomp.org/user/validate/[% u.id %]/[% u.access_token %]
+    </td></tr>
+[% END %]
+</tbody></table>
+</div>
+
+[% BLOCK scripts %]
+<script>
+if (navigator.clipboard === undefined) {
+    $('[id ^= "row-"').each(function() {
+        $(this).prop('title', "");
+    });
+    $("#copyvalid").html("");
+}
+
+async function copyme(x) {
+    if (navigator.clipboard === undefined) {
+        return;
+    }
+    try {
+        await navigator.clipboard.writeText(x);
+        alert("Copied!");
+    } catch (err) {
+        alert(`Failed to copy - ${err}`);
+    }
+}
+</script>
+[% END %]
