@@ -101,8 +101,6 @@
 [% platform = {
         adrift => 0
         inform => 0
-        parchment => 0
-        quixe => 0
         tads => 0
         quest => 0
         alan => 0
@@ -122,12 +120,8 @@
     [% IF entry.is_qualified %]
         [% IF entry.platform == 'adrift' || entry.platform == 'adrift-online' %]
             [% platform.adrift = platform.adrift + 1 %]
-        [% ELSIF entry.platform == 'inform-website' || entry.platform == 'inform' %]
+        [% ELSIF entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'parchment' || entry.platform == 'quixe' %]
             [% platform.inform = platform.inform + 1 %]
-        [% ELSIF entry.platform == 'parchment' %]
-            [% platform.parchment = platform.parchment + 1 %]
-        [% ELSIF entry.platform == 'quixe' %]
-            [% platform.quixe = platform.quixe + 1 %]
         [% ELSIF entry.platform == 'tads-web-ui' || entry.platform == 'tads' %]
             [% platform.tads = platform.tads + 1 %]
         [% ELSIF entry.platform == 'quest-online' || entry.platform == 'quest' %]
@@ -198,12 +192,6 @@
     [% END %]
     [% IF platform.inform > 0 %]
         <option value="inform,inform-website">Inform</option>
-    [% END %]
-    [% IF platform.parchment > 0 %]
-        <option value="parchment">Parchment</option>
-    [% END %]
-    [% IF platform.quixe > 0 %]
-        <option value="quixe">Quixe</option>
     [% END %]
     [% IF platform.tads > 0 %]
         <option value="tads,tads-web-ui">TADS</option>
