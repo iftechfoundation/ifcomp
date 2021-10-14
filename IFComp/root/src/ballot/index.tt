@@ -191,7 +191,7 @@
         <option value="adrift,adrift-online">Adrift</option>
     [% END %]
     [% IF platform.inform > 0 %]
-        <option value="inform,inform-website">Inform</option>
+        <option value="inform,inform-website,parchment,quixe">Inform</option>
     [% END %]
     [% IF platform.tads > 0 %]
         <option value="tads,tads-web-ui">TADS</option>
