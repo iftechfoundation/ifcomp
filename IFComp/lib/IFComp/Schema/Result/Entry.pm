@@ -65,6 +65,12 @@ __PACKAGE__->table("entry");
   is_nullable: 1
   size: 128
 
+=head2 cover_artist
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 128
+
 =head2 ifdb_id
 
   data_type: 'char'
@@ -243,6 +249,8 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
   },
   "author_pseudonym",
+  { data_type => "char", is_nullable => 1, size => 128 },
+  "cover_artist",
   { data_type => "char", is_nullable => 1, size => 128 },
   "ifdb_id",
   { data_type => "char", is_nullable => 1, size => 16 },
@@ -504,8 +512,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-28 03:46:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:oIsQ4UIGiO5kiKUpaNbppw
+# Created by DBIx::Class::Schema::Loader v0.07049 @ 2022-05-11 21:47:19
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4PzykC/x3+Cgt8aomhB0PQ
 
 __PACKAGE__->add_columns( '+coauthor_code' =>
         { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );

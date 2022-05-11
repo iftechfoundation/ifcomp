@@ -31,6 +31,9 @@ END;
             [% END %]
             </p>
         [% END %]
+        [% IF entry.cover_artist %]
+            <p><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
+        [% END %]
 
         [% FILTER html_para %]
         	[% entry.blurb %]
