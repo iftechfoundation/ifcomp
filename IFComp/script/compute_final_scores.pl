@@ -1,4 +1,4 @@
-#!/usr/env perl
+#!/usr/bin/env perl
 
 # This script computes all qualifying entries' final scores and other information
 # based on qualifying votes, and updates these entries' database records appropriately.

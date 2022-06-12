@@ -1,4 +1,4 @@
-#!/usr/env perl
+#!/usr/bin/env perl
 
 # This script rolls the current comp's cover art into its permanent location.
 
