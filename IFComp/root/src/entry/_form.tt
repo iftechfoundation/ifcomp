@@ -22,9 +22,9 @@
 [% UNLESS entry.id %]
     <p>Your game must not have had any playable public release prior to the first day of IFComp judging this year.</p>
 <div class="form-group">
-<label class="control-label" for="entry.unreleased">Has this entry had any public playable release before IFComp this year?</label>
+<label class="control-label" for="game.entry.unreleased">Has this entry had any public playable release before IFComp this year?</label>
 <div>
-<select name="entry.unreleased" id="unreleased" class="form-control">
+<select name="entry.unreleased" id="game.entry.unreleased" class="form-control">
 <option value="1" id="unreleased.1">No, this entry has not had a prior public release, and I do not plan on releasing it to the public prior to IFComp this year.</option>
 <option value="0" id="unreleased.2">Yes, this entry has already had a prior public release, or I plan on a public release between now and the start of IFComp judging.</option>
 </select>
@@ -130,6 +130,9 @@ Delete cover art file
 [% END %]
 [% form.field('cover_upload').render %]
 
+<div>Any artist(s) who created your cover art can be credited here. Leave blank to keep the artist anonymous.
+[% form.field('cover_artist').render %]
+</div>
 
 
 </div>
@@ -263,6 +266,8 @@ Delete walkthrough file
 
 
 [% form.field( 'submit' ).render %]
+
+</div></div>
 
 </form>
 

@@ -136,6 +136,13 @@ has_field 'style' => (
     ],
 );
 
+has_field 'cover_artist' => (
+    type      => 'Text',
+    id        => 'cover_artist',
+    label     => 'Cover artist name(s)',
+    maxlength => 128,
+);
+
 has_field 'author_pseudonym' => (
     type => 'Text',
     label =>
@@ -176,7 +183,7 @@ has_field 'walkthrough_upload' => (
 
 has_field 'online_play_upload' => (
     type     => 'Upload',
-    label    => 'Uplaod a new online-play file',
+    label    => 'Upload a new online-play file',
     max_size => $MAX_FILE_SIZE,
 );
 
