@@ -207,3 +207,8 @@ a.donate-link:hover {
     background-color: #111;
     color:  #aaa;
 }
+
+[data-theme="dark"] select {
+    background-color: #111;
+    color: #aaa;
+}
