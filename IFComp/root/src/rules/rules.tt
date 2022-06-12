@@ -23,11 +23,13 @@ any ambiguities in the rules listed below.</p>
 <a href="mailto:ifcomp@ifcomp.org">contact the organizers</a>.</p>
 
 <div class="alert alert-info">
-<p><STRONG>In 2021, we have updated the following rules:</STRONG></p>
-<ul>
-<li>Judge Rule 4, which previously stated that authors may not judge the entries, will be changed for 2021 so that authors may additionally participate as judges, but cannot rate their own entries. This rule will be evaluated after the 2021 IFComp, with feedback from the community.</li>
-<li>Author Rule 3 has been updated to explicitly state that publicly shared source code does not count as a prior release, and Judge Rule 5 has been refined, without changing its intent, to address the scenario of someone who compiles and plays source code prior to October 1st.</li>
-</ul>
+<p>
+For 2022, we have decided to keep the rule change that was explored in 2021
+with respect to Judge Rule 4. Judge Rule 4 previously stated that authors could
+not judge the entries. For 2022 and going forward, authors may additionally
+participate as judges, but cannot rate their own entries. Thank you to those of
+you who provided feedback to help us evaluate this rule change.<
+</p>
 </div>
 
 <div class="page-header">
