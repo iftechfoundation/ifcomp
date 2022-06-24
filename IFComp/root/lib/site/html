@@ -75,8 +75,12 @@
         update_ui(do_dark);
         if (dark_mode_preferred == do_dark) {
             localStorage.removeItem('dark_mode');
+            // Set the cookie to be expired immediately
+            document.cookie = 'parchment_theme=light; max-age=0; domain=' + document.location.hostname;
         } else {
             localStorage.setItem('dark_mode', 'override');
+            // Set the parchment_theme cookie on all subdomains for 400 days
+            document.cookie = 'parchment_theme=dark; max-age=34560000; domain=' + document.location.hostname;
         }
     }
 
@@ -87,7 +91,6 @@
 
  <script>
     (function() {
-        var color = "#fff";
         if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
                     localStorage.getItem('dark_mode') === 'override') {
             document.body.setAttribute('data-theme', 'dark');
