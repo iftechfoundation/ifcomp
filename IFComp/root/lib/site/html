@@ -76,11 +76,11 @@
         if (dark_mode_preferred == do_dark) {
             localStorage.removeItem('dark_mode');
             // Set the cookie to be expired immediately
-            document.cookie = 'parchment_theme=light; max-age=0; domain=' + document.location.hostname;
+            document.cookie = 'parchment_theme=light; max-age=0; path=/; domain=' + document.location.hostname;
         } else {
             localStorage.setItem('dark_mode', 'override');
             // Set the parchment_theme cookie on all subdomains for 400 days
-            document.cookie = 'parchment_theme=dark; max-age=34560000; domain=' + document.location.hostname;
+            document.cookie = 'parchment_theme=dark; max-age=34560000; path=/; domain=' + document.location.hostname;
         }
     }
 
