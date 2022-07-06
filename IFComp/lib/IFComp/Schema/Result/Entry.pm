@@ -1098,9 +1098,15 @@ sub _enable_recording {
 
     unless ( ( -e $play_file ) && $game_file ) {
 
-        # No play.html? OK, this isn't a standard I7 "with interpreter" arrangement,
-        # so we won't do anything.
-        return;
+        # Look for index.html as well
+        $play_file = $self->content_directory->file('index.html');
+
+        unless ( ( -e $play_file ) && $game_file ) {
+
+            # No play.html or index.html? OK, this isn't a standard I7 "with interpreter" arrangement,
+            # so we won't do anything.
+            return;
+        }
     }
 
     my $play_html = $play_file->slurp;
