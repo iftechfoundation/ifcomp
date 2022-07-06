@@ -1097,10 +1097,12 @@ sub _enable_recording {
     my $game_file = $self->inform_game_file->basename;
 
     unless ( ( -e $play_file ) && $game_file ) {
+
         # Look for index.html as well
         $play_file = $self->content_directory->file('index.html');
-        
+
         unless ( ( -e $play_file ) && $game_file ) {
+
             # No play.html or index.html? OK, this isn't a standard I7 "with interpreter" arrangement,
             # so we won't do anything.
             return;
