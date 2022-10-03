@@ -1,4 +1,4 @@
-#!/usr/env perl
+#!/usr/bin/env perl
 
 # This script marks every entry without a main file as disqualified.
 # Useful for marking unfulfilled intents, post-deadline.
