@@ -31,9 +31,9 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
     [% IF entry.cover_exists %]
         <div class="col-xs-4">
             <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
-       [% IF entry.cover_artist %]
-           <p><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
-       [% END %]
+        [% IF entry.cover_artist %]
+            <p><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
+        [% END %]
         </div>
     [% END %]
 
