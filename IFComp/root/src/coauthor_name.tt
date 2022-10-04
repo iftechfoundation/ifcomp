@@ -1,4 +1,4 @@
 [% IF !loop.first && loop.last %]
     and
 [% END %]
-[% coauthor.display_name | html %][% IF !loop.last %],[% END %]
+<span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">[% coauthor.display_name | html %]</span></span>[% IF !loop.last %],[% END %]

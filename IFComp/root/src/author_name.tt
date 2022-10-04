@@ -1,7 +1,7 @@
 [% IF entry.ok_to_reveal_pseudonym %]
     [% INCLUDE name_and_links %] (writing as “[% entry.author_pseudonym | html %]”)
 [% ELSIF entry.author_pseudonym %]
-    [% entry.author_pseudonym | html %]
+    <span itemprop="name">[% entry.author_pseudonym | html %]</span>
     [% IF entry.email && !suppress_links %]
         <a href="mailto:[% entry.email %]"><img src="/static/images/email.svg" class="author-link" alt="[% entry.email %]" /></a>
     [% END %]
@@ -12,7 +12,7 @@
 [% END %]
 
 [% BLOCK name_and_links %]
-    [% IF entry.author.url %]<a href="[% entry.author.url | html %]">[% END %][% entry.author.name | html %][% IF entry.author.url %]</a>[% END %]
+    [% IF entry.author.url %]<a href="[% entry.author.url | html %]">[% END %]<span itemprop="name">[% entry.author.name | html %]</span>[% IF entry.author.url %]</a>[% END %]
     [% IF entry.author.twitter %]
         <a href="http://twitter.com/[% entry.author.twitter | html %]"><img src="/static/images/twitter.svg" class="author-link" alt="@[% entry.author.twitter | html %]" /></a>
     [% END %]
