@@ -1,16 +1,16 @@
 <div class="row">
 
     [% IF entry.cover_exists %]
-        <div class="col-xs-4">
-            <a href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
+        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-xs-4">
+            <a itemprop="contentUrl" href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img itemprop="thumbnailUrl" class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
             [% IF entry.cover_artist %]
-                <p><strong>Cover art by:</strong><br/>[% entry.cover_artist %]</p>
+                <p><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
             [% END %]
         </div>
     [% END %]
     
     <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
-        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
+        <p itemprop="author" itemscope itemtype="https://schema.org/Person"><strong>[% INCLUDE author_name.tt %]</strong></p>
         [% IF entry.entry_coauthors %]
             <p><strong>Co-written by:</strong>
             [% FOREACH coauthor IN entry.entry_coauthors %]
@@ -19,65 +19,67 @@
             </p>
         [% END %]
 
-        [% FILTER html_para %]
-        	[% entry.blurb | html %]
-        [% END %]
+        <div itemprop="description">
+            [% FILTER html_para %]
+                [% entry.blurb | html %]
+            [% END %]
 
-        [% IF entry.warning %]
-            <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
-        [% END %]
+            [% IF entry.warning %]
+                <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
+            [% END %]
+        </div>
 
         <p><em>
         [% IF entry.genre %]
-        [% entry.genre.ucfirst | html %] •
+        <span itemprop="genre">[% entry.genre.ucfirst | html %]</span> •
         [% END %]
 
         [% IF entry.playtime %]
-        [% entry.playtime.ucfirst %] •
+        <span itemprop="size">[% entry.playtime.ucfirst %]</span> •
         [% END %]
 
         [% IF entry.style == 'parser' %]
-        Parser-based •
+        <span itemprop="interactivityType">Parser-based</span> •
         [% ELSIF entry.style == 'choice' %]
-        Choice-based •
+        <span itemprop="interactivityType">Choice-based</span> •
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
         [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
-            Z-code [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Z-code</span> [% INCLUDE guide_link %]
             [% ELSE %]
-            Glulx [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Glulx</span> [% INCLUDE guide_link %]
             [% END %]
             [% IF entry.has_extra_content %]
             • Download includes additional content
             [% END %]
         [% ELSIF entry.platform == 'website' %]
-            Web-based
+            <span itemprop="gamePlatform">Web-based</span>
         [% ELSIF entry.platform == 'tads' || entry.platform == 'tads-web-ui' %]
-            TADS [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">TADS</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
-            Quest [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Quest</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'windows' %]
-            Windows executable
+            <span itemprop="gamePlatform">Windows executable</span>
         [% ELSIF entry.platform == 'alan' %]
-            Alan [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Alan</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'adrift' || entry.platform == 'adrift-online' %]
-            ADRIFT [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">ADRIFT</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'hugo' %]
-            Hugo [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Hugo</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'adventuron' %]
-            Adventuron [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Adventuron</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'choicescript' %]
-            ChoiceScript [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">ChoiceScript</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'ink' %]
-            Ink [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Ink</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'texture' %]
-            Texture [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Texture</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'twine' %]
-            Twine [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Twine</span> [% INCLUDE guide_link %]
         [% ELSIF entry.platform == 'unity' %]
-            Unity [% INCLUDE guide_link %]
+            <span itemprop="gamePlatform">Unity</span> [% INCLUDE guide_link %]
         [% END %]
         [% END %]
         </em></p>
@@ -88,7 +90,7 @@
             
         [% IF entry.main_file %]
         <div class="play-button">
-        <a href="[% c.uri_for_action( '/play/download', [ entry.id] ) %]" class="btn btn-default btn-lg">
+        <a itemprop="downloadUrl" href="[% c.uri_for_action( '/play/download', [ entry.id] ) %]" class="btn btn-default btn-lg">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
         </a>
         </div>
@@ -112,7 +114,7 @@
               && entry.id != 2429 && entry.id != 2448 && entry.id != 2437
         %]
         <div class="play-button">
-        <a href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
+        <a itemprop="url" href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
            <span class="glyphicon glyphicon-chevron-right"></span> Play online
         </a>
         </div>

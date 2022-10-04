@@ -243,7 +243,7 @@
 
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
-        <div class="well" id="entry-[% entry.id %]"
+        <div itemscope itemtype="https://schema.org/VideoGame" class="well" id="entry-[% entry.id %]"
              ifcomp-style="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
              ifcomp-playtime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
              ifcomp-platform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"
