@@ -1,4 +1,4 @@
-#!/usr/env perl
+#!/usr/bin/env perl
 
 # This script does its best to update the IFDB ID field for every game in the
 # current year's comp.
