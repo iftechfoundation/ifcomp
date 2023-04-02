@@ -6,6 +6,10 @@
 
 <p>Most of these game formats will work on any modern computer, but some require additional software to run. You can identify the &#8220;flavor&#8221; of an IFComp game (and know what else you need to play it) by its main file&#8217;s extension, as described below.</p>
 
+<h2>Accessing Interpreters</h2>
+
+<p>You can find a <a href="https://www.ifwiki.org/Category:Lists_of_interpreters">list of interpreters</a> on IFWiki for all file formats described below.</a>
+
 <h3 id="inform">Glulx and Z-Code games</h3>
 
 <p><strong>File extensions:</strong> <code>.gblorb</code>, <code>.zblorb</code>, <code>.ulx</code>, <code>.z5</code>, <code>.z8</code></p>
@@ -13,7 +17,7 @@
 <p>There are two ways to play these games, which are created using the <a href="http://inform7.com">Inform</a> IF authoring tool:</p>
 
 <ul>
-<li><p><a href="http://www.ifwiki.org/index.php/Interpreter">Download an appropriate interpreter for your operating system</a>, and have it load the game file that (since you&#8217;re reading this) you&#8217;ve already downloaded.</p></li>
+<li><p>Download an appropriate interpreter for your operating system, and have it load the game file that (since you&#8217;re reading this) you&#8217;ve already downloaded.</p></li>
 <li><p><a href="/comp/">Play the game on the ifcomp.org website</a> by locating its entry in the game list and clicking its &#8220;Play Online&#8221; button or link.</p></li>
 </ul>
 
@@ -59,7 +63,7 @@
 
 <p><strong>File extension:</strong> <code>.hex</code></p>
 
-<p><a href="http://www.ifwiki.org/index.php/Hugo">Hugo</a> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of <a href="http://www.ifwiki.org/index.php/Hugor">a separate interpreter program</a>, available for Windows, Mac, and Linux.</p>
+<p><strong>Hugo</strong> is another system for creating parser-based IF. Like TADS and Inform, playing its games requires the use of a separate interpreter program, available for Windows, Mac, and Linux.</p>
 
 <h3 id="adrift">ADRIFT games</h3>
 
