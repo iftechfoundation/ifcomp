@@ -121,7 +121,6 @@
 
 <ul>
 <li><p>Lea Albaugh and Andrew Plotkin created <a href="http://pr-if.org/doc/play-if-card/">this pocket-sized reference for parser interaction</a>, including a list of common commands, and advice on how to read a parser game&#8217;s text for cues on what things in the game world bear further exploration.</p></li>
-<li><p><a href="http://inform7.com/learn/eg/dm/IntroductionToIF.pdf"><em>Welcome to Interactive Fiction</em> is a longer-form and attractively formatted pamphlet</a> towards the same goal, written by Emily Short. Some of the content has fallen out of date, particularly as regards to online resources, but the advice for actually playing parser games remains on-point.</p></li>
 <li><p>Adam Cadre wrote <a href="http://adamcadre.ac/content/if.txt">a short and punchy textfile laying out some basic parser advice</a>.</p></li>
 <li><p>Jason McIntosh produced <a href="http://www.youtube.com/watch?v=GifZWBxBDn8">a ten-minute video about IF</a>, including a short walkthrough of the first few turns of a real game.</p></li>
 </ul>
