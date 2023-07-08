@@ -54,7 +54,7 @@ winners of the Miss Congeniality Awards, an honor permanently recorded in <a
 href="[% c.uri_for_action( '/comp/last_comp' ) %]">that year&#8217;s results
 listing</a>.</p>
 
-<h2 id="banana">Rising Star Award</h2>
+<h2 id="risingstar">Rising Star Award</h2>
 
 <p>
 Since the 2021 competition, the IFComp has recognized the highest-rated game by
