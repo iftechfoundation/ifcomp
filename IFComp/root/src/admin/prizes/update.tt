@@ -1,0 +1,4 @@
+<div class="container">
+<h1>[% IF prize.id %]Edit Prize[% ELSE %]Enter Prize[% END %]</h1>
+[% prize_form.render %]
+</div>

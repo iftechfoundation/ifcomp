@@ -90,6 +90,11 @@ sub log_in_as_cheez {
     _log_in_as( $mech, 'cheez@example.com', 'Cheddar Cheez' );
 }
 
+sub log_in_as_prizemanager {
+    my ($mech) = @_;
+    _log_in_as( $mech, 'prizes@example.com', 'Patricia Prizemanager' );
+}
+
 sub _log_in_as {
     my ( $mech, $email, $name ) = @_;
 

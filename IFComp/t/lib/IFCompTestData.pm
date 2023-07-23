@@ -54,6 +54,11 @@ sub add_test_data_to_schema {
                 'f4384fd7e541f4279d003cf89fc40c33',
                 $SALT, 'cheez@example.com', 1, undef, 1, undef,
             ],
+            [   6,
+                'Patricia Prizemanager',
+                'f4384fd7e541f4279d003cf89fc40c33',
+                $SALT, 'prizes@example.com', 1, undef, 1, undef,
+            ],
         ],
     );
 
@@ -63,12 +68,13 @@ sub add_test_data_to_schema {
             [ 1,    'votecounter' ],
             [ 2,    'curator' ],
             [ 3,    'cheez' ],
+            [ 4,    'prizemanager' ],
         ]
     );
 
     $schema->populate(
         'UserRole',
-        [ [ 'id', 'user', 'role' ], [ 1, 3, 1 ], [ 2, 4, 2 ], [ 3, 5, 3 ], ],
+        [ [ 'id', 'user', 'role' ], [ 1, 3, 1 ], [ 2, 4, 2 ], [ 3, 5, 3 ], [ 4, 6, 4 ] ],
     );
 
     # There are two comps - last year and this year. The current comp is open
@@ -198,6 +204,14 @@ sub add_test_data_to_schema {
             [ 102,        2,             'Wonderland Witch',   1 ],
             [ 108,        3,             undef,                0 ],
             [ 109,        3,             'Mysterious User',    1 ],
+        ],
+    );
+
+    $schema->populate(
+        'Prize',
+        [   [ 'comp', 'donor', 'donor_email', 'name', 'category' ],
+            [ 2, 'Joe Donor', 'donor@example.com', 'Box of Fluff', 'apparel' ],
+            [ 2, 'Cindy Sinful', 'cindy@example.com', 'Pirated Copy of Infidel', 'games' ],
         ],
     );
 

@@ -4,7 +4,7 @@
           <h1 style="text-align:center;">Administrative Functions</h1>
      </div>
 
-     <p>The following functions are available for administrators</p>
+     <p>The following functions are available for administrators:</p>
 
      <ul>
         [% IF c.check_user_roles( 'votecounter' ) %]
@@ -16,6 +16,9 @@
         [% END %]
         [% IF c.check_user_roles( 'cheez' ) %]
         <li><a href="[% c.uri_for('/admin/validation/') %]">User Validation</a></li>
+        [% END %]
+        [% IF c.check_user_roles( 'prizemanager' ) %]
+        <li><a href="[% c.uri_for('/admin/prizes/list') %]">Prize Management</a></li>
         [% END %]
      </ul>
      

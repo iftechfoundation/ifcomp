@@ -1,0 +1,40 @@
+
+<div class="container">
+
+[% IF prize_list.count %]
+    <h1>Prizes for [% year %]</h1>
+    <a href="[% c.uri_for_action( '/admin/prizes/create' ) %]" class="btn btn-primary">Add New Prize</a>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Donor</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+
+    [% WHILE (prize = prize_list.next) %]
+        <tr>
+            <td>[% prize.donor %]</td>
+            <td>[% prize.donor_email %]</td>
+            <td>[% prize.name %]</td>
+            <td>[% prize.url %]</td>
+            <td>[% prize.location %]</td>
+            <td>[% prize.category %]</td>
+            <td><a href="[% c.uri_for_action( '/admin/prizes/update', [ prize.id ] ) %]"><span class="glyphicon glyphicon-pencil"></span></a></td>
+        </tr>
+    [% END %]
+    </tbody>
+    </table>
+[% ELSE %]
+    <h1>No prizes have been entered for [% year %]</h1>
+[% END %]
+
+
+</div>
