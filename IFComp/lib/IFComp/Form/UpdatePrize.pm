@@ -12,60 +12,60 @@ has '+html_prefix' => ( default => 1 );
 has '+widget_wrapper' => ( default => 'Bootstrap3', );
 
 has_field 'donor' => (
-    required => 1,
-    type => 'Text',
+    required  => 1,
+    type      => 'Text',
     maxlength => 64,
 );
 
 has_field 'donor_email' => (
-    required => 1,
-    type => 'Text',
+    required  => 1,
+    type      => 'Text',
     maxlength => 64,
 );
 
 has_field 'name' => (
-    required => 1,
-    type => 'Text',
+    required  => 1,
+    type      => 'Text',
     maxlength => 128,
 );
 
-has_field 'notes' => (
-    type => 'Text'
-);
+has_field 'notes' => ( type => 'Text' );
 
 has_field 'url' => (
-    type => 'Text',
+    type      => 'Text',
     maxlength => 128,
 );
 
 has_field 'category' => (
-    type => 'Select',
-    id => 'category',
-    label => 'Prize Category',
+    type    => 'Select',
+    id      => 'category',
+    label   => 'Prize Category',
     options => [
-        { value => 'money', label => "Money and gift certificates" },
+        { value => 'money',     label => "Money and gift certificates" },
         { value => 'expertise', label => "Expert services" },
-        { value => 'food', label => "Food" },
-        { value => 'apparel', label => "Apparel" },
-        { value => 'games', label => "Games" },
-        { value => 'hardware', label => "Computer hardware and other electronics" },
+        { value => 'food',      label => "Food" },
+        { value => 'apparel',   label => "Apparel" },
+        { value => 'games',     label => "Games" },
+        {   value => 'hardware',
+            label => "Computer hardware and other electronics"
+        },
         { value => 'software', label => "Non-game software" },
-        { value => 'books', label => "Books and magazines" },
-        { value => 'av', label => "Music and movies" },
-        { value => 'misc', label => "Other stuff" },
-        { value => 'special', label => "Special prizes" },
+        { value => 'books',    label => "Books and magazines" },
+        { value => 'av',       label => "Music and movies" },
+        { value => 'misc',     label => "Other stuff" },
+        { value => 'special',  label => "Special prizes" },
     ],
 );
 
 has_field 'location' => (
-    type => 'Text',
+    type      => 'Text',
     maxlength => 64,
 );
 
 has_field 'ships_internationally' => (
     default => 1,
-    label => "Will ship internationally",
-    type => 'Checkbox',
+    label   => "Will ship internationally",
+    type    => 'Checkbox',
 );
 
 has_field 'submit' => (
@@ -94,8 +94,9 @@ sub validate_donor_email {
     my ($field) = @_;
 
     if ( my $email = $field->value ) {
-        unless ( Email::Valid->address( $email ) ) {
-            $field->add_error("This doesn't look like a valid email address.");
+        unless ( Email::Valid->address($email) ) {
+            $field->add_error(
+                "This doesn't look like a valid email address.");
         }
     }
 }

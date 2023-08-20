@@ -74,7 +74,12 @@ sub add_test_data_to_schema {
 
     $schema->populate(
         'UserRole',
-        [ [ 'id', 'user', 'role' ], [ 1, 3, 1 ], [ 2, 4, 2 ], [ 3, 5, 3 ], [ 4, 6, 4 ] ],
+        [   [ 'id', 'user', 'role' ],
+            [ 1,    3,      1 ],
+            [ 2,    4,      2 ],
+            [ 3,    5,      3 ],
+            [ 4,    6,      4 ]
+        ],
     );
 
     # There are two comps - last year and this year. The current comp is open
@@ -210,8 +215,13 @@ sub add_test_data_to_schema {
     $schema->populate(
         'Prize',
         [   [ 'comp', 'donor', 'donor_email', 'name', 'category' ],
-            [ 2, 'Joe Donor', 'donor@example.com', 'Box of Fluff', 'apparel' ],
-            [ 2, 'Cindy Sinful', 'cindy@example.com', 'Pirated Copy of Infidel', 'games' ],
+            [   2, 'Joe Donor', 'donor@example.com', 'Box of Fluff',
+                'apparel'
+            ],
+            [   2,                   'Cindy Sinful',
+                'cindy@example.com', 'Pirated Copy of Infidel',
+                'games'
+            ],
         ],
     );
 

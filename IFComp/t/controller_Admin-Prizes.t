@@ -2,7 +2,6 @@ use strict;
 use warnings;
 use Test::More;
 
-
 unless ( eval q{use Test::WWW::Mechanize::Catalyst 0.55; 1} ) {
     plan skip_all => 'Test::WWW::Mechanize::Catalyst >= 0.55 required';
     exit 0;
@@ -22,5 +21,5 @@ ok( my $mech =
 );
 
 IFCompTest::log_in_as_prizemanager($mech);
-ok( $mech->get_ok('/admin/prizes'), 'Request should succeed' );
+ok( $mech->get_ok('/admin/prizes/list'), 'Request should succeed' );
 done_testing();
