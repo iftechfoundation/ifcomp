@@ -212,3 +212,7 @@ a.donate-link:hover {
     background-color: #111;
     color: #aaa;
 }
+
+[data-theme="dark"] .table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #333;
+}
