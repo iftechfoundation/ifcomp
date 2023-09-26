@@ -25,7 +25,7 @@
 <p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full rules for authors.</a></p></li>
 <li><p><strong>Judges</strong>, who, over a six-week period in October and November, play as many entries as they can, and give each one they play a score between 1 and 10. Higher numbers mean a better score; judges are otherwise free to use any scoring rubric they wish. A game&#8217;s final score is simply the average of all scores it has received.</p>
 
-<p>Judging is open to the public (competition authors and organizers excluded); becoming a judge simply means creating an account on this website, and proceeding to submit scores for at least five entries during the judging period.</p>
+<p>Judging is open to the public (competition organizers excluded); becoming a judge simply means creating an account on this website, and proceeding to submit scores for at least five entries during the judging period.</p>
 
 <p><a href="[% c.uri_for_action( '/rules/rules' ) %]#judges">See the full rules for judges.</a></p></li>
 <li><p><strong>Donors</strong>, who kindly donate prizes to each year&#8217;s prize pool. At the end of the competition, and starting with the first-place winner, authors take turns choosing a prize from the pool, which the donor will then deliver to the author via whatever medium is appropriate for it. (Judges or authors may most certainly act as donors, too.)</p>
