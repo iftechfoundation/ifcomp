@@ -208,6 +208,11 @@ a.donate-link:hover {
     color:  #aaa;
 }
 
+[data-theme="dark"] option:checked {
+    background-color: #555;
+    color:  #ccc;
+}
+
 [data-theme="dark"] select {
     background-color: #111;
     color: #aaa;

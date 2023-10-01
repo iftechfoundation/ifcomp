@@ -111,7 +111,7 @@
               || entry.platform == 'texture'
               || entry.platform == 'twine'
               || entry.platform == 'unity')
-              && entry.id != 2783
+              && entry.id != 2783 && entry.id != 2803 && entry.id != 2873
         %]
         <div class="play-button">
         <a itemprop="url" href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
