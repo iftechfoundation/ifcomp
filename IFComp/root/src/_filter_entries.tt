@@ -1,4 +1,4 @@
-[% BLOCK scripts %]
+[% BLOCK filters %]
 <script>
 const $playtimeSelect = document.querySelector('.playtime-select');
 const $styleSelect = document.querySelector('.style-select');

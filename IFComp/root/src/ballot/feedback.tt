@@ -8,5 +8,12 @@
 <hr />
 <p>You may express your feedback however you'd like, up to 8 kilobytes of text. And do keep it text-only, please; we will strip out any HTML. (We will also turn  double-carriage-returns into paragraph breaks.)</p>
 <p>We encourage you to keep your comments and criticism polite and constructive. If you'd like a prompt, consider this one: <em>What worked well about this game? What are areas for improvement?</em></p>
-[% form.render %]
+
+<form method="post">
+<input type="hidden" name="backlink" value="[% c.stash.backlink %]"/>
+[% form.field('text').render %]
+[% form.field('submit').render %]
+
+</form>
+
 </div>
