@@ -129,9 +129,6 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         if ( defined $refuri->fragment ) {
             $link .= "#" . $refuri->fragment;
         }
-        unless ( $link =~ /\/ballot/ ) {
-            $link = "/ballot/vote";
-        }
     }
     $c->stash->{backlink} = $link;
 
@@ -169,12 +166,10 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         $c->flash->{feedback_entry} = $entry;
 
         my $backlink = $c->req->parameters->{'backlink'};
-        if ( $backlink eq "" ) {
-            $c->res->redirect("/ballot/vote");
+        unless ( $backlink =~ /\/ballot/ ) {
+            $backlink = "/ballot/vote";
         }
-        else {
-            $c->res->redirect($backlink);
-        }
+        $c->res->redirect($backlink);
     }
 
     $c->stash(
