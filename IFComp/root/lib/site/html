@@ -103,8 +103,11 @@
  <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
  <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  [% INCLUDE scripts %]
+ [% INCLUDE filters %]
  </body>
 </html>
 
 [% BLOCK scripts %]
+[% END %]
+[% BLOCK filters %]
 [% END %]

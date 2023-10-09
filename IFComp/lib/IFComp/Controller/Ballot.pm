@@ -1,6 +1,7 @@
 package IFComp::Controller::Ballot;
 use Moose;
 use namespace::autoclean;
+use URI;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -118,6 +119,19 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
     my $entry = $c->model('IFCompDB::Entry')->find($entry_id);
     my $comp  = $c->stash->{current_comp};
 
+    my $link = "/ballot/vote";
+    unless ( $c->req->referer eq "" ) {
+        my $refuri = URI->new( $c->req->referer );
+        $link = $refuri->path;
+        if ( defined $refuri->query ) {
+            $link .= "?" . $refuri->query;
+        }
+        if ( defined $refuri->fragment ) {
+            $link .= "#" . $refuri->fragment;
+        }
+    }
+    $c->stash->{backlink} = $link;
+
     unless ( $c->user ) {
         $c->res->redirect( $c->uri_for_action('/auth/login') );
         return;
@@ -150,7 +164,12 @@ sub feedback : Chained('root') : PathPart('feedback') : Args(1) {
         $feedback->text( $form->field('text')->value );
         $feedback->update;
         $c->flash->{feedback_entry} = $entry;
-        $c->res->redirect( $c->uri_for_action('/ballot/vote') );
+
+        my $backlink = $c->req->parameters->{'backlink'};
+        unless ( $backlink =~ /\/ballot/ ) {
+            $backlink = "/ballot/vote";
+        }
+        $c->res->redirect($backlink);
     }
 
     $c->stash(
