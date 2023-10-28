@@ -139,6 +139,11 @@ $(function () {
     });
 });
 </script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script type="text/css" src="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap.min.css"></script>
+<script type="text/javascript">
+new DataTable("#voteTable", { paging: false });
+</script>
 [% END %]
 
 
@@ -151,7 +156,7 @@ $(function () {
      
      <div class="table-responsive">
        <h3>Entries</h3>
-       <table class="table table-condensed table-striped sortable">
+       <table class="table table-condensed table-striped" id="voteTable">
          <thead>
            <th>Placement</th>
            <th>Title</th>
