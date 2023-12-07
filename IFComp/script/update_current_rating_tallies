@@ -33,7 +33,7 @@ for my $entry ( $current_comp->entries ) {
                 score => $score,
             },
             {
-                bind  => [ $current_comp->id, $current_comp->id, $current_comp->id  ],
+                bind  => [ $current_comp->id, $current_comp->id  ],
             },
         )->count;
 
