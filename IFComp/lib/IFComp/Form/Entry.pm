@@ -147,7 +147,7 @@ has_field 'author_pseudonym' => (
     type => 'Text',
     label =>
         'Displayed pseudonym or author-list (if different from your registered name)',
-    maxlength => 64,
+    maxlength => 2000,
 );
 
 has_field 'reveal_pseudonym' => (
