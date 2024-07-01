@@ -68,7 +68,7 @@ entries. You may freely use the intfiction.org forum set aside for public comp d
 </li>
 
 <li>
-<p><STRONG>Judges may not rate any game that they played prior to the start of the judging period on October 1st.</STRONG> This includes playing that game as a credited beta-tester, or compiling and playing available source code.</p>
+<p><STRONG>Judges may not rate any game that they played prior to the start of the judging period on [% current_comp.judging_begins.strftime( '%{month_name} %{day}' ) %].</STRONG> This includes playing that game as a credited beta-tester, or compiling and playing available source code.</p>
 </li>
 
 <li>
