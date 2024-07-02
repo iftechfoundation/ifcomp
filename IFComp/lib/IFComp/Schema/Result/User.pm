@@ -124,6 +124,11 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 64
 
+=head2 rising_star
+
+  data_type: 'integer'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -170,6 +175,8 @@ __PACKAGE__->add_columns(
   { data_type => "char", is_nullable => 1, size => 32 },
   "paypal",
   { data_type => "char", is_nullable => 1, size => 64 },
+  "rising_star",
+  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -293,8 +300,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07049 @ 2021-06-21 03:17:07
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dLZfI/MkFnpP2Yo5c7MxUA
+# Created by DBIx::Class::Schema::Loader v0.07051 @ 2024-07-02 23:04:54
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QWBgb307tu4QG/bg7rfGWA
 
 __PACKAGE__->add_column(
     '+password' => {
