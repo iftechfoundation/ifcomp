@@ -4,6 +4,7 @@ use HTML::FormHandler::Moose::Role;
 with 'IFComp::Form::PasswordFields';
 
 use Regexp::Common qw( URI );
+use Email::Valid;
 
 has_field 'email' => (
     type      => 'Email',
@@ -38,8 +39,8 @@ has_field 'forum_handle' => (
 );
 
 has_field 'paypal' => (
-    type      => 'Email',
-    label     => 'Paypal address',
+    type      => 'Text',
+    label     => 'Paypal address, or Venmo handle/phone number (or "decline" if not interested in monetary awards)',
     maxlength => 64,
 );
 
@@ -83,6 +84,26 @@ sub validate_url {
         }
     }
 
+}
+
+# The paypal field can contain "decline", a paypal email address, or
+# a venmo account name / phone number. We allow all of the above.
+sub validate_paypal {
+    my $self = shift;
+    my ($field) = @_;
+
+    my $payment = $field->value;
+    return unless $payment;
+
+    if (($payment eq "decline")
+            || (Email::Valid->address($payment))
+            || ($payment =~ /^[-+()\d ]*$/)
+            || ($payment =~/^@\w+/)) {
+            $field->value($payment)
+        } else {
+        $field->add_error("This doesn't look like a valid paypal address, venmo address, or phone number.");
+
+        }
 }
 
 1;
