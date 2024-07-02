@@ -34,6 +34,7 @@
     </table>
 [% ELSE %]
     <h1>No prizes have been entered for [% year %]</h1>
+    <a href="[% c.uri_for_action( '/admin/prizes/create' ) %]" class="btn btn-primary">Add New Prize</a>
 [% END %]
 
 
