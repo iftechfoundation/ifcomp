@@ -25,8 +25,8 @@
 
 [% form.field( 'forum_handle' ).render %]
 
-<p>Provide the email address of your PayPal account (and not a PayPal.me URL) to help us send you any <a href="https://ifcomp.org/about/prizes" target="_prizes">prize money</a> that your entries might earn. (We will not share this address with anyone, except as needed for this specific purpose.)</p>
-
+<p>Provide the email address of your PayPal account (and not a PayPal.me URL), or a Venmo handle/phone-number, to help us send you any <a href="https://ifcomp.org/about/prizes" target="_prizes">prize money</a> that your entries might earn. (We will not share this address with anyone, except as needed for this specific purpose.)</p>
+<p> If you do NOT which to receive monetary prizes, please ender "decline"</p>
 [% form.field( 'paypal' ).render %]
 
 </div>
