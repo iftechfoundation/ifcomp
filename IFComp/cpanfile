@@ -48,6 +48,7 @@ requires 'Try::Tiny';
 requires 'Unicode::Normalize';
 requires 'String::Random';
 requires 'Template::Plugin::Number::Format';
+requires 'DBD::mysql';
 
 test_requires 'File::Copy::Recursive';
 test_requires 'Test::More' => '0.88';
@@ -57,7 +58,6 @@ on 'develop' => sub {
   requires 'Code::TidyAll' => '== 0.78';
   requires 'DBIx::Class::Schema::Loader';
   requires 'Perl::Tidy' => '== 20200822';
-  requires 'DBD::mysql';
   requires 'Catalyst::Devel';
   requires 'Module::Install::CPANfile';
 };
