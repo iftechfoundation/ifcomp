@@ -9,28 +9,56 @@
 <h1 id="thecompinanutshell">IFComp's mission statement</h1>
 </div>
 
-<p>The Annual Interactive Fiction Competition (IFComp) welcomes all kinds of text-driven digital stories and games, making them freely available in order to encourage the creation, play, and discussion of interactive fiction.</p>
+<p>The Annual Interactive Fiction Competition (IFComp) welcomes all kinds of
+text-driven digital stories and games, making them freely available in order to
+encourage the creation, play, and discussion of interactive fiction.</p>
 
 <div class="page-header">
 <h1 id="thecompinanutshell">How IFComp works, in a nutshell</h1>
 </div>
 
-<p>The Interactive Fiction Competition is <a href="[% c.uri_for_action( '/history/index' ) %]">an annual event begun by passionate hobbyists in 1995</a> to encourage both the creation and the discussion of new interactive fiction works (also known as <em>IF</em>). While <a href="[% c.uri_for_action( '/about/if' ) %]">the definition of IF has evolved in the years since then</a>, the IFComp&#8217;s format and schedule have remained stable since the 1990s. Anyone can judge the entries on a one-to-ten scale, and the laurels go to the entries receiving the best average rating.</p>
+<p>The Interactive Fiction Competition is <a href="[% c.uri_for_action(
+'/history/index' ) %]">an annual event begun by passionate hobbyists in
+1995</a> to encourage both the creation and the discussion of new interactive
+fiction works (also known as <em>IF</em>). While <a href="[% c.uri_for_action(
+'/about/if' ) %]">the definition of IF has evolved in the years since then</a>,
+the IFComp's format and schedule have remained stable since the 1990s.
+Anyone can judge the entries on a one-to-ten scale, and the laurels go to the
+entries receiving the best average rating.</p>
 
 <p>The people who participate in the IFComp include:</p>
 
 <ul>
-<li><p><strong>Authors</strong>, who write the best IF works they can, and then submit them to the comp before the [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %] deadline (see the full schedule below). There is no entry fee, and anyone&#8217;s allowed to submit up to three entries.</p>
+<li><p><strong>Authors</strong>, who write the best IF works they can, and then
+submit them to the comp before the [% current_comp.entries_due.strftime(
+'%{month_name} %{day}' ) %] deadline (see the full schedule below). There is no
+entry fee, and anyone's allowed to submit up to three entries.</p>
 
-<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full rules for authors.</a></p></li>
-<li><p><strong>Judges</strong>, who, over a six-week period in October and November, play as many entries as they can, and give each one they play a score between 1 and 10. Higher numbers mean a better score; judges are otherwise free to use any scoring rubric they wish. A game&#8217;s final score is simply the average of all scores it has received.</p>
+<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full
+rules for authors.</a></p></li>
+<li><p><strong>Judges</strong>, who, over a six-week period in October and
+November, play as many entries as they can, and give each one they play a score
+between 1 and 10. Higher numbers mean a better score; judges are otherwise free
+to use any scoring rubric they wish. A game's final score is simply the
+average of all scores it has received.</p>
 
-<p>Judging is open to the public (competition organizers excluded); becoming a judge simply means creating an account on this website, and proceeding to submit scores for at least five entries during the judging period.</p>
+<p>Judging is open to the public (competition organizers excluded); becoming a
+judge simply means creating an account on this website, and proceeding to
+submit scores for at least five entries during the judging period.</p>
 
-<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#judges">See the full rules for judges.</a></p></li>
-<li><p><strong>Donors</strong>, who kindly donate prizes to each year&#8217;s prize pool. At the end of the competition, and starting with the first-place winner, authors take turns choosing a prize from the pool, which the donor will then deliver to the author via whatever medium is appropriate for it. (Judges or authors may most certainly act as donors, too.)</p>
+<p><a href="[% c.uri_for_action( '/rules/rules' ) %]#judges">See the full rules
+for judges.</a></p></li>
+<li><p><strong>Donors</strong>, who kindly donate prizes to each year's
+prize pool. At the end of the competition, and starting with the first-place
+winner, authors take turns choosing a prize from the pool, which the donor will
+then deliver to the author via whatever medium is appropriate for it. (Judges
+or authors may most certainly act as donors, too.)</p>
 
-<p>Prizes can be (and have been) anything from cash to books to food to professional services, and more. Donors declare their intent by <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#x66;&#99;&#x6f;&#x6d;&#112;&#64;&#x69;&#x66;&#x63;&#x6f;&#x6d;&#112;&#46;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#x6c;&#105;&#x6e;&#103; &#116;&#104;&#101; &#x6f;&#114;&#103;&#x61;&#x6e;&#x69;&#122;&#x65;&#x72;</a>.</p></li>
+<p>Prizes can be (and have been) anything from cash to books to food to
+professional services, and more. Donors declare their intent by <a
+href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#x66;&#99;&#x6f;&#x6d;&#112;&#64;&#x69;&#x66;&#x63;&#x6f;&#x6d;&#112;&#46;&#x6f;&#114;&#103;">&#101;&#x6d;&#97;&#105;&#x6c;&#105;&#x6e;&#103;
+&#116;&#104;&#101;
+&#x6f;&#114;&#103;&#x61;&#x6e;&#x69;&#122;&#x65;&#x72;</a>.</p></li>
 </ul>
 
 <div class="page-header">
@@ -47,18 +75,20 @@
 
 <p>Since <a href="[% c.uri_for_action( '/comp/comp', 1998 ) %]">the 1998
 competition</a>, the IFComp has every year held a secondary contest allowing
-the authors of that year&#8217;s games to vote on one another&#8217;s entries,
+the authors of that year's games to vote on one another's entries,
 using a ballot similar to the one that the public uses to vote in the main
 competition. The three most highly ranked entries by this vote become the
 winners of the Miss Congeniality Awards, an honor permanently recorded in <a
-href="[% c.uri_for_action( '/comp/last_comp' ) %]">that year&#8217;s results
+href="[% c.uri_for_action( '/comp/last_comp' ) %]">that year's results
 listing</a>.</p>
 
 <h2 id="risingstar">Rising Star Award</h2>
 
 <p>
 Since the 2021 competition, the IFComp has recognized the highest-rated game by
-a first-time entrant in the competition, called the Rising Star Award.
+a first-time entrant in the competition, called the Rising Star Award, which
+is permanently recorded in <a href="[% c.uri_for_action( 'comp/last_comp' )
+%]">that year's results listing</a>.
 </p>
 
 <h2 id="banana">Golden Banana of Discord</h2>

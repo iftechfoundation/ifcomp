@@ -44,6 +44,9 @@ END;
         [% IF entry.miss_congeniality_place %]
         <p><em>This work also won [% entry.miss_congeniality_place_as_ordinate %] place[% IF there_is_a_miss_congeniality_tie_for.$mc_place %] (tie)[% END %] in the [% entry.comp.year %] <a href="[% c.uri_for( '/about/comp#misscongenialityawards' ) %]">Miss Congeniality Awards</a></em>.</p>
         [% END %]
+        [% IF entry.author.rising_star == entry.id %]
+        <p><em>This work also earned its author the <a href="[% c.uri_for( '/about/comp#risingstar' ) %]">Rising Star</a> award</em>.</p>
+        [% END %]
         <p><a href="[% INCLUDE ifdb_url.tt %]">Play, download, or learn more about this game on the IFDB</a>
         </p>
 
