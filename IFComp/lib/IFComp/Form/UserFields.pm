@@ -39,8 +39,9 @@ has_field 'forum_handle' => (
 );
 
 has_field 'paypal' => (
-    type      => 'Text',
-    label     => 'Paypal address, or Venmo handle/phone number (or "decline" if not interested in monetary awards)',
+    type => 'Text',
+    label =>
+        'Paypal address, or Venmo handle/phone number (or "decline" if not interested in monetary awards)',
     maxlength => 64,
 );
 
@@ -95,15 +96,19 @@ sub validate_paypal {
     my $payment = $field->value;
     return unless $payment;
 
-    if (($payment eq "decline")
-            || (Email::Valid->address($payment))
-            || ($payment =~ /^[-+()\d ]*$/)
-            || ($payment =~/^@\w+/)) {
-            $field->value($payment)
-        } else {
-        $field->add_error("This doesn't look like a valid paypal address, venmo address, or phone number.");
+    if (   ( $payment eq "decline" )
+        || ( Email::Valid->address($payment) )
+        || ( $payment =~ /^[-+()\d ]*$/ )
+        || ( $payment =~ /^@\w+/ ) )
+    {
+        $field->value($payment);
+    }
+    else {
+        $field->add_error(
+            "This doesn't look like a valid paypal address, venmo address, or phone number."
+        );
 
-        }
+    }
 }
 
 1;
