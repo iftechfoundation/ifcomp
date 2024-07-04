@@ -3,7 +3,7 @@
 [% ELSIF entry.author_pseudonym %]
     <span itemprop="name">[% entry.author_pseudonym | html %]</span>
     [% IF entry.email && !suppress_links %]
-        <a href="mailto:[% entry.email %]"><img src="/static/images/email.svg" class="author-link" alt="[% entry.email %]" /></a>
+        <a href="mailto:[% entry.email %]"><img src="/static/images/email.svg" class="author-link" alt="[% entry.email %]"></a>
     [% END %]
 [% ELSIF suppress_links %]
     [% entry.author.name | html %]
@@ -14,9 +14,9 @@
 [% BLOCK name_and_links %]
     [% IF entry.author.url %]<a href="[% entry.author.url | html %]">[% END %]<span itemprop="name">[% entry.author.name | html %]</span>[% IF entry.author.url %]</a>[% END %]
     [% IF entry.author.twitter %]
-        <a href="http://twitter.com/[% entry.author.twitter | html %]"><img src="/static/images/twitter.svg" class="author-link" alt="@[% entry.author.twitter | html %]" /></a>
+        <a href="http://twitter.com/[% entry.author.twitter | html %]"><img src="/static/images/twitter.svg" class="author-link" alt="@[% entry.author.twitter | html %]"></a>
     [% END %]
     [% IF entry.email || entry.author.email_is_public %]
-        <a href="mailto:[% entry.email || entry.author.email | html %]"><img src="/static/images/email.svg" class="author-link" alt="[% entry.email || entry.author.email | html %]" /></a>
+        <a href="mailto:[% entry.email || entry.author.email | html %]"><img src="/static/images/email.svg" class="author-link" alt="[% entry.email || entry.author.email | html %]"></a>
     [% END %]
 [% END %]

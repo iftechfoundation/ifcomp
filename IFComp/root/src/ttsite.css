@@ -1,4 +1,7 @@
 
+.rating-controls { display: none }
+
+.play-button { display: inline-block }
 
 .error {
     color: #F11;

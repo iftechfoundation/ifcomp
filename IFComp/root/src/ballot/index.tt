@@ -1,7 +1,3 @@
-<style>
-.rating-controls { display: none }
-</style>
-
 <div class="container">
 
 <div class="jumbotron">
@@ -21,7 +17,7 @@
 
 </div>
 <div class="col-sm-3">
-<a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download all the entries" /></a>
+<a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download all the entries"></a>
 </div>
 </div> <!-- .row -->
 
@@ -29,7 +25,7 @@
 
 <div class="row">
 <div class="col-sm-2">
-<a href="/ballot/vote"><img class="img-responsive hidden-xs judge-img-link" src="[% c.uri_for( '/static/images/judge.svg' ) %]" alt="Judge the entries" /></a>
+<a href="/ballot/vote"><img class="img-responsive hidden-xs judge-img-link" src="[% c.uri_for( '/static/images/judge.svg' ) %]" alt="Judge the entries"></a>
 </div>
 
 <div class="col-sm-10">
@@ -155,35 +151,31 @@
 <div class="row">
     <div class="col-sm-3"></div>
 
-    <div class="col-sm-2" align=center>
-    <p><u>Playtime</u></p>
-    <select multiple size=8 class="playtime-select">
-    <option value="playtime-all">All</option>
-    <option value="15 minutes or less">15 minutes or less</option>
-    <option value="half an hour">Half an Hour</option>
-    <option value="one hour">One Hour</option>
-    <option value="an hour and a half">An Hour and a Half</option>
-    <option value="two hours">Two Hours</option>
-    <option value="longer than two hours">Longer than Two Hours</option>
-    <option value="other">No Playtime Specified</option>
-    </select>
-
+    <div class="col-sm-2" style="text-align: center;">
+        <p><u>Playtime</u></p>
+        <select multiple size=8 class="playtime-select">
+            <option value="playtime-all">All</option>
+            <option value="15 minutes or less">15 minutes or less</option>
+            <option value="half an hour">Half an Hour</option>
+            <option value="one hour">One Hour</option>
+            <option value="an hour and a half">An Hour and a Half</option>
+            <option value="two hours">Two Hours</option>
+            <option value="longer than two hours">Longer than Two Hours</option>
+            <option value="other">No Playtime Specified</option>
+        </select>
     </div>
 
-
-
-    <div class="col-sm-2" align=center>
-    <p><u>Style</u></p>
-    <select multiple size=4 class="style-select">
-    <option value="style-all">All</option>
-    <option value="parser">Parser</option>
-    <option value="choice">Choice</option>
-    <option value="other">Other</option>
-    </select>
+    <div class="col-sm-2" style="text-align: center;">
+        <p><u>Style</u></p>
+        <select multiple size=4 class="style-select">
+            <option value="style-all">All</option>
+            <option value="parser">Parser</option>
+            <option value="choice">Choice</option>
+            <option value="other">Other</option>
+        </select>
     </div>
 
-
-    <div class="col-sm-2" align=center>
+    <div class="col-sm-2" style="text-align: center;">
     <p><u>Platform</u></p>
     <select multiple size=8 class="platform-select">
     <option value="platform-all">All</option>
@@ -237,16 +229,18 @@
 
 </div>
 
-<div class="row" align=center style="padding-top: 1em;">
+<div class="row" style="text-align: center; padding-top: 1em;">
 <p>NOTE: you can use Ctrl-click / &#8984;-Click to select multiple items from the lists above. Clicking on "All" at the top will clear the selections</p>
+<p><input type="checkbox" id="exclude-rated"/> <label for="exclude-rated">Hide entries that you've already rated</label></p>
 </div>
 
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
         <div itemscope itemtype="https://schema.org/VideoGame" class="well" id="entry-[% entry.id %]"
-             ifcomp-style="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
-             ifcomp-playtime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
-             ifcomp-platform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"
+             data-ifstyle="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
+             data-ifplaytime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
+             data-ifplatform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"
+             [% IF rating_for_entry.${entry.id} %]data-ifrating="[% rating_for_entry.${entry.id} %]"[% END %]
              >
             [% INCLUDE _entry_title.tt include_permalink = 1 %]
             [% INCLUDE _current_entry_row.tt %]
@@ -256,7 +250,7 @@
 
 <div class="row" id="no-visible-games">
     <div class="well">
-        <p align=center><strong>No games match your chosen criteria</strong></p>
+        <p style="text-align: center;"><strong>No games match your chosen criteria</strong></p>
     </div>
 </div>
 

@@ -136,10 +136,6 @@
 
 </div>
 
-<style>
-.play-button { display: inline-block }
-</style>
-
 [% BLOCK guide_link %]
 <a href="/about/file_formats" target="_ifcomp_format_guide">(See guide)</a>
 [% END %]

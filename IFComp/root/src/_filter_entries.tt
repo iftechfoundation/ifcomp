@@ -3,10 +3,12 @@
 const $playtimeSelect = document.querySelector('.playtime-select');
 const $styleSelect = document.querySelector('.style-select');
 const $platformSelect = document.querySelector('.platform-select');
+const $excludeRated = document.getElementById('exclude-rated');
 
 var filter_style = new Array();
 var filter_playtime = new Array();
 var filter_platform = new Array();
+var filter_rated = false;
 
 $("#no-visible-games").hide();
 
@@ -16,7 +18,7 @@ function updateDisplay() {
     $('div[id ^= "entry-"]').show();
     if (filter_style.length !== 0) {
         $('[id ^= "entry-"').filter(":visible").each(function() {
-            if (!filter_style.includes($(this).attr('ifcomp-style'))) {
+            if (!filter_style.includes($(this).attr('data-ifstyle'))) {
                 $(this).hide();
                 count -= 1;
             }
@@ -24,7 +26,7 @@ function updateDisplay() {
     }
     if (filter_playtime.length !== 0) {
         $('[id ^= "entry-"').filter(":visible").each(function() {
-            if (!filter_playtime.includes($(this).attr('ifcomp-playtime'))) {
+            if (!filter_playtime.includes($(this).attr('data-ifplaytime'))) {
                 $(this).hide();
                 count -= 1;
             }
@@ -35,10 +37,18 @@ function updateDisplay() {
             var found = false;
             filter_platform.forEach(entry => {
                 entry.split(",").forEach(p => {
-                    if (p === $(this).attr('ifcomp-platform')) { found = true; }
+                    if (p === $(this).attr('data-ifplatform')) { found = true; }
                 })
             });
             if (!found) {
+                $(this).hide();
+                count -= 1;
+            }
+        });
+    }
+    if (filter_rated) {
+        $('[id ^= "entry-"').filter(":visible").each(function() {
+            if ($(this).attr('data-ifrating')) {
                 $(this).hide();
                 count -= 1;
             }
@@ -63,6 +73,7 @@ $playtimeSelect.onchange = function () {
 }
 
 $styleSelect.onchange = function() {
+    console.log(this.value);
     if (this.value == "style-all") {
         $(this).val([]);
         filter_style = new Array();
@@ -81,6 +92,11 @@ $platformSelect.onchange = function() {
     }
     updateDisplay();
 }
+
+$excludeRated.addEventListener('change', (event) => {
+    filter_rated = event.currentTarget.checked;
+    updateDisplay();
+})
 
 </script>
 [% END %]

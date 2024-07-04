@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
  <head>
   <title>[% meta.title or site.title %]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,11 @@
   <link href="/static/css/ifcomp.css" rel="stylesheet">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
-  <style type="text/css">
+  <style>
 [% PROCESS ttsite.css %]
   </style>
 
- <script type="text/javascript">
+ <script>
     var dark_mode_toggle;
     var dark_mode_override;
     var iftf_logo;
