@@ -3,8 +3,6 @@ IFComp
 
 _The software behind the Interactive Fiction Competition._
 
-[![Build Status](https://api.travis-ci.org/iftechfoundation/ifcomp.svg?branch=master)](https://travis-ci.org/iftechfoundation/ifcomp)
-
 This is the software that runs [the Interactive Fiction Competition](http://ifcomp.org), a.k.a. the IFComp, an annual celebration of independently authored, text-based video games that [began in 1995](http://www.ifcomp.org/history/).
 
 The organization of the IFComp changed hands after its 2013 iteration, and the new organizer elected to come at the role with, among other things, a wholly refreshed, public-facing web application. The software found in this repository resulted. We created its first draft over the course of the 2014 IFComp, and it has served the competition annually since then.
