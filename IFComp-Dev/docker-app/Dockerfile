@@ -17,4 +17,4 @@ RUN curl -L http://cpanmin.us | perl - App::cpanminus \
 WORKDIR /opt/IFComp
 ENV CATALYST_CONFIG_LOCAL_SUFFIX=dev
 EXPOSE 3000
-CMD ["/opt/IFComp-Dev/script/docker_start.sh"]
+CMD ["bash", "/opt/IFComp-Dev/script/docker_start.sh"]
