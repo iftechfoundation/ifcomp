@@ -25,7 +25,7 @@ The docker compose file starts three containers:
  
  * `db` runs the MariaDB database
 
-Once the containers are up and running (`docker-compose up`) the `app` container will be available on port 8080. You should be able to point your browser at http://localhost:8080/ and see the IFComp homepage.
+Once the containers are up and running (`docker-compose up`) the `app` container will be available on port 13000. You should be able to point your browser at http://localhost:13000/ and see the IFComp homepage.
 
 ### Executing Commands
 
@@ -73,9 +73,9 @@ Note that the software additionally performs some goofy business involving syste
 
 ### Branches
 
-* `master` is what's running at http://www.ifcomp.org right now.
+* `main` is what's running at http://www.ifcomp.org right now.
 
-* `dev` is the shared development branch, corresponding to a (restricted-access) project staging server.
+* `develop` is the shared development branch, corresponding to a (restricted-access) project staging server.
 
 ### Code style
 
