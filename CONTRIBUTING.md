@@ -5,8 +5,8 @@ So you want to be a developer
 
 We use [Docker](https://www.docker.com/) for our development environment. That link provides details on how to get docker up and running, but the basic steps are:
 
-* Go to Docker's [getting started](https://www.docker.com/get-started) page and downlaod the Docker Desktop for your OS
-* Install the docker desktop and start it running
+* Go to Docker's [getting started](https://www.docker.com/get-started) page and download the Docker Desktop for your OS
+* Install the Docker Desktop and start it running
 * Clone the ifcomp repo into a folder on your computer
 * From your shell, change to the directory `IFComp-Dev` and run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
 * Run `docker-compose up` which will start the docker images
@@ -21,7 +21,7 @@ The docker compose file starts three containers:
 
  * `app` runs the [Catalyst](http://www.catalystframework.org/) server, which automatically restarts when you save changes
 
- * `web` runs Apache, which servers static files and proxies requests to the `app` service.
+ * `web` runs Apache, which serves static files and proxies requests to the `app` service.
  
  * `db` runs the MariaDB database
 
@@ -39,11 +39,11 @@ There are a number of convenience scripts in `IFcomp-Dev/script` as well.
  
  * tidyall.sh
  
-   This script will execute `tidyall -a`, ensuring that the codebase confirms to the projects coding style. See below for additional information.
+   This script will execute `tidyall -a`, ensuring that the codebase conforms to the projects coding style. See below for additional information.
  
  * prove.sh
   
-   Execute `prove` on the app instance. Any arguments will be passed through, so can run `./script/prove.sh -s` to shuffle the tests, or `./script/prove.sh t/test.t` to run just the test.t file.
+   Execute `prove` on the app instance. Any arguments will be passed through, so you can run `./script/prove.sh -s` to shuffle the tests, or `./script/prove.sh t/test.t` to run just the test.t file.
   
  * load_test_data.sh
  

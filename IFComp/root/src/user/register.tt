@@ -1,7 +1,7 @@
 <div class="container">
 <h1>IFComp.org user registration</h1>
 
-<p>Registering a user account here will let you actively participate in the Interactive Fiction Competition, either as an author or as a judge. It will also let you vote on the XYZZY Awards, and enter or vote on the Introcomp.</p>
+<p>Registering a user account here will let you actively participate in the Interactive Fiction Competition, either as an author or as a judge. It will also let you vote on the XYZZY Awards, and enter or vote on the IntroComp.</p>
 
 <p>You may freely change any of this information after you register.</p>
 
@@ -26,7 +26,7 @@
 [% form.field( 'forum_handle' ).render %]
 
 <p>Provide the email address of your PayPal account (and not a PayPal.me URL), or a Venmo handle/phone-number, to help us send you any <a href="https://ifcomp.org/about/prizes" target="_prizes">prize money</a> that your entries might earn. (We will not share this address with anyone, except as needed for this specific purpose.)</p>
-<p> If you do NOT which to receive monetary prizes, please ender "decline"</p>
+<p>If you do NOT wish to receive monetary prizes, please enter "decline".</p>
 [% form.field( 'paypal' ).render %]
 
 </div>
@@ -38,6 +38,6 @@
 
 <p>
 <strong>Privacy / Security Policy:</strong> We store your password via one-way encryption. Nobody can learn your password by reading it from the IFComp database, even if they have direct access to it.</p>
-<p>We won't share your login information with anyone, other than the handful of IF community websites that allow ifcomp.org-based logins (i.e. the XYZZY Awards and Introcomp). Logging into these websites will expose your ifcomp.org account name and email address to them, but not your password or any other account information. This information is sent to these sites only upon your voluntarily logging into them.</p>
+<p>We won't share your login information with anyone, other than the handful of IF community websites that allow ifcomp.org-based logins (i.e. the XYZZY Awards and IntroComp). Logging into these websites will expose your ifcomp.org account name and email address to them, but not your password or any other account information. This information is sent to these sites only upon your voluntarily logging into them.</p>
 <p>We may contact you by email in the case of important administrative matters, but will otherwise not email you unexpectedly.
 </div>
