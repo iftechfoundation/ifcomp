@@ -301,12 +301,12 @@ function update_playtime_warning() {
     }
 }
 
-$( '#unreleased').change( function() {
+$( '#game\\.entry\\.unreleased' ).change( function() {
     update_unreleased_warning()
 } );
 
 function update_unreleased_warning() {
-    if ( $( '#unreleased').val() == 0 ) {
+    if ( $( '#game\\.entry\\.unreleased' ).val() == 0 ) {
         $( '#released-game-warning' ).show();        
         $(':input[type="submit"]').prop('disabled', true);
     }
