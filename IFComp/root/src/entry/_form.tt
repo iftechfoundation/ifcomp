@@ -39,6 +39,17 @@
 [% END %]
 
 [% UNLESS entry.id %]
+<div class="form-group">
+<div class="checkbox">
+<label for="game.entry.rights_grant">
+<input type="checkbox" name="entry.rights_grant" id="game.entry.rights_grant" class="checkbox" />
+I hereby grant the Interactive Fiction Technology Foundation (IFComp's organizing body) the non-exclusive right to distribute, without limit, all material I submit to the competition.
+</label>
+</div>
+</div>
+[% END %]
+
+[% UNLESS entry.id %]
 <p>If you're only declaring your intent to enter at this time, then you may use the button below to submit this form right now with just its title, subtitle, and platform information. That will serve as your intent, and you'll be able to update, rename, or otherwise modify your entry as much as you please through the [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] deadline.</p>
 [% form.field('submit').render %]
 <p>If you happen to have more information about this game (or the game itself) ready, feel free to instead continue filling out the form below.</p>
@@ -287,6 +298,7 @@ var playtime    = $( '#playtime' );
 
 update_playtime_warning();
 update_unreleased_warning();
+update_rights_grant();
 
 playtime.change( function() { 
     update_playtime_warning() 
@@ -307,14 +319,29 @@ $( '#game\\.entry\\.unreleased' ).change( function() {
 
 function update_unreleased_warning() {
     if ( $( '#game\\.entry\\.unreleased' ).val() == 0 ) {
-        $( '#released-game-warning' ).show();        
-        $(':input[type="submit"]').prop('disabled', true);
+        $( '#released-game-warning' ).show();
     }
     else {
         $( '#released-game-warning' ).hide();
-        $(':input[type="submit"]').prop('disabled', false);
-    }
+	}
+	disable_submission();
 }
 
+$( '#game\\.entry\\.rights_grant' ).change( function() {
+    update_rights_grant()
+} );
+
+function update_rights_grant() {
+    disable_submission();
+}
+
+function disable_submission() {
+	if ( $('#game\\.entry\\.unreleased').val() == 1 && $('#game\\.entry\\.rights_grant').is(':checked') ) {
+		$(':input[type="submit"]').prop('disabled', false);
+	}
+	else {
+		$(':input[type="submit"]').prop('disabled', true);
+	}
+}
 </script>
 [% END %]
