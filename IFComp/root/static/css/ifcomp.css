@@ -227,3 +227,6 @@ a.donate-link:hover {
     background-color: #333;
 }
 
+[data-theme="dark"] code {
+    color: white;
+}
