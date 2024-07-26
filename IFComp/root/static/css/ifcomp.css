@@ -31,7 +31,7 @@ img.author-link {
     vertical-align: top;
 }
 
-// Override Bootstrap
+/* Override Bootstrap */
 code {
     background: none;
     color: black;
