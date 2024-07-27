@@ -261,3 +261,7 @@ a.donate-link:hover {
 	color: inherit;
 }
 
+[data-theme="dark"] .page-header {
+	border-bottom-color: #3d3d3d;
+}
+
