@@ -64,6 +64,10 @@ a.donate-link:hover {
     color: #6ae;
 }
 
+[data-theme="dark"] a:hover {
+	color: #acd0f6;
+}
+
 [data-theme="dark"] .form-control {
     background-color: #222;
     color: #eee;
@@ -230,3 +234,13 @@ a.donate-link:hover {
 [data-theme="dark"] code {
     color: white;
 }
+
+[data-theme="dark"] .breadcrumb {
+	background-color: #222;
+	color: #eee;
+}
+
+[data-theme="dark"] .breadcrumb>.active {
+	color: inherit;
+}
+
