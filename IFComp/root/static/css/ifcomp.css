@@ -265,3 +265,7 @@ a.donate-link:hover {
 	border-bottom-color: #3d3d3d;
 }
 
+[data-theme="dark"] hr {
+	border-top-color: #3d3d3d;
+}
+
