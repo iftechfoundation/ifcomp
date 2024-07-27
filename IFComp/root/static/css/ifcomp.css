@@ -164,6 +164,10 @@ a.donate-link:hover {
     background-color: #444;
 }
 
+[data-theme="dark"] .dropdown-menu .divider {
+  background-color: #404040;
+}
+
 [data-theme="dark"] img.author-link {
     filter: invert(1);
 }
