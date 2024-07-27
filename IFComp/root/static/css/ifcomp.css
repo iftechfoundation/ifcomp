@@ -98,6 +98,7 @@ a.donate-link:hover {
 
 [data-theme="dark"] .alert-info {
     background-color: #114;
+	border-color: #271c6e;
     color: #eee;
 }
 
