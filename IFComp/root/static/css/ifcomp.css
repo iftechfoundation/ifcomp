@@ -105,6 +105,10 @@ a.donate-link:hover {
     color: #8bf;
 }
 
+[data-theme="dark"] .alert-info a:hover {
+    color: #b3d4ff;
+}
+
 [data-theme="dark"] .alert-warning {
     background-color: #333;
     color: #db8;
