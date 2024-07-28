@@ -78,7 +78,12 @@ a.donate-link:hover {
 
 [data-theme="dark"] .form-control {
     background-color: #222;
+	border-color: #555;
     color: #eee;
+}
+
+[data-theme="dark"] .form-control:focus {
+  border-color: #66afe9;
 }
 
 [data-theme="dark"] .panel-heading {
