@@ -137,12 +137,30 @@ option:checked {
 
 [data-theme="dark"] .pager li>a {
     background-color: #222;
+	border-color: #444;
     color: #8bf;
+}
+
+[data-theme="dark"] .pager li>a:hover {
+	background-color: #333;
+	color: #b3d4ff;
 }
 
 [data-theme="dark"] .btn-default {
     background-color: #222;
+	border-color: #555;
     color: #8bf;
+}
+
+[data-theme="dark"] .btn-default:hover, .btn-default:active {
+	background-color: #3d3d3d;
+	border-color: #696969;
+	color: #acd0f6;
+}
+
+[data-theme="dark"] .btn-default:active:hover {
+	background-color: #4f4f4f;
+	border-color: #7b7b7b;
 }
 
 [data-theme="dark"] .btn-primary {
