@@ -177,19 +177,19 @@ option:checked {
 
 [data-theme="dark"] .btn-primary {
     background-color: #225;
-	/* border-color: MISSING; */
+	border-color: #2e2e7f;
     color: #8bf;
 }
 
 [data-theme="dark"] .btn-primary:hover, [data-theme="dark"] .btn-primary:active {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
-	/* color: MISSING; */
+	background-color: #2d2d7c;
+	border-color: #363696;
 }
 
 [data-theme="dark"] .btn-primary:active:hover {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
+	background-color: #363696;
+	border-color: #44b;
+	color: #b3d4ff;
 }
 
 [data-theme="dark"] .btn-success {
