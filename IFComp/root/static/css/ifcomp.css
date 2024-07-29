@@ -152,7 +152,7 @@ option:checked {
     color: #8bf;
 }
 
-[data-theme="dark"] .btn-default:hover, .btn-default:active {
+[data-theme="dark"] .btn-default:hover, [data-theme="dark"] .btn-default:active {
 	background-color: #3d3d3d;
 	border-color: #696969;
 	color: #acd0f6;
