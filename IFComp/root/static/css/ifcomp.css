@@ -296,7 +296,7 @@ option:checked {
 [data-theme="dark"] .well {
     color: #ddd;
     background-color: #444;
-	/* border-color: MISSING; */
+	border-color: #565656;
 }
 
 [data-theme="dark"] option {
