@@ -131,6 +131,18 @@ option:checked {
     border-color: #555;
 }
 
+[data-theme="dark"] .alert-success {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .alert-danger {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
 [data-theme="dark"] .label {
     color: #222;
 }
@@ -165,7 +177,36 @@ option:checked {
 
 [data-theme="dark"] .btn-primary {
     background-color: #225;
+	/* border-color: MISSING; */
     color: #8bf;
+}
+
+[data-theme="dark"] .btn-primary:hover, [data-theme="dark"] .btn-primary:active {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .btn-primary:active:hover {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+}
+
+[data-theme="dark"] .btn-success {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .btn-success:hover, [data-theme="dark"] .btn-success:active {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .btn-success:active:hover {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
 }
 
 [data-theme="dark"] .pagination>li>a {
@@ -255,6 +296,7 @@ option:checked {
 [data-theme="dark"] .well {
     color: #ddd;
     background-color: #444;
+	/* border-color: MISSING; */
 }
 
 [data-theme="dark"] option {
