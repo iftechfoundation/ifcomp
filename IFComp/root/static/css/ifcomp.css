@@ -344,3 +344,6 @@ option:checked {
 	border-top-color: #3d3d3d;
 }
 
+[data-theme="dark"] .table>thead>tr>th, [data-theme="dark"] .table>tbody>tr>td {
+	border-color: #444;
+}
