@@ -96,6 +96,14 @@ option:checked {
   border-color: #66afe9;
 }
 
+[data-theme="dark"] .panel {
+  background-color: #111;
+}
+
+[data-theme="dark"] .panel-default {
+  border-color: #444;\
+}
+
 [data-theme="dark"] .panel-heading {
     background-color: #333;
     color: #eee;
@@ -104,6 +112,7 @@ option:checked {
 [data-theme="dark"] .panel-body {
     background-color: #222;
     color: #eee;
+	border-color: #444;
 }
 
 [data-theme="dark"] .mode-toggle-link {
