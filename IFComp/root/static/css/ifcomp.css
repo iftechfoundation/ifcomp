@@ -31,7 +31,7 @@ img.author-link {
     vertical-align: top;
 }
 
-// Override Bootstrap
+/* Override Bootstrap */
 code {
     background: none;
     color: black;
@@ -50,6 +50,24 @@ a.donate-link:hover {
     color: white !important;
 }
 
+/* Use dark mode link colors on navbar */
+.navbar-inverse .navbar-right > a {
+	color: #6ae;
+}
+.navbar-inverse .navbar-right > a:hover {
+	color: #acd0f6;
+}
+
+select {
+	background-color: #fff;
+	color: inherit;
+}
+
+option:checked {
+	background-color: #bbb;
+	color: #222;
+}
+
 [data-theme="dark"] {
     background-color: #111 !important;
     color: #eee;
@@ -64,9 +82,26 @@ a.donate-link:hover {
     color: #6ae;
 }
 
+[data-theme="dark"] a:hover {
+	color: #acd0f6;
+}
+
 [data-theme="dark"] .form-control {
     background-color: #222;
+	border-color: #555;
     color: #eee;
+}
+
+[data-theme="dark"] .form-control:focus {
+  border-color: #66afe9;
+}
+
+[data-theme="dark"] .panel {
+  background-color: #111;
+}
+
+[data-theme="dark"] .panel-default {
+  border-color: #444;\
 }
 
 [data-theme="dark"] .panel-heading {
@@ -77,6 +112,7 @@ a.donate-link:hover {
 [data-theme="dark"] .panel-body {
     background-color: #222;
     color: #eee;
+	border-color: #444;
 }
 
 [data-theme="dark"] .mode-toggle-link {
@@ -86,11 +122,16 @@ a.donate-link:hover {
 
 [data-theme="dark"] .alert-info {
     background-color: #114;
+	border-color: #271c6e;
     color: #eee;
 }
 
 [data-theme="dark"] .alert-info a {
     color: #8bf;
+}
+
+[data-theme="dark"] .alert-info a:hover {
+    color: #b3d4ff;
 }
 
 [data-theme="dark"] .alert-warning {
@@ -99,23 +140,82 @@ a.donate-link:hover {
     border-color: #555;
 }
 
+[data-theme="dark"] .alert-success {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .alert-danger {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
 [data-theme="dark"] .label {
     color: #222;
 }
 
 [data-theme="dark"] .pager li>a {
     background-color: #222;
+	border-color: #444;
     color: #8bf;
+}
+
+[data-theme="dark"] .pager li>a:hover {
+	background-color: #333;
+	color: #b3d4ff;
 }
 
 [data-theme="dark"] .btn-default {
     background-color: #222;
+	border-color: #555;
     color: #8bf;
+}
+
+[data-theme="dark"] .btn-default:hover, [data-theme="dark"] .btn-default:active {
+	background-color: #3d3d3d;
+	border-color: #696969;
+	color: #acd0f6;
+}
+
+[data-theme="dark"] .btn-default:active:hover {
+	background-color: #4f4f4f;
+	border-color: #7b7b7b;
 }
 
 [data-theme="dark"] .btn-primary {
     background-color: #225;
+	border-color: #2e2e7f;
     color: #8bf;
+}
+
+[data-theme="dark"] .btn-primary:hover, [data-theme="dark"] .btn-primary:active {
+	background-color: #2d2d7c;
+	border-color: #363696;
+}
+
+[data-theme="dark"] .btn-primary:active:hover {
+	background-color: #363696;
+	border-color: #44b;
+	color: #b3d4ff;
+}
+
+[data-theme="dark"] .btn-success {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .btn-success:hover, [data-theme="dark"] .btn-success:active {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
+	/* color: MISSING; */
+}
+
+[data-theme="dark"] .btn-success:active:hover {
+	/* background-color: MISSING; */
+	/* border-color: MISSING; */
 }
 
 [data-theme="dark"] .pagination>li>a {
@@ -145,6 +245,10 @@ a.donate-link:hover {
 [data-theme="dark"] .dropdown-menu>li>a:hover {
     color: #ddd;
     background-color: #444;
+}
+
+[data-theme="dark"] .dropdown-menu .divider {
+  background-color: #404040;
 }
 
 [data-theme="dark"] img.author-link {
@@ -201,6 +305,7 @@ a.donate-link:hover {
 [data-theme="dark"] .well {
     color: #ddd;
     background-color: #444;
+	border-color: #565656;
 }
 
 [data-theme="dark"] option {
@@ -227,3 +332,27 @@ a.donate-link:hover {
     background-color: #333;
 }
 
+[data-theme="dark"] code {
+    color: white;
+}
+
+[data-theme="dark"] .breadcrumb {
+	background-color: #222;
+	color: #eee;
+}
+
+[data-theme="dark"] .breadcrumb>.active {
+	color: inherit;
+}
+
+[data-theme="dark"] .page-header {
+	border-bottom-color: #3d3d3d;
+}
+
+[data-theme="dark"] hr {
+	border-top-color: #3d3d3d;
+}
+
+[data-theme="dark"] .table>thead>tr>th, [data-theme="dark"] .table>tbody>tr>td {
+	border-color: #444;
+}
