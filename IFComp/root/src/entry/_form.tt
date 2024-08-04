@@ -337,10 +337,10 @@ function update_rights_grant() {
 
 function disable_submission() {
 	if ( $('#game\\.entry\\.unreleased').val() == 1 && $('#game\\.entry\\.rights_grant').is(':checked') ) {
-		$(':input[type="submit"]').prop('disabled', false);
+		$('#entry\\.submit').prop('disabled', false);
 	}
 	else {
-		$(':input[type="submit"]').prop('disabled', true);
+		$('#entry\\.submit').prop('disabled', true);
 	}
 }
 </script>
