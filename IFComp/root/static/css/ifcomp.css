@@ -220,20 +220,20 @@ option:checked {
 }
 
 [data-theme="dark"] .btn-danger {
-	background-color: MISSING;
-	border-color: MISSING;
-	color: MISSING;
+	background-color: #732a26;
+	border-color: #8e322f;
+	color: #f9d3d2;
 }
 
 [data-theme="dark"] .btn-danger:hover, [data-theme="dark"] .btn-danger:active {
-	background-color: MISSING;
-	border-color: MISSING;
+	background-color: #8e322f;
+	border-color: #a13936;
 }
 
 [data-theme="dark"] .btn-danger:active:hover, [data-theme="dark"] .btn-danger:active:focus {
-	background-color: MISSING;
-	border-color: MISSING;
-	color: MISSING;
+	background-color: #a13936;
+	border-color: #ac3d39;
+	color: #fce4e3;
 }
 
 [data-theme="dark"] .pagination>li>a {
