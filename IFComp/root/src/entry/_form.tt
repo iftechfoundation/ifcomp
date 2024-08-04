@@ -297,8 +297,10 @@ var warning_div = $( '#long-game-warning' );
 var playtime    = $( '#playtime' );
 
 update_playtime_warning();
+[% UNLESS entry.id %]
 update_unreleased_warning();
 update_rights_grant();
+[% END %]
 
 playtime.change( function() { 
     update_playtime_warning() 
