@@ -196,7 +196,7 @@ option:checked {
 	border-color: #363696;
 }
 
-[data-theme="dark"] .btn-primary:active:hover {
+[data-theme="dark"] .btn-primary:active:hover, [data-theme="dark"] .btn-primary:active:focus {
 	background-color: #363696;
 	border-color: #44b;
 	color: #b3d4ff;
@@ -213,7 +213,7 @@ option:checked {
 	border-color: #327b32;
 }
 
-[data-theme="dark"] .btn-success:active:hover {
+[data-theme="dark"] .btn-success:active:hover, [data-theme="dark"] .btn-success:active:focus {
 	background-color: #327b32;
 	border-color: #378637;
 	color: #e9fce9;
