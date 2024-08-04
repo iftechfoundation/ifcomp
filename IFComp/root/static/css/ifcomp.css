@@ -101,12 +101,13 @@ option:checked {
 }
 
 [data-theme="dark"] .panel-default {
-  border-color: #444;\
+  border-color: #444;
 }
 
 [data-theme="dark"] .panel-heading {
     background-color: #333;
     color: #eee;
+	border-color: #444;
 }
 
 [data-theme="dark"] .panel-body {
@@ -355,4 +356,8 @@ option:checked {
 
 [data-theme="dark"] .table>thead>tr>th, [data-theme="dark"] .table>tbody>tr>td {
 	border-color: #444;
+}
+
+[data-theme="dark"] blockquote {
+	border-color: #3d3d3d;
 }
