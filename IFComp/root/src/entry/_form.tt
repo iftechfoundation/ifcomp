@@ -289,8 +289,6 @@ Delete walkthrough file
 [% file.basename %] ( [% stat.size | comma %] bytes; last modifed [% date.ymd %] [% date.hms %] (US/Eastern) )
 [% END %]
 
-[% INCLUDE scripts %]
-
 [% BLOCK scripts %]
 <script>
 var warning_div = $( '#long-game-warning' );
