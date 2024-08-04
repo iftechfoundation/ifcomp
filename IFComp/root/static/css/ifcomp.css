@@ -203,20 +203,20 @@ option:checked {
 }
 
 [data-theme="dark"] .btn-success {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
-	/* color: MISSING; */
+	background-color: #215421;
+	border-color: #2b692b;
+	color: #d2f9d2;
 }
 
 [data-theme="dark"] .btn-success:hover, [data-theme="dark"] .btn-success:active {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
-	/* color: MISSING; */
+	background-color: #2a6a2a;
+	border-color: #327b32;
 }
 
 [data-theme="dark"] .btn-success:active:hover {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
+	background-color: #327b32;
+	border-color: #378637;
+	color: #e9fce9;
 }
 
 [data-theme="dark"] .pagination>li>a {
