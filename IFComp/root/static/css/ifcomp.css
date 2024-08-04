@@ -219,6 +219,23 @@ option:checked {
 	color: #e9fce9;
 }
 
+[data-theme="dark"] .btn-danger {
+	background-color: MISSING;
+	border-color: MISSING;
+	color: MISSING;
+}
+
+[data-theme="dark"] .btn-danger:hover, [data-theme="dark"] .btn-danger:active {
+	background-color: MISSING;
+	border-color: MISSING;
+}
+
+[data-theme="dark"] .btn-danger:active:hover, [data-theme="dark"] .btn-danger:active:focus {
+	background-color: MISSING;
+	border-color: MISSING;
+	color: MISSING;
+}
+
 [data-theme="dark"] .pagination>li>a {
     background-color: #222;
     color: #eee;
