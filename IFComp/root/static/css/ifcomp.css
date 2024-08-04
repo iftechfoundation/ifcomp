@@ -142,15 +142,15 @@ option:checked {
 }
 
 [data-theme="dark"] .alert-success {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
-	/* color: MISSING; */
+	background-color: #274511;
+	border-color: #3e6d1c;
+	color: #d2f4be;
 }
 
 [data-theme="dark"] .alert-danger {
-	/* background-color: MISSING; */
-	/* border-color: MISSING; */
-	/* color: MISSING; */
+	background-color: #451211;
+	border-color: #6d1e1c;
+	color: #f4bebe;
 }
 
 [data-theme="dark"] .label {
@@ -365,4 +365,3 @@ option:checked {
 [data-theme="dark"] .has-error .checkbox, .has-error .checkbox-inline, .has-error .control-label, .has-error .help-block, .has-error .radio, .has-error .radio-inline, .has-error.checkbox label, .has-error.checkbox-inline label, .has-error.radio label, .has-error.radio-inline label {
 	color: #e69999;
 }
-
