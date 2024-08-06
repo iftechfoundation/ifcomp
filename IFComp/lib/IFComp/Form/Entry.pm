@@ -1,6 +1,5 @@
 package IFComp::Form::Entry;
 
-# use Data::Dumper;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Model::DBIC';
 

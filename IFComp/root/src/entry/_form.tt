@@ -177,8 +177,6 @@ Delete cover art file
             [% FOREACH error IN form.errors %]
                 [% IF error == "GENAI_CHECKBOX_ERROR" %]
                     <div class="alert alert-danger"> <p>Either choose the option that no Generative AI was used, or select one or more of the usage options</p> </div>
-                [% ELSE %]
-                    <div class="alert alert-danger"> <p>[% error %] </div>
                 [% END %]
             [% END %]
         [% END %]

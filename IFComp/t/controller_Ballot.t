@@ -32,6 +32,7 @@ $mech->submit_form_ok(
             'entry.title' => 'Balloting Game',
             'entry.main_upload' =>
                 "$FindBin::Bin/test_files/misc/my_game.html",
+            'entry.genai' => ['nothing'],
         },
     },
     'Submitted a declaration'
