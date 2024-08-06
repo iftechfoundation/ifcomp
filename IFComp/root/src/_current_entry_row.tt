@@ -29,8 +29,8 @@
             [% END %]
         </div>
 
-        <p><em>
         [% IF entry.genai_state > 1 %]
+        <p><em>
             <span itemprop="genai_status">
                 Generative artificial intelligence was used to make
                 [% IF (entry.genai_state / 2) % 2 == 1 %]
@@ -45,8 +45,8 @@
                 [% END %]
                 See in-game credits for more information.
             </span>
-        [% END %]
         </em></p>
+        [% END %]
 
         <p><em>
         [% IF entry.genre %]
