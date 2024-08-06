@@ -227,6 +227,12 @@ __PACKAGE__->table("entry");
   is_nullable: 0
   size: 20
 
+=head2 genai_state
+
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -363,6 +369,8 @@ __PACKAGE__->add_columns(
   },
   "coauthor_code",
   { data_type => "char", default_value => "", is_nullable => 0, size => 20 },
+  "genai_state",
+  { data_type => "tinyint", default_value => 0, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -512,8 +520,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07051 @ 2024-06-30 23:10:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LSiqBjQvEM23NLMllv9Wrg
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-08-05 22:40:52
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BA11TUZSbhEvXq6M5++njA
 
 __PACKAGE__->add_columns( '+coauthor_code' =>
         { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );
@@ -1259,6 +1267,27 @@ sub ok_to_reveal_pseudonym {
     }
 
     return 0;
+}
+
+sub convert_genai_to_value {
+    my $self  = shift;
+    my $flag  = shift;
+    my $value = 0;
+
+    if ( $flag eq "nothing" ) {
+        $value += 1;
+    }
+    elsif ( $flag eq "cover_art" ) {
+        $value += 2;
+    }
+    elsif ( $flag eq "non_text" ) {
+        $value += 4;
+    }
+    elsif ( $flag eq "text" ) {
+        $value += 8;
+    }
+
+    return $value;
 }
 
 __PACKAGE__->meta->make_immutable;
