@@ -202,6 +202,11 @@ has_field 'walkthrough_delete' => (
     label => 'Delete walkthrough file',
 );
 
+has_field 'genai' => (
+    type  => 'Checkbox',
+    label => 'Brain or machine',
+);
+
 has_field 'cover_delete' => (
     type  => 'Checkbox',
     label => 'Delete cover art file',
@@ -268,6 +273,28 @@ sub validate_main_upload {
         )
     {
         $field->add_error("You must provide a reason for this update.");
+    }
+}
+
+sub validate_genai {
+    my $self    = shift;
+    my ($field) = @_;
+    my @x       = $field->value;
+    my $value   = 0;
+
+    foreach my $checkbox ( $field->value ) {
+        if ( ref($checkbox) eq 'ARRAY' ) {
+            foreach my $flag (@$checkbox) {
+                $value += $self->item->convert_genai_to_value($flag);
+            }
+        }
+        else {
+            $value = $self->item->convert_genai_to_value($checkbox);
+        }
+    }
+
+    if ( $value == 0 || ( $value != 1 && ( $value % 2 ) == 1 ) ) {
+        $field->add_error("GENAI_CHECKBOX_ERROR");
     }
 }
 

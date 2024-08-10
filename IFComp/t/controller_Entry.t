@@ -51,7 +51,7 @@ is( $comp_dir->children( no_hidden => 1 ),
 
 $mech->submit_form_ok(
     {   form_number => 2,
-        fields      => { 'entry.title' => 'Fun Game', },
+        fields => { 'entry.title' => 'Fun Game', 'entry.genai' => 'nothing' },
     },
     'Submitted a declaration'
 );

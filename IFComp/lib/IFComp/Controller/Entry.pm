@@ -322,6 +322,22 @@ sub _process_form {
             }
         }
 
+        my $genai_data = $params_ref->{"entry.genai"};
+        my $value      = 0;
+        if ( ref($genai_data) eq 'ARRAY' ) {
+            foreach my $flag (@$genai_data) {
+                $value += $entry->convert_genai_to_value($flag);
+            }
+        }
+        else {
+            $value = $entry->convert_genai_to_value($genai_data);
+        }
+
+        if ( $entry->genai_state != $value ) {
+            $entry->genai_state($value);
+            $entry->update();
+        }
+
         if ( $params_ref->{'regenerate_coauthor_code'} ) {
             $entry->reset_coauthor_code();
         }

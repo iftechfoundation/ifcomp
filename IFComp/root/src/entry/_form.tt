@@ -171,6 +171,32 @@ Delete cover art file
 </div>
 
 <div class="panel panel-default">
+    <div class="panel-heading"><h2>Generative Artificial Intelligence</h2></div>
+    <div class="panel-body">
+        [% IF form.has_errors %]
+            [% FOREACH error IN form.errors %]
+                [% IF error == "GENAI_CHECKBOX_ERROR" %]
+                    <div class="alert alert-danger"> <p>Either choose the option that no Generative AI was used, or select one or more of the usage options</p> </div>
+                [% END %]
+            [% END %]
+        [% END %]
+
+    <p>Artificial intelligence:</p>
+            <input type="checkbox" name="entry.genai" id="entry.genai.cover_art" value="cover_art"[% IF entry.genai_state && (entry.genai_state / 2) % 2 == 1 %] checked[% END %]>
+            <label for="entry.genai.cover_art"> Was used to generate my game’s cover art </label><br/>
+            <input type="checkbox" name="entry.genai" id="entry.genai.non_text" value="non_text"[% IF entry.genai_state && (entry.genai_state / 4) % 2 == 1 %] checked[% END %]>
+            <label for="entry.genai.non_text"> Was used to generate art, music, or other non-text assets used in my game </label><br/>
+            <input type="checkbox" name="entry.genai" id="entry.genai.text" value="text"[% IF entry.genai_state && (entry.genai_state / 8) % 2 == 1 %] checked[% END %]>
+            <label for="entry.genai.text"> Was used to generate text used in this game (use of spell check/autocomplete excluded) </label><br/>
+        <hr>
+        <p>Or:</p>
+            <input type="checkbox" name="entry.genai" id="entry.genai.nothing" value="nothing"[% IF entry.genai_state && entry.genai_state % 2 == 1 %] checked[% END %]>
+            <label for="entry.genai.nothing"> Was not used to generate cover art, in-game assets, or text used in my game </label><br/>
+
+    </div>
+</div>
+
+<div class="panel panel-default">
 <div class="panel-heading"><h2>Estimated play time</h2></div>
 <div class="panel-body">
 <p>

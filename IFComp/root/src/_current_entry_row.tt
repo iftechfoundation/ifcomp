@@ -29,6 +29,25 @@
             [% END %]
         </div>
 
+        [% IF entry.genai_state > 1 %]
+        <p><em>
+            <span itemprop="genai_status">
+                Generative artificial intelligence was used to make
+                [% IF (entry.genai_state / 2) % 2 == 1 %]
+                    the cover art[% IF entry.genai_state > 2 %],[% ELSE %].[% END %]
+                [% END %]
+                [% IF (entry.genai_state / 4) % 2 == 1 %]
+                    [% IF entry.genai_state == 6 %]and [% END %]
+                    the in-game assets[% IF entry.genai_state >= 8 %],[% ELSE %].[% END %]
+                [% END %]
+                [% IF (entry.genai_state / 8) % 2 == 1 %]
+                    [% IF entry.genai_state != 8 %]and [% END %]game text.
+                [% END %]
+                See in-game credits for more information.
+            </span>
+        </em></p>
+        [% END %]
+
         <p><em>
         [% IF entry.genre %]
         <span itemprop="genre">[% entry.genre.ucfirst | html %]</span> •

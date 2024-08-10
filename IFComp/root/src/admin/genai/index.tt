@@ -1,0 +1,33 @@
+<div class="container">
+<h1>Responses for Gen AI submissions: IFComp [% current_comp.year %]</h1>
+
+<table class="table table-striped">
+  <thead><tr><th>Author</th><th>Email</th><th>Title</th><th>GenAI response</th></thead>
+  <tbody>
+    [% FOREACH entry IN entries %]
+      <tr>
+        <td>[% entry.author.name %]</td>
+        <td>[% entry.author.email %]</td>
+        <td><a href="/ballot#entry-[% entry.id %]">[% entry.title %]</a></td>
+        <td>
+          [% IF entry.genai_state == 0 %]
+            NO RESPONSE
+          [% ELSIF entry.genai_state == 1 %]
+            No GenAI used
+          [% ELSE %]
+            [% IF (entry.genai_state / 2) % 2 == 1 %]
+              Cover Art<br>
+            [% END %]
+            [% IF (entry.genai_state / 4) % 2 == 1 %]
+              In-game Assets<br>
+            [% END %]
+            [% IF (entry.genai_state / 8) % 2 == 1 %]
+              Game Text<br>
+            [% END %]
+          [% END %]
+      </tr>
+    [% END %]
+  </tbody>
+</table>
+
+</div>
