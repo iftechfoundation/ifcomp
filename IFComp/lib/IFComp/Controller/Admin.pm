@@ -58,13 +58,16 @@ sub ballotcsv : Chained( 'root' ) : Args(0) {
         "Name", "Email", "Last Update" );
 
     for my $entry ( $current_comp->entries ) {
-        my $modtime = strftime( "%Y-%m-%dT%H:%M:%SZ",
+        my $modtime = ( stat( $entry->main_file ) )[9];
+        next unless $modtime > 0;
+
+        my $gmtstring = strftime( "%Y-%m-%dT%H:%M:%SZ",
             gmtime( ( stat( $entry->main_file ) )[9] ) );
         $csv->print(
             $fh,
             [   $entry->id,            $entry->title,
                 $entry->warning,       $entry->author->name,
-                $entry->author->email, $modtime
+                $entry->author->email, $gmtstring
             ]
         );
         print $fh "\n";
