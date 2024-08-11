@@ -48,6 +48,7 @@ requires 'Try::Tiny';
 requires 'Unicode::Normalize';
 requires 'String::Random';
 requires 'Template::Plugin::Number::Format';
+requires 'Text::CSV::Encoded';
 
 test_requires 'File::Copy::Recursive';
 test_requires 'Test::More' => '0.88';
