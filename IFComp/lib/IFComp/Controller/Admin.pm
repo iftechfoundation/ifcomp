@@ -1,6 +1,8 @@
 package IFComp::Controller::Admin;
 use Moose;
 use namespace::autoclean;
+use Text::CSV::Encoded;
+use POSIX qw(strftime);
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -39,6 +41,41 @@ sub index : Chained( 'root' ) : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
 
     $c->stash->{template} = "admin/index.tt";
+}
+
+sub ballotcsv : Chained( 'root' ) : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    my @entries      = $current_comp->entries();
+
+    my $csv = Text::CSV::Encoded->new( { binary => 1, encoding => "utf8" } )
+        or die "2 unable to create csv: $!";
+
+    my $output = "";
+    open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
+    $csv->column_names( "ID", "Title", "Content Warning",
+        "Name", "Email", "Last Update" );
+
+    for my $entry ( $current_comp->entries ) {
+        my $modtime = strftime( "%Y-%m-%dT%H:%M:%SZ",
+            gmtime( ( stat( $entry->main_file ) )[9] ) );
+        $csv->print(
+            $fh,
+            [   $entry->id,            $entry->title,
+                $entry->warning,       $entry->author->name,
+                $entry->author->email, $modtime
+            ]
+        );
+        print $fh "\n";
+    }
+    close $fh;
+
+    $c->res->header(
+        'Content-Disposition' => qq{attachment; filename="ballot.csv"} );
+    $c->res->content_type('text/csv; charset=utf-8');
+    $c->res->code(200);
+    $c->res->body($output);
 }
 
 =encoding utf8
