@@ -3,6 +3,9 @@
     [% IF entry.cover_exists %]
         <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-xs-4">
             <a itemprop="contentUrl" href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img itemprop="thumbnailUrl" class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
+	    [% IF (entry.genai_state / 2) % 2 == 1 %]
+		<span style="font-size: smaller;" itemprop="genai_cover"><em>Generative artifical intelligence was used to make this cover art.</em></span>
+	    [% END %]
             [% IF entry.cover_artist %]
                 <p><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
             [% END %]
@@ -29,19 +32,15 @@
             [% END %]
         </div>
 
-        [% IF entry.genai_state > 1 %]
+        [% IF (entry.genai_state / 4) % 2 == 1 || (entry.genai_state / 8) % 2 == 1 %]
         <p><em>
             <span itemprop="genai_status">
                 Generative artificial intelligence was used to make
-                [% IF (entry.genai_state / 2) % 2 == 1 %]
-                    the cover art[% IF entry.genai_state > 2 %],[% ELSE %].[% END %]
-                [% END %]
                 [% IF (entry.genai_state / 4) % 2 == 1 %]
-                    [% IF entry.genai_state == 6 %]and [% END %]
-                    the in-game assets[% IF entry.genai_state >= 8 %],[% ELSE %].[% END %]
+                    in-game assets[% IF entry.genai_state < 8 %].[% END %]
                 [% END %]
                 [% IF (entry.genai_state / 8) % 2 == 1 %]
-                    [% IF entry.genai_state != 8 %]and [% END %]game text.
+                    [% IF (entry.genai_state / 4) % 2 == 1 %]and [% END %]game text.
                 [% END %]
                 See in-game credits for more information.
             </span>
