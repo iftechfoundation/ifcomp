@@ -81,6 +81,40 @@ sub ballotcsv : Chained( 'root' ) : Args(0) {
     $c->res->body($output);
 }
 
+sub resultscsv : Chained( 'root' ) : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    my @entries      = $current_comp->entries();
+
+    my $csv = Text::CSV::Encoded->new( { binary => 1, encoding => "utf8" } )
+        or die "2 unable to create csv: $!";
+
+    my $output = "";
+    open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
+    $csv->column_names( "author", "title", "place",
+        "MissC", "average", "stddev", "total_votes" );
+
+    for my $entry ( $current_comp->entries ) {
+        $csv->print(
+            $fh,
+            [   $entry->author->name,  $entry->title,
+                $entry->place,         $entry->miss_congeniality_place,
+                $entry->average_score, $entry->standard_deviation,
+                $entry->votes_cast
+            ]
+        );
+        print $fh "\n";
+    }
+    close $fh;
+
+    $c->res->header(
+        'Content-Disposition' => qq{attachment; filename="results.csv"} );
+    $c->res->content_type('text/csv; charset=utf-8');
+    $c->res->code(200);
+    $c->res->body($output);
+}
+
 =encoding utf8
 
 =head1 AUTHOR
