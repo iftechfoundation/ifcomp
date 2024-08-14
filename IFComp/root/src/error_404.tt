@@ -2,7 +2,7 @@
 <div class="container">
     <h1>Oh dear - 404</h1>
     <div class="alert alert-warning">
-        <p><strong>The thing you requested isn't here any more.</strong> Please try one of the menus above, or <a href="/">return to the IFComp front page</a>.
+        <p><strong>The thing you requested isn't here anymore.</strong> Please try one of the menus above, or <a href="/">return to the IFComp front page</a>.
         </p>
     </div>
 </div>
