@@ -7,7 +7,7 @@
 		<span style="font-size: smaller;" itemprop="genai_cover"><em>Generative artifical intelligence was used to make this cover art.</em></span>
 	    [% END %]
             [% IF entry.cover_artist %]
-                <p><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
+                <br><p><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
             [% END %]
         </div>
     [% END %]
