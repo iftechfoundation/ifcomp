@@ -157,6 +157,14 @@ option:checked {
     color: #222;
 }
 
+[data-theme="dark"] .label-default {
+	background-color: #aaa;
+}
+
+[data-theme="dark"] .label-danger {
+	background-color: #e5706c;
+}
+
 [data-theme="dark"] .pager li>a {
     background-color: #222;
 	border-color: #444;
@@ -328,17 +336,17 @@ option:checked {
 
 [data-theme="dark"] option {
     background-color: #111;
-    color:  #aaa;
+    color: #aaa;
 }
 
 [data-theme="dark"] option:checked {
     background-color: #555;
-    color:  #ccc;
+    color: #ccc;
 }
 
 [data-theme="dark"] input {
     background-color: #111;
-    color:  #aaa;
+    color: #aaa;
 }
 
 [data-theme="dark"] select {
