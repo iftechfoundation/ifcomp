@@ -46,6 +46,13 @@ sub index : Chained( 'root' ) : PathPart('') : Args(0) {
 sub ballotcsv : Chained( 'root' ) : Args(0) {
     my ( $self, $c ) = @_;
 
+    unless ( $c->user
+        && $c->check_any_user_role( 'curator', ) )
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     my @entries      = $current_comp->entries();
 
@@ -83,6 +90,13 @@ sub ballotcsv : Chained( 'root' ) : Args(0) {
 
 sub resultscsv : Chained( 'root' ) : Args(0) {
     my ( $self, $c ) = @_;
+
+    unless ( $c->user
+        && $c->check_any_user_role( 'cheez', ) )
+    {
+        $c->detach('/error_403');
+        return;
+    }
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
     my @entries      = $current_comp->entries();
