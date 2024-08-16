@@ -92,8 +92,10 @@ sub resultscsv : Chained( 'root' ) : Args(0) {
 
     my $output = "";
     open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
-    $csv->column_names( "author", "title", "place",
-        "MissC", "average", "stddev", "total_votes" );
+    $csv->column_names(
+        "author",  "title",  "place", "MissC",
+        "average", "stddev", "total_votes"
+    );
 
     for my $entry ( $current_comp->entries ) {
         $csv->print(
