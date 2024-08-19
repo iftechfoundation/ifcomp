@@ -42,6 +42,7 @@
     [% IF (
         ( current_comp.status != 'over' ) 
         && ( current_comp.status != 'closed_to_entries' )
+        && ( current_comp.status != 'processing_votes' )
        )
     %]
         <a href="[% c.uri_for_action( '/entry/update', [ entry.id ] ) %]">[% entry.title %]</a> <em>(entry ID: [% entry.id %])</em> &mdash;
