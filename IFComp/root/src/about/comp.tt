@@ -36,11 +36,11 @@ entry fee, and anyone's allowed to submit up to three entries.</p>
 
 <p><a href="[% c.uri_for_action( '/rules/rules' ) %]#authors">See the full
 rules for authors.</a></p></li>
-<li><p><strong>Judges</strong>, who, over a six-week period in October and
-November, play as many entries as they can, and give each one they play a score
-between 1 and 10. Higher numbers mean a better score; judges are otherwise free
-to use any scoring rubric they wish. A game's final score is simply the
-average of all scores it has received.</p>
+<li><p><strong>Judges</strong>, who, over a six-week period, play as many
+entries as they can, and give each one they play a score between 1 and 10.
+Higher numbers mean a better score; judges are otherwise free to use any
+scoring rubric they wish. A game's final score is simply the average of all
+scores it has received.</p>
 
 <p>Judging is open to the public (competition organizers excluded); becoming a
 judge simply means creating an account on this website, and proceeding to
