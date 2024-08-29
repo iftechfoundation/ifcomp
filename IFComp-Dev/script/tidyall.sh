@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose exec app tidyall -a
+docker compose exec app tidyall -a

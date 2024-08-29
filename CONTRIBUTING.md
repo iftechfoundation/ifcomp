@@ -8,8 +8,8 @@ We use [Docker](https://www.docker.com/) for our development environment. That l
 * Go to Docker's [getting started](https://www.docker.com/get-started) page and download the Docker Desktop for your OS
 * Install the Docker Desktop and start it running
 * Clone the ifcomp repo into a folder on your computer
-* From your shell, change to the directory `IFComp-Dev` and run `docker-compose build` which will create the docker images and install perl and the ifcomp's dependencies
-* Run `docker-compose up` which will start the docker images
+* From your shell, change to the directory `IFComp-Dev` and run `docker compose build` which will create the docker images and install perl and the ifcomp's dependencies
+* Run `docker compose up` which will start the docker images
 
 Note that you can also [set up a development environment by hand](https://github.com/iftechfoundation/ifcomp/wiki/Manual-Installation-and-Setup), if you don't want to use Docker for some reason.
 
@@ -25,11 +25,11 @@ The docker compose file starts three containers:
  
  * `db` runs the MariaDB database
 
-Once the containers are up and running (`docker-compose up`) the `app` container will be available on port 13000. You should be able to point your browser at http://localhost:13000/ and see the IFComp homepage.
+Once the containers are up and running (`docker compose up`) the `app` container will be available on port 13000. You should be able to point your browser at http://localhost:13000/ and see the IFComp homepage.
 
 ### Executing Commands
 
-You can execute commands directly on the app service by running `docker-compose exec app COMMAND`.
+You can execute commands directly on the app service by running `docker compose exec app COMMAND`.
 
 There are a number of convenience scripts in `IFcomp-Dev/script` as well.
 
@@ -51,7 +51,7 @@ There are a number of convenience scripts in `IFcomp-Dev/script` as well.
 
 ### Test Data and Files
 
-The first time you run `docker-compose up`, a new database will be deployed, test data will be installed, and test files will be copied into place.
+The first time you run `docker compose up`, a new database will be deployed, test data will be installed, and test files will be copied into place.
 
 The database data and test files are the same data and files used by the tests in IFComp/t.
 

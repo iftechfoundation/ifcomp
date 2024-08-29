@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose exec app prove $@
+docker compose exec app prove $@

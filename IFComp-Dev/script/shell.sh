@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose exec app bash
+docker compose exec app bash
