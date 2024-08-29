@@ -242,9 +242,10 @@ information about how IFComp scoring typically works.</p>
 
 <p>Anyone can! It&#8217;s as simple as signing up for an account on this
 website, and then <a href="/ballot/vote">visiting the ballot</a> (available
-when the competition is active). Judges have until 11:59 PM Eastern time on [%
-current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %] to rate as many
-games as they can.</p>
+when the competition is active). Judges have until 11:59 PM Eastern
+<!-- the following line should not be broken up, so the tests pass -->
+time on [% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %] to rate as many games
+as they can.</p>
 
 <p>Exceptions:</p>
 
