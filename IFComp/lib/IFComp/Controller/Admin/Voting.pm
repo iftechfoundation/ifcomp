@@ -127,6 +127,12 @@ sub index : Chained('/admin/root') : PathPart( 'voting') : Args(0) {
 sub show_entry : Chained('index') : Path : Args(1) {
     my ( $self, $c, $entry_id ) = @_;
 
+    # Must have a votecounter
+    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
+        $c->res->redirect('/');
+        return;
+    }
+
     my $entry      = $c->model('IFCompDB::Entry');
     my $this_entry = $entry->find($entry_id);
     my @score_buckets;

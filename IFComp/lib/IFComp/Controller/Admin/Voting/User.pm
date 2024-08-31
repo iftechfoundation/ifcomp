@@ -26,6 +26,12 @@ A controller for voting reports.
 sub show_user : Chained("/admin/voting/index") : Path : Args(2) {
     my ( $self, $c, $user_id, $comp_id ) = @_;
 
+    # Must have a votecounter
+    unless ( $c->user && $c->check_any_user_role('votecounter') ) {
+        $c->res->redirect('/');
+        return;
+    }
+
     my $comp = $c->model('IFCompDB::Comp')->find($comp_id);
     my $user = $c->model('IFCompDB::User')->find($user_id);
     my @comp_entries =
