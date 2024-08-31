@@ -112,15 +112,17 @@ sub resultscsv : Chained( 'root' ) : Args(0) {
     );
 
     for my $entry ( $current_comp->entries ) {
-        $csv->print(
-            $fh,
-            [   $entry->author->name,  $entry->title,
-                $entry->place,         $entry->miss_congeniality_place,
-                $entry->average_score, $entry->standard_deviation,
-                $entry->votes_cast
-            ]
-        );
-        print $fh "\n";
+        if ( $entry->is_disqualified == 0 ) {
+            $csv->print(
+                $fh,
+                [   $entry->author->name,  $entry->title,
+                    $entry->place,         $entry->miss_congeniality_place,
+                    $entry->average_score, $entry->standard_deviation,
+                    $entry->votes_cast
+                ]
+            );
+            print $fh "\n";
+        }
     }
     close $fh;
 
