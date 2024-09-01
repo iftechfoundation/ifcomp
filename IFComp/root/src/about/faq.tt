@@ -304,10 +304,10 @@ games. Please keep to the honor system!</p>
   </div>
   <div class="panel-body">
 
-<p>Probably! Since authors don&#8217;t choose their prizes until the
-competition wraps up, we gratefully welcome prize donations right up until the
-judging period ends on [% current_comp.judging_begins.day %]
-[% current_comp.judging_begins.month_name %].
+<p>We accept prize donations through
+[% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %].
+As authors don't choose their prizes until the competition wraps up, we
+gratefully welcome prize donations right up until the judging period ends.
 </p>
 
 <p>We can never have too many prizes in the pool! Please <a
