@@ -12,6 +12,8 @@
 <h1 class="page-header">Welcome, [% IF user_is_author %]author![% ELSE %]judge! <small>You are judging, right?</small>[% END %]</h1>
 <p>From this page, you can download and play all of this year's IFComp entries — either <a href="#browse">browsing them as a list</a>, or downloading the whole set at once.[% IF current_comp.status == 'open_for_judging' %] You can also <a href="/ballot/vote">jump to the ballot</a> to start rating the games you have played so far.[% END %]</p>
 
+[% IF 0 == 1 %]
+
 <div class="row">
 <div class="col-sm-9">
 <h1 class="page-header">Download all the games</h1>
@@ -23,7 +25,25 @@
 <div class="col-sm-3">
 <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download all the entries" /></a>
 </div>
-</div> <!-- .row -->
+</div>
+
+[% ELSE %]
+
+<div class="row">
+
+<div class="col-sm-9">
+<h1 class="page-header">Download all the games</h1>
+<p>We are preparing the giant zipfile containing all the games. When it is ready, the link to it will appear here.<p>
+<p>Meanwhile, you can <a href="#browse">browse and download the games individually, below</a>. If you want to play the most recent versions of these entries, including any bug-fixes authors have added since the competition began, use those individual links. Otherwise, the all-in-one archive contains the game files as they stood when the entry deadline arrived.</p>
+</div>
+
+<div class="col-sm-3">
+<img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download link not yet ready" />
+</div>
+
+</div>
+
+[% END %]
 
 <h1 class="page-header">Judge the games</h1>
 
