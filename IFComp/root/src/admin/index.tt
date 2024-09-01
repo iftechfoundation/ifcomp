@@ -15,6 +15,7 @@
         <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>
         <li><a href="[% c.uri_for('/admin/genai/') %]">Generative AI Responses</a></li>
         <li><a href="[% c.uri_for_action('/admin/ballotcsv') %]">Download CSV of Entries</a></li>
+        <li><a href="[% c.uri_for_action('/admin/gamescsv') %]">Download CSV of just Titles and Authors</a></li>
         [% END %]
         [% IF c.check_user_roles( 'cheez' ) %]
         <li><a href="[% c.uri_for('/admin/validation/') %]">User Validation</a></li>

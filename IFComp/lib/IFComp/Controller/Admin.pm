@@ -43,6 +43,51 @@ sub index : Chained( 'root' ) : PathPart('') : Args(0) {
     $c->stash->{template} = "admin/index.tt";
 }
 
+sub gamescsv : Chained( 'root' ) : Args(0) {
+    my ( $self, $c ) = @_;
+
+    unless ( $c->user
+        && $c->check_any_user_role( 'curator', ) )
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
+    my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    my @entries      = $current_comp->entries();
+
+    my $csv = Text::CSV::Encoded->new( { binary => 1, encoding => "utf8" } )
+        or die "2 unable to create csv: $!";
+
+    my $output = "";
+    open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
+
+    $csv->print( $fh, [ "TITLE", "PRIMARY AUTHOR" ] );
+    print $fh "\n";
+
+    for my $entry ( $current_comp->entries ) {
+        next unless $entry->is_qualified;
+        my $author = "";
+
+        $author = $entry->author_pseudonym;
+        if ( $author eq ""
+            || ( $entry->reveal_pseudonym && $current_comp->status eq 'over' )
+            )
+        {
+            $author = $entry->author->name;
+        }
+        $csv->print( $fh, [ $entry->title, $author ] );
+        print $fh "\n";
+    }
+
+    close $fh;
+    $c->res->header(
+        'Content-Disposition' => qq{attachment; filename="game-list.csv"} );
+    $c->res->content_type('text/csv; charset=utf-8');
+    $c->res->code(200);
+    $c->res->body($output);
+}
+
 sub ballotcsv : Chained( 'root' ) : Args(0) {
     my ( $self, $c ) = @_;
 
@@ -65,6 +110,7 @@ sub ballotcsv : Chained( 'root' ) : Args(0) {
         "Name", "Email", "Last Update" );
 
     for my $entry ( $current_comp->entries ) {
+        next unless $entry->is_qualified;
         my $modtime = ( stat( $entry->main_file ) )[9];
         next unless $modtime > 0;
 
