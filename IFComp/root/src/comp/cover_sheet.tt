@@ -49,20 +49,29 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
 
         <p><em>
         [% IF entry.genre %]
-        [% entry.genre.ucfirst | html %] •
+        [% entry.genre.ucfirst | html %]
         [% END %]
 
         [% IF entry.playtime %]
-        [% entry.playtime.ucfirst %] •
+        [% IF entry.genre %]
+        •
+        [% END %]
+        [% entry.playtime.ucfirst %]
         [% END %]
 
+        [% IF entry.style && ( entry.genre || entry.playtime ) %]
+        •
+        [% END %]
         [% IF entry.style == 'parser' %]
-        Parser-based •
+        Parser-based
         [% ELSIF entry.style == 'choice' %]
-        Choice-based •
+        Choice-based
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
+        [% IF entry.genre || entry.playtime || entry.style %]
+        •
+        [% END %]
         [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             Z-code
