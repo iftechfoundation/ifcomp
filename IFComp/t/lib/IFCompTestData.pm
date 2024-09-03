@@ -6,8 +6,11 @@ use DateTime qw();
 use Path::Class qw();
 use File::Copy::Recursive qw(dircopy);
 
+use Digest::MD5 ('md5_hex');
+
 use Readonly;
-Readonly my $SALT => '123456';
+Readonly my $SALT            => '123456';
+Readonly my $HASHED_PASSWORD => md5_hex( "fool" . $SALT );
 
 sub add_test_data_to_schema {
     my ( $class, $schema ) = @_;
@@ -30,33 +33,29 @@ sub add_test_data_to_schema {
                 'url',          'verified',
                 'forum_handle',
             ],
-            [   1,                                  'user1',
-                'f4384fd7e541f4279d003cf89fc40c33', $SALT,
-                'nobody@example.com',               1,
-                'http://example.com/',              1,
+            [   1,                     'user1',
+                $HASHED_PASSWORD,      $SALT,
+                'nobody@example.com',  1,
+                'http://example.com/', 1,
                 'user1_forum',
             ],
-            [   2,     'Alice Author', 'f4384fd7e541f4279d003cf89fc40c33',
+            [   2, 'Alice Author', $HASHED_PASSWORD,
                 $SALT, 'author@example.com', 1, undef, 1, undef,
             ],
-            [   3,
-                'Victor Votecounter',
-                'f4384fd7e541f4279d003cf89fc40c33',
+            [   3, 'Victor Votecounter',
+                $HASHED_PASSWORD,
                 $SALT, 'votecounter@example.com', 1, undef, 1, undef,
             ],
-            [   4,
-                'Connie Curator',
-                'f4384fd7e541f4279d003cf89fc40c33',
+            [   4, 'Connie Curator',
+                $HASHED_PASSWORD,
                 $SALT, 'curator@example.com', 1, undef, 1, undef,
             ],
-            [   5,
-                'Cheddar Cheez',
-                'f4384fd7e541f4279d003cf89fc40c33',
+            [   5, 'Cheddar Cheez',
+                $HASHED_PASSWORD,
                 $SALT, 'cheez@example.com', 1, undef, 1, undef,
             ],
-            [   6,
-                'Patricia Prizemanager',
-                'f4384fd7e541f4279d003cf89fc40c33',
+            [   6, 'Patricia Prizemanager',
+                $HASHED_PASSWORD,
                 $SALT, 'prizes@example.com', 1, undef, 1, undef,
             ],
         ],
