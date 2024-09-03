@@ -36,6 +36,10 @@ There are a number of convenience scripts in `IFcomp-Dev/script` as well.
  * shell.sh
  
    This script will get you a bash shell in the app instance.
+
+ * query-db.sh
+ 
+   This script will allow you to query the MySQL database.
  
  * tidyall.sh
  
