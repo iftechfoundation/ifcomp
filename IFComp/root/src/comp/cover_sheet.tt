@@ -24,48 +24,50 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
 </div>
 
 [% FOR entry IN entries %]
-    <div class="well" id="entry-[% entry.id %]">
+    <div class="well" itemscope itemtype="https://schema.org/VideoGame" id="entry-[% entry.id %]">
     [% INCLUDE _entry_title.tt %]
 <div class="row">
 
     [% IF entry.cover_exists %]
-        <div class="col-xs-4">
-            <img class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
+        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-xs-4">
+            <img class="img-responsive" itemprop="contentUrl" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
         [% IF entry.cover_artist %]
-            <p><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
+            <p><strong>Cover art by:</strong> <span itemprop="author">[% entry.cover_artist %]</span></p>
         [% END %]
         </div>
     [% END %]
 
     <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
-        <p><strong>[% INCLUDE author_name.tt %]</strong></p>
-        [% FILTER html_para %]
-            [% entry.blurb | html %]
-        [% END %]
+        <p itemprop="author" itemscope itemtype="https://schema.org/Person"><strong>[% INCLUDE author_name.tt %]</strong></p>
+        <div itemprop="description">
+            [% FILTER html_para %]
+                [% entry.blurb | html %]
+            [% END %]
 
-        [% IF entry.warning %]
-            <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
-        [% END %]
+            [% IF entry.warning %]
+                <p><strong>Content warning:</strong> [% entry.warning | html %]</p>
+            [% END %]
+        </div>
 
         <p><em>
         [% IF entry.genre %]
-        [% entry.genre.ucfirst | html %]
+        <span itemprop="genre">[% entry.genre.ucfirst | html %]</span>
         [% END %]
 
         [% IF entry.playtime %]
         [% IF entry.genre %]
         •
         [% END %]
-        [% entry.playtime.ucfirst %]
+        <span itemprop="size">[% entry.playtime.ucfirst %]</span>
         [% END %]
 
         [% IF entry.style && ( entry.genre || entry.playtime ) %]
         •
         [% END %]
         [% IF entry.style == 'parser' %]
-        Parser-based
+        <span itemprop="interactivityType">Parser-based</span>
         [% ELSIF entry.style == 'choice' %]
-        Choice-based
+        <span itemprop="interactivityType">Choice-based</span>
         [% END %]
 
         [% UNLESS entry.platform == 'other' %]
@@ -74,27 +76,39 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
         [% END %]
         [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
-            Z-code
+            <span itemprop="gamePlatform">Z-code</span>
             [% ELSE %]
-            Glulx
+            <span itemprop="gamePlatform">Glulx</span>
             [% END %]
             [% IF entry.has_extra_content %]
             • Download includes additional content
             [% END %]
         [% ELSIF entry.platform == 'website' %]
-            Web-based
+            <span itemprop="gamePlatform">Web-based</span>
         [% ELSIF entry.platform == 'tads' %]
-            TADS
+            <span itemprop="gamePlatform">TADS</span>
         [% ELSIF entry.platform == 'quest' || entry.platform == 'quest-online' %]
-            Quest
+            <span itemprop="gamePlatform">Quest</span>
         [% ELSIF entry.platform == 'windows' %]
-            Windows executable
+            <span itemprop="gamePlatform">Windows executable</span>
         [% ELSIF entry.platform == 'alan' %]
-            Alan
+            <span itemprop="gamePlatform">Alan</span>
         [% ELSIF entry.platform == 'adrift' %]
-            ADRIFT
+            <span itemprop="gamePlatform">ADRIFT</span>
         [% ELSIF entry.platform == 'hugo' %]
-            Hugo
+            <span itemprop="gamePlatform">Hugo</span>
+        [% ELSIF entry.platform == 'adventuron' %]
+            <span itemprop="gamePlatform">Adventuron</span>
+        [% ELSIF entry.platform == 'choicescript' %]
+            <span itemprop="gamePlatform">ChoiceScript</span>
+        [% ELSIF entry.platform == 'ink' %]
+            <span itemprop="gamePlatform">Ink</span>
+        [% ELSIF entry.platform == 'texture' %]
+            <span itemprop="gamePlatform">Texture</span>
+        [% ELSIF entry.platform == 'twine' %]
+            <span itemprop="gamePlatform">Twine</span>
+        [% ELSIF entry.platform == 'unity' %]
+            <span itemprop="gamePlatform">Unity</span>
         [% END %]
         [% END %]
         </em></p>
