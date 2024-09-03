@@ -117,7 +117,7 @@
             
         [% IF entry.main_file %]
         <div class="play-button">
-        <a itemprop="downloadUrl" href="[% c.uri_for_action( '/play/download', [ entry.id] ) %]" class="btn btn-default btn-lg">
+        <a itemprop="downloadUrl" href="[% c.uri_for_action( '/play/download', [ entry.id] ) %]" class="btn btn-default btn">
             <span class="glyphicon glyphicon-cloud-download"></span> Download
         </a>
         </div>
@@ -141,7 +141,7 @@
               && entry.id != 2783 && entry.id != 2803 && entry.id != 2873
         %]
         <div class="play-button">
-        <a itemprop="url" href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn-lg" target="_blank">
+        <a itemprop="url" href="[% c.uri_for_action( '/play/play_online', [ entry.id ] ) %]" class="btn btn-default btn" target="_blank">
            <span class="glyphicon glyphicon-chevron-right"></span> Play online
         </a>
         </div>
@@ -150,17 +150,19 @@
         
         [% IF entry.walkthrough_file %]
         <div class="play-button">
-        <a href="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]" target="_blank" class="btn btn-default btn-lg">
+        <a href="[% c.uri_for( '/' _ entry.id _ '/walkthrough/' _ entry.walkthrough_file.basename ) %]" target="_blank" class="btn btn-default btn">
             <span class="glyphicon glyphicon-question-sign"></span> Walkthrough
         </a>
         </div>
         [% END %]        
 
-        <!-- INCLUDE _rating_controls.tt -->
-        
+        [% IF current_comp.status == 'open_for_judging' %]
+        <div class="play-button">
+            <a href="/ballot/vote" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span>Vote</a>
+        </div>
+        [% END %]
+
     </div>
-
-
 </div>
 
 <style>
