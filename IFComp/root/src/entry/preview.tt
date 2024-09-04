@@ -29,8 +29,8 @@
 <p>The <b>Play Online</b> button appears if any one of the following is true about your uploaded entry file:
 <ul>
 <li><p>It's a single HTML file (as is typically the case with Twine games, for example).</p></li>
-<li><p>It's a Zip archive containing a file named "index.html" at its top level. (This includes website directories output by Inform while using the "Release along with an interpreter" option.)</p></li>
-<li><p>It's a single z-code or Glulx file as output by Inform.</p></li>
+<li><p>It's a zip archive containing a file named "index.html" at its top level. (This includes website directories output by Inform while using the "Release along with an interpreter" option.)</p></li>
+<li><p>It's a single Z-code or Glulx file as output by Inform.</p></li>
 </ul>
 </p>
 
