@@ -55,25 +55,27 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
         [% END %]
 
         [% IF entry.playtime %]
-        [% IF entry.genre %]
-        •
-        [% END %]
+            [% IF entry.genre %]
+            •
+            [% END %]
         <span itemprop="size">[% entry.playtime.ucfirst %]</span>
         [% END %]
 
-        [% IF entry.style && ( entry.genre || entry.playtime ) %]
-        •
-        [% END %]
+        [% IF entry.style == 'parser' || entry.style == 'choice' %]
+            [% IF entry.genre || entry.playtime %]
+            •
+            [% END %]
         [% IF entry.style == 'parser' %]
         <span itemprop="interactivityType">Parser-based</span>
         [% ELSIF entry.style == 'choice' %]
         <span itemprop="interactivityType">Choice-based</span>
         [% END %]
+        [% END %]
 
         [% UNLESS entry.platform == 'other' %]
-        [% IF entry.genre || entry.playtime || entry.style %]
-        •
-        [% END %]
+            [% IF entry.genre || entry.playtime || entry.style %]
+            •
+            [% END %]
         [% IF entry.platform == 'parchment' || entry.platform == 'inform-website' || entry.platform == 'inform' || entry.platform == 'quixe' || entry.platform == 'quixe2' %]
             [% IF entry.is_zcode %]
             <span itemprop="gamePlatform">Z-code</span>
