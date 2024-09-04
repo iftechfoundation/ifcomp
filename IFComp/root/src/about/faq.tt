@@ -221,7 +221,7 @@ files.</p>
 <li>It is an Inform-generated story file (e.g. a <code>.gblorb</code> or a <code>.z8</code>).</li>
 <li>It is an HTML file.</li>
 <li>It is a zip archive with exactly one HTML file at its top level.</li>
-<li>is a zip archive with more than one HTML file at its top level, and one of these files is named <code>index.html</code>.</li>
+<li>It is a zip archive with more than one HTML file at its top level, and one of these files is named <code>index.html</code>.</li>
 </ul>
 </div>
 </div>
@@ -251,7 +251,7 @@ as they can.</p>
 
 <ul>
 <li><p>If you&#8217;ve playtested a certain game prior to its release in the IFComp, please do not rate it. </p></li>
-<li><p>If you have entered any games this year, your vote as a judge will also count towards the the &#8220;Miss Congeniality&#8221; authors-only side-contest).</p></li>
+<li><p>If you have entered any games this year, your vote as a judge will also count towards the the &#8220;Miss Congeniality&#8221; authors-only side-contest.</p></li>
 </ul>
 
 </div>
