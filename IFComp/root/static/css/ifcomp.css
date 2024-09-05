@@ -63,6 +63,10 @@ select {
 	color: inherit;
 }
 
+select[multiple] {
+    border: 1px solid black;
+}
+
 option:checked {
 	background-color: #bbb;
 	color: #222;
@@ -352,6 +356,10 @@ option:checked {
 [data-theme="dark"] select {
     background-color: #111;
     color: #aaa;
+}
+
+[data-theme="dark"] select[multiple] {
+    border: 1px solid #aaa;
 }
 
 [data-theme="dark"] .table-striped>tbody>tr:nth-of-type(odd) {
