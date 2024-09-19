@@ -3,10 +3,12 @@
 const $playtimeSelect = document.querySelector('.playtime-select');
 const $styleSelect = document.querySelector('.style-select');
 const $platformSelect = document.querySelector('.platform-select');
+const $hideRated = document.querySelector('.hide-rated');
 
 var filter_style = new Array();
 var filter_playtime = new Array();
 var filter_platform = new Array();
+var filter_rated = new Boolean();
 
 $("#no-visible-games").hide();
 
@@ -39,6 +41,14 @@ function updateDisplay() {
                 })
             });
             if (!found) {
+                $(this).hide();
+                count -= 1;
+            }
+        });
+    }
+    if (filter_rated == true) {
+        $('[id ^= "entry-"').filter(":visible").each(function() {
+            if ($(this).attr('ifcomp-rated') === 'true') {
                 $(this).hide();
                 count -= 1;
             }
@@ -78,6 +88,15 @@ $platformSelect.onchange = function() {
         filter_platform = new Array();
     } else {
         filter_platform = $(this).val();
+    }
+    updateDisplay();
+}
+
+$hideRated.onchange = function() {
+    if (!this.checked) {
+        filter_rated = false;
+    } else {
+        filter_rated = true;
     }
     updateDisplay();
 }
