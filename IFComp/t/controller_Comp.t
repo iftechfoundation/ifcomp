@@ -29,4 +29,6 @@ $current_comp = $schema->resultset('Comp')->current_comp;
 is( $current_comp->ok_to_reveal_pseudonyms,
     1, "pseudonyms can be revealed now if desired" );
 
+$mech->get_ok( 'http://localhost/comp/' . $current_comp->year . '/json' );
+
 done_testing();
