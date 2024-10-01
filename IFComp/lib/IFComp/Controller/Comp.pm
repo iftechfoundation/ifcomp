@@ -128,6 +128,35 @@ sub cover_sheet : Chained('fetch_comp') : PathPart('cover_sheet') : Args(0) {
     $c->stash->{template} = 'comp/cover_sheet.tt';
 }
 
+sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
+    my ( $self, $c ) = @_;
+
+    my $comp = $c->stash->{comp};
+
+    if (   $comp->status ne 'open_for_judging'
+        && $comp->status ne 'over' )
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
+    my @entries = $comp->entries->search( { is_disqualified => 0, }, )->all;
+
+    $c->response->content_type("application/json");
+    my $j    = JSON::Any->new;
+    my @data = map {
+        {   "id"       => $_->id,
+            "title"    => $_->title,
+            "ifdb_id"  => $_->ifdb_id,
+            "platform" => $_->platform,
+            "is_zcode" => $_->is_zcode,
+            "place"    => $_->place,
+        }
+    } @entries;
+    $c->response->body( $j->encode( \@data ) );
+
+}
+
 sub _get_tie_hash {
     my ( $comp, $place_field ) = @_;
 
