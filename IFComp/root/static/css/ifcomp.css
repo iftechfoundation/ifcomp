@@ -72,6 +72,10 @@ option:checked {
 	color: #222;
 }
 
+.well {
+    scroll-margin-top: 75px;
+}
+
 [data-theme="dark"] {
     background-color: #111 !important;
     color: #eee;
