@@ -179,6 +179,85 @@ sub resultscsv : Chained( 'root' ) : Args(0) {
     $c->res->body($output);
 }
 
+sub votecsv : Chained( 'root' ) {
+    my ( $self, $c ) = @_;
+
+    unless ( $c->user
+        && $c->check_any_user_role( 'cheez', ) )
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
+    my $comp  = $c->model('IFCompDB::Comp');
+    my $entry = $c->model('IFCompDB::Entry');
+    my $vote  = $c->model('IFCompDB::Vote');
+    my $user  = $c->model('IFCompDB::User');
+
+    my $current_comp;
+    if ( my $id = $c->req->param("comp_id") ) {
+        $current_comp = $comp->find($id);
+    }
+    else {
+        $current_comp = $comp->current_comp;
+    }
+
+    $c->stash->{current_comp} = $current_comp;
+
+    my @all_entries =
+        grep { $_->is_qualified }
+        $entry->search( { comp => $current_comp->id, } )->all;
+    my @entry_ids = map { $_->id } @all_entries;
+
+    my @votes = $vote->search( { entry => \@entry_ids },
+        { select => [ 'entry', 'ip', 'time', 'score', 'user' ] } );
+
+    my $csv = Text::CSV::Encoded->new( { binary => 1, encoding => "utf8" } )
+        or die "2 unable to create csv: $!";
+
+    my $output = "";
+    open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
+    $csv->column_names(
+        "title",        "platform",  "voter",   "vote",
+        "ip address",   "timestamp", "any GAI", "GAI cover",
+        "GAI non-text", "GAI text"
+    );
+    $csv->print(
+        $fh,
+        [   "TITLE",       "PLATFORM",  "VOTER",   "VOTE",
+            "IP ADDRESS",  "TIMESTAMP", "ANY GAI", "GAI COVER",
+            "GAI NONTEXT", "GAI TEXT"
+        ]
+    );
+
+    for my $vote (@votes) {
+        my $gen_used  = ( $vote->entry->genai_state & 1 ) == 1 ? "yes" : "no";
+        my $gen_cover = ( $vote->entry->genai_state & 2 ) == 2 ? "yes" : "no";
+        my $gen_nontext =
+            ( $vote->entry->genai_state & 4 ) == 4 ? "yes" : "no";
+        my $gen_text = ( $vote->entry->genai_state & 8 ) == 8 ? "yes" : "no";
+        my $gmtstring =
+            strftime( "%Y-%m-%dT%H:%M:%SZ", gmtime( $vote->time ) );
+        $csv->print(
+            $fh,
+            [   $vote->entry->title, $vote->entry->platform,
+                $vote->user->name,   $vote->score,
+                $vote->ip,           $vote->time,
+                $gen_used,           $gen_cover,
+                $gen_nontext,        $gen_text,
+            ]
+        );
+        print $fh "\n";
+    }
+
+    close $fh;
+    $c->res->header(
+        'Content-Disposition' => qq{attachment; filename="vote-data.csv"} );
+    $c->res->content_type('text/csv; charset=utf-8');
+    $c->res->code(200);
+    $c->res->body($output);
+}
+
 =encoding utf8
 
 =head1 AUTHOR
