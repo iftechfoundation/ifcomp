@@ -158,11 +158,7 @@
         </div>
         [% END %]        
 
-        [% IF current_comp.status == 'open_for_judging' %]
-        <div class="play-button">
-            <a href="/ballot/vote" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Vote</a>
-        </div>
-        [% END %]
+        [% INCLUDE _rating_controls.tt %]
 
     </div>
 </div>
