@@ -1,7 +1,7 @@
 [% IF c.user.get_object.can_vote_for(entry) %]
 
     <div class="rating-controls" style="float: right;">
-        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select"[% IF current_comp.status == 'processing_votes' %] disabled[% END %]>
+        <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select"[% IF current_comp.status == 'processing_votes' %] disabled[% END %] autocomplete="off">
             <option value="0">None</option>
             [% number = 1 %]
             [% WHILE number <= 10 %]
