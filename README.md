@@ -27,6 +27,7 @@ Other contributors to this repository include:
 * Dan Shiovitz
 * Amy Swartz
 * Dannii Willis
+* Keltena
 
 For a list of contributors to the larger IFComp project, see [the IFComp credits page](http://www.ifcomp.org/about/contact).
 
