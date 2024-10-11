@@ -143,16 +143,44 @@ sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
     my @entries = $comp->entries->search( { is_disqualified => 0, }, )->all;
 
     $c->response->content_type("application/json");
-    my $j    = JSON::Any->new;
-    my @data = map {
-        {   "id"       => $_->id,
-            "title"    => $_->title,
-            "ifdb_id"  => $_->ifdb_id,
-            "platform" => $_->platform,
-            "is_zcode" => $_->is_zcode,
-            "place"    => $_->place,
-        }
-    } @entries;
+    my $j = JSON::Any->new;
+    my @data;
+    if ( $comp->status eq 'open_for_judging' ) {
+        @data = map {
+            {   "id"       => $_->id,
+                "title"    => $_->title,
+                "ifdb_id"  => $_->ifdb_id,
+                "platform" => $_->platform,
+                "is_zcode" => $_->is_zcode,
+            }
+        } @entries;
+    }
+    else {
+        @data = map {
+            {   "id"                      => $_->id,
+                "title"                   => $_->title,
+                "ifdb_id"                 => $_->ifdb_id,
+                "platform"                => $_->platform,
+                "is_zcode"                => $_->is_zcode,
+                "place"                   => $_->place,
+                "miss_congeniality_place" => $_->miss_congeniality_place,
+                "average_score"           => $_->average_score,
+                "standard_deviation"      => $_->standard_deviation,
+                "votes_cast"              => $_->votes_cast,
+                "total_1"                 => $_->total_1,
+                "total_2"                 => $_->total_2,
+                "total_3"                 => $_->total_3,
+                "total_4"                 => $_->total_4,
+                "total_5"                 => $_->total_5,
+                "total_6"                 => $_->total_6,
+                "total_7"                 => $_->total_7,
+                "total_8"                 => $_->total_8,
+                "total_9"                 => $_->total_9,
+                "total_10"                => $_->total_10,
+
+            }
+        } @entries;
+    }
     $c->response->body( $j->encode( \@data ) );
 
 }

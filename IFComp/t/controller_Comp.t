@@ -24,6 +24,9 @@ my $current_comp = $schema->resultset('Comp')->current_comp;
 is( $current_comp->ok_to_reveal_pseudonyms,
     0, "do not reveal pseudonyms during the comp" );
 
+IFCompTest::set_phase_after( $schema, 'judging_begins' );
+$mech->get_ok( 'http://localhost/comp/' . $current_comp->year . '/json' );
+
 IFCompTest::set_phase_after( $schema, 'comp_closes' );
 $current_comp = $schema->resultset('Comp')->current_comp;
 is( $current_comp->ok_to_reveal_pseudonyms,
