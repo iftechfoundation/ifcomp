@@ -76,7 +76,7 @@ sub entry_for_tuid {
     # Find the link whose URL looks like a ballot link, containing an IFComp entry ID
     foreach my $link (@links) {
         my $url = @{ $link->getElementsByTagName("url") }[0]->textContent;
-        if ( $url =~ /^https:\/\/ifcomp.org\/ballot\/#entry-(\d+)$/ ) {
+        if ( $url =~ /^https:\/\/ifcomp.org\/ballot\/?#entry-(\d+)$/ ) {
             my $entry_id = $1;
             print "entry_id $entry_id => $tuid\n";
             return $1;
