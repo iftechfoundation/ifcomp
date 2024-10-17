@@ -134,6 +134,7 @@ sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
     my $comp = $c->stash->{comp};
 
     if (   $comp->status ne 'open_for_judging'
+        && $comp->status ne 'processing_votes'
         && $comp->status ne 'over' )
     {
         $c->detach('/error_403');
@@ -145,7 +146,9 @@ sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
     $c->response->content_type("application/json");
     my $j = JSON::Any->new;
     my @data;
-    if ( $comp->status eq 'open_for_judging' ) {
+    if (   $comp->status eq 'open_for_judging'
+        || $comp->status eq 'processing_votes' )
+    {
         @data = map {
             {   "id"       => $_->id,
                 "title"    => $_->title,
