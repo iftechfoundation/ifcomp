@@ -224,11 +224,12 @@ sub votecsv : Chained( 'root' ) {
     );
     $csv->print(
         $fh,
-        [   "TITLE",       "PLATFORM",  "VOTER",   "VOTE",
-            "IP ADDRESS",  "TIMESTAMP", "ANY GAI", "GAI COVER",
+        [   "TITLE",       "PLATFORM",  "VOTER",    "VOTE",
+            "IP ADDRESS",  "TIMESTAMP", "GAI-FREE", "GAI COVER",
             "GAI NONTEXT", "GAI TEXT"
         ]
     );
+    print $fh "\n";
 
     for my $vote (@votes) {
         my $gen_used  = ( $vote->entry->genai_state & 1 ) == 1 ? "yes" : "no";
