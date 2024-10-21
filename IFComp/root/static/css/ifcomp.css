@@ -307,6 +307,10 @@ option:checked {
     stroke: #ccc;
 }
 
+[data-theme="dark"] .highcharts-axis-labels text {
+    fill: #26f;
+}
+
 [data-theme="dark"] .highcharts-color-1 {
     fill: #9696ab;
     stroke: #9696ab;

@@ -47,7 +47,7 @@ sub gamescsv : Chained( 'root' ) : Args(0) {
     my ( $self, $c ) = @_;
 
     unless ( $c->user
-        && $c->check_any_user_role( 'curator', ) )
+        && $c->check_any_user_role('cheez') )
     {
         $c->detach('/error_403');
         return;
@@ -62,7 +62,17 @@ sub gamescsv : Chained( 'root' ) : Args(0) {
     my $output = "";
     open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
 
-    $csv->print( $fh, [ "TITLE", "PRIMARY AUTHOR" ] );
+    # select place, title, name, entry.email as entry_email, user.email as
+    # user_email, paypal from entry, user where comp=? and is_disqualified != 1
+    # and entry.author = user.id order by place asc;
+
+    $csv->print(
+        $fh,
+        [   "PLACE",          "TITLE",
+            "PRIMARY AUTHOR", "AUTHOR EMAIL",
+            "ENTRY EMAIL",    "PAYPAL"
+        ]
+    );
     print $fh "\n";
 
     for my $entry ( $current_comp->entries ) {
@@ -76,7 +86,13 @@ sub gamescsv : Chained( 'root' ) : Args(0) {
         {
             $author = $entry->author->name;
         }
-        $csv->print( $fh, [ $entry->title, $author ] );
+        $csv->print(
+            $fh,
+            [   $entry->place, $entry->title,
+                $author,       $entry->author->email,
+                $entry->email, $entry->author->paypal
+            ]
+        );
         print $fh "\n";
     }
 
@@ -157,14 +173,35 @@ sub resultscsv : Chained( 'root' ) : Args(0) {
         "average", "stddev", "total_votes"
     );
 
+    $csv->print(
+        $fh,
+        [   "AUTHOR", "EMAIL", "PSEUDONYM", "REVEAL",
+            "TITLE",  "PLACE", "MISS-C",    "AVERAGE",
+            "STDDEV", "TOTAL-VOTES"
+        ]
+    );
+    print $fh "\n";
+
     for my $entry ( $current_comp->entries ) {
         if ( $entry->is_disqualified == 0 ) {
+
+            my $reveal = "n/a";
+            if ( $entry->author_pseudonym ) {
+                if ( $entry->reveal_pseudonym ) {
+                    $reveal = "YES";
+                }
+                else {
+                    $reveal = "NO";
+                }
+            }
+
             $csv->print(
                 $fh,
-                [   $entry->author->name,  $entry->title,
-                    $entry->place,         $entry->miss_congeniality_place,
-                    $entry->average_score, $entry->standard_deviation,
-                    $entry->votes_cast
+                [   $entry->author->name,            $entry->author->email,
+                    $entry->author_pseudonym,        $reveal,
+                    $entry->title,                   $entry->place,
+                    $entry->miss_congeniality_place, $entry->average_score,
+                    $entry->standard_deviation,      $entry->votes_cast
                 ]
             );
             print $fh "\n";
@@ -183,7 +220,7 @@ sub votecsv : Chained( 'root' ) {
     my ( $self, $c ) = @_;
 
     unless ( $c->user
-        && $c->check_any_user_role( 'cheez', ) )
+        && $c->check_any_user_role( 'votecounter', 'cheez', ) )
     {
         $c->detach('/error_403');
         return;
@@ -218,8 +255,8 @@ sub votecsv : Chained( 'root' ) {
     my $output = "";
     open my $fh, ">:encoding(utf8)", \$output or die "open fail $!";
     $csv->column_names(
-        "title",        "platform",  "voter",   "vote",
-        "ip address",   "timestamp", "any GAI", "GAI cover",
+        "title",        "platform",  "voter",    "vote",
+        "ip address",   "timestamp", "GAI-FREE", "GAI cover",
         "GAI non-text", "GAI text"
     );
     $csv->print(

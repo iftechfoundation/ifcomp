@@ -11,16 +11,18 @@
         <li><a href="[% c.uri_for('/admin/voting/') %]">Voting</a></li>
         <li><a href="[% c.uri_for('/admin/email/') %]">Author email-address and forum-handle lists</a></li>
         [% END %]
+        [% IF c.check_any_user_role( 'votecounter', 'cheez' ) %]
+        <li><a href="[% c.uri_for_action('/admin/votecsv') %]">Download a CSV of Voting Data for this year</a></li>
+        [% END %]
         [% IF c.check_user_roles( 'curator' ) %]
         <li><a href="[% c.uri_for('/admin/feedback/') %]">Feedback</a></li>
         <li><a href="[% c.uri_for('/admin/genai/') %]">Generative AI Responses</a></li>
         <li><a href="[% c.uri_for_action('/admin/ballotcsv') %]">Download CSV of Entries</a></li>
-        <li><a href="[% c.uri_for_action('/admin/gamescsv') %]">Download CSV of just Titles and Authors</a></li>
         [% END %]
         [% IF c.check_user_roles( 'cheez' ) %]
         <li><a href="[% c.uri_for('/admin/validation/') %]">User Validation</a></li>
         <li><a href="[% c.uri_for_action('/admin/resultscsv') %]">Download CSV of Results</a></li>
-        <li><a href="[% c.uri_for_action('/admin/votecsv') %]">Download a CSV of Voting Data for this year</a></li>
+        <li><a href="[% c.uri_for_action('/admin/gamescsv') %]">Download CSV of Payout Results</a></li>
         [% END %]
         [% IF c.check_user_roles( 'prizemanager' ) %]
         <li><a href="[% c.uri_for('/admin/prizes/list') %]">Prize Management</a></li>

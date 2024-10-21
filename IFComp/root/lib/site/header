@@ -23,7 +23,7 @@ END;
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            [% IF current_comp.status == 'open_for_judging' || 'processing_votes' %]
+            [% IF ( current_comp.status == 'open_for_judging' ) || ( current_comp.status == 'processing_votes' ) %]
               <li><a href="/ballot/">Entries</a></li>
             [% ELSE %]
               <li><a href="/comp/">Results</a></li>

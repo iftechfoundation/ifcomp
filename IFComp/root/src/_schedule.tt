@@ -5,5 +5,6 @@
 <li><p><strong>[% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %]:</strong> The last date that authors can register their intent to enter.</p></li>
 <li><p><strong>[% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]:</strong> The last date that authors can upload their games to the competition site. Everyone starts counting down the hours, eager to explore all the new IFfy goodness.</p></li>
 <li><p><strong>[% current_comp.judging_begins.strftime( '%{month_name} %{day}' ) %]:</strong> The games are released to the public, and the judging period begins.</p></li>
-<li><p><strong>[% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %]:</strong> All votes must be submitted by the end of the day. The competition results are announced shortly afterwards. Prize choosing and distribution begins.</p></li>
+<li><p><strong>[% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %]:</strong> All votes must be submitted by the end of the day.</p></li>
+<!--<li><p><strong>October XX at Xpm Eastern:</strong> IFComp Awards Ceremony on Twitch: <a href="https://www.twitch.tv/interactivefictioncomp">https://www.twitch.tv/interactivefictioncomp</a> (Competition results posted to this site shortly after the stream. Prize choosing and distribution begins.)</p></li>-->
 </ul>
