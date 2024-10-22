@@ -110,74 +110,81 @@ sub add_test_data_to_schema {
 
     $schema->populate(
         'Entry',
-        [   [   'id',    'author',   'title', 'comp',
-                'place', 'platform', 'coauthor_code',
+        [   [   'id',    'author',   'title',         'comp',
+                'place', 'platform', 'coauthor_code', 'blurb',
             ],
 
-            [   100, 1, 'Test Z-code game',
-                2,   1, 'inform', '8ad0cfd053b7ed08124d',
+            [   100,
+                1,
+                'Test Z-code game',
+                2,
+                1,
+                'inform',
+                '8ad0cfd053b7ed08124d',
+                'This blurb contains a very long URL: https://ifcomp.org/veryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryveryverylong.html'
             ],
             [   101, 1, 'Test Glulx game',
-                2,   2, 'inform', 'cb596f31d709901e66e0',
+                2,   2, 'inform', 'cb596f31d709901e66e0', ''
             ],
             [   102, 1, 'Test Quixe game',
-                1,   1, 'quixe', '1d85063fad228a35b48f',
+                1,   1, 'quixe', '1d85063fad228a35b48f', ''
             ],
             [   103, 3, 'Test Parchment game',
-                2,   2, 'parchment', '2e44258d59ccfca797d8',
+                2,   2, 'parchment', '2e44258d59ccfca797d8', ''
             ],
             [   104, 1, 'Test Z-code website',
-                2,   3, 'inform-website', '570afe4434136a35b97e',
+                2,   3, 'inform-website', '570afe4434136a35b97e', ''
             ],
             [   105, 3, 'Test non-Inform website',
-                2,   4, 'website', '70d146f955a9be7ee657',
+                2,   4, 'website', '70d146f955a9be7ee657', ''
             ],
             [   106, 3, 'Test HTML page',
-                2,   5, 'website', '11740856d5392f4f099c',
+                2,   5, 'website', '11740856d5392f4f099c', ''
             ],
             [   107, 3, 'Test Z-code website with buried story file',
-                2,   6, 'inform-website', '62584e5198e8ce160921',
+                2,   6, 'inform-website', '62584e5198e8ce160921', ''
             ],
             [   108, 1, 'Test Quest game',
-                2,   7, 'quest', 'ec0460756f55e774c47a',
+                2,   7, 'quest', 'ec0460756f55e774c47a', ''
             ],
             [   109, 1, 'Test TADS game',
-                2,   8, 'tads', '701d72d3c91885849902',
+                2,   8, 'tads', '701d72d3c91885849902', ''
             ],
             [   110, 1, 'Test Alan game',
-                1,   9, 'alan', '1f27146aef4840d23890',
+                1,   9, 'alan', '1f27146aef4840d23890', ''
             ],
             [   111, 1,  'Test ADRIFT game',
-                1,   10, 'adrift', '50b2ebe54c374d8a30ce',
+                1,   10, 'adrift', '50b2ebe54c374d8a30ce', ''
             ],
             [   112, 1,  'Quixe game, with extra stuff',
-                1,   11, 'quixe', 'e2ffd42661e14703fc4e',
+                1,   11, 'quixe', 'e2ffd42661e14703fc4e', ''
             ],
             [   113, 1,  'Test Hugo game',
-                1,   12, 'hugo', '1eada264ce7e16e9871b',
+                1,   12, 'hugo', '1eada264ce7e16e9871b', ''
             ],
             [   114, 1,  'Test subdir-based ulx game',
-                1,   13, 'inform', 'dc828daacbc60b2355fb',
+                1,   13, 'inform', 'dc828daacbc60b2355fb', ''
             ],
             [   115, 1,  'Test non-Inform website, no index.html',
-                1,   14, 'website', '7ed8e2cdcc37e33beb1c',
+                1,   14, 'website', '7ed8e2cdcc37e33beb1c', ''
             ],
             [   116, 1,  'Test Adventuron game',
-                1,   15, 'adventuron', 'fbbfc1a939a75253bd9d',
+                1,   15, 'adventuron', 'fbbfc1a939a75253bd9d', ''
             ],
             [   117, 1,  'Test ChoiceScript game',
-                1,   16, 'choicescript', '1dc6f3f624b4d41d6722',
+                1,   16, 'choicescript', '1dc6f3f624b4d41d6722', ''
             ],
-            [   118, 1, 'Test Ink game', 1, 17, 'ink', 'dbf9363f8cd1e93f3896',
+            [   118, 1,  'Test Ink game',
+                1,   17, 'ink', 'dbf9363f8cd1e93f3896', ''
             ],
             [   119, 1,  'Test Texture game',
-                1,   18, 'texture', 'eaab524bcce5d4b4c066',
+                1,   18, 'texture', 'eaab524bcce5d4b4c066', ''
             ],
             [   120, 1,  'Test Twine game',
-                1,   19, 'twine', 'd7307f76e70989897684',
+                1,   19, 'twine', 'd7307f76e70989897684', ''
             ],
             [   121, 1,  'Test Unity game',
-                1,   20, 'unity', 'dfed9407cd2c1c82ae9c',
+                1,   20, 'unity', 'dfed9407cd2c1c82ae9c', ''
             ],
         ],
     );
