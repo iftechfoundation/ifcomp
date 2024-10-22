@@ -76,6 +76,10 @@ option:checked {
     scroll-margin-top: 75px;
 }
 
+.blurb {
+    overflow-wrap: anywhere;
+}
+
 [data-theme="dark"] {
     background-color: #111 !important;
     color: #eee;

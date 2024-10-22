@@ -22,7 +22,7 @@
             </p>
         [% END %]
 
-        <div itemprop="description">
+        <div itemprop="description" class="blurb">
             [% FILTER html_para %]
                 [% entry.blurb | html %]
             [% END %]

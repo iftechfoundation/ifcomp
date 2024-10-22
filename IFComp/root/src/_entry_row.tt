@@ -36,7 +36,7 @@ END;
         [% END %]
 
         [% FILTER html_para %]
-        	[% entry.blurb %]
+        	<div class="blurb">[% entry.blurb %]</div>
         [% END %]
 
         <p><em>[% metadata.join(' &bull; ') %]</em></p>
