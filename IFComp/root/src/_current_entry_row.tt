@@ -7,7 +7,7 @@
 		<span style="font-size: smaller;" itemprop="genai_cover"><em>Generative artificial intelligence was used to make this cover art.</em></span>
 	    [% END %]
             [% IF entry.cover_artist %]
-                <br><p><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
+                <br><p class="wrap-anywhere"><strong>Cover art by:</strong><br/><span itemprop="author">[% entry.cover_artist %]</span></p>
             [% END %]
         </div>
     [% END %]
@@ -22,7 +22,7 @@
             </p>
         [% END %]
 
-        <div itemprop="description" class="blurb">
+        <div itemprop="description" class="wrap-anywhere">
             [% FILTER html_para %]
                 [% entry.blurb | html %]
             [% END %]

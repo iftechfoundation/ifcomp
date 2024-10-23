@@ -76,7 +76,7 @@ option:checked {
     scroll-margin-top: 75px;
 }
 
-.blurb {
+.wrap-anywhere {
     overflow-wrap: anywhere;
 }
 

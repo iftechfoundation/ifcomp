@@ -32,11 +32,11 @@ END;
             </p>
         [% END %]
         [% IF entry.cover_artist %]
-            <p><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
+            <p class="wrap-anywhere"><strong>Cover art by:</strong> [% entry.cover_artist %]</p>
         [% END %]
 
         [% FILTER html_para %]
-        	<div class="blurb">[% entry.blurb %]</div>
+        	<div class="wrap-anywhere">[% entry.blurb %]</div>
         [% END %]
 
         <p><em>[% metadata.join(' &bull; ') %]</em></p>
