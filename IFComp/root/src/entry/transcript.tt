@@ -1,9 +1,11 @@
 <div class="container">
-<ol class="breadcrumb">
-  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
-  <li><a href="[% c.uri_for_action( '/entry/transcript', [ entry.id ] ) %]">Transcripts for [% entry.title %]</a></li>
-  <li class="active">Transcript</li>
-</ol>
+<nav class="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+      <li class="breadcrumb-item"><a href="[% c.uri_for_action( '/entry/transcript', [ entry.id ] ) %]">Transcripts for [% entry.title %]</a></li>
+      <li class="breadcrumb-item active">Transcript</li>
+    </ol>
+</nav>
 [% INCLUDE output_paragraph output_set = output_sets.shift %]
 
 [% FOR input IN inputs %]

@@ -1,9 +1,9 @@
 <form method="post" enctype="multipart/form-data">
 <div class="row">
 <div class="col-sm-12">
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Basic entry information</h2></div>
-<div class="panel-body">
+<div class="card ">
+<div class="card-header"><h2>Basic entry information</h2></div>
+<div class="card-body">
 [% IF ( entry.comp.status == 'accepting_intents' ) 
       || ( entry.comp.status == 'closed_to_intents' )
 %]
@@ -58,9 +58,9 @@ I hereby grant the Interactive Fiction Technology Foundation (IFComp's organizin
 </div>
 
 [% IF entry.id %]
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Co-authors</h2></div>
-    <div class="panel-body">
+<div class="card mt-3">
+    <div class="card-header"><h2>Co-authors</h2></div>
+    <div class="card-body">
         <p>Co-authors can add themselves to your game using the code <code>[% entry.coauthor_code %]</code>.</p>
 
         <div class="checkbox">
@@ -111,9 +111,9 @@ I hereby grant the Interactive Fiction Technology Foundation (IFComp's organizin
 </div>
 [% END %]
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Blurb and cover art</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Blurb and cover art</h2></div>
+<div class="card-body">
 <p>
 <p>Your game's blurb and cover art are the very first parts of your work that players are likely to see. It pays to be thoughtful here. <a href="/comp/" target="_blank">Browse past entries</a> to see some good examples of both, and <a href="/about/guidelines#writeastrongblurb" target="_blank">consult the guidelines</a> to learn more about writing strong blurbs.</p>
 
@@ -149,9 +149,9 @@ Delete cover art file
 </div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Genre and style</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Genre and style</h2></div>
+<div class="card-body">
 
 <div class="row">
 <div class="col-xs-6">
@@ -170,9 +170,9 @@ Delete cover art file
 </div>
 </div>
 
-<div class="panel panel-default">
-    <div class="panel-heading"><h2>Generative Artificial Intelligence</h2></div>
-    <div class="panel-body">
+<div class="card mt-3">
+    <div class="card-header"><h2>Generative Artificial Intelligence (GAI)</h2></div>
+    <div class="card-body">
         [% IF form.has_errors %]
             [% FOREACH error IN form.errors %]
                 [% IF error == "GENAI_CHECKBOX_ERROR" %]
@@ -181,7 +181,8 @@ Delete cover art file
             [% END %]
         [% END %]
 
-    <p>Artificial intelligence:</p>
+    <p>If you have code in your game that generates game data procedurally, that is not the same as the GAI that we're asking about in this section.</p>
+    <p>Generative artificial intelligence:</p>
             <input type="checkbox" name="entry.genai" id="entry.genai.cover_art" value="cover_art"[% IF entry.genai_state && (entry.genai_state / 2) % 2 == 1 %] checked[% END %]>
             <label for="entry.genai.cover_art"> Was used to generate my game’s cover art </label><br/>
             <input type="checkbox" name="entry.genai" id="entry.genai.non_text" value="non_text"[% IF entry.genai_state && (entry.genai_state / 4) % 2 == 1 %] checked[% END %]>
@@ -189,16 +190,16 @@ Delete cover art file
             <input type="checkbox" name="entry.genai" id="entry.genai.text" value="text"[% IF entry.genai_state && (entry.genai_state / 8) % 2 == 1 %] checked[% END %]>
             <label for="entry.genai.text"> Was used to generate text used in this game (use of spell check/autocomplete excluded) </label><br/>
         <hr>
-        <p>Or:</p>
+        <p>Or, generative artificial intelligence:</p>
             <input type="checkbox" name="entry.genai" id="entry.genai.nothing" value="nothing"[% IF entry.genai_state && entry.genai_state % 2 == 1 %] checked[% END %]>
             <label for="entry.genai.nothing"> Was not used to generate cover art, in-game assets, or text used in my game </label><br/>
 
     </div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Estimated play time</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Estimated play time</h2></div>
+<div class="card-body">
 <p>
 Optionally, choose from the menu below a rough estimate of how much time you would expect a typical player to spend on this game.</p>
 
@@ -215,9 +216,9 @@ Optionally, choose from the menu below a rough estimate of how much time you wou
 </div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Content warnings</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Content warnings</h2></div>
+<div class="card-body">
 <p>
 You may optionally provide a brief warning that your work contains emotionally intense content - <a href="https://accessible.games/accessible-player-experiences/challenge-patterns/moderation-in-all-things/">what the AbleGamers Foundation describes</a> as “surprise, violence, gore, or sexual themes”. Your warning text, if present, will appear by your game's blurb on the IFComp ballot page, with the label "<strong>Content warning:</strong>". <!-- Players will have the option to hide content warnings from their ballots. -->
 </p>
@@ -229,9 +230,9 @@ You may optionally provide a brief warning that your work contains emotionally i
 </div>
 
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Displayed name(s) and contact info</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Displayed name(s) and contact info</h2></div>
+<div class="card-body">
 <p>If you wish, you can enter your game under a name (or a list of names) other than the name this website knows you by ([% c.user.name %]). Do this if you wish to enter your game under a pseudonym, or if your game has more than one author and you wish to equally credit all of them.</p>
 
 <p><strong>To credit multiple co-authors:</strong> Enter the authors' names into this field, formatted and ordered however you like. Alphabetized and comma-separated (e.g. <em>Charlie Andrews, Bonnie Baker and Alice Chang</em>) works well. Consider also setting a contact email for the game, below.</p>
@@ -253,9 +254,9 @@ If you don't specify an email address here, then this website will not display a
 </div>
 </div>
 
-<div class="panel panel-default">
-<div class="panel-heading"><h2>Files</h2></div>
-<div class="panel-body">
+<div class="card mt-3">
+<div class="card-header"><h2>Files</h2></div>
+<div class="card-body">
 <h3>Game file (required)</h3>
 <p>You must upload, by [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %] (at 11:59 PM Eastern time), exactly one file representing your actual game in order for it to qualify for entry. The file can be in any format, and must be no larger than 500 MB in size.</p>
 <p>This file can, if you so choose, be an archive in <code>.zip</code> format. If so, this archive can contain as many files as you wish (up to 500 MB in compressed size), organized however you like. Players who download your game would receive it as a single directory containing your provided archive's files, uncompressed. In this way you could, for example, include a folderful of "feelies" alongside your entry, or attach media resources or code libraries that your game needs to run.</p>
@@ -302,7 +303,7 @@ Delete walkthrough file
 </div>
 
 
-[% form.field( 'submit' ).render %]
+<div class="mt-5 mb-5">[% form.field( 'submit' ).render %]</span>
 
 </div></div>
 

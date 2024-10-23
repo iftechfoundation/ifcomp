@@ -1,7 +1,7 @@
 <div class="container">
-<div class="jumbotron">
-<h1 style="text-align:center;">Colossal Fund Donors: [% cf_year.year %]</h1>
-</div>
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
+  <h1 style="text-align:center;">Colossal Fund Donors: [% cf_year.year %]</h1>
+</div></div></div></div>
 
 <p>
 The following IF community members supported IFComp through their contributions to [% cf_year.year %]'s Colossal Fund. We salute their generosity!
@@ -15,7 +15,7 @@ The following IF community members supported IFComp through their contributions 
 
 [% BLOCK level %]
     <div class="level">
-    <h2> [% name.ucfirst %] donors <span class="small">(contributed [% IF max %]between $[% min %] and $[% max %][% ELSE %]$[% min %] or more[% END %])</span></h2>
+    <h2> [% name.ucfirst %] donors <small class="text-body-secondary">(contributed [% IF max %]between $[% min %] and $[% max %][% ELSE %]$[% min %] or more[% END %])</small></h2>
     [% named_donors = cf_year.named_donors_between( min, max ) %]
     [% anonymous_donors = cf_year.anonymous_donors_between( min, max ) %]
     [% IF named_donors.size %]

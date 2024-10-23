@@ -1,10 +1,10 @@
 <div class="container">
 
-<div class="jumbotron">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">The Games of the [% comp.year %] IFComp</h1>
-</div>
+</div></div></div></div>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1>Welcome</h1>
 </div>
 
@@ -19,17 +19,17 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
 
 <p>You may also wish to read <a href="index.html">some further notes about the [% comp.year %] IFComp</a>, including a list of the volunteers who helped make it possible, and advice for playing the different kinds of games found among the entries.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1>The games</h1>
 </div>
 
 [% FOR entry IN entries %]
-    <div class="well" itemscope itemtype="https://schema.org/VideoGame" id="entry-[% entry.id %]">
+    <div class="bg-primary-subtle card p-4 m-3" itemscope itemtype="https://schema.org/VideoGame" id="entry-[% entry.id %]">
     [% INCLUDE _entry_title.tt %]
 <div class="row">
 
     [% IF entry.cover_exists %]
-        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-xs-4">
+        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-sm-4">
             <img class="img-responsive" itemprop="contentUrl" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
         [% IF entry.cover_artist %]
             <p><strong>Cover art by:</strong> <span itemprop="author">[% entry.cover_artist %]</span></p>
@@ -37,7 +37,7 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
         </div>
     [% END %]
 
-    <div class="col-xs-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
+    <div class="col-sm-[% IF entry.cover_exists %]8[% ELSE %]12[% END %]">
         <p itemprop="author" itemscope itemtype="https://schema.org/Person"><strong>[% INCLUDE author_name.tt %]</strong></p>
         <div itemprop="description">
             [% FILTER html_para %]

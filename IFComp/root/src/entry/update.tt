@@ -1,17 +1,20 @@
 <div class="container">
-<ol class="breadcrumb">
-  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
-  <li class="active">
-    [% IF entry.id %]
-        [% entry.title %]
-    [% ELSE %]
-        Register a new entry
-    [% END %]
-  </li>
-</ol>
+<nav class="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+      <li class="breadcrumb-item active">
+        [% IF entry.id %]
+            [% entry.title %]
+        [% ELSE %]
+            Register a new entry
+        [% END %]
+      </li>
+    </ol>
+</nav>
+
 <p>If you have questions about this form (or any other part of the entry process), please <a href="mailto:ifcomp@ifcomp.org" target="_blank">mail the organizer</a>.</p>
 [% IF entry.id %]
-<h1>Update entry: [% entry.title %]</h1>
+<h1 class="border-bottom">Update entry: [% entry.title %]</h1>
 [% INCLUDE error_div %]
 [% IF c.flash.entry_updated %]
 <div class="alert alert-success">

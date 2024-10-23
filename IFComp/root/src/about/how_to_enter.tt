@@ -1,9 +1,9 @@
 <div class="container">
 [% meta.title = 'IFComp - Author&#8217;s Handbook' %]
 <div class="container">
-<div class="jumbotron">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">IFComp Author&#8217;s Handbook</h1>
-</div>
+</div></div></div></div>
 
 [% intents_open_date = current_comp.intents_open.strftime( '%{month_name} %{day}' ) %]
 [% intents_close_date = current_comp.intents_close.strftime( '%{month_name} %{day}' ) %]

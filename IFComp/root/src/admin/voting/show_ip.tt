@@ -1,15 +1,17 @@
 [% meta.title = 'IFComp - Admin - Voting - IP' %]
 [% USE D = Dumper %]
 <div class="container">
-     <div class="jumbotron">
+     <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
           <h1 style="text-align:center;">IP: [% ip %]</h1>
-     </div>
+     </div></div></div></div>
      
-     <ul class="breadcrumb">
-        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
-        <li><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => comp.id}); r %]">Voting Reports</a></li>
-        <li class="active">IP details</a></li>
-     </ul>
+     <nav class="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+            <li class="breadcrumb-item"><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => comp.id}); r %]">Voting Reports</a></li>
+            <li class="breadcrumb-item "active">IP details</a></li>
+         </ul>
+     </nav>
 
      <h3>Voting Record for IP [% comp.year %]</h3>
 
@@ -17,6 +19,7 @@
 
      [% BLOCK scripts %]
      <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
      <script type="text/javascript">
 $(function () { 
  
@@ -28,6 +31,7 @@ $(function () {
        type: 'column',
        animation: false,
        height: 200,
+       styledMode: true,
      },
      xAxis: {
             categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

@@ -1,10 +1,11 @@
 [% META title = 'IFComp - Rules' %]
-<div class="container">
-<div class="jumbotron">
-<h1 style="text-align:center;">Rules for the Competition</h1>
-</div>
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
+    <h1 style="text-align:center;">Rules for the Competition</h1>
+</div> </div> </div> </div>
 
-<div class="page-header">
+<div class="container">
+
+<div class="mt-5 border-bottom">
 <h1>About these rules</h1>
 </div>
 
@@ -32,7 +33,7 @@ you who provided feedback to help us evaluate this rule change.
 </p>
 </div>
 
-<div class="page-header">
+<div class="mt-5 border-bottom">
 <h1 id="judges">Rules for Judges <small>which authors should know too</small></h1>
 </div>
 
@@ -81,7 +82,7 @@ entries. You may freely use the intfiction.org forum set aside for public comp d
 
 </ol>
 <p>See also: <a href="/about/judging">Guidelines for judges</a>, and <a href="/about/faq#judginggames">the FAQ section on competition judging</a>.</p>
-<div class="page-header">
+<div class="mt-5 border-bottom">
 <h1 id="authors">Rules for Authors</h1>
 </div>
 
@@ -120,7 +121,7 @@ href="mailto:ifcomp@ifcomp.org">ask the organizers</a>.</p>
 
 <p>See also: <a href="/about/guidelines">Guidelines for authors</a>, and <a href="/about/faq#enteringgames">the FAQ section on competition entry</a>.</p>
 
-<div class="page-header">
+<div class="mt-5 border-bottom">
 <h1 id="code">Rules for Everyone <small>including a Code of Conduct</small></h1>
 </div>
 

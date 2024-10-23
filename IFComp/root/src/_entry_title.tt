@@ -1,9 +1,11 @@
+<div class="row">
 <h2>
     <span itemprop="name">[% entry.title | html %]</span>
     [% IF include_permalink %]
         <a href="#entry-[% entry.id %]"><small><span class="glyphicon glyphicon-link" style="float: right; margin:0; padding: 0"></span></small></a>
     [% END %]
     [% IF entry.subtitle %]
-        <br /><small itemprop="alternateName">[% entry.subtitle | html %]</small>
+        <br /><small class="text-secondary" itemprop="alternateName">[% entry.subtitle | html %]</small>
     [% END %]
 </h2>
+</div>

@@ -1,6 +1,6 @@
 <div class="container">
 
-<h1 class="page-header">A player's guide to IFComp file formats</h1>
+<h1 class="mt-5 mb-2 border-bottom">A player's guide to IFComp file formats</h1>
 
 <p>IFComp authors create their games using any tools they wish to use. As a result, the games during a given comp year will involve a wide variety of file formats. This short guide gives you, the IFComp player, a quick rundown of the most common formats and how to play them.</p>
 

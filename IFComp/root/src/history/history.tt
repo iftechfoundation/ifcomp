@@ -1,9 +1,11 @@
 [% meta.title = 'IFComp - History' %]
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
+    <h1 style="text-align:center;">History of the Competition</h1>
+</div> </div> </div> </div>
+
 <div class="container">
-<div class="jumbotron">
-<h1 style="text-align:center;">History of the Competition</h1>
-</div>
-<div class="page-header">
+
+<div class="mt-5 border-bottom">
 <h1>The IFComp, past and present</h1>
 </div>
 <h2 id="thebeginning">The beginning</h2>
@@ -43,7 +45,7 @@
 
 <p>We hope you&#8217;ll join us in looking forward to what the next 20 years will bring.</p>
 
-<div class="page-header">
+<div class="mt-5 border-bottom">
 <h1 id="winners">A list of IFComp winners</h1>
 </div>
 <p>The following list includes every game to take first prize in the IFComp over the years. The competition&#8217;s legacy embraces far more than merely its first-place winners, of course. To browse all entries by year, <a href="[% c.uri_for( '/comp/' ) %]">visit the results page</a>.</p>

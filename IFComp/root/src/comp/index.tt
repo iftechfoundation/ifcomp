@@ -1,31 +1,36 @@
 [% meta.title = 'IFComp ' _ comp.year -%]
 <div class="container">
 
-<div class="jumbotron">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">Winners of the [% comp.year %] IFComp</h1>
-</div>
+</div></div></div></div>
 
 [% INCLUDE next_prev %]
 
         <p style="text-align:center;">
 [% IF view_is_compact %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-default">
-            <span class="glyphicon glyphicon-stats"></span> Switch to full view
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-outline-info">
+            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#bar-chart-fill"></use></svg>
+            Switch to full view
         </a>
 [% ELSE %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-default">
-            <span class="glyphicon glyphicon-list"></span> Switch to compact list view
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-outline-info">
+            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#card-list"></use></svg>
+            Switch to compact list view
         </a>
 [% END %]
-        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-default">
-            <span class="glyphicon glyphicon-cloud-download"></span> Browse / download [% comp.year %] game files
+        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-outline-info">
+            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#cloud-download-fill"></use></svg>
+            Browse / download [% comp.year %] game files
         </a>
         </p>
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-info">
 <p>
-The competition's very first run in 1995 split the entries into two categories: one for games written with Inform, and one for TADS. Therefore, that year had two first-place winners, two second-place winners, and so on...
+The competition's very first run in 1995 split the entries into two categories:
+one for games written with Inform, and one for TADS. Therefore, that year had
+two first-place winners, two second-place winners, and so on...
 </p>
 </div>
 [% END %]
@@ -54,6 +59,7 @@ The competition's very first run in 1995 split the entries into two categories: 
 
 [% BLOCK scripts %]
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script>
 $(function () { 
     var charts = [
@@ -75,6 +81,7 @@ $(function () {
                     type: 'column',
                     animation: false,
                     height: 125,
+                    styledMode: true,
                 },
                 xAxis: {
                     categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -124,7 +131,7 @@ $(function () {
 [% mc_place = entry.miss_congeniality_place %]
 <div class="row">
     <div class="col-sm-12">
-        <h2><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
+        <h2><span class="badge badge-pill label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
         [% IF there_is_a_tie_for.$place %](tie)[% END %]
         </span></h2>
     [% INCLUDE _entry_title.tt %]
@@ -136,7 +143,7 @@ $(function () {
 [% BLOCK compact_entry_row %]
 [% place = entry.place %]
 <tr>
-    <td style="text-align:right"><span class="label label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
+    <td style="text-align:right"><span class="badge badge-pill label-[% IF entry.place == 1 %]first-place[% ELSIF entry.place == 2 %]second-place[% ELSIF entry.place == 3 %]third-place[% ELSIF entry.place <= 10 %]fourth-through-tenth-place[% ELSE %]enth-place[% END %]">[% entry.place_as_ordinate %] place
         [% IF there_is_a_tie_for.$place %](tie)[% END %]</span></td>
     <td><strong><a href="[% INCLUDE ifdb_url.tt %]">[% entry.title | html %]</a></strong> by [% INCLUDE author_name.tt %]
         [% IF entry.entry_coauthors %]
@@ -152,18 +159,22 @@ $(function () {
 [% BLOCK pager %]
 <ul class="pagination pagination-sm" style="margin-bottom:0">
   [% FOREACH year IN comp_years %]
-      <li [% IF year == comp.year %]class="active"[% END %]><a href="[% c.uri_for_action('/comp/index', [ year ], { compact => view_is_compact } ) %]">[% year %]</a></li>
+      <li class="page-item[% IF year == comp.year %]active[% END %]">
+        <a class="page-link" href="[% c.uri_for_action('/comp/index', [ year ], { compact => view_is_compact } ) %]">[% year %]</a>
+      </li>
   [% END %]
 </ul>
 [% END %]
 
 [% BLOCK next_prev %]
-<ul class="pager">
+<div class="row justify-content-between">
+  <div class="col-2">
   [% IF previous_year %]
-  <li class="previous"><a href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a></li>
+  <a class="btn btn-outline-info" href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a>
   [% END %]
+  </div>
   [% IF next_year %]
-  <li class="next"><a href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></li>
+  <div class="col-2 text-end"><a class="btn btn-outline-info" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
   [% END %]
-</ul>
+</div>
 [% END %]

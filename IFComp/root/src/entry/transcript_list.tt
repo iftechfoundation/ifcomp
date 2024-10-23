@@ -6,14 +6,19 @@
 
 <h1>Transcripts for [% entry.title %]</h1>
 
-<p>Transcripts are provided as a free service by ifcomp.org, and will be collected for as long as your game's online-play function is hosted here; that is to say, through the end of the judging period on [% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %].</p>
+<p>Transcripts are provided as a free service by ifcomp.org, and will be
+collected for as long as your game's online-play function is hosted here; that
+is to say, through the end of the judging period on
+[% current_comp.judging_ends.strftime( '%{month_name} %{day}' ) %].</p>
 
 [% IF session_rs.count > 0 %]
 
 <h2>Play sessions</h2>
 <ul>
 [% WHILE (session = session_rs.next) %]
-<li><a href="[% c.uri_for_action( '/entry/transcript', [ entry.id, session.get_column( 'session_id' ) ] ) %]">Session starting [% session.get_column ( 'start_time' ) %]</a>, [% session.get_column( 'command_count' ) %] commands</li>
+<li><a href="[% c.uri_for_action( '/entry/transcript', [ entry.id, session.get_column( 'session_id' ) ] ) %]">Session
+starting [% session.get_column ( 'start_time' ) %]</a>, [% session.get_column( 'command_count' ) %]
+command[% IF session.get_column( 'command_count' ) != 1 %]s[% END %]</li>
 [% END %]
 </ul>
 

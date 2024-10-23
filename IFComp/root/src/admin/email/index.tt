@@ -1,7 +1,7 @@
 <div class="container">
 <h1>Entrant contact info: [% current_comp.year %]</h1>
 
-<h2>Email addresses</h2>
+<h2 class="mt-3 border-bottom">Email addresses</h2>
 <p>This is a simple list of all email addresses for all authors with at least one non-disqualified entry registered with the [% current_comp.year %] IFComp.</p>
 
 <p>You can use this list to e.g. paste into mailing-list software, or just to build a massive bcc: field or whatever if that's your thing.</p>
@@ -17,7 +17,7 @@
 <p>...actually, it looks like we don't have any email addresses right now.</p>
 [% END %]
 
-<h2>Forum handles</h2>
+<h2 class="mt-3 border-bottom">Forum handles</h2>
 
 <p>This is a simple list of forum handles addresses for all authors with at least one non-disqualified entry registered with the [% current_comp.year %] IFComp.</p>
 

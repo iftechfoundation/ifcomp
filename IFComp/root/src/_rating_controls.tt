@@ -1,11 +1,11 @@
 [% IF c.user.get_object.can_vote_for(entry) %]
 
-    <div class="rating-controls" style="float: right;">
+    <div class="float-end rating-controls">
         <p>Your rating: <select data-entry="[% entry.id %]" class="rating-select"[% IF current_comp.status == 'processing_votes' %] disabled[% END %] autocomplete="off">
             <option value="0">None</option>
             [% number = 1 %]
             [% WHILE number <= 10 %]
-                <option value="[% number %]" [% IF rating_for_entry.${entry.id} == number %] selected="1" [% END %] >[% number %]</option>
+                <option value="[% number %]" [% IF rating_for_entry.${entry.id} == number %] selected [% END %] >[% number %]</option>
                 [% number = number + 1 %]
             [% END %]
         </select>
@@ -13,10 +13,10 @@
         <span class="feedback-link" id="feedback-link-[% entry.id %]">
             <a href="[% c.uri_for_action( '/ballot/feedback', entry.id ) %]">Add / edit feedback</a>
         </span>
-        [% END %]
-        <span id="rating-status-[% entry.id %]-spinner" class="label label-default waiting" style="display:none">Submitting...</span>
-        <span id="rating-status-[% entry.id %]-success" class="label label-success success" style="display:none">Rating recorded!</span>
-        <span id="rating-status-[% entry.id %]-failure" class="label label-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>
+        [% END %]<br>
+        <span id="rating-status-[% entry.id %]-spinner" class="badge text-bg-info waiting" style="display:none">Submitting...</span>
+        <span id="rating-status-[% entry.id %]-success" class="badge text-bg-success success" style="display:none">Rating recorded!</span>
+        <span id="rating-status-[% entry.id %]-failure" class="badge text-bg-danger danger" style="display:none">Rating not recorded! (Uh oh. Contact ifcomp@ifcomp.org about this, please.)</span>
         </p>
     </div>
 

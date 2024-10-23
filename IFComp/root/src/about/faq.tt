@@ -1,20 +1,20 @@
 <div class="container">
 
-<div class="jumbotron">
-<h1 style="text-align:center;">Frequently Asked Questions</h1>
-</div>
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
+    <h1 style="text-align:center;">Frequently Asked Questions</h1>
+</div></div></div></div>
 
 <p>Here are some common questions about participating in the IFComp. Please do feel free to <a href="http://www.intfiction.org/forum/viewforum.php?f=23">ask the forum</a> or <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x69;&#102;&#99;&#111;&#x6d;&#x70;&#64;&#105;&#x66;&#x63;&#x6f;&#x6d;&#x70;&#46;&#x6f;&#114;&#x67;">&#99;&#111;&#x6e;&#116;&#97;&#x63;&#116; &#116;&#x68;&#x65; &#111;&#x72;&#103;&#x61;&#110;&#105;&#122;&#101;&#x72;</a> with any other questions you might have (including those that might arise from reading these)!</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="enteringgames">Entering games</h1>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can an entry be written by a team?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Can an entry be written by a team?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>Absolutely! While most IFComp entries have individual authors, collaborations are not uncommon, and have appeared among the top ten finishers several times.</p>
 
 <p>A collaboration can take many forms: for example, it could be two authors
@@ -46,11 +46,11 @@ for a Colossal Fund prize.
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">I have an unfinished game people have already played. Can I finish it and enter it into the competition?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">I have an unfinished game people have already played. Can I finish it and enter it into the competition?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>It all depends on whether or not the game&#8217;s earlier version has been released to the public.</p>
 
 <p>If you know that a few friends, family, colleagues or classmates are the
@@ -66,21 +66,21 @@ you linked to the game from a public forum.</p>
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can I enter a game that I've already shown at festivals or other events?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Can I enter a game that I've already shown at festivals or other events?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>Every IFComp entry should be, in essence, the world premiere of that work. If you've already shown the work, whether in current or earlier form, in other festivals or competitions, then IFComp considers it an already-released work and therefore disqualified from entry.</p>
 <p>This disqualification can also apply should you, for example, submit a game in July and then submit it to other events in September, weeks before the IFComp judging period. If your work is bound for IFComp, then please avoid any public release at all until IFComp judging begins.</p>
   </div>
 </div>
 
-<div class="panel panel-default" id="content-warnings">
-  <div class="panel-heading">
-    <h3 class="panel-title">Are there any restrictions on content, such as coarse language, or depictions of sex or violence?<br /><br />Do I need to warn players about these things if I include them in my game?</h3>
+<div class="card mt-3" id="content-warnings">
+  <div class="card-header">
+    <h3 class="card-title">Are there any restrictions on content, such as coarse language, or depictions of sex or violence?<br /><br />Do I need to warn players about these things if I include them in my game?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>The IFComp places no restrictions on the elements that make up its entries&#8217; stories.</p>
 
 <p>Some entrants choose to place content-warning labels on games containing potentially disturbing or — for players with conditions such as <a href="https://en.wikipedia.org/wiki/Posttraumatic_stress_disorder">PTSD</a> or epilepsy — harmful imagery. In the latter context, these labels are sometimes called <em>trigger warnings</em>, and can refer to either thematic or audio-visual content (such as strobing-light effects). The competition generally leaves whether and how to do this entirely up to the judgment and taste of the author, unless the content-warning is written in such a way that it is itself disturbing, makes light of content warnings, or could otherwise be interpreted as not having been written in good faith.</p>
@@ -94,38 +94,38 @@ you linked to the game from a public forum.</p>
 <li><p>Provide a list of more detailed content advisories pertinent to your game behind a special command, menu option, or other player-voluntary action. This way, players who wish to see warnings before play can easily read them, and those who don't can just as easily ignore them.</p>
 </ul>
   </div>
-</div><div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can I enter a game that only runs on a certain OS (e.g. Windows) or device?</h3>
+</div><div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Can I enter a game that only runs on a certain OS (e.g. Windows) or device?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>You certainly may, if it keeps to <a href="/rules/#authors">all the rules for entries</a>. Just be aware that such games by definition have a smaller potential audience than games that work across many platforms. In the IFComp, the fewer technological restrictions for play that an entry has, the more votes, reviews, and overall attention it tends to receive.</p>
 
 <p>The IF community has a long-lived tradition for cross-platform works, with its roots back in the heyday of commercial text adventures from the 1980s. <a href="/about/guidelines#useanifauthoringtool">The most popular tools for IF game creation</a> keep this tradition alive by making it easier to create a single game that works on a variety of computing environments. It may be worth your time to examine these tools, if you haven&#8217;t already.</p>
 
   </div>
-</div><div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">What should I do if I haven&#8217;t finished my entry by the final deadline? Should I just enter what I have?</h3>
+</div><div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">What should I do if I haven&#8217;t finished my entry by the final deadline? Should I just enter what I have?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>While nothing in the rules stops you from entering an unfinished work, <a href="/about/guidelines#submitonlyfinishedwork">we strongly recommend that you don&#8217;t</a>. </p>
 
 <p>There is no penalty for <em>not</em> submitting a final entry, even if you earlier declared an intent to enter. If the deadline has arrived and you know that your entry is unfinished (or finished but <a href="/about/guidelines#testing">untested</a>), please consider withdrawing your entry. Submitting a complete, tested work to a future competition will almost certainly reward you with more pride and satisfaction than submitting an incomplete work today.</p>
   </div>
-</div><div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">My entry runs on an online platform; it's not downloadable. What should I upload as my entry's main file?</h3>
+</div><div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">My entry runs on an online platform; it's not downloadable. What should I upload as my entry's main file?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>Create an HTML file that links to your game, and upload that. This file can contain any style or content you like, so long as it clearly links to (or embeds?) your entry.</p>
   </div>
   
-</div><div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
+</div><div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">I&#8217;ve entered a game; am I allowed to talk about the IFComp in public?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>Yes, so long as you follow <a href="http://www.ifcomp.org/rules/#authors">author rule #4</a>, which restricts authors from publicly asking for votes before the competition is over.</p>
 
 <p>If you&#8217;ve submitted an entry this year, then you <strong>may</strong>:</p>
@@ -146,11 +146,11 @@ you linked to the game from a public forum.</p>
   </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can I release an entry in a different venue after the competition begins?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Can I release an entry in a different venue after the competition begins?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 
 <p>We would ask that you keep entries exclusive to the IFComp until the judging
 period ends, after which you may do whatever you wish with your work. The
@@ -161,11 +161,11 @@ rule #4. (See previous question.)</p>
 </div>
 </div>
 
-<div class="panel panel-default" id="author-updates">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can I update my entry during the competition?</h3>
+<div class="card mt-3" id="author-updates">
+  <div class="card-header">
+    <h3 class="card-title">Can I update my entry during the competition?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 
 <p>Yes, though we ask that you limit updates only to bug fixes, and not use the
 update facility for continued, post-deadline development of your work.</p>
@@ -190,32 +190,32 @@ files.</p>
 </div>
 </div>
 
-<div class="panel panel-default" id="author-updates">
-  <div class="panel-heading">
-    <h3 class="panel-title">How can I make sure that my entry's submitted properly?</h3>
+<div class="card mt-3" id="author-updates">
+  <div class="card-header">
+    <h3 class="card-title">How can I make sure that my entry's submitted properly?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>If your entry's listing on <a href="/entry">your entry management page</a> says <em>Entry complete</em> beside it, then the website can see your uploaded game file, and your game is ready for the competition.</p>
 <p>If it does <em>not</em> say <em>Entry complete</em>, then the website cannot see your game file. Please confirm that you've uploaded one!</p>
 <p>You can also check <a href="/entry/preview">your preview page</a> to make sure that your games look, download, and play as you expected them to.</p>
 </div>
 </div>
 
-<div class="panel panel-default" id="author-updates">
-  <div class="panel-heading">
-    <h3 class="panel-title">The competition ended, and my game got mostly good ratings, but also a few 1s and 2s that lowered its final score. That doesn't seem fair! How can I address this?</h3>
+<div class="card mt-3" id="author-updates">
+  <div class="card-header">
+    <h3 class="card-title">The competition ended, and my game got mostly good ratings, but also a few 1s and 2s that lowered its final score. That doesn't seem fair! How can I address this?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>Since its inception, the IFComp has allowed judges to use any scoring rubric they desire, and rate games according to their own subjective taste. No matter the objective excellence of your work, some people will probably dislike it, and others might <em>really</em> dislike it, and you may never know why.</p>
 <p>For what it's worth, audiences' frustratingly inscrutable tastes represents <a href="https://en.wikipedia.org/wiki/De_gustibus_non_est_disputandum">a quandary that great artists have faced for centuries</a>. If you find yourself feeling this way too, consider yourself in vast and storied company.</p>
 </div>
 </div>
 
-<div class="panel panel-default" id="author-updates">
-  <div class="panel-heading">
-    <h3 class="panel-title">How do I make a "Play Online" button appear for my entry?</h3>
+<div class="card mt-3" id="author-updates">
+  <div class="card-header">
+    <h3 class="card-title">How do I make a "Play Online" button appear for my entry?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>The "Play Online" button appears only for entries whose uploaded game-file meets any one of these criteria:</p>
 <ul>
 <li>It is an Inform-generated story file (e.g. a <code>.gblorb</code> or a <code>.z8</code>).</li>
@@ -226,7 +226,7 @@ files.</p>
 </div>
 </div>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="judginggames">Judging games</h1>
 </div>
 
@@ -234,11 +234,11 @@ files.</p>
 to read <a href="/about/judging/">the judging guidelines</a> for more
 information about how IFComp scoring typically works.</p>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Who can judge the IFComp?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Who can judge the IFComp?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 
 <p>Anyone can! It&#8217;s as simple as signing up for an account on this
 website, and then <a href="/ballot/vote">visiting the ballot</a> (available
@@ -257,29 +257,29 @@ as they can.</p>
 </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">So many games! Do I have to rate all of them?!</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">So many games! Do I have to rate all of them?!</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>No, you only need to rate at least five games in order for your votes to count. Just leave any games you haven&#8217;t played with the rating of &#8220;None&#8221;.</p>
 </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Do I have to play a game for two hours, even if it&#8217;s shorter than that?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Do I have to play a game for two hours, even if it&#8217;s shorter than that?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>No. The two-hour rule describes a maximum, not a minimum.</p>
 </div>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Do I have to stop playing a game if I&#8217;m not done with it after two hours?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Do I have to stop playing a game if I&#8217;m not done with it after two hours?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 <p>No, you can keep playing, but you do need to rate it first. According to <a
 href="/rules#judges">the competition rules</a>, you must rate the game based on
 your experiences of your first two hours with it. By all means, play the game
@@ -294,15 +294,15 @@ games. Please keep to the honor system!</p>
 </div>
 
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="donatingprizes">Donating prizes</h1>
 </div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Can I still donate a prize for this year&#8217;s competition?</h3>
+<div class="card mt-3">
+  <div class="card-header">
+    <h3 class="card-title">Can I still donate a prize for this year&#8217;s competition?</h3>
   </div>
-  <div class="panel-body">
+  <div class="card-body">
 
 <p>We accept prize donations through
 [% current_comp.judging_ends.month_name %] [% current_comp.judging_ends.day %].

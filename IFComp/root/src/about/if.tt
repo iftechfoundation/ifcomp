@@ -7,10 +7,10 @@
 
 [% meta.title = 'IFComp - About IF' %]
 <div class="container">
-<div class="jumbotron">
+     <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">About Interactive Fiction</h1>
-</div>
-<div class="page-header">
+     </div></div></div></div>
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="whatifissmallasfaraswereconcernedsmall">What IF is <small>as far as we&#8217;re concerned</small></h1>
 </div>
 
@@ -28,7 +28,7 @@
 
 <p>A scene in a parser IF game might look like this:</p>
 
-<blockquote>
+<blockquote class="blockquote ms-4 ps-2 border-start">
 <p><strong>Front Steps</strong></p>
 
 <p>Well, here we are, back home again. The battered front door leads north into the lobby.</p>
@@ -40,7 +40,7 @@
 
 <p>That &#8220;&gt;_&#8221; is a text prompt, with a cursor awaiting the player&#8217;s typed-in command. Perhaps the player will type GO NORTH, or LOOK AT THE CAT, or ASK THE CAT ABOUT THE DOOR. A well-made (and thoroughly tested) game will accept many reasonable inputs, and respond appropriately:</p>
 
-<blockquote>
+<blockquote class="blockquote ms-4 ps-2 border-start">
 <p>&gt; <strong>PET THE CAT</strong></p>
 
 <p>The cat aggressively butts her head against your hand as you reach for her, and you take a moment to scratch her behind the ears.</p>
@@ -66,7 +66,7 @@
 
 <p>A scene in a choice-based game might look like this:</p>
 
-<blockquote>
+<blockquote class="blockquote ms-4 ps-2 border-start">
 <p>Well, here we are, back home again. The battered front door leads into the lobby.</p>
 
 <p>The cat is out here with you, parked directly in front of the door and looking up at you expectantly.</p>
@@ -89,7 +89,7 @@
 
 <p>A scene in a hypertext IF might look like this:</p>
 
-<blockquote>
+<blockquote class="blockquote ms-4 ps-2 border-start">
 <p>Well, here we are, back <span class="fake-link">home</span> again. The <span class="fake-link">battered front door</span> leads into the lobby.</p>
 
 <p><span class="fake-link">The cat</span> is out here with you, parked directly in front of the door and <span class="fake-link">looking up at you expectantly</span>.</p>
@@ -99,7 +99,7 @@
 
 <p>Each of those bold-weight phrases might, with a click, take the player to a new scene or location, expand in-place to reveal new text (and perhaps new choices), or accomplish other effects. In this example, clicking the link in the last paragraph might transform it to this:</p>
 
-<blockquote>
+<blockquote class="blockquote ms-4 ps-2 border-start">
 <p>You&#8217;re hungry. Staying focused on dinner plans keeps your mind off <span class="fake-link">what happened this afternoon</span>.</p>
 </blockquote>
 
@@ -107,7 +107,7 @@
 
 <p>While the concept of hypertext fiction is not new, this particular style of IF began to enjoy a renaissance in the 2010s by way of <a href="http://twinery.org">Twine</a>, a popular tool for their creation. Recent IFComp years have seen a significant portion of Twine-enabled hypertext entries.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="playingparserif">Playing Parser IF</h1>
 </div>
 
@@ -132,14 +132,14 @@
 <li><p><a href="http://blue-lacuna.textories.com/">Aaron Reed&#8217;s <em>Blue Lacuna</em></a> and <a href="https://ifdb.org/viewgame?id=aearuuxv83plclpl">Emily Short&#8217;s <em>Counterfeit Monkey</em></a> are both very long and complex stories nonetheless written to accomodate new players. They both begin with smaller prologues, allowing new players to get comfortable with the parser before things start to open up. They also allow players to choose whether to fill the game world with puzzles to solve, or focus instead on story.</p></li>
 </ul>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="otherifgamestotry">Other IF games to try</h1>
 </div>
 
 <p>The People&#8217;s Republic of Interactive Fiction, a Boston-based IF interest group, hosts <a href="http://pr-if.org/play/">a handpicked shortlist of IF works suitable for newcomers</a> &#8211; either because they&#8217;re specifically designed that way, or because they&#8217;re widely considered to be good examples of the form. All the games on the list are playable in a web browser.</p>
 
 <p>Naturally, we also invite you to browse the list of <a href="[% c.uri_for_action( '/history/index' ) %]#winners">past Interactive Fiction Competition winners</a>, or <a href="[% c.uri_for_action( '/comp/comp' ) %]">the top entries from recent years</a>. These lists feature links to the games&#8217; pages on <a href="https://ifdb.org">the IFDB</a>, where you can in turn download them or (in most cases) play them online as well.</p>
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="elsewhereontheweb">IF resources around the web</h1>
 </div>
 
