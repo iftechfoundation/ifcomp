@@ -125,7 +125,7 @@ I hereby grant the Interactive Fiction Technology Foundation (IFComp's organizin
 [% IF entry.id && entry.cover_file %]
 <div class="row">        <div class="col-xs-4">
             <p>Current cover image:<br />
-            <img class="img-responsive" src="[% c.uri_for_action( '/entry/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto;">
+            <img class="img-fluid" src="[% c.uri_for_action( '/entry/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]">
             </p>
         </div>
         </div>

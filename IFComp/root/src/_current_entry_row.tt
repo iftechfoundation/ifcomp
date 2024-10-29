@@ -3,7 +3,7 @@
     [% IF entry.cover_exists %]
     <div class="col-sm-4">
         <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
-            <a itemprop="contentUrl" href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img itemprop="thumbnailUrl" class="img-responsive" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;" loading="lazy"></a>
+            <a itemprop="contentUrl" href="[% c.uri_for_action( '/play/full_cover', [ entry.id ] ) %]" target="_blank"><img itemprop="thumbnailUrl" class="img-fluid" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" loading="lazy"></a>
 	    [% IF (entry.genai_state / 2) % 2 == 1 %]
 		<span style="font-size: smaller;" itemprop="genai_cover"><em>Generative artificial intelligence was used to make this cover art.</em></span>
 	    [% END %]

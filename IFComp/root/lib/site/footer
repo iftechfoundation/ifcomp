@@ -5,7 +5,7 @@
  <div class="row">
  <div class="col-sm-4" style="width: 25%; margin-right:2em; margin-bottom: 1ex;">
    <a href="http://iftechfoundation.org">
-     <img class="iftf_logo col-sm-12 img-responsive transparent-img-bg svgicon"
+     <img class="iftf_logo col-sm-12 img-fluid transparent-img-bg svgicon"
           alt="Interactive Fiction Technology Foundation">
    </a>
  </div>

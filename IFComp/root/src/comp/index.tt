@@ -9,24 +9,24 @@
 
         <p style="text-align:center;">
 [% IF view_is_compact %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-outline-info">
-            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#bar-chart-fill"></use></svg>
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-outline-primary">
+            <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#bar-chart-fill"></use></svg>
             Switch to full view
         </a>
 [% ELSE %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-outline-info">
-            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#card-list"></use></svg>
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-outline-primary">
+            <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#card-list"></use></svg>
             Switch to compact list view
         </a>
 [% END %]
-        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-outline-info">
-            <svg width="20" height="20" class="svginfo bi me-2 opacity-50"><use href="#cloud-download-fill"></use></svg>
+        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-outline-primary">
+            <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#cloud-download-fill"></use></svg>
             Browse / download [% comp.year %] game files
         </a>
         </p>
 
 [% IF comp.year == 1995 %]
-<div class="alert alert-info">
+<div class="alert alert-primary">
 <p>
 The competition's very first run in 1995 split the entries into two categories:
 one for games written with Inform, and one for TADS. Therefore, that year had
@@ -170,11 +170,11 @@ $(function () {
 <div class="row justify-content-between">
   <div class="col-2">
   [% IF previous_year %]
-  <a class="btn btn-outline-info" href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a>
+  <a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a>
   [% END %]
   </div>
   [% IF next_year %]
-  <div class="col-2 text-end"><a class="btn btn-outline-info" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
+  <div class="col-2 text-end"><a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
   [% END %]
 </div>
 [% END %]

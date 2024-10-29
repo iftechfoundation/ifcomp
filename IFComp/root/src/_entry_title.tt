@@ -2,7 +2,7 @@
 <h2>
     <span itemprop="name">[% entry.title | html %]</span>
     [% IF include_permalink %]
-        <a href="#entry-[% entry.id %]"><small><span class="glyphicon glyphicon-link" style="float: right; margin:0; padding: 0"></span></small></a>
+        <a href="#entry-[% entry.id %]"><svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#link-45deg"></use></svg></a>
     [% END %]
     [% IF entry.subtitle %]
         <br /><small class="text-secondary" itemprop="alternateName">[% entry.subtitle | html %]</small>

@@ -30,7 +30,7 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
 
     [% IF entry.cover_exists %]
         <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" class="col-sm-4">
-            <img class="img-responsive" itemprop="contentUrl" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]" style="margin-left: auto; margin-right: auto; max-height: 350px;">
+            <img class="img-fluid" itemprop="contentUrl" src="[% c.uri_for_action( '/play/cover', [ entry.id ] ) %]" alt="Cover art for [% entry.title %]">
         [% IF entry.cover_artist %]
             <p><strong>Cover art by:</strong> <span itemprop="author">[% entry.cover_artist %]</span></p>
         [% END %]
