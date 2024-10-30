@@ -290,7 +290,7 @@ you have played so far.[% END %]</p>
 
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
-        <div itemscope itemtype="https://schema.org/VideoGame" class="bg-primary-subtle card p-4 m-3" id="entry-[% entry.id %]"
+        <div itemscope itemtype="https://schema.org/VideoGame" class="bg-secondary-subtle card p-4 m-3" id="entry-[% entry.id %]"
              ifcomp-style="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
              ifcomp-playtime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
              ifcomp-platform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"

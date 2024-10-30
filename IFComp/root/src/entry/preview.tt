@@ -13,7 +13,7 @@
 [% IF entries.size %]
 
 [% FOR entry IN entries %]
-    <div class="bg-primary-subtle card p-4 m-3">
+    <div class="bg-secondary-subtle card p-4 m-3">
     [% INCLUDE _entry_title.tt %]
     [% INCLUDE _current_entry_row.tt current_comp = 1 %]
     </div>

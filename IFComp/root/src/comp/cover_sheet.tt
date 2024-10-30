@@ -24,7 +24,7 @@ judging on [% comp.judging_begins.strftime( '%{month_name} %{day}' ) %], [% comp
 </div>
 
 [% FOR entry IN entries %]
-    <div class="bg-primary-subtle card p-4 m-3" itemscope itemtype="https://schema.org/VideoGame" id="entry-[% entry.id %]">
+    <div class="bg-secondary-subtle card p-4 m-3" itemscope itemtype="https://schema.org/VideoGame" id="entry-[% entry.id %]">
     [% INCLUDE _entry_title.tt %]
 <div class="row">
 
