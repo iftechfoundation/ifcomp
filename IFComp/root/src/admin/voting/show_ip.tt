@@ -5,7 +5,7 @@
           <h1 style="text-align:center;">IP: [% ip %]</h1>
      </div></div></div></div>
      
-     <nav class="breadcrumb">
+     <nav aria-label="breadcrumb">
          <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
             <li class="breadcrumb-item"><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => comp.id}); r %]">Voting Reports</a></li>

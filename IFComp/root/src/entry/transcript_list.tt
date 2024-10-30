@@ -1,8 +1,10 @@
 <div class="container">
-<ol class="breadcrumb">
-  <li><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
-  <li class="active">Transcripts for [% entry.title %]</li>
-</ol>
+ <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
+      <li class="breadcrumb-item active">Transcripts for [% entry.title %]</li>
+    </ol>
+</nav>
 
 <h1>Transcripts for [% entry.title %]</h1>
 

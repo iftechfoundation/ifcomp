@@ -1,5 +1,5 @@
 <div class="container">
-<nav class="breadcrumb">
+<nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="[% c.uri_for_action( '/entry/list' ) %]">Your entries</a></li>
       <li class="breadcrumb-item active">Preview entries</li>
