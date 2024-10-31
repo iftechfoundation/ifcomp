@@ -1,5 +1,5 @@
 <div class="container">
-<h1>Manage your [% current_comp.year %] entries</h1>
+<h1 class="border-bottom mt-4">Manage your [% current_comp.year %] entries</h1>
 
 [% IF c.flash.entry_withdrawn %]
 <div class="alert alert-success">You have withdrawn the entry titled <em>[% c.flash.entry_withdrawn %]</em>.</div>

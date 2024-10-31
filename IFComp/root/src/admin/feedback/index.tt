@@ -5,25 +5,39 @@
 <p>
 Here is all the feedback received for [% year %], sorted by judge name.</p>
 
-<p><strong>Please consider the contents of this page sensitive information.</strong> Outside of this page, only the author of a given entry can see the feedback left for it, and in that case they cannot see the identity of the judge who wrote it (unless the judge volunteered this information in the text of the feedback itself.)
+<p><strong>Please consider the contents of this page sensitive
+information.</strong> Outside of this page, only the author of a given entry
+can see the feedback left for it, and in that case they cannot see the identity
+of the judge who wrote it (unless the judge volunteered this information in the
+text of the feedback itself.)
 </p>
+
+<p>Each feedback item is tagged with a unique ID -- you can use that number
+to refer to a specific entry when communicating with the tech lead. The ID
+will not show up for the authors.</p>
 
 <form>
 <p>Change year: 
 <select name="year">
 [% FOR comp_year IN comp_years %]
-<option value="[% comp_year %]" [% IF comp_year == year %]selected="1"[% END %]>[% comp_year %]</option>
+<option value="[% comp_year %]" [% IF comp_year == year %]selected[% END %]>[% comp_year %]</option>
 [% END %]
 </select>
 <button>Go</button>
 </form>
 
-<hr />
+[% last_judge = "" %]
 
 [% IF feedback_rs.count %]
     [% WHILE (feedback = feedback_rs.next) %]
-        <p><strong>[% feedback.judge.name | html %] ([% feedback.judge.email | html %])</strong>, on [% feedback.entry.title | html %]:</p>
-        <blockquote>[% feedback.text | html | html_para %]</blockquote>
+        [% IF last_judge != feedback.judge.email %]
+          <hr>
+        [%
+           last_judge = feedback.judge.email;
+           END
+        %]
+        <p>[ID [% feedback.id %]] <strong>[% feedback.judge.name | html %] ([% feedback.judge.email | html %])</strong>, on [% feedback.entry.title | html %]:</p>
+        <blockquote class="border-start ps-2 ms-4 blockquote">[% feedback.text | html | html_line_break %]</blockquote>
     [% END %]
 [% ELSE %]
 <p>No feedback to display for the selected year.</p>

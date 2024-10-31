@@ -1,6 +1,6 @@
 [% meta.title = 'IFComp - Contact and site credits' %]
 <div class="container">
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1>IFComp contact, credits, and legal info</h1>
 </div>
 
@@ -39,7 +39,7 @@ Special and ongoing thanks to all organizers, authors, judges and donors of the 
 To file a DMCA takedown notice, please contact our DMCA agent:
 </p>
 
-<blockquote>Heidi Tandy, Esq.<br>
+<blockquote class="blockquote ms-4 ps-2 border-start">Heidi Tandy, Esq.<br>
 Price Benowitz<br>
 1691 Michigan Ave., Suite 360<br>
 Miami Beach, FL 33139<br>

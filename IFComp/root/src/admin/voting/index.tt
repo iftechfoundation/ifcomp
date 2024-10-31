@@ -1,14 +1,16 @@
 [% meta.title = 'IFComp - Admin - Voting' %]
 [% USE D = Dumper %]
 <div class="container">
-     <div class="jumbotron">
+     <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
           <h1 style="text-align:center;">Voting Reports</h1>
-     </div>
+     </div></div></div></div>
      
-     <ul class="breadcrumb">
-        <li><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
-        <li class="active">Voting</a>
-     </ul>
+     <nav aria-label="breadcrumb">
+         <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
+            <li class="breadcrumb-item" active">Voting</a>
+         </ul>
+    </nav>
 
      <p>Note: complete voting records are only available from 2014 forward.</p>
 
@@ -89,7 +91,8 @@
            <div id="score-buckets-chart"></div>
            
            [% BLOCK scripts %]
-           <script src="https://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+           <script src="https://code.highcharts.com/highcharts.js"></script>
+           <script src="https://code.highcharts.com/modules/accessibility.js"></script>
            <script type="text/javascript">
 $(function () { 
  
@@ -101,6 +104,7 @@ $(function () {
        type: 'column',
        animation: false,
        height: 200,
+       styledMode: true,
      },
      xAxis: {
             categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

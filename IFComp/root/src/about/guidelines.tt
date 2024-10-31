@@ -1,14 +1,14 @@
 [% meta.title = 'IFComp - Best practices for authors' %]
 <div class="container">
-<div class="jumbotron">
+     <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">Guidelines for IFComp authors</h1>
-</div>
+     </div></div></div></div>
 
 <p>This is a page of advice, not rules. (<a href="/rules/">We do have rules</a>, and you should read those too, but they&#8217;re not this.) </p>
 
 <p>Following these guidelines will make it more likely that your game will earn a certain basic level of respect and interest among the IFComp&#8217;s judges and reviewers. Even if your game doesn&#8217;t take a major prize home, it will still be better positioned to receive positive attention and discussion during the comp and beyond, and in so doing will make your own participation in the comp as an author more worthwhile.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="testing">Playtest your game <small>and credit your testers</small></h1>
 </div>
 
@@ -40,7 +40,7 @@
 
 <p>No matter the style of your work, before submitting it to the competition, please do take the effort to have it playtested.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="includeawalkthrough">Include a walkthrough <small>if your game is puzzly</small></h1>
 </div>
 
@@ -50,7 +50,7 @@
 
 <p>You may wish to include a built-in hint system, should that suit the style and scope of your game. Thorough playtesting can reveal ways your game might subtly guide players to find puzzle solutions by themselves. But even in these cases, pairing your entry with a simple walkthrough file remains an effective way to guarantee that all judges will be able to play through your entire entry.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="writeastrongblurb">Write a strong blurb</h1>
 </div>
 
@@ -70,7 +70,7 @@
 
 <p>See also: <a href="https://heterogenoustasks.wordpress.com/2019/09/03/how-to-write-a-good-if-comp-blurb/">How to Write a Good IFComp Blurb</a></p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="useanifauthoringtool">Use an IF authoring tool</h1>
 </div>
 
@@ -86,7 +86,7 @@
 
 <p>If you wish to submit a work that you created from scratch, please do! We only suggest you keep in mind that giving the player of an interactive story a good basic experience is <em>hard</em>, a software design problem at least as difficult as &#8211; and, in many circumstances, entirely separate from &#8211; the creative challenge of communicating an engaging story. Using an existing IF tool allows authors to worry less about the technology and focus more on the fiction.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="submitonlyfinishedwork">Submit only finished work</h1>
 </div>
 
@@ -96,7 +96,7 @@
 
 <p>Resist the temptation to either submit an entry you know is unready, or abandon it as a failure simply because the year&#8217;s deadline passed. Take the time you need to finish your work before submission, even if it means holding it for the next go-round. You&#8217;ll feel prouder for it, and the judges will appreciate the better game, too.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="furtherreading">Further reading</h1>
 </div>
 

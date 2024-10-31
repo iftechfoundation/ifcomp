@@ -1,10 +1,16 @@
-<div class="jumbotron">
-      <div class="container"><a href="[% c.uri_for_action( '/comp/comp' ) %]"><img class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/245x245-comp2024-logo.png" alt="IFComp logo"></a>
-        <h1>The Interactive Fiction Competition</h1>
-        <h2>An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
+<div class="container py-4">
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+      <div class="container-fluid py-5">
+        <div class="container">
+          <a href="[% c.uri_for_action( '/comp/comp' ) %]">
+            <img class="hidden-xs" style="float:right; max-width:250px; margin-left:20px" src="/static/images/245x245-comp2024-logo.png" alt="IFComp logo">
+          </a>
+          <h1 class="display-5 fw-bold">The Interactive Fiction Competition</h1>
+          <h2 class="col-md-8 fs-4">An annual celebration of new, text-driven digital games and stories from independent creators.</h2>
+        </div>
       </div>
-
- </div>[%# end of jumbotron %]
+    </div>
+</div>
 
 <div class="container">
 
@@ -26,6 +32,7 @@
         [% END %]
         <li>Check out <a href="[% c.uri_for('/about/prizes') %]"> the competition's prize pool</a></li>
         <li>Browse <a href="[% c.uri_for('/comp/last_comp/') %]">past IFComp entries</a></li>
+        </ul>
     </div>
  
     <div class="col-sm-4">

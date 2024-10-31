@@ -27,7 +27,7 @@
             <td>[% prize.url %]</td>
             <td>[% prize.location %]</td>
             <td>[% prize.category %]</td>
-            <td><a href="[% c.uri_for_action( '/admin/prizes/update', [ prize.id ] ) %]"><span class="glyphicon glyphicon-pencil"></span></a></td>
+            <td><a href="[% c.uri_for_action( '/admin/prizes/update', [ prize.id ] ) %]"><svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#pencil"></use></svg></a></td>
         </tr>
     [% END %]
     </tbody>

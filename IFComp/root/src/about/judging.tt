@@ -1,8 +1,8 @@
 [% meta.title = 'IFComp - Best practices for judges' %]
 <div class="container">
-<div class="jumbotron">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">Guidelines for IFComp judges</h1>
-</div>
+</div></div></div></div>
 
 <p>Anyone in the world is welcome to judge the IFComp&#8217;s games, and judges can score games according to whatever criteria they feel comfortable with. That said, <a href="/history">the competition&#8217;s been around a long time</a>, and we do ask that judges have an awareness of ways that IFComp voting tends to differ from other internet-based contests or rating systems.</p>
 

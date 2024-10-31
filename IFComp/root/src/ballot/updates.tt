@@ -10,9 +10,9 @@ full-competition .zip archive from <a href="/ballot">the top of the games-list
 page</a>.</p>
 
 [% FOR update IN updates %]
-    <div class="well ifcomp-outer-well">
-        <p style="font-size: larger;"><em>[% update.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</em></p>
-        <div class="well">
+    <div class="card mt-3">
+        <p class="card-header"><em>[% update.time.strftime( '%{month_name} %{day}, %{hour_12}:%M %{am_or_pm} (UTC)' ) %]</em></p>
+        <div class="card-body">
             [% update.note | html_line_break %]
         </div>
     </div>

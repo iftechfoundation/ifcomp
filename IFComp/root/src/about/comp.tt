@@ -1,11 +1,11 @@
 [% meta.title = 'IFComp - About the Competition' %]
 <div class="container">
-<div class="jumbotron">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">About the Competition</h1>
-</div>
+</div></div></div></div>
 
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="thecompinanutshell">IFComp's mission statement</h1>
 </div>
 
@@ -13,7 +13,7 @@
 text-driven digital stories and games, making them freely available in order to
 encourage the creation, play, and discussion of interactive fiction.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="thecompinanutshell">How IFComp works, in a nutshell</h1>
 </div>
 
@@ -61,13 +61,13 @@ href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#105;&#x66;&#99;&#x6f;&#x6d;&#1
 &#x6f;&#114;&#103;&#x61;&#x6e;&#x69;&#122;&#x65;&#x72;</a>.</p></li>
 </ul>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="competitionschedule">Competition schedule</h1>
 </div>
 
 [% INCLUDE _schedule.tt %]
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1>Side contests</h1>
 </div>
 

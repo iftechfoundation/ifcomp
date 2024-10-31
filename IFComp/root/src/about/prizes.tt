@@ -1,17 +1,24 @@
 [% meta.title = 'IFComp - Prizes' %]
 [% there_are_prizes = prizes_in_category.keys.size %]
 <div class="container">
-    <div class="jumbotron">
+  <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
     <h1 style="text-align:center;">Prizes for the [% current_comp.year %] IFComp</h1>
-    </div>
+  </div></div></div></div>
 
-<p>IFComp features two kinds of prizes, both of which are <a href="#donatingprizes">donated by the IF community</a>, and then shared among the authors of top-ranked entries after the competition ends.</p>
+<p>IFComp features two kinds of prizes, both of which are
+<a href="#donatingprizes">donated by the IF community</a>, and then shared
+among the authors of top-ranked entries after the competition ends.</p>
 
+<ul>
 <li>
-The <strong>Colossal Fund</strong> is an annual fund drive, run by <a href="http://iftechfoundation.org">our parent organization</a>, to establish a cash prize pool for the top two-thirds of entries. Donations to the Colossal Fund also help pay for IFComp operational costs.
+The <strong>Colossal Fund</strong> is an annual fund drive, run by <a
+href="http://iftechfoundation.org">our parent organization</a>, to establish a
+cash prize pool for the top two-thirds of entries. Donations to the Colossal
+Fund also help pay for IFComp operational costs.
 </li>
 <li>
-The traditional <strong>prize pool</strong> contains all sorts of goodies pledged every year by members of the IF community.
+The traditional <strong>prize pool</strong> contains all sorts of goodies
+pledged every year by members of the IF community.
 </li>
 </ul>
 
@@ -33,7 +40,7 @@ The traditional <strong>prize pool</strong> contains all sorts of goodies pledge
 
 [% END %]
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="donatingprizes">Donating prizes</h1>
 </div>
 
@@ -53,7 +60,7 @@ The traditional <strong>prize pool</strong> contains all sorts of goodies pledge
 
 <p>Donations to the Colossal Fund go to the <a href="http://iftechfoundation.org">Interactive Fiction Technology Foundation</a>, a U.S.-based 501(c)(3) non-profit organization, and are fully tax-deductible where allowed by law.</p>
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="aboutifcompprizes">About IFComp prizes</h1>
 </div>
 

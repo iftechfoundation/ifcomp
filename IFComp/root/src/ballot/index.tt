@@ -1,30 +1,36 @@
-<div class="container">
+<div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
+    <h2 style="text-align:center;">Download and Play</h2>
+    <h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
+</div></div></div></div>
 
-<div class="jumbotron">
-<h2 style="text-align:center;">Download and Play</h2>
-<h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
-</div>
-
-<h1 class="page-header">Welcome, [% IF user_is_author %]author![% ELSE %]judge! <small>You are judging, right?</small>[% END %]</h1>
+<div class="container py-4">
+<div class="row">
+<h1 class="mt-5 border-bottom">Welcome, [% IF user_is_author %]author![% ELSE %]judge! <small>You are judging, right?</small>[% END %]</h1>
 <p>From this page, you can download and play all of this year's IFComp entries
 — either <a href="#browse">browsing them as a list</a>, or downloading the
 whole set at once.[% IF current_comp.status == 'open_for_judging' %] You can
 also <a href="/ballot/vote">jump to the ballot</a> to start rating the games
 you have played so far.[% END %]</p>
+</div>
 
 [% IF zip_file_mb %]
 
 <div class="row">
-<div class="col-sm-9">
-<h1 class="page-header">Download all the games</h1>
-<p>You can <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]">download a .zip archive</a> ([% zip_file_mb %] MB) containing all the games of this year's competition. The archive includes a README file explaining how to play games of various formats.</p>
+ <div class="col-sm-9">
+  <h1 class="mt-5 border-bottom">Download all the games</h1>
+   <p>You can <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]">download a .zip archive</a>
+      ([% zip_file_mb %] MB) containing all the games of this year's competition. The archive includes a README file explaining
+      how to play games of various formats.</p>
 
-<p>Alternately, you can <a href="#browse">browse and download the games individually, below</a>. If you want to play the most recent versions of these entries, including any bug-fixes authors have added since the competition began, use those individual links. Otherwise, the all-in-one archive contains the game files as they stood when the entry deadline arrived.</p>
-
-</div>
-<div class="col-sm-3">
-<a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]"><img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download all the entries" /></a>
-</div>
+   <p>Alternately, you can <a href="#browse">browse and download the games individually, below</a>. If you want to play the
+      most recent versions of these entries, including any bug-fixes authors have added since the competition began, use
+      those individual links. Otherwise, the all-in-one archive contains the game files as they stood when the entry deadline arrived.</p>
+ </div>
+ <div class="col-sm-3">
+  <a href="[% c.uri_for( '/static/downloads/IFComp' _ current_comp.year _ '.zip' ) %]">
+    <img class="img-fluid col-sm-12 download_icon" alt="Download all the entries" />
+  </a>
+ </div>
 </div>
 
 [% ELSE %]
@@ -32,24 +38,24 @@ you have played so far.[% END %]</p>
 <div class="row">
 
 <div class="col-sm-9">
-<h1 class="page-header">Download all the games</h1>
+<h1 class="mt-5 border-bottom">Download all the games</h1>
 <p>We are preparing the giant zipfile containing all the games. When it is ready, the link to it will appear here.<p>
 <p>Meanwhile, you can <a href="#browse">browse and download the games individually, below</a>. If you want to play the most recent versions of these entries, including any bug-fixes authors have added since the competition began, use those individual links. Otherwise, the all-in-one archive contains the game files as they stood when the entry deadline arrived.</p>
 </div>
 
 <div class="col-sm-3">
-<img class="img-responsive hidden-xs download-img-link" src="[% c.uri_for( '/static/images/download_all.svg' ) %]" alt="Download link not yet ready" />
+<img class="img-fluid hidden-xs download-img-link download_icon" alt="Download link not yet ready" />
 </div>
 
 </div>
 
 [% END %]
 
-<h1 class="page-header">Judge the games</h1>
+<div clas="row"> <h1 class="mt-5 border-bottom">Judge the games</h1> </div>
 
 <div class="row">
 <div class="col-sm-2">
-<a href="/ballot/vote"><img class="img-responsive hidden-xs judge-img-link" src="[% c.uri_for( '/static/images/judge.svg' ) %]" alt="Judge the entries" /></a>
+<a href="/ballot/vote"><img class="img-fluid hidden-xs judge-img-link judge_icon" alt="Judge the entries" /></a>
 </div>
 
 <div class="col-sm-10">
@@ -67,61 +73,68 @@ you have played so far.[% END %]</p>
 </div>
 </div>
 
-<h1 id="browse" class="page-header">Browse and play the games</h1>
+<div class="row">
+  <h1 id="browse" class="mt-5 border-bottom">Browse and play the games</h1>
 
-<p>Have a look at our <a href="[% c.uri_for('/about/file_formats') %]" target="_blank">guide to IF formats</a> for some additional information on the various download-flavors you'll find below.
-[% IF current_comp.status == 'open_for_judging' %]
-And for a more compact list of this year's entries, <a href="/ballot/vote/">see the voting ballot</a>.
-[% END %]
-</p>
+  <p>Have a look at our <a href="[% c.uri_for('/about/file_formats') %]" target="_blank">guide to IF formats</a> for some additional information on the various download-flavors you'll find below.
+  [% IF current_comp.status == 'open_for_judging' %]
+  And for a more compact list of this year's entries, <a href="/ballot/vote/">see the voting ballot</a>.
+  [% END %]
+  </p>
+
 
 <p>Please note that some entries, when played online through this website, collect anonymous transcripts of player input for the benefit of those entries' authors. You can opt out of this by downloading and playing these entries offline. <a href="/about/transcripts">Read this note for more information.</a></p>
+</div>
 
+<div class="row">
 [% IF is_shuffled %]
     [% IF is_personalized %]
         <p><strong>Here is your very own reshuffle of the IFComp entries!</strong> Whenever you request to see this personalized list, the games will stay in the same order.</p>
         <p style="text-align:center;">
         <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-random"></span> Random Shuffle
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#shuffle"></use></svg> Random Shuffle
         </a>
         <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
-                   <span class="glyphicon glyphicon-user"></span> Personal Shuffle
+                   <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#person-fill"></use></svg> Personal Shuffle
         </a>
         <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-list"></span> Alphabetize
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#card-list"></use></svg> Alphabetize
         </a>
         </p>
     [% ELSE %]
         <p style="text-align:center;">
         <a href="javascript:location.reload()" type="submit" class="btn btn-primary btn-lg">
-            <span class="glyphicon glyphicon-random"></span> Random Shuffle
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#shuffle"></use></svg> Random Shuffle
         </a>
         [% IF c.user %]
             <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-               <span class="glyphicon glyphicon-user"></span> Personal Shuffle
+                   <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#person-fill"></use></svg> Personal Shuffle
             </a>
         [% END %]
         <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-list"></span> Alphabetize
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#card-list"></use></svg> Alphabetize
         </a>
         </p>
     [% END %]
 [% ELSE %]
     <p style="text-align:center;">
     <a href="[% c.uri_for( '/ballot', { shuffle => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-       <span class="glyphicon glyphicon-random"></span> Random Shuffle
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#shuffle"></use></svg> Random Shuffle
     </a>
     [% IF c.user %]
         <a href="[% c.uri_for( '/ballot', { shuffle => 1, personalize => 1 } ) %]#browse" type="submit" class="btn btn-default btn-lg">
-           <span class="glyphicon glyphicon-user"></span> Personal Shuffle
+                   <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#person-fill"></use></svg> Personal Shuffle
         </a>
     [% END %]
     <a href="[% c.uri_for( '/ballot', { alphabetize => 1 } ) %]#browse" type="submit" class="btn btn-primary btn-lg">
-        <span class="glyphicon glyphicon-list"></span> Alphabetize
+            <svg width="16" height="16" class="svgicon bi my-1 theme-icon-active"><use href="#card-list"></use></svg> Alphabetize
     </a>
     </p>
 [% END %]
 
+</div>
+
+<div class="row">
 [% platform = {
         adrift => 0
         inform => 0
@@ -260,6 +273,7 @@ And for a more compact list of this year's entries, <a href="/ballot/vote/">see 
     </div>
 
 </div>
+</div>
 
 <div class="row">
     <div class="col-sm-3"></div>
@@ -276,7 +290,7 @@ And for a more compact list of this year's entries, <a href="/ballot/vote/">see 
 
 [% FOR entry IN entries %]
     [% IF entry.is_qualified %]
-        <div itemscope itemtype="https://schema.org/VideoGame" class="well" id="entry-[% entry.id %]"
+        <div itemscope itemtype="https://schema.org/VideoGame" class="bg-secondary-subtle card p-4 m-3" id="entry-[% entry.id %]"
              ifcomp-style="[% IF entry.style %][% entry.style %][% ELSE %]other[% END %]"
              ifcomp-playtime="[% IF entry.playtime %][% entry.playtime %][% ELSE %]other[% END %]"
              ifcomp-platform="[% IF entry.platform %][% entry.platform %][% ELSE %]other[% END %]"

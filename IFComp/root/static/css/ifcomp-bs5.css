@@ -1,0 +1,56 @@
+@import url("https://code.highcharts.com/css/highcharts.css");
+
+body {
+    margin: 0px;
+    padding-bottom: 40px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.svglink { fill: #37f; }
+/* .svglink:hover { fill: #eee; } */
+.svgbuttons { fill: var(--bs-primary); }
+
+[data-bs-theme="dark"] {
+    code { color: white; }
+    .svgfill { fill: #ff0; }
+    .svgicon { fill: #ddd; }
+    .iftf_logo { content:url("/static/images/iftf_logo-dark.svg"); }
+    .download_icon { content:url("/static/images/download_all-dm.svg"); }
+    .judge_icon { content:url("/static/images/judge-dm.svg"); }
+}
+
+[data-bs-theme="light"] {
+    code { color: black; }
+    .svgfill { fill: #222; }
+    .svgicon { fill: #222; }
+    .iftf_logo { content:url("/static/images/iftf_logo.svg"); }
+    .download_icon { content:url("/static/images/download_all.svg"); }
+    .judge_icon { content:url("/static/images/judge.svg"); }
+}
+
+.label-first-place { background-color: #428bca }
+.label-second-place { background-color: #d9534f }
+.label-third-place { background-color: gold }
+.label-fourth-through-tenth-place { background-color: #5bc0de }
+.label-enth-place { background-color: #999 }
+
+img.author-link {
+    width: 20px;
+    vertical-align: top;
+}
+
+/* Override Bootstrap */
+code {
+    background: none;
+}
+
+.card {
+    scroll-margin-top: 75px;
+}
+
+.wrap-anywhere {
+    overflow-wrap: anywhere;
+}

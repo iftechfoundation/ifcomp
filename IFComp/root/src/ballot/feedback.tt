@@ -1,5 +1,5 @@
 <div class="container">
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1>Feedback: [% entry.title %]</h1>
 </div>
 <h2>Feedback rules & procedures</h2>
@@ -12,7 +12,7 @@
 <form method="post">
 <input type="hidden" name="backlink" value="[% c.stash.backlink %]"/>
 [% form.field('text').render %]
-[% form.field('submit').render %]
+<div class="mt-3">[% form.field('submit').render %]</div>
 
 </form>
 

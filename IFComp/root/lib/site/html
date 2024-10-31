@@ -1,11 +1,14 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en" data-bs-theme="auto">
  <head>
   <title>[% meta.title or site.title %]</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="color-scheme" content="light dark">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/static/css/ifcomp.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous">
+  <link href="/static/css/ifcomp-bs5.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
 
   <style type="text/css">
@@ -13,97 +16,100 @@
   </style>
 
  <script type="text/javascript">
-    var dark_mode_toggle;
-    var dark_mode_override;
-    var iftf_logo;
-    var dark_mode_preferred;
 
-    window.addEventListener('load', () => {
-        iftf_logo = document.getElementById('iftf-logo');
-        dark_mode_toggle = document.getElementById('dark_mode_toggle');
-        dark_mode_override = document.getElementById('dark_mode_override');
-        dark_mode_preferred = (window.matchMedia &&
-                    window.matchMedia('(prefers-color-scheme: dark)').matches);
+/*!
+ * Color mode toggler for Bootstrap's docs (https://getbootstrap.com/)
+ * Copyright 2011-2024 The Bootstrap Authors
+ * Licensed under the Creative Commons Attribution 3.0 Unported License.
+ */
 
-        if (dark_mode_toggle) {
-            dark_mode_setup();
-            dark_mode_toggle.addEventListener('change', () => {
-                toggle_dark_mode();
-            });
-        }
+(() => {
+  'use strict'
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            dark_mode_preferred = e.matches;
-            dark_mode_setup();
-        });
+  const getStoredTheme = () => localStorage.getItem('theme')
+  const setStoredTheme = theme => localStorage.setItem('theme', theme)
 
-    });
-
-    function update_ui(is_dark) {
-        if (is_dark) {
-            document.body.setAttribute('data-theme', 'dark');
-            if (dark_mode_override) {
-                dark_mode_override.style.background = "#ddd";
-                dark_mode_override.innerHTML = "&nbsp; Light Mode &nbsp;";
-            }
-            iftf_logo.src = "/static/images/iftf_logo-dark.svg";
-            document.body.style.backgroundColor = "#111";
-        } else {
-            document.body.removeAttribute('data-theme');
-            if (dark_mode_override) {
-                dark_mode_override.style.background = '';
-                dark_mode_override.innerHTML = "  Dark Mode  ";
-            }
-            iftf_logo.src = "/static/images/iftf_logo.svg";
-            document.body.style.backgroundColor = "";
-        }
+  const getPreferredTheme = () => {
+    const storedTheme = getStoredTheme()
+    if (storedTheme) {
+      return storedTheme
     }
 
-    function dark_mode_setup() {
-        let wants_dark = localStorage.getItem('dark_mode') !== null &&
-                           localStorage.getItem('dark_mode') === 'override';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
 
-        if (dark_mode_toggle) {
-            dark_mode_toggle.checked = wants_dark;
-        }
-        update_ui(dark_mode_preferred || wants_dark);
+  const setTheme = theme => {
+    if (theme === 'auto') {
+      document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
+    } else {
+      document.documentElement.setAttribute('data-bs-theme', theme)
+    }
+  }
+
+  setTheme(getPreferredTheme())
+
+  const showActiveTheme = (theme, focus = false) => {
+    const themeSwitcher = document.querySelector('#bd-theme')
+
+    if (!themeSwitcher) {
+      return
     }
 
-    function toggle_dark_mode() {
-        let do_dark = (dark_mode_preferred && !dark_mode_toggle.checked) ||
-                        (!dark_mode_preferred && dark_mode_toggle.checked);
-        update_ui(do_dark);
-        if (dark_mode_preferred == do_dark) {
-            localStorage.removeItem('dark_mode');
-            // Set the cookie to be expired immediately
-            document.cookie = 'parchment_theme=light; max-age=0; path=/; domain=' + document.location.hostname;
-        } else {
-            localStorage.setItem('dark_mode', 'override');
-            // Set the parchment_theme cookie on all subdomains for 400 days
-            document.cookie = 'parchment_theme=dark; max-age=34560000; path=/; domain=' + document.location.hostname;
-        }
-    }
+    const themeSwitcherText = document.querySelector('#bd-theme-text')
+    const activeThemeIcon = document.querySelector('.theme-icon-active use')
+    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+    const svgOfActiveBtn = btnToActive.querySelector('svg use').getAttribute('href')
 
+    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+      element.classList.remove('active')
+      element.setAttribute('aria-pressed', 'false')
+    })
+
+    btnToActive.classList.add('active')
+    btnToActive.setAttribute('aria-pressed', 'true')
+    activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+    const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`
+    themeSwitcher.setAttribute('aria-label', themeSwitcherLabel)
+
+    if (focus) {
+      themeSwitcher.focus()
+    }
+  }
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    const storedTheme = getStoredTheme()
+    if (storedTheme !== 'light' && storedTheme !== 'dark') {
+      setTheme(getPreferredTheme())
+    }
+  })
+
+  window.addEventListener('DOMContentLoaded', () => {
+    showActiveTheme(getPreferredTheme())
+
+    document.querySelectorAll('[data-bs-theme-value]')
+      .forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const theme = toggle.getAttribute('data-bs-theme-value')
+          setStoredTheme(theme)
+          setTheme(theme)
+          showActiveTheme(theme, true)
+        })
+      })
+  })
+})()
  </script>
 
  </head>
- <body>
-
- <script>
-    (function() {
-        if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ||
-                    localStorage.getItem('dark_mode') === 'override') {
-            document.body.setAttribute('data-theme', 'dark');
-        }
-    })();
- </script>
+ <body style="margin: 0;">
 
 [% content %]
 
- <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
- <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- [% INCLUDE scripts %]
- [% INCLUDE filters %]
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+           crossorigin="anonymous"></script>
+   <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
+   [% INCLUDE scripts %]
+   [% INCLUDE filters %]
  </body>
 </html>
 

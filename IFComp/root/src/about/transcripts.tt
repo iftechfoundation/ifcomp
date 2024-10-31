@@ -1,13 +1,27 @@
 <div class="container">
 
-<div class="page-header">
+<div class="mt-5 mb-2 border-bottom">
 <h1 id="anoteabouttranscripts">A note about transcripts</h1>
 </div>
 
-<p>Interactive fiction works created with <a href="http://inform7.com">Inform</a> offer the ability to record and store a complete transcript of play-sessions, including all player input and story output. Through the use of certain add-on features, this ability extends to Inform-based work played via web-based interpreters. As a service to competition entrants, this website (ifcomp.org) enables this style of transcript-recording for the Inform-based entries that it hosts.</p>
+<p>Interactive fiction works created with <a
+href="http://inform7.com">Inform</a> offer the ability to record and store a
+complete transcript of play-sessions, including all player input and story
+output. Through the use of certain add-on features, this ability extends to
+Inform-based work played via web-based interpreters. As a service to
+competition entrants, this website (ifcomp.org) enables this style of
+transcript-recording for the Inform-based entries that it hosts.</p>
 
-<p>Therefore, authors of Inform-created works &#8211; including Z-code and Glulx entries &#8211; can read full, anonymous transcripts of sessions played via the ifcomp.org-hosted copies of these entries. If you, as an IFComp judge, wish to play these entries without having your input recorded, please download the entries and play them that way, rather than playing them directly on the ifcomp.org website.</p>
+<p>Therefore, authors of Inform-created works &#8211; including Z-code and
+Glulx entries &#8211; can read full, anonymous transcripts of sessions played
+via the ifcomp.org-hosted copies of these entries. If you, as an IFComp judge,
+wish to play these entries without having your input recorded, please download
+the entries and play them that way, rather than playing them directly on the
+ifcomp.org website.</p>
 
-<p>If you have any questions about transcripts, please <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#105;&#102;&#99;&#x6f;&#109;&#112;&#x40;&#105;&#x66;&#x63;&#x6f;&#109;&#112;&#x2e;&#111;&#x72;&#x67;">&#x63;&#x6f;&#110;&#x74;&#97;&#x63;&#x74; &#x74;&#104;&#x65; &#x6f;&#x72;&#x67;&#x61;&#110;&#x69;&#122;&#101;&#x72;&#x73;</a>.</p>
+<p>If you have any questions about transcripts, please <a
+href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#105;&#102;&#99;&#x6f;&#109;&#112;&#x40;&#105;&#x66;&#x63;&#x6f;&#109;&#112;&#x2e;&#111;&#x72;&#x67;">&#x63;&#x6f;&#110;&#x74;&#97;&#x63;&#x74;
+&#x74;&#104;&#x65;
+&#x6f;&#x72;&#x67;&#x61;&#110;&#x69;&#122;&#101;&#x72;&#x73;</a>.</p>
 
 </div>

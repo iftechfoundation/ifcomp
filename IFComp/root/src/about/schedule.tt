@@ -1,7 +1,8 @@
 [% meta.title = 'IFComp - Competition Schedule' %]
 <div class="container">
-<div class="jumbotron">
+     <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
 <h1 style="text-align:center;">Competition Schedule</h1>
-</div>
+     </div></div></div></div>
 
 [% INCLUDE _schedule.tt %]
+</div>
