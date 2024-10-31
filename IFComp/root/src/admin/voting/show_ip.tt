@@ -9,7 +9,7 @@
          <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="[% c.uri_for("/admin") %]">Admin Home</a></li>
             <li class="breadcrumb-item"><a href="[% r = c.uri_for("/admin/voting"); r.query_form({comp_id => comp.id}); r %]">Voting Reports</a></li>
-            <li class="breadcrumb-item "active">IP details</a></li>
+            <li class="breadcrumb-item active">IP details</a></li>
          </ul>
      </nav>
 
