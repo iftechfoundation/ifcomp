@@ -5,7 +5,15 @@
 <div class="alert alert-success">You have withdrawn the entry titled <em>[% c.flash.entry_withdrawn %]</em>.</div>
 [% END %]
 
+[% IF current_comp.status == 'not_begun' || current_comp.status == 'accepting_intents' %]
 <p>This year's competition is open for new intents from [% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %] through [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] (inclusive, Eastern time). Authors must have their games uploaded by 11:59 PM (Eastern time) on [% current_comp.entries_due.strftime( '%{month_name} %{day}' ) %]. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
+[% ELSIF current_comp.status == 'closed_to_intents' || current_comp.status == 'closed_to_entries' %]
+<p>This year's competition was open for new intents from [% current_comp.intents_open.strftime( '%{month_name} %{day}' ) %] through [% current_comp.intents_close.strftime( '%{month_name} %{day}' ) %] (inclusive, Eastern time). But you can still manage your entries on this page. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
+[% ELSIF current_comp.status == 'open_for_judging' %]
+<p>This year's competition is now in the "judging" phase! If your game supports online transcripts, you can look at them here, and you can manage your entries on this page. <a href="/about/comp#competitionschedule">See the full schedule.</a></p>
+[% ELSE %]
+<p>The competition is over, and any feedback for your entries is now available for viewing! Feedback will be available until the end of the calendar year. Hope to see you again for the next comp!</p>
+[% END %]
 
 [% IF current_comp.status == 'not_begun' %]
 <div class="alert alert-warning">
@@ -21,7 +29,7 @@
 <p>You do not have any entries in this year's competition (and therefore you are free to judge the games, instead).</p>
 [% END %]
 </div>
-[% ELSIF entries.size == 0 %]
+[% ELSIF entries.size == 0 && current_comp.status != 'over' %]
 <div class="alert alert-info">
 <p>So you want to enter the IF Comp? <em>Excellent.</em></p>
 <p><a href="/about/how_to_enter">Complete instructions for entering are here.</a> But here's what you absolutely need to know before you enter:</p>
