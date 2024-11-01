@@ -157,13 +157,19 @@ $(function () {
 [% END %]
 
 [% BLOCK pager %]
-<ul class="pagination pagination-sm" style="margin-bottom:0">
+<nav aria-label="Comp Years">
+  [% decade = -1 %]
   [% FOREACH year IN comp_years %]
-      <li class="page-item[% IF year == comp.year %]active[% END %]">
-        <a class="page-link" href="[% c.uri_for_action('/comp/index', [ year ], { compact => view_is_compact } ) %]">[% year %]</a>
-      </li>
+    [% IF (year / 10) % 10 != decade %]
+      [% IF decade != -1 %]</ul>[% END; decade = (year / 10) % 10 %]
+      <ul class="mt-2 justify-content-center pagination pagination-sm flex-wrap">
+    [% END %]
+    <li class="page-item[% IF year == comp.year %] active[% END %]">
+	  <a class="font-monospace page-link" href="[% c.uri_for_action('/comp/index', [ year ], { compact => view_is_compact } ) %]">[% year %]</a>
+    </li>
   [% END %]
-</ul>
+  </ul>
+</nav>
 [% END %]
 
 [% BLOCK next_prev %]
