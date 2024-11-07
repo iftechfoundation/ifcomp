@@ -174,13 +174,13 @@ $(function () {
 
 [% BLOCK next_prev %]
 <div class="row justify-content-between">
-  <div class="col-2">
+  <div class="col">
   [% IF previous_year %]
   <a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a>
   [% END %]
   </div>
   [% IF next_year %]
-  <div class="col-2 text-end"><a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
+  <div class="col text-end"><a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
   [% END %]
 </div>
 [% END %]
