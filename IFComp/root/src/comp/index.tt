@@ -7,23 +7,23 @@
 
 [% INCLUDE next_prev %]
 
-        <p style="text-align:center;">
+        <div style="text-align:center;">
 [% IF view_is_compact %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-outline-primary">
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ] ) %]" type="submit" class="btn btn-outline-primary mb-3">
             <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#bar-chart-fill"></use></svg>
             Switch to full view
         </a>
 [% ELSE %]
-        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-outline-primary">
+        <a href="[% c.uri_for_action( '/comp/index', [ comp.year ], { compact => 1 } ) %]" type="submit" class="btn btn-outline-primary mb-3">
             <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#card-list"></use></svg>
             Switch to compact list view
         </a>
 [% END %]
-        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-outline-primary">
+        <a href="http://mirror.ifarchive.org/indexes/if-archiveXgamesXcompetition[% IF comp.year < 2000 %][% comp.year.substr( 2, 2 ) %][% ELSE %][% comp.year %][% END %].html" type="submit" class="btn btn-outline-primary mb-3">
             <svg width="20" height="20" class="svgbuttons bi me-2 opacity-50"><use href="#cloud-download-fill"></use></svg>
             Browse / download [% comp.year %] game files
         </a>
-        </p>
+        </div>
 
 [% IF comp.year == 1995 %]
 <div class="alert alert-primary">
@@ -173,14 +173,14 @@ $(function () {
 [% END %]
 
 [% BLOCK next_prev %]
-<div class="row justify-content-between">
-  <div class="col-2">
+<div class="row justify-content-between mb-3">
+  <div class="col">
   [% IF previous_year %]
   <a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ previous_year ], { compact => view_is_compact } ) %]">&larr; [% previous_year %] results</a>
   [% END %]
   </div>
   [% IF next_year %]
-  <div class="col-2 text-end"><a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
+  <div class="col text-end"><a class="btn btn-outline-primary" href="[% c.uri_for_action( 'comp/index', [ next_year ], { compact => view_is_compact } ) %]">[% next_year %] results &rarr;</a></div>
   [% END %]
 </div>
 [% END %]
