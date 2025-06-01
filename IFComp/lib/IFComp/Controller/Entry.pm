@@ -101,6 +101,10 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
+    if ( $c->user->paypal eq '' && $c->user->venmo eq '' ) {
+        $c->res->redirect( $c->uri_for_action('/entry/list') );
+    }
+
     my %new_result_args = (
         comp   => $c->stash->{current_comp},
         author => $c->user->get_object->id,

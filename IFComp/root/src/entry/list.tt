@@ -78,7 +78,11 @@
 <h2>Register an entry</h2>
 [% IF current_comp.status == 'accepting_intents' %]
     [% IF entries.size < 3 %]
-        <p><a href="[% c.uri_for_action( '/entry/create' ) %]">Add a new entry.</a></p>
+        [% IF c.user.venmo == '' && c.user.paypal == '' %]
+          <p>You cannot add entries until you've speicified either a paypal or venmo account for prizes. Please visit your <a href="/user/edit_account">account profile</a> and update it.
+        [% ELSE %]
+          <p><a href="[% c.uri_for_action( '/entry/create' ) %]">Add a new entry.</a></p>
+        [% END %]
     [% ELSE %]
         <p>You can't declare any further entries this year, since you've reached the annual limit of three.</p>
     [% END %]

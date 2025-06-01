@@ -41,7 +41,14 @@ has_field 'forum_handle' => (
 has_field 'paypal' => (
     type => 'Text',
     label =>
-        'Paypal address, or Venmo handle/phone number (or "decline" if not interested in monetary awards)',
+        'Paypal email address, or enter "decline" if not interested in monetary awards',
+    maxlength => 64,
+);
+
+has_field 'venmo' => (
+    type => 'Text',
+    label =>
+        'Venmo username/phone number, or enter "decline" if not interested in monetary awards',
     maxlength => 64,
 );
 
@@ -87,8 +94,7 @@ sub validate_url {
 
 }
 
-# The paypal field can contain "decline", a paypal email address, or
-# a venmo account name / phone number. We allow all of the above.
+# The paypal field can contain "decline", a paypal email address
 sub validate_paypal {
     my $self = shift;
     my ($field) = @_;
@@ -97,15 +103,35 @@ sub validate_paypal {
     return unless $payment;
 
     if (   ( $payment eq "decline" )
-        || ( Email::Valid->address($payment) )
-        || ( $payment =~ /^[-+()\d ]*$/ )
-        || ( $payment =~ /^@\w+/ ) )
+        || ( Email::Valid->address($payment) ) )
     {
         $field->value($payment);
     }
     else {
         $field->add_error(
-            "This doesn't look like a valid paypal address, venmo address, or phone number."
+            "This doesn't look like a valid paypal address."
+        );
+
+    }
+}
+
+# a venmo account name / phone number
+sub validate_venmo {
+    my $self = shift;
+    my ($field) = @_;
+
+    my $payment = $field->value;
+    return unless $payment;
+
+    if (   ( $payment eq "decline" )
+        || ( $payment =~ /^[-+()\d ]*$/ )
+        || ( $payment =~ /^@?\w+/ ) )
+    {
+        $field->value($payment);
+    }
+    else {
+        $field->add_error(
+            "This doesn't look like a valid venmo name or phone number."
         );
 
     }
