@@ -108,9 +108,7 @@ sub validate_paypal {
         $field->value($payment);
     }
     else {
-        $field->add_error(
-            "This doesn't look like a valid paypal address."
-        );
+        $field->add_error("This doesn't look like a valid paypal address.");
 
     }
 }
@@ -131,8 +129,7 @@ sub validate_venmo {
     }
     else {
         $field->add_error(
-            "This doesn't look like a valid venmo name or phone number."
-        );
+            "This doesn't look like a valid venmo name or phone number.");
 
     }
 }
