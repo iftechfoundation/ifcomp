@@ -101,7 +101,9 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
-    if ( $c->user->paypal eq '' && $c->user->venmo eq '' ) {
+    if (   ( !defined( $c->user->paypal ) || $c->user->paypal eq '' )
+        && ( !defined( $c->user->venmo ) || $c->user->venmo eq '' ) )
+    {
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 
