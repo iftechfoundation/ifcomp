@@ -124,6 +124,12 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 64
 
+=head2 venmo
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 64
+
 =head2 rising_star
 
   data_type: 'integer'
@@ -174,6 +180,8 @@ __PACKAGE__->add_columns(
   "forum_handle",
   { data_type => "char", is_nullable => 1, size => 32 },
   "paypal",
+  { data_type => "char", is_nullable => 1, size => 64 },
+  "venmo",
   { data_type => "char", is_nullable => 1, size => 64 },
   "rising_star",
   { data_type => "integer", is_nullable => 1 },
@@ -300,8 +308,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07051 @ 2024-07-02 23:04:54
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QWBgb307tu4QG/bg7rfGWA
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2025-06-01 20:06:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9WoAg24sR0ghQIGGZebiCw
 
 __PACKAGE__->add_column(
     '+password' => {
