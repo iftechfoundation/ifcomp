@@ -45,7 +45,7 @@ END %] contributed [% IF cf.goal %]this[% ELSE %]last[% END %] year</a>.
 [% ELSE %]
 
     <p>
-    This year's Colossal Fund drive will kick off in mid-August. Check back after then to learn how you can contribute!
+    This year's Colossal Fund drive will kick off in mid-July. Check back after then to learn how you can contribute!
     </p>
 
 [% END %]
