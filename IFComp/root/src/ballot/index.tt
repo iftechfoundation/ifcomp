@@ -1,3 +1,7 @@
+<style type="text/css" scoped>
+    .cw-hidden { visibility: hidden; }
+</style>
+
 <div class="container py-4"> <div class="p-5 mb-4 bg-body-tertiary rounded-3"> <div class="container-fluid py-5"> <div class="container">
     <h2 style="text-align:center;">Download and Play</h2>
     <h1 style="text-align:center;">The Games of the [% current_comp.year %] IFComp</h1>
@@ -286,6 +290,12 @@ you have played so far.[% END %]</p>
 
 <div class="row" align=center style="padding-top: 1em;">
 <p>NOTE: you can use Ctrl-click / &#8984;-Click to select multiple items from the lists above. Clicking on "All" at the top will clear the selections</p>
+</div>
+
+<div class="row justify-content-md-center" align="center">
+  <div class="col-md-auto">
+    <span class="btn btn-secondary" onclick=" if ($('.cw-hidden').css('visibility') == 'hidden') { $('.cw-data').css('display', 'none'); $('.cw-hidden').css('visibility', 'visible'); } else { $('.cw-data').css('display', 'inline'); $('.cw-hidden').css('visibility', 'hidden'); }">Show/Hide all Content Warning text</span>
+  </div>
 </div>
 
 [% FOR entry IN entries %]
