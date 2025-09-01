@@ -1,0 +1,11 @@
+[% meta.title = 'IFComp - Access Restricted' %]
+<div class="container">
+    <div class="alert alert-warning">
+        <p>
+        Due to the <a href="https://www.gov.uk/government/publications/online-safety-act-explainer">UK Online Safety Act</a>, 
+        games with content covered by that act are currently unavailable to users in the United Kingdom.
+        We are looking into means of age verification, but that may not be implemented prior to the conclusion of
+        this year's competition. We apologize for the inconvenience.
+        </p>
+    </div>
+</div>
