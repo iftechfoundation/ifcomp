@@ -94,7 +94,7 @@ is permanently recorded in <a href="[% c.uri_for_action( 'comp/last_comp' )
 <h2 id="banana">Golden Banana of Discord</h2>
 
 <p>This special award goes every year to the entry with the highest standard
-distribution among its ratings &mdash; roughly speaking, the entries with the
+deviation among its ratings &mdash; roughly speaking, the entries with the
 most disagreement among those who rated it. <a
 href="http://ifwiki.org/index.php/Golden_Banana_of_Discord">The IFWiki keeps a
 record of every year's GBoD winner</a>, as well as a bit of history about this

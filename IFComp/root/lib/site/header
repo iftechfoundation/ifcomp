@@ -128,6 +128,7 @@ END;
             <li><a class="dropdown-item" href="http://blog.ifcomp.org">Blog</a></li>
             <li><a class="dropdown-item" href="http://twitter.com/ifcomp">Twitter</a></li>
             <li><a class="dropdown-item" rel="me" href="https://mastodon.gamedev.place/@IFComp">Mastodon</a></li>
+            <li><a class="dropdown-item" href="https://bsky.app/profile/ifcomp.org">Bluesky</a></li>
           </ul>
         </li>
       </ul>
