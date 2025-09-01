@@ -930,6 +930,15 @@ sub cover_exists {
     }
 }
 
+sub cover_image {
+    my $self = shift;
+
+    return 0 unless $self->cover_exists;
+
+    my $image = Imager->new( file => $self->web_cover_file );
+    return $image;
+}
+
 sub create_web_cover_file {
     my $self = shift;
 
