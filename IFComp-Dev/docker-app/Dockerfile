@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM        perl:5.30.2
+FROM        perl:5.34
 MAINTAINER  Mark Musante mark.musante@gmail.com
 
 RUN apt-get update && apt-get install -y \
