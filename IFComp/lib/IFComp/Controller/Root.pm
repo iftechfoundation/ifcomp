@@ -37,9 +37,9 @@ sub index : Path : Args(0) {
 }
 
 sub restricted : Path('restricted') : Args(0) {
-	my ( $self, $c ) = @_;
+    my ( $self, $c ) = @_;
 
-	$c->stash->{template} = 'restricted.tt';
+    $c->stash->{template} = 'restricted.tt';
 }
 
 =head2 default
