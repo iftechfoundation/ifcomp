@@ -11,6 +11,6 @@ CREATE TABLE entry_answers (
     question_id INT,
     answer VARCHAR(255),
     PRIMARY KEY (entry_id, question_id),
-    FOREIGN KEY (entry_id) REFERENCES entry(id),
+    FOREIGN KEY (entry_id) REFERENCES entry(id) ON DELETE CASCADE,
     FOREIGN KEY (question_id) REFERENCES questions(id)
 );

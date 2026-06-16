@@ -242,10 +242,19 @@ responding judges reported that these restrictions affected their competition ex
 </p>
 
 <p class="ps-4">
-[% FOR q IN entry.entry_answers %]
-    [% IF NOT q.question.disabled %]
-      <input type="checkbox" name="uk_compliance.q_[% q.question.id %]" id="uk_compliance.q_[% q.question.id %]"[% IF q.answer == "yes" %] checked[% END %]>
-      <label for="uk_compliance.q_[% q.question.id %]"> [% q.question.question_text %] </label><br/>
+[% IF entry.id %]
+    [% FOR q IN entry.entry_answers %]
+        [% IF NOT q.question.disabled %]
+          <input type="checkbox" name="uk_compliance.q_[% q.question.id %]" id="uk_compliance.q_[% q.question.id %]"[% IF q.answer == "yes" %] checked[% END %]>
+          <label for="uk_compliance.q_[% q.question.id %]"> [% q.question.question_text %] </label><br/>
+        [% END %]
+    [% END %]
+[% ELSE %]
+    [% FOR q IN uk_compliance %]
+        [% IF NOT q.disabled %]
+          <input type="checkbox" name="uk_compliance.q_[% q.id %]" id="uk_compliance.q_[% q.id %]">
+          <label for="uk_compliance.q_[% q.id %]"> [% q.question_text %] </label><br/>
+        [% END %]
     [% END %]
 [% END %]
 </p>

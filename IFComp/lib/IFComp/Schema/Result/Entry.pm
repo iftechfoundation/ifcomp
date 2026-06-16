@@ -535,8 +535,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-06-16 16:47:19
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FZfThHgy9NQ+My4Z+c6WJA
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-06-16 20:51:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pZ9XCGIkzyTQGGz4JNbWpw
 
 __PACKAGE__->add_columns( '+coauthor_code' =>
         { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );
