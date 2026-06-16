@@ -59,7 +59,7 @@ on 'develop' => sub {
   requires 'Code::TidyAll' => '== 0.78';
   requires 'DBIx::Class::Schema::Loader';
   requires 'Perl::Tidy' => '== 20200822';
-  requires 'DBD::mysql', '==4.050';
+  requires 'DBD::mysql', '==4.054';
   requires 'Catalyst::Devel';
   requires 'Module::Install::CPANfile';
 };
