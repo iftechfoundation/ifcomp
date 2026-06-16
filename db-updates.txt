@@ -1,0 +1,16 @@
+Entry Questions
+
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question_text VARCHAR(255) NOT NULL,
+    disabled BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE entry_answers (
+    entry_id int(10) unsigned,
+    question_id INT,
+    answer VARCHAR(255),
+    PRIMARY KEY (entry_id, question_id),
+    FOREIGN KEY (entry_id) REFERENCES entry(id),
+    FOREIGN KEY (question_id) REFERENCES questions(id)
+);

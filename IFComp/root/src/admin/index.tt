@@ -23,6 +23,7 @@
         <li><a href="[% c.uri_for('/admin/validation/') %]">User Validation</a></li>
         <li><a href="[% c.uri_for_action('/admin/resultscsv') %]">Download CSV of Results</a></li>
         <li><a href="[% c.uri_for_action('/admin/gamescsv') %]">Download CSV of Payout Results</a></li>
+        <li><a href="[% c.uri_for('/admin/questions/view') %]">Modify UK Compliance Questions</li>
         [% END %]
         [% IF c.check_user_roles( 'prizemanager' ) %]
         <li><a href="[% c.uri_for('/admin/prizes/list') %]">Prize Management</a></li>

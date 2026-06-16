@@ -230,6 +230,38 @@ You may optionally provide a brief warning that your work contains emotionally i
 </div>
 
 
+
+<div class="card mt-3">
+<div class="card-header"><h2>UK Compliance Information</h2></div>
+<div class="card-body">
+<p>
+Due to requirements of the <a href="https://www.gov.uk/government/publications/online-safety-act-explainer/online-safety-act-explainer">UK Online Safety Act (OSA),</a>
+some entries may require additional review and could be unavailable to judges in the United
+Kingdom. In the 2025 post-competition survey, approximately 11% of responding authors and 8% of
+responding judges reported that these restrictions affected their competition experience.
+</p>
+
+<p class="ps-4">
+[% FOR q IN entry.entry_answers %]
+    [% IF NOT q.question.disabled %]
+      <input type="checkbox" name="uk_compliance.q_[% q.question.id %]" id="uk_compliance.q_[% q.question.id %]"[% IF q.answer == "yes" %] checked[% END %]>
+      <label for="uk_compliance.q_[% q.question.id %]"> [% q.question.question_text %] </label><br/>
+    [% END %]
+[% END %]
+</p>
+
+<p>
+<strong>Please note:</strong> This information helps organizers identify entries that may require
+additional review, but all entries will be reviewed regardless of the selections made above.
+Selections do not automatically determine whether an entry will be available in the United
+Kingdom. If you have questions or would like to discuss the unique aspects of your entry, please
+contact us at <a href="mailto:ifcomp@ifcomp.org">ifcomp@ifcomp.org</a>.
+</p>
+
+</div>
+</div>
+
+
 <div class="card mt-3">
 <div class="card-header"><h2>Displayed name(s) and contact info</h2></div>
 <div class="card-body">
