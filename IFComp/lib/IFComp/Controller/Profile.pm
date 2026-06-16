@@ -156,7 +156,7 @@ sub auth_login {
     my $token = $c->model("IFCompDB::AuthToken")->create(
         {   user    => $user->id,
             token   => $token_key,
-            created => "CURRENT_TIMESTAMP",
+            created => DateTime->now,
         }
     );
 
