@@ -447,11 +447,9 @@ sub _process_withdrawal_form {
     my ( $self, $c ) = @_;
 
     if ( $self->withdrawal_form->process( params => $c->req->parameters, ) ) {
-        $c->log->debug( "Delete " . $c->stash->{entry}->id );
         my $entry =
             $c->model('IFCompDB::Entry')->find( $c->stash->{entry}->id );
         if ($entry) {
-            $c->log->debug( "Found entry id " . $entry->id );
             $entry->delete;
             $c->flash->{entry_withdrawn} = $c->stash->{entry}->title;
         }
