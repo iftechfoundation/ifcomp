@@ -241,7 +241,7 @@ Kingdom. In the 2025 post-competition survey, approximately 11% of responding au
 responding judges reported that these restrictions affected their competition experience.
 </p>
 
-<p>Does your entry contain any of the following?</p>
+<p>Please select any topics that may be present in your entry:</p>
 
 <p class="ps-4">
 [% IF entry.id %]
