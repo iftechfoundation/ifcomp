@@ -16,16 +16,16 @@ END %] contributed [% IF cf.goal %]this[% ELSE %]last[% END %] year</a>.
     [% ELSE %]
         [% IF cf.collected < cf.goal %]
             <p class="text-center">We've raised $[% cf.collected | format_number %] of our $[% cf.goal | format_number %] goal so far!</p>
+
+            <div class="progress" role="progressbar" aria-label="Colossal Fund"
+                 aria-valuenow="[% cf.collected / cf.goal * 100 %]" aria-valuemin="0" aria-valuemax="[% cf.goal %]">
+                <div class="progress-bar[% IF cf.collected < cf.goal %] progress-bar-striped[% END %]" style="width: [% cf.collected / cf.goal * 100 %]%;">
+                [% Math.int(0.5 + cf.collected / cf.goal * 100) %]%
+                </div>
+            </div>
         [% ELSE %]
             <p class="text-center">We've raised $[% cf.collected | format_number %] so far!</p>
         [% END %]
-
-        <div class="progress" role="progressbar" aria-label="Colossal Fund"
-             aria-valuenow="[% cf.collected / cf.goal * 100 %]" aria-valuemin="0" aria-valuemax="[% cf.goal %]">
-            <div class="progress-bar[% IF cf.collected < cf.goal %] progress-bar-striped[% END %]" style="width: [% cf.collected / cf.goal * 100 %]%;">
-            [% Math.int(0.5 + cf.collected / cf.goal * 100) %]%
-            </div>
-        </div>
 
         [% IF show_maximum_prize %]
             <p class="text-center">At the current donation level, the first-place IFComp entry will receive
