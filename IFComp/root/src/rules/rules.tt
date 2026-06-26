@@ -24,13 +24,10 @@ any ambiguities in the rules listed below.</p>
 <a href="mailto:ifcomp@ifcomp.org">contact the organizers</a>.</p>
 
 <div class="alert alert-info">
-<p>
-For 2022, we have decided to keep the rule change that was explored in 2021
-with respect to Judge Rule 4. Judge Rule 4 previously stated that authors could
-not judge the entries. For 2022 and going forward, authors may additionally
-participate as judges, but cannot rate their own entries. Thank you to those of
-you who provided feedback to help us evaluate this rule change.
-</p>
+<strong>For 2026, IFComp has introduced a new rule on the use of generative AI.</strong>
+All player-facing content must be created by humans, with limited generative AI tool use
+permitted during development. Thank you to the community for the feedback that informed
+this change.
 </div>
 
 <div class="mt-5 border-bottom">
@@ -109,6 +106,16 @@ The competition considers translations of previously-released works into another
 <p>If you
 are unsure whether your game meets this rule, please <a
 href="mailto:ifcomp@ifcomp.org">ask the organizers</a>.</p>
+</li>
+
+<li>
+<p><strong>All entries’ player-facing content must be entirely created by
+humans, including cover art, prose, and all in-game assets.</strong> Authors may use
+tools, including generative AI tools, for development assistance such as
+editing, debugging, accessibility support, research, limited translation
+assistance, or coding. Entries must not require judges or players to interact
+with external AI or generative services during play. [This is a new rule for
+2026. We will develop a FAQ if people <a href="mailto:ifcomp@ifcomp.org">have questions</a>.]</p>
 </li>
 
 <li>

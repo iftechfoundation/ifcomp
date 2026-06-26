@@ -112,7 +112,7 @@ $(function () {
                             + ' ' 
                             + vote_word 
                             + ' gave this game a rating of ' 
-                            + this.x 
+                            + (this.x + 1)
                             + '.';
                     }
                 },
