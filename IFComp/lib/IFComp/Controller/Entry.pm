@@ -61,10 +61,12 @@ sub root : Chained('/') : PathPart('entry') : CaptureArgs(0) {
     my @entries = $c->user->get_object->current_comp_entries;
 
     my $current_comp = $c->model('IFCompDB::Comp')->current_comp;
+    my @questions    = $c->model('IFCompDB::Question')->all;
 
     $c->stash(
-        entries      => \@entries,
-        current_comp => $current_comp,
+        entries       => \@entries,
+        current_comp  => $current_comp,
+        uk_compliance => \@questions,
     );
 
 }
@@ -72,7 +74,8 @@ sub root : Chained('/') : PathPart('entry') : CaptureArgs(0) {
 sub fetch_entry : Chained('root') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
 
-    my $entry = $c->model('IFCompDB::Entry')->find($id);
+    my $entry = $c->model('IFCompDB::Entry')
+        ->find( $id, { prefetch => { 'entry_answers' => 'question' }, } );
     if ( $entry && $entry->author->id eq $c->user->get_object->id ) {
         $c->stash->{entry} = $entry;
         $self->entry($entry);
@@ -113,7 +116,7 @@ sub create : Chained('root') : PathPart('create') : Args(0) {
     );
 
     $c->stash( entry =>
-            $c->model('IFCompDB::Entry')->new_result( \%new_result_args ) );
+            $c->model('IFCompDB::Entry')->new_result( \%new_result_args ), );
     if ( $self->_process_form($c) ) {
         $c->user->send_author_reminder_email;
         $c->res->redirect( $c->uri_for_action('/entry/list') );
@@ -257,6 +260,8 @@ sub _process_form {
         template => 'entry/update.tt',
     );
 
+    my @questions = $c->model('IFCompDB::Question')->all;
+
     my $params_ref = $c->req->parameters;
     foreach (qw( main_upload walkthrough_upload cover_upload )) {
         my $param = "entry.$_";
@@ -326,6 +331,21 @@ sub _process_form {
                     $entry->create_web_cover_file;
                 }
             }
+        }
+
+        for my $q (@questions) {
+            my $val = "uk_compliance.q_" . $q->id;
+            my $ans = "no";
+            if ( defined( $params_ref->{$val} ) ) {
+                $ans = "yes";
+            }
+
+            $c->model('IFCompDB::EntryAnswer')->update_or_create(
+                {   entry_id    => $entry->id,
+                    question_id => $q->id,
+                    answer      => $ans,
+                }
+            );
         }
 
         my $genai_data = $params_ref->{"entry.genai"};
@@ -427,8 +447,12 @@ sub _process_withdrawal_form {
     my ( $self, $c ) = @_;
 
     if ( $self->withdrawal_form->process( params => $c->req->parameters, ) ) {
-        $c->stash->{entry}->delete;
-        $c->flash->{entry_withdrawn} = $c->stash->{entry}->title;
+        my $entry =
+            $c->model('IFCompDB::Entry')->find( $c->stash->{entry}->id );
+        if ($entry) {
+            $entry->delete;
+            $c->flash->{entry_withdrawn} = $c->stash->{entry}->title;
+        }
         $c->res->redirect( $c->uri_for_action('/entry/list') );
     }
 

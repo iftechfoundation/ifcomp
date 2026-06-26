@@ -26,6 +26,26 @@ sub add_test_data_to_schema {
     );
 
     $schema->populate(
+        'Question',
+        [   [ 'id', 'question_text',                   'disabled' ],
+            [ 1,    "Images depicting sexual content", 0 ],
+            [ 2,    "Suicide or self-harm",            0 ],
+            [ 3,    "Eating disorders",                0 ],
+            [   4,
+                "Hate speech, discriminatory content, or content targeting people based on protected characteristics",
+                0
+            ],
+            [   5, "Graphic or realistic depictions of violence/blood/gore",
+                0
+            ],
+            [ 6, "Bullying or harassment",                            0 ],
+            [ 7, "Harmful substance use or abuse",                    0 ],
+            [ 8, "Dangerous challenges, stunts, or risky activities", 0 ],
+            [ 9, "None of the above",                                 0 ],
+        ],
+    );
+
+    $schema->populate(
         'User',
         [   [   'id',           'name',
                 'password_md5', 'salt_md5',

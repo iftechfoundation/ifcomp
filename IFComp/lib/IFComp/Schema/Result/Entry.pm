@@ -443,6 +443,21 @@ __PACKAGE__->belongs_to(
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
+=head2 entry_answers
+
+Type: has_many
+
+Related object: L<IFComp::Schema::Result::EntryAnswer>
+
+=cut
+
+__PACKAGE__->has_many(
+  "entry_answers",
+  "IFComp::Schema::Result::EntryAnswer",
+  { "foreign.entry_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
 =head2 entry_coauthors
 
 Type: has_many
@@ -520,8 +535,8 @@ __PACKAGE__->has_many(
 
 #>>>
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-08-05 22:40:52
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BA11TUZSbhEvXq6M5++njA
+# Created by DBIx::Class::Schema::Loader v0.07053 @ 2026-06-16 20:51:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pZ9XCGIkzyTQGGz4JNbWpw
 
 __PACKAGE__->add_columns( '+coauthor_code' =>
         { dynamic_default_on_create => '_generate_unique_coauthor_code', }, );

@@ -1,0 +1,79 @@
+<div class="container my-5">
+    <h1>UK Compliance Questions</h1>
+
+    [% IF c.flash.status_msg %]
+<div class="alert alert-success alert-dismissible fade show shadow-sm d-flex align-items-center mb-4" role="alert">
+    <div>
+        [% c.flash.status_msg | html %]
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+[% END %]
+
+    <form method="POST" action="[% c.uri_for('/admin/questions/save') %]" class="needs-validation" novalidate>
+        
+        <div class="card shadow-sm border-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="text-uppercase fs-7 tracking-wider">
+                        <tr>
+                            <th scope="col" class="ps-4 py-3" style="width: 75%;">Question Text</th>
+                            <th scope="col" class="pe-4 py-3" style="width: 25%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [% FOR q IN questions %]
+                        <tr>
+                            <td class="ps-4">
+                                <input type="text" 
+                                       name="question_[% q.id %]" 
+                                       value="[% q.question_text | html %]" 
+                                       class="form-control form-control-lg fs-6" 
+                                       placeholder="Enter question text"
+                                       required>
+                                <div class="invalid-feedback">Question text cannot be blank.</div>
+                            </td>
+                            <td class="pe-4">
+                                <div class="form-check form-switch d-inline-flex align-items-center">
+                                    <input class="form-check-input bg-danger-focus" 
+                                           type="checkbox"[% IF q.disabled %] checked[% END %]
+                                           role="switch" 
+                                           id="disable_[% q.id %]" 
+                                           name="disable_[% q.id %]" 
+                                           value="1">
+                                    <label class="form-check-label text-danger ms-2 small fw-semibold" for="disable_[% q.id %]">
+                                        Disable
+                                    </label>
+                                </div>
+                            </td>
+                        </tr>
+                        [% END %]
+                        
+                        <tr class="table-info-subtle border-top border-info-subtle">
+                            <td class="ps-4 py-3">
+                                <div class="input-group">
+                                    <span class="input-group-text text-success border-end-0">
+                                        <span class="bi bi-plus-lg"></span>
+                                    </span>
+                                    <input type="text" 
+                                           name="new_question" 
+                                           placeholder="Type a new compliance question here..." 
+                                           class="form-control form-control-lg fs-6 border-start-0 ps-2">
+                                </div>
+                            </td>
+                            <td class="pe-4 py-3">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="card-footer border-top p-4 d-flex justify-content-end gap-2">
+                <a href="[% c.uri_for('/admin/questions/view') %]" class="btn btn-outline-secondary px-4">Cancel</a>
+                <button type="submit" class="btn btn-primary px-4 fw-medium shadow-sm">Save All Changes</button>
+            </div>
+        </div>
+        
+    </form>
+</div>
