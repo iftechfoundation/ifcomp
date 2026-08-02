@@ -8,19 +8,13 @@ Except where otherwise noted, the software found in this repository is copyright
 
 This software repository contains, in whole or in significant part, the following open-source projects, used under license. (See below for the full text of their respective licenses.)
 
-* [Emglken](https://github.com/curiousdannii/emglken) by Dannii Willis, via the MIT License
+* [Bocfel](https://cspiegel.github.io/bocfel/index.html) by Chris Spiegel, via the MIT License
 
-* [GlkOte](https://github.com/erkyrath/glkote) by Andrew Plotkin, via the MIT License
+* [Glulxe](https://github.com/erkyrath/glulxe) by Andrew Plotkin, via the MIT License
 
-* [Parchment](https://github.com/curiousdannii/parchment/tree/ifcomp) by Dannii Willis, via the MIT License
+* [Parchment](https://github.com/curiousdannii/parchment) by Dannii Willis, via the MIT License
 
-* [Quixe](https://github.com/erkyrath/quixe) by Andrew Plotkin, via the MIT License
-
-* [RemGlk](https://github.com/erkyrath/remglk) by Andrew Plotkin, via the MIT License
-
-* [TADS](https://github.com/cspiegel/terps/tree/master/tads) by Michael J. Roberts, via the GNU GPL v2.0 License
-
-* [ZVM](https://github.com/curiousdannii/ifvms.js) by Dannii Willis, via the MIT License
+* [TADS](https://github.com/tads-intfic/tads-runner) by Michael J. Roberts, via the GNU GPL v2.0 License
 
 ## Licenses used by included software
 
