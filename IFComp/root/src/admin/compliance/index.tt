@@ -7,7 +7,7 @@
     <li>([% entry.id %]) [% entry.title %]</li>
     <ul>
       [% FOREACH ans IN entry.entry_answers %]
-        [% IF ans.answer == "yes" %]<li>[% questions.item(ans.question_id).question_text | html %]</li>[% END %]
+        [% IF ans.answer == "yes" %]<li>[% questions.item(ans.question_id - 1).question_text | html %]</li>[% END %]
       [% END %]
     </ul>
   [% END %]
