@@ -13,7 +13,7 @@ use IFCompTest;
 my $schema = IFCompTest->init_schema();
 
 use Catalyst::Test 'IFComp';
-use IFComp::Controller::Admin::GenAI;
+use IFComp::Controller::Admin::Compliance;
 
 ok( my $mech =
         Test::WWW::Mechanize::Catalyst->new( catalyst_app => 'IFComp' ),
@@ -21,5 +21,5 @@ ok( my $mech =
 );
 
 IFCompTest::log_in_as_curator($mech);
-ok( $mech->get_ok('/admin/genai'), 'Request should succeed' );
+ok( $mech->get_ok('/admin/uk-compliance'), 'Request should succeed' );
 done_testing();

@@ -1,4 +1,4 @@
-package IFComp::Controller::Admin::GenAI;
+package IFComp::Controller::Admin::Compliance;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-IFComp::Controller::Admin::GenAI - Catalyst Controller
+IFComp::Controller::Admin::Compliance - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -20,7 +20,7 @@ Catalyst Controller.
 
 =cut
 
-sub index : Chained("/admin/root") : PathPart('genai') : Args(0) {
+sub index : Chained("/admin/root") : PathPart('uk-compliance') : Args(0) {
     my ( $self, $c ) = @_;
 
     unless ( $c->user && $c->check_any_user_role( 'cheez', 'curator' ) ) {
@@ -28,10 +28,14 @@ sub index : Chained("/admin/root") : PathPart('genai') : Args(0) {
         return;
     }
 
-    my $comp    = $c->model('IFCompDB::Comp')->current_comp;
-    my @entries = $comp->entries;
+    my $comp      = $c->model('IFCompDB::Comp')->current_comp;
+    my @entries   = $comp->entries;
+    my @questions = $c->model('IFCompDB::Question')->all;
 
-    $c->stash( entries => \@entries );
+    $c->stash(
+        entries   => \@entries,
+        questions => \@questions,
+    );
 }
 
 =encoding utf8

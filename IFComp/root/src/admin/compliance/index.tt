@@ -1,0 +1,18 @@
+<div class="container">
+<h1>Responses for UK Compliance, IFComp[% current_comp.year %]</h1>
+
+<ul>
+[% FOREACH entry IN entries %]
+  [% IF entry.entry_answers AND entry.entry_answers.size > 0 %]
+    <li>([% entry.id %]) [% entry.title %]</li>
+    <ul>
+      [% FOREACH ans IN entry.entry_answers %]
+        [% IF ans.answer == "yes" %]<li>[% questions.item(ans.question_id - 1).question_text | html %]</li>[% END %]
+      [% END %]
+    </ul>
+  [% END %]
+[% END %]
+</ul>
+
+</div>
+
