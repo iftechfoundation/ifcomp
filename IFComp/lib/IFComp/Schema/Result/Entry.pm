@@ -1089,9 +1089,12 @@ sub _create_parchment_page {
         parchment_options = {
             default_story: [ "$i7_file" ],
             lib_path: '/static/interpreter/',
-            recording_url: '/play/$entry_id/transcribe',
             recording_label: '$safe_title',
-            recording_format: 'simple'
+        }
+        const transcribe = confirm('Share a transcript of this session with the author?');
+        if (transcribe === true) {
+             parchment_options.recording_url = '/play/$entry_id/transcribe';
+             parchment_options.recording_format = 'simple';
         }
     </script>
 </head>
@@ -1160,8 +1163,11 @@ sub _enable_recording {
     my $transcription_code = <<EOF;
 <script>
 if ($options_js_object) {
-    $options_js_object.recording_url = '/play/$entry_id/transcribe'
-    $options_js_object.recording_format = 'simple'
+    const transcribe = confirm('Share a transcript of this session with the author?');
+    if (transcribe === true) {
+         $options_js_object.recording_url = '/play/$entry_id/transcribe'
+         $options_js_object.recording_format = 'simple'
+    }
 }
 </script>
 EOF
