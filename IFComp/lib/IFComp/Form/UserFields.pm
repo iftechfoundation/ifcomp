@@ -103,6 +103,7 @@ sub validate_paypal {
     return unless $payment;
 
     if (   ( $payment eq "decline" )
+        || ( $payment eq "WesternUnion" )
         || ( Email::Valid->address($payment) ) )
     {
         $field->value($payment);
@@ -122,6 +123,7 @@ sub validate_venmo {
     return unless $payment;
 
     if (   ( $payment eq "decline" )
+        || ( $payment eq "WesternUnion" )
         || ( $payment =~ /^[-+()\d ]*$/ )
         || ( $payment =~ /^@?\w+/ ) )
     {
