@@ -19,8 +19,8 @@
 </div>
  <div class="row">
  
-     <div class="col-sm-4">
-        <h2>IFComp's 31st year!</h2>
+     <div class="col-sm-6">
+        <h2>IFComp's 32nd year!</h2>
         <p><strong>Welcome!</strong> Here are a few things you can do on this site, right now:</p>
         <ul>
         [% IF current_comp.status == 'open_for_judging' %]
@@ -34,14 +34,8 @@
         <li>Browse <a href="[% c.uri_for('/comp/last_comp/') %]">past IFComp entries</a></li>
         </ul>
     </div>
- 
-    <div class="col-sm-4">
-     [% INCLUDE _colossal_fund.tt %]
-    </div>
     
-
-    
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <h2>Stay comp-informed</h2>
     <p>
         For news and updates:
@@ -58,6 +52,14 @@
       </div>
     </div>
 
+</div>
+
+<div class="row">
+    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-6">
+        [% INCLUDE _colossal_fund.tt %]
+    </div>
+    <div class="col-md-3">&nbsp;</div>
 </div>
 
 [% BLOCK motd %]

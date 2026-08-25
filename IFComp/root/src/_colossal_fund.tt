@@ -1,4 +1,5 @@
 <h2 id="colossal-fund">The Colossal Fund</h2>
+<div style="position:relative;overflow:hidden;width:100%;padding-top:120px;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:120px' src='https://www.zeffy.com/embed/thermometer/ifcomp-colossal-fund--2026'  allowTransparency="true"></iframe></div>
 <p>
 Support IFComp and its authors through a charitable gift to <strong>The
 Colossal Fund</strong>, providing a cash prize pool for top IFComp entries! <a
@@ -11,36 +12,16 @@ END %] contributed [% IF cf.goal %]this[% ELSE %]last[% END %] year</a>.
 [% USE Math %]
 
 [% IF cf.goal %]
-    [% IF current_comp.status == 'processing_votes' || current_comp.status == 'over' %]
-        <p class="text-center">The fund drive ended with a total $[% cf.collected | format_number %] raised! Thanks, everyone!</p>
-    [% ELSE %]
-        [% IF cf.collected < cf.goal %]
-            <p class="text-center">We've raised $[% cf.collected | format_number %] of our $[% cf.goal | format_number %] goal so far!</p>
-
-            <div class="progress" role="progressbar" aria-label="Colossal Fund"
-                 aria-valuenow="[% cf.collected / cf.goal * 100 %]" aria-valuemin="0" aria-valuemax="[% cf.goal %]">
-                <div class="progress-bar[% IF cf.collected < cf.goal %] progress-bar-striped[% END %]" style="width: [% cf.collected / cf.goal * 100 %]%;">
-                [% Math.int(0.5 + cf.collected / cf.goal * 100) %]%
-                </div>
-            </div>
-        [% ELSE %]
-            <p class="text-center">We've raised $[% cf.collected | format_number %] so far!</p>
-        [% END %]
-
-        [% IF show_maximum_prize %]
-            <p class="text-center">At the current donation level, the first-place IFComp entry will receive
-            <strong>$[% cf.maximum_prize | format_number %]</strong> (assuming [% cf.estimated_entries | format_number %] entries).</p>
-        [% END %]
-
-        <div style="text-align: center;">
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="KGS6V7RPE4L34">
-            <input class="btn btn-primary mt-2" type="submit" value="Donate with PayPal">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
+    <div>
+        <div data-zeffy-embed data-form-url="/embed/donation-form/ifcomp-colossal-fund--2026"></div>
+        <div data-zeffy-embed-fallback style="display:none;">
+            <div style="position:relative;overflow:hidden;height:450px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' data-zeffy-embed-src='https://www.zeffy.com/embed/donation-form/ifcomp-colossal-fund--2026' allowpaymentrequest allowTransparency="true"></iframe></div>
         </div>
-    [% END %]
+        <script
+           src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+           onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
+        </script>
+    </div>
 
 [% ELSE %]
 
