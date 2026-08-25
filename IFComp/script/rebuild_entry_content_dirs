@@ -11,12 +11,15 @@ use strict;
 use FindBin;
 use Path::Class;
 use Try::Tiny;
+use Cwd qw(abs_path);
 
 use lib "$FindBin::Bin/../lib";
 use IFComp::Schema;
 
+my $path = abs_path("$FindBin::Bin/../entries");
+print "Path = $path\n";
 my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
-$schema->entry_directory( Path::Class::Dir->new( "$FindBin::Bin/../entries" ) );
+$schema->entry_directory( Path::Class::Dir->new($path) );
 
 my @entries = map { $schema->resultset( 'Entry' )->find($_) } @ARGV;
 
