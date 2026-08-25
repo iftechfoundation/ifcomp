@@ -112,6 +112,10 @@
    <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
    [% INCLUDE scripts %]
    [% INCLUDE filters %]
+   <small>
+       [ifcomp.org uses the IP2Location LITE database for
+       <a href="https://lite.ip2location.com">IP geolocation</a>.]
+   </small>
  </body>
 </html>
 
