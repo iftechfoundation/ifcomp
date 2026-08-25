@@ -25,7 +25,7 @@ sub file_contains ($$$) {
 
 note('Testing naked Z-Code upload...');
 ok( file_exists( 100, 'index.html' ), 'Generated an index.html file.', );
-ok( file_contains( 100, 'index.html', qr{/static/interpreter/main.js} ),
+ok( file_contains( 100, 'index.html', qr{/static/interpreter/web.js} ),
     'Links to local parchment.',
 );
 is( $schema->resultset('Entry')->find(100)->platform,
@@ -40,7 +40,7 @@ is( $schema->resultset('Entry')->find(100)->play_file,
 
 note('Testing naked Glulx upload...');
 ok( file_exists( 101, 'index.html' ), 'Generated an index.html file.', );
-ok( file_contains( 101, 'index.html', qr{/static/interpreter/main.js} ),
+ok( file_contains( 101, 'index.html', qr{/static/interpreter/web.js} ),
     'Links to local interpreter.',
 );
 is( $schema->resultset('Entry')->find(101)->platform,
@@ -177,7 +177,7 @@ is( $schema->resultset('Entry')->find(109)->platform,
     'tads', 'Platform is correct. (tads)',
 );
 ok( file_exists( 109, 'index.html' ), 'Generated an index.html file.', );
-ok( file_contains( 109, 'index.html', qr{/static/interpreter/main.js} ),
+ok( file_contains( 109, 'index.html', qr{/static/interpreter/web.js} ),
     'Links to local interpreter.',
 );
 ok( $schema->resultset('Entry')->find(109)->supports_transcripts,

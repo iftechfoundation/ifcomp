@@ -1083,7 +1083,7 @@ sub _create_parchment_page {
     <meta name="viewport" content="width=device-width,user-scalable=no">
     <script src="/static/interpreter/jquery.min.js"></script>
     <script src="/static/interpreter/ie.js" nomodule></script>
-    <script src="/static/interpreter/main.js" type="module"></script>
+    <script src="/static/interpreter/web.js" type="module"></script>
     <link rel="stylesheet" href="/static/interpreter/web.css">
     <script>
         parchment_options = {
