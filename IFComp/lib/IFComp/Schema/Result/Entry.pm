@@ -1087,7 +1087,7 @@ sub _create_parchment_page {
     <link rel="stylesheet" href="/static/interpreter/web.css">
     <script>
         parchment_options = {
-            default_story: [ "$i7_file" ],
+            story: { url: "https://$entry_id.play.ifcomp.org/content/$i7_file" },
             lib_path: '/static/interpreter/',
             recording_label: '$safe_title',
         }
