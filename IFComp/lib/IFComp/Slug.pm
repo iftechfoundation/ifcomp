@@ -5,7 +5,8 @@ use warnings;
 use utf8;
 
 use Exporter qw(import);
-use Unicode::Normalize qw(NFD);
+use Encode qw(decode FB_CROAK);
+use Text::Unidecode;
 
 our @EXPORT_OK = qw(
     title_to_base_slug
@@ -48,8 +49,17 @@ sub title_to_base_slug {
     my ($title) = @_;
     return undef unless defined $title && length $title;
 
-    $title = NFD($title);
-    $title =~ s/\p{NonspacingMark}//g;
+    unless ( utf8::is_utf8($title) ) {
+        eval {
+            # try utf-8 first, but fall back to codepge 1252 if needed
+            $title = decode( 'UTF-8', $title, FB_CROAK );
+            1;
+        } or do {
+            $title = decode( 'cp1252', $title );
+        };
+    }
+    $title = unidecode($title);
+
     $title =~ s/^(?:the|a|an)\s+//i;
     $title =~ s/[^\p{L}\p{N}\s-]//g;
     $title =~ s/\s+/_/g;

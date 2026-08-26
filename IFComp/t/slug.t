@@ -26,14 +26,23 @@ sub entry {
 is( title_to_base_slug("The Wise-Woman's Dog"),
     'Wise-Womans_Dog',
     'strips leading article, preserves hyphens, underscores spaces' );
-is( title_to_base_slug("Caf\x{e9} Noir"), 'Cafe_Noir', 'strips diacritics' );
-is( title_to_base_slug('MY GAME'),        'MY_GAME',   'preserves case' );
-is( title_to_base_slug('the foo'),  'foo',  'strips lowercase article' );
-is( title_to_base_slug('A Tale'),   'Tale', 'strips A' );
-is( title_to_base_slug('An Hour'),  'Hour', 'strips An' );
-is( title_to_base_slug("Z\x{f6}e"), 'Zoe',  'handles umlauts' );
+is( title_to_base_slug("Caf\x{e9} Noir"),
+    'Cafe_Noir', 'strips diacritics CP1252-style' );
+is( title_to_base_slug("Caf\x{c3}\x{a9} Noir"),
+    'Cafe_Noir', 'strips diacritics UTF8-style' );
+is( title_to_base_slug('MY GAME'),  'MY_GAME', 'preserves case' );
+is( title_to_base_slug('the foo'),  'foo',     'strips lowercase article' );
+is( title_to_base_slug('A Tale'),   'Tale',    'strips A' );
+is( title_to_base_slug('An Hour'),  'Hour',    'strips An' );
+is( title_to_base_slug("Z\x{f6}e"), 'Zoe',     'handles umlauts' );
 is( title_to_base_slug('  Spaces  '), 'Spaces',
     'trims and collapses spaces' );
+is( title_to_base_slug(
+        "\x{e1}\x{b8}\x{aa}attu\x{c5}\x{a1}umna La\x{e1}\x{b8}\x{ab}\x{e1}\x{b8}\x{ab}a"
+    ),
+    'Hattusumna_Lahha',
+    'processes hittite letters'
+);
 ok( !defined title_to_base_slug('!!!'),
     'punctuation-only title returns undef'
 );
