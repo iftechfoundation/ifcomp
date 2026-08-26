@@ -2,6 +2,7 @@ package IFComp::Controller::Comp;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use IFComp::Slug qw(entry_slugs_for_comp);
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -144,23 +145,28 @@ sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
     my @entries = $comp->entries->search( { is_disqualified => 0, }, )->all;
 
     $c->response->content_type("application/json");
-    my $j = JSON::Any->new;
+    my $j     = JSON::Any->new;
+    my $slugs = entry_slugs_for_comp($comp);
     my @data;
     if (   $comp->status eq 'open_for_judging'
         || $comp->status eq 'processing_votes' )
     {
         @data = map {
-            {   "id"       => $_->id,
+            my %row = (
+                "id"       => $_->id,
                 "title"    => $_->title,
                 "ifdb_id"  => $_->ifdb_id,
                 "platform" => $_->platform,
                 "is_zcode" => $_->is_zcode,
-            }
+            );
+            $row{slug} = $slugs->{ $_->id } if $_->is_qualified;
+            \%row;
         } @entries;
     }
     else {
         @data = map {
-            {   "id"                      => $_->id,
+            my %row = (
+                "id"                      => $_->id,
                 "title"                   => $_->title,
                 "ifdb_id"                 => $_->ifdb_id,
                 "platform"                => $_->platform,
@@ -180,8 +186,9 @@ sub json : Chained('fetch_comp') : PathPart('json') : Args(0) {
                 "total_8"                 => $_->total_8,
                 "total_9"                 => $_->total_9,
                 "total_10"                => $_->total_10,
-
-            }
+            );
+            $row{slug} = $slugs->{ $_->id } if $_->is_qualified;
+            \%row;
         } @entries;
     }
     $c->response->body( $j->encode( \@data ) );
