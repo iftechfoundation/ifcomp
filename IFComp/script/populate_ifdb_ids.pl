@@ -9,9 +9,9 @@ use FindBin;
 use Path::Class;
 use LWP;
 use Readonly;
+use Getopt::Long;
 
 use lib "$FindBin::Bin/../lib";
-use IFComp::Schema;
 
 use XML::LibXML;
 
@@ -19,15 +19,29 @@ use open ':std', ':encoding(UTF-8)';
 
 Readonly my $PAUSE_BETWEEN_QUERIES => 1;
 
-my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp',
-    'root', '', { mysql_enable_utf8 => 1 } );
-$schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
+my $ifdb_only_year;
+GetOptions( 'ifdb-only=i' => \$ifdb_only_year )
+    or die "Usage: $0 [--ifdb-only=YEAR]\n";
 
-my $current_comp = $schema->resultset('Comp')->current_comp;
+my ( $year, $current_comp, $schema );
+
+if ($ifdb_only_year) {
+    $year = $ifdb_only_year;
+    warn "IFDB-only mode: skipping database; using year $year\n";
+}
+else {
+    require IFComp::Schema;
+    $schema = IFComp::Schema->connect(
+        'dbi:mysql:ifcomp',
+        'root', '',
+        { mysql_enable_utf8 => 1 }
+    );
+    $schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
+    $current_comp = $schema->resultset('Comp')->current_comp;
+    $year = $current_comp->year;
+}
 
 my $ua = LWP::UserAgent->new;
-
-my $year = $current_comp->year;
 
 my $ifdb_url = "https://ifdb.org";
 
@@ -38,10 +52,17 @@ my $ifdb_url = "https://ifdb.org";
 my $competition_search_year_uri =
     "$ifdb_url/search?comp&searchfor=$year%20series%3AAnnual+Interactive+Fiction+Competition&xml";
 
-my $competition_tuid = @{ XML::LibXML->load_xml(
+my @competition_tuids = map { $_->textContent } @{
+    XML::LibXML->load_xml(
         string => $ua->get($competition_search_year_uri)->content
     )->getElementsByTagName("tuid")
-}[0]->textContent;
+};
+
+if ( !@competition_tuids ) {
+    die "No IFDB competition found for year $year\n";
+}
+
+my $competition_tuid = $competition_tuids[0];
 
 print "competition_tuid: $competition_tuid\n\n";
 
@@ -86,6 +107,15 @@ sub entry_for_tuid {
 
 my %entries = map { entry_for_tuid($_) => $_ } @tuids;
 
+if ($ifdb_only_year) {
+    warn "IFDB-only mode: found "
+        . scalar( keys %entries )
+        . " ballot links for "
+        . scalar(@tuids)
+        . " IFDB games; skipping database updates.\n";
+    exit 0;
+}
+
 for my $entry ( $current_comp->entries ) {
 
     next unless $entry->is_qualified;
@@ -104,4 +134,3 @@ for my $entry ( $current_comp->entries ) {
             "*** WARNING: Couldn't find an IFDB ID for $title ($entry_id).\n";
     }
 }
-
