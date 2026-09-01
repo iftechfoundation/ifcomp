@@ -96,6 +96,14 @@ ok( -e "$comp_dir/$id/web_cover/cover.png", "Cover web-version created." );
 my $web_cover_image =
     Imager->new( file => "$comp_dir/$id/web_cover/cover.png" );
 is( $web_cover_image->getheight, 700, "Web-cover is scaled down." );
+ok( -e "$comp_dir/$id/web_cover/geometry.txt",
+    "Web-cover geometry file created."
+);
+is( $entry->web_cover_height, 700, "Cached web-cover height is correct." );
+is( $entry->web_cover_width,
+    $web_cover_image->getwidth,
+    "Cached web-cover width is correct."
+);
 
 ######
 # Modify entry, changing to a smaller cover image
@@ -120,6 +128,20 @@ ok( -e "$comp_dir/$id/web_cover/tiny_cover.png",
 $web_cover_image =
     Imager->new( file => "$comp_dir/$id/web_cover/tiny_cover.png" );
 is( $web_cover_image->getheight, 200, "Web-cover is NOT scaled up." );
+$entry = $schema->resultset('Entry')->find($entry_id);
+is( $entry->web_cover_height, 200, "Cached web-cover height is updated." );
+is( $entry->web_cover_width,
+    $web_cover_image->getwidth,
+    "Cached web-cover width is updated."
+);
+
+unlink "$comp_dir/$id/web_cover/geometry.txt"
+    or die "Could not remove geometry cache: $!";
+is( $entry->web_cover_height, 200,
+    "Missing geometry cache is regenerated on read." );
+ok( -e "$comp_dir/$id/web_cover/geometry.txt",
+    "Regenerated web-cover geometry file."
+);
 
 ######
 # Modify an entry, removing cover files
@@ -137,6 +159,8 @@ $mech->submit_form_ok(
 ok( not( -e "$comp_dir/$id/cover/tiny_cover.png" ), "Cover deleted." );
 ok( not( -e "$comp_dir/$id/web_cover/tiny_cover.png" ),
     "Web cover deleted." );
+ok( not( -e "$comp_dir/$id/web_cover/geometry.txt" ),
+    "Web-cover geometry file deleted." );
 
 ######
 # Modify an entry, trying to upload a bogus image
