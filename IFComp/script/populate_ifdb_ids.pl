@@ -31,17 +31,16 @@ if ($ifdb_only_year) {
 }
 else {
     require IFComp::Schema;
-    $schema = IFComp::Schema->connect(
-        'dbi:mysql:ifcomp',
-        'root', '',
-        { mysql_enable_utf8 => 1 }
-    );
-    $schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
+    $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '',
+        { mysql_enable_utf8 => 1 } );
+    $schema->entry_directory(
+        Path::Class::Dir->new("$FindBin::Bin/../entries") );
     $current_comp = $schema->resultset('Comp')->current_comp;
-    $year = $current_comp->year;
+    $year         = $current_comp->year;
 }
 
-my $ua = LWP::UserAgent->new;
+my $ua = LWP::UserAgent->new(
+    agent => 'IFComp populate_ifdb_ids/1.0 (+https://ifcomp.org)', );
 
 my $ifdb_url = "https://ifdb.org";
 
@@ -52,8 +51,7 @@ my $ifdb_url = "https://ifdb.org";
 my $competition_search_year_uri =
     "$ifdb_url/search?comp&searchfor=$year%20series%3AAnnual+Interactive+Fiction+Competition&xml";
 
-my @competition_tuids = map { $_->textContent } @{
-    XML::LibXML->load_xml(
+my @competition_tuids = map { $_->textContent } @{ XML::LibXML->load_xml(
         string => $ua->get($competition_search_year_uri)->content
     )->getElementsByTagName("tuid")
 };
