@@ -52,7 +52,7 @@ for my $entry ( $current_comp->entries->all ) {
     }
     else {
         my $zip     = Archive::Zip->new();
-        my $zipfile = $zip->addFile($src_path);
+        my $zipfile = $zip->addFile( $src_path, basename($src_path) );
         unless ( defined $zipfile ) {
             warn "Failed to add file to zip: $!\n";
             last;
