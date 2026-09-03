@@ -12,8 +12,14 @@ use IFComp::Slug qw(entry_slugs_for_comp);
 use Path::Class;
 use File::Basename;
 use Archive::Zip qw(AZ_OK);
+use Getopt::Long;
 
-my $schema = IFComp::Schema->connect( 'dbi:mysql:ifcomp', 'root', '' );
+my $docker;
+GetOptions( 'docker' => \$docker )
+    or die "Usage: $0 [--docker]\n";
+
+my $dsn = $docker ? 'dbi:mysql:database=ifcomp;host=db' : 'dbi:mysql:ifcomp';
+my $schema = IFComp::Schema->connect( $dsn, 'root', '' );
 $schema->entry_directory( Path::Class::Dir->new("$FindBin::Bin/../entries") );
 my $comp = $schema->resultset('Comp');
 
