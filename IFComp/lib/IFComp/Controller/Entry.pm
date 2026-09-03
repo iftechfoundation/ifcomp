@@ -288,6 +288,7 @@ sub _process_form {
                     # If clearing cover art, also clear the web-cover.
                     $entry->web_cover_file->remove;
                     $entry->clear_web_cover_file;
+                    $entry->remove_web_cover_geometry_file;
                 }
             }
 

@@ -570,7 +570,8 @@ Readonly my @DEFAULT_INFORM_CONTENT => qw(
 
 # $MAX_COVER_HEIGHT: This should be *twice* the maximum display-height
 # (measured in CSS pixels) allowed by the ballot page for cover art.
-Readonly my $MAX_COVER_HEIGHT => 700;
+Readonly my $MAX_COVER_HEIGHT            => 700;
+Readonly my $WEB_COVER_GEOMETRY_FILENAME => 'geometry.txt';
 
 has 'sort_title' => (
     is         => 'ro',
@@ -784,8 +785,9 @@ sub _build_cover_file {
 sub _build_web_cover_file {
     my $self = shift;
 
-    my $web_cover_file =
-        ( $self->web_cover_directory->children( no_hidden => 1 ) )[0];
+    my ($web_cover_file) =
+        grep { $_->basename ne $WEB_COVER_GEOMETRY_FILENAME }
+        $self->web_cover_directory->children( no_hidden => 1 );
 
     unless ( defined $web_cover_file ) {
         my $cover_file = $self->cover_file;
@@ -954,6 +956,85 @@ sub cover_image {
     return $image;
 }
 
+sub web_cover_geometry_file {
+    my $self = shift;
+
+    return $self->web_cover_directory->file($WEB_COVER_GEOMETRY_FILENAME);
+}
+
+sub _read_web_cover_geometry {
+    my $self = shift;
+
+    my $file = $self->web_cover_geometry_file;
+    return unless -e $file;
+
+    my @lines = $file->slurp( chomp => 1 );
+    return unless @lines >= 2;
+
+    my ( $width, $height ) = @lines[ 0, 1 ];
+    return unless $width =~ /^\d+$/ && $height =~ /^\d+$/;
+
+    return ( $width, $height );
+}
+
+sub _write_web_cover_geometry {
+    my ( $self, $width, $height ) = @_;
+
+    my $geometry_file = $self->web_cover_geometry_file;
+
+    # write atomically to ensure workers don't read half-written files
+    my $temp_file =
+        $geometry_file->dir->file( sprintf '.geometry.%s.tmp', $$ );
+
+    $temp_file->spew("$width\n$height\n");
+    rename $temp_file->stringify, $geometry_file->stringify
+        or die "Could not write web cover geometry for entry "
+        . $self->id . ": $!";
+}
+
+sub remove_web_cover_geometry_file {
+    my $self = shift;
+
+    my $file = $self->web_cover_geometry_file;
+    $file->remove if -e $file;
+}
+
+sub web_cover_geometry {
+    my $self = shift;
+
+    return unless $self->cover_exists;
+
+    my $web_cover_file = $self->web_cover_file;
+    return unless defined $web_cover_file && -e $web_cover_file;
+
+    if ( my @dims = $self->_read_web_cover_geometry ) {
+        return @dims;
+    }
+
+    my $image = Imager->new( file => $web_cover_file );
+    return unless $image;
+
+    my $width  = $image->getwidth;
+    my $height = $image->getheight;
+    $self->_write_web_cover_geometry( $width, $height );
+
+    return ( $width, $height );
+}
+
+sub web_cover_width {
+    my $self = shift;
+
+    my ($width) = $self->web_cover_geometry;
+    return $width;
+}
+
+sub web_cover_height {
+    my $self = shift;
+
+    my ( undef, $height ) = $self->web_cover_geometry;
+    return $height;
+}
+
 sub create_web_cover_file {
     my $self = shift;
 
@@ -961,18 +1042,25 @@ sub create_web_cover_file {
         $self->web_cover_file->remove;
     }
     $self->clear_web_cover_file;
+    $self->remove_web_cover_geometry_file;
 
     return unless $self->cover_exists;
 
     my $image = Imager->new( file => $self->cover_file );
+    my ( $width, $height );
     if ( $image->getheight > $MAX_COVER_HEIGHT ) {
         my $resized_image = $image->scale( ypixels => $MAX_COVER_HEIGHT );
         $resized_image->write( file => $self->web_cover_file );
+        $width  = $resized_image->getwidth;
+        $height = $resized_image->getheight;
     }
     else {
         copy( $self->cover_file, $self->web_cover_file );
+        $width  = $image->getwidth;
+        $height = $image->getheight;
     }
 
+    $self->_write_web_cover_geometry( $width, $height );
 }
 
 # update_content_directory: Clean up (and possibly create) the content directory,
