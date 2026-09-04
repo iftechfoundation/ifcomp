@@ -29,7 +29,7 @@ sub index : Chained("/admin/root") : PathPart('uk-compliance') : Args(0) {
     }
 
     my $comp      = $c->model('IFCompDB::Comp')->current_comp;
-    my @entries   = $comp->entries;
+    my @entries   = $comp->entries->search( { is_disqualified => 0, }, )->all;
     my @questions = $c->model('IFCompDB::Question')->all;
 
     $c->stash(
