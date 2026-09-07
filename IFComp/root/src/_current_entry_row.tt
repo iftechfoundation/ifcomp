@@ -31,7 +31,7 @@
 
             [% IF entry.warning %]
                 <p><strong>Content warning:</strong>
-                   <span class="cw-data">[% entry.warning | html %]</span><span class="cw-hidden">(Hidden)</span>
+                   <span class="cw-data">[% entry.warning | html %]</span><span class="cw-hidden"></span>
                 </p>
             [% END %]
         </div>
