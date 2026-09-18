@@ -109,25 +109,56 @@ sub transcribe : Chained('fetch_entry') : Args(0) {
 
 }
 
-sub cover : Chained('fetch_entry') : PathPart('cover') : Args(0) {
-    my ( $self, $c ) = @_;
+sub cover : Chained('fetch_entry') : PathPart('cover') : Args(1) {
+    my ( $self, $c, $hash ) = @_;
 
-    return $self->_cover( $c, 'web_cover_file' );
+    return $self->_cover( $c, 'web_cover_file', 'web_cover_hash', $hash,
+        'cover' );
 }
 
-sub full_cover : Chained('fetch_entry') : PathPart('full_cover') : Args(0) {
+sub cover_unhashed : Chained('fetch_entry') : PathPart('cover') : Args(0) {
     my ( $self, $c ) = @_;
 
-    return $self->_cover( $c, 'cover_file' );
+    return $self->_cover( $c, 'web_cover_file', 'web_cover_hash', undef,
+        'cover' );
+}
+
+sub full_cover : Chained('fetch_entry') : PathPart('full_cover') : Args(1) {
+    my ( $self, $c, $hash ) = @_;
+
+    return $self->_cover( $c, 'cover_file', 'cover_hash', $hash,
+        'full_cover' );
+}
+
+sub full_cover_unhashed : Chained('fetch_entry') : PathPart('full_cover') :
+    Args(0) {
+    my ( $self, $c ) = @_;
+
+    return $self->_cover( $c, 'cover_file', 'cover_hash', undef,
+        'full_cover' );
 }
 
 sub _cover {
-    my ( $self, $c, $method ) = @_;
+    my ( $self, $c, $file_method, $hash_method, $provided_hash, $action ) =
+        @_;
 
-    my $file = $c->stash->{entry}->$method;
+    my $entry = $c->stash->{entry};
+    my $file  = $entry->$file_method;
     if ( -e $file ) {
+        my $correct_hash = $entry->$hash_method;
+        if ( !defined $provided_hash || $provided_hash ne $correct_hash ) {
+            $c->res->redirect(
+                $c->uri_for_action(
+                    "/play/$action", [ $entry->id, $correct_hash ]
+                ),
+                301
+            );
+            return;
+        }
+
         my $image_data = $file->slurp;
-        $c->res->headers->header( 'Cache-Control' => 'max-age=86400' );
+        $c->res->headers->header(
+            'Cache-Control' => 'public, max-age=31536000, immutable' );
         if ( $file->basename =~ /png$/ ) {
             $c->res->content_type('image/png');
         }

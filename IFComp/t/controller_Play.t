@@ -87,13 +87,53 @@ note('Testing cover art...');
 {
     my $entry = $schema->resultset('Entry')->find(100);
 
-    $mech->get_ok('http://localhost/play/100/cover');
+    my $web_hash   = $entry->web_cover_hash;
+    my $cover_hash = $entry->cover_hash;
+    ok( $web_hash,   'Web cover hash is available' );
+    ok( $cover_hash, 'Full cover hash is available' );
+
+    $mech->get_ok("http://localhost/play/100/cover/$web_hash");
     $mech->header_is( 'Content-Type',   'image/png' );
     $mech->header_is( 'Content-Length', 19242 );
+    $mech->header_is( 'Cache-Control',
+        'public, max-age=31536000, immutable' );
 
-    $mech->get_ok('http://localhost/play/100/full_cover');
+    $mech->get_ok("http://localhost/play/100/full_cover/$cover_hash");
     $mech->header_is( 'Content-Type',   'image/png' );
     $mech->header_is( 'Content-Length', 35185 );
+    $mech->header_is( 'Cache-Control',
+        'public, max-age=31536000, immutable' );
+
+    # Missing or stale hashes permanently redirect to the current hash URL.
+    $mech->max_redirect(0);
+    $mech->get('http://localhost/play/100/cover');
+    is( $mech->status, 301, 'Cover without hash redirects' );
+    is( $mech->response->header('Location'),
+        "http://localhost/play/100/cover/$web_hash",
+        'Cover redirect points at current hash'
+    );
+
+    $mech->get('http://localhost/play/100/cover/deadbeefdeadbeef');
+    is( $mech->status, 301, 'Cover with wrong hash redirects' );
+    is( $mech->response->header('Location'),
+        "http://localhost/play/100/cover/$web_hash",
+        'Wrong cover hash redirects to current hash'
+    );
+
+    $mech->get('http://localhost/play/100/full_cover');
+    is( $mech->status, 301, 'Full cover without hash redirects' );
+    is( $mech->response->header('Location'),
+        "http://localhost/play/100/full_cover/$cover_hash",
+        'Full cover redirect points at current hash'
+    );
+
+    $mech->get('http://localhost/play/100/full_cover/deadbeefdeadbeef');
+    is( $mech->status, 301, 'Full cover with wrong hash redirects' );
+    is( $mech->response->header('Location'),
+        "http://localhost/play/100/full_cover/$cover_hash",
+        'Wrong full cover hash redirects to current hash'
+    );
+    $mech->max_redirect(7);
 }
 
 done_testing();
