@@ -553,6 +553,7 @@ use File::Copy;
 use Imager;
 use String::Random;
 use Digest::MD5 ('md5_hex');
+use Digest::SHA ('sha256_hex');
 
 use v5.10;
 
@@ -572,6 +573,8 @@ Readonly my @DEFAULT_INFORM_CONTENT => qw(
 # (measured in CSS pixels) allowed by the ballot page for cover art.
 Readonly my $MAX_COVER_HEIGHT            => 700;
 Readonly my $WEB_COVER_GEOMETRY_FILENAME => 'geometry.txt';
+Readonly my $COVER_HASH_FILENAME         => 'hash.txt';
+Readonly my $CONTENT_HASH_LENGTH         => 16;
 
 has 'sort_title' => (
     is         => 'ro',
@@ -779,7 +782,11 @@ sub _build_walkthrough_file {
 sub _build_cover_file {
     my $self = shift;
 
-    return ( $self->cover_directory->children( no_hidden => 1 ) )[0];
+    my ($cover_file) =
+        grep { $_->basename ne $COVER_HASH_FILENAME }
+        $self->cover_directory->children( no_hidden => 1 );
+
+    return $cover_file;
 }
 
 sub _build_web_cover_file {
@@ -962,6 +969,21 @@ sub web_cover_geometry_file {
     return $self->web_cover_directory->file($WEB_COVER_GEOMETRY_FILENAME);
 }
 
+sub cover_hash_file {
+    my $self = shift;
+
+    return $self->cover_directory->file($COVER_HASH_FILENAME);
+}
+
+sub _content_hash_for_file {
+    my ( $self, $file ) = @_;
+
+    return unless defined $file && -e $file;
+
+    my $digest = sha256_hex( $file->slurp( iomode => '<:raw' ) );
+    return substr( $digest, 0, $CONTENT_HASH_LENGTH );
+}
+
 sub _read_web_cover_geometry {
     my $self = shift;
 
@@ -969,16 +991,19 @@ sub _read_web_cover_geometry {
     return unless -e $file;
 
     my @lines = $file->slurp( chomp => 1 );
-    return unless @lines >= 2;
+    return unless @lines >= 3;
 
-    my ( $width, $height ) = @lines[ 0, 1 ];
-    return unless $width =~ /^\d+$/ && $height =~ /^\d+$/;
+    my ( $width, $height, $hash ) = @lines[ 0, 1, 2 ];
+    return
+           unless $width =~ /^\d+$/
+        && $height       =~ /^\d+$/
+        && $hash         =~ /^[0-9a-f]{$CONTENT_HASH_LENGTH}$/;
 
-    return ( $width, $height );
+    return ( $width, $height, $hash );
 }
 
 sub _write_web_cover_geometry {
-    my ( $self, $width, $height ) = @_;
+    my ( $self, $width, $height, $hash ) = @_;
 
     my $geometry_file = $self->web_cover_geometry_file;
 
@@ -986,7 +1011,7 @@ sub _write_web_cover_geometry {
     my $temp_file =
         $geometry_file->dir->file( sprintf '.geometry.%s.tmp', $$ );
 
-    $temp_file->spew("$width\n$height\n");
+    $temp_file->spew("$width\n$height\n$hash\n");
     rename $temp_file->stringify, $geometry_file->stringify
         or die "Could not write web cover geometry for entry "
         . $self->id . ": $!";
@@ -999,6 +1024,39 @@ sub remove_web_cover_geometry_file {
     $file->remove if -e $file;
 }
 
+sub _read_cover_hash {
+    my $self = shift;
+
+    my $file = $self->cover_hash_file;
+    return unless -e $file;
+
+    my ($hash) = $file->slurp( chomp => 1 );
+    return
+        unless defined $hash && $hash =~ /^[0-9a-f]{$CONTENT_HASH_LENGTH}$/;
+
+    return $hash;
+}
+
+sub _write_cover_hash {
+    my ( $self, $hash ) = @_;
+
+    my $hash_file = $self->cover_hash_file;
+
+    # write atomically to ensure workers don't read half-written files
+    my $temp_file = $hash_file->dir->file( sprintf '.hash.%s.tmp', $$ );
+
+    $temp_file->spew("$hash\n");
+    rename $temp_file->stringify, $hash_file->stringify
+        or die "Could not write cover hash for entry " . $self->id . ": $!";
+}
+
+sub remove_cover_hash_file {
+    my $self = shift;
+
+    my $file = $self->cover_hash_file;
+    $file->remove if -e $file;
+}
+
 sub web_cover_geometry {
     my $self = shift;
 
@@ -1007,8 +1065,8 @@ sub web_cover_geometry {
     my $web_cover_file = $self->web_cover_file;
     return unless defined $web_cover_file && -e $web_cover_file;
 
-    if ( my @dims = $self->_read_web_cover_geometry ) {
-        return @dims;
+    if ( my @meta = $self->_read_web_cover_geometry ) {
+        return @meta;
     }
 
     my $image = Imager->new( file => $web_cover_file );
@@ -1016,9 +1074,10 @@ sub web_cover_geometry {
 
     my $width  = $image->getwidth;
     my $height = $image->getheight;
-    $self->_write_web_cover_geometry( $width, $height );
+    my $hash   = $self->_content_hash_for_file($web_cover_file);
+    $self->_write_web_cover_geometry( $width, $height, $hash );
 
-    return ( $width, $height );
+    return ( $width, $height, $hash );
 }
 
 sub web_cover_width {
@@ -1035,6 +1094,31 @@ sub web_cover_height {
     return $height;
 }
 
+sub web_cover_hash {
+    my $self = shift;
+
+    my ( undef, undef, $hash ) = $self->web_cover_geometry;
+    return $hash;
+}
+
+sub cover_hash {
+    my $self = shift;
+
+    return unless $self->cover_exists;
+
+    my $cover_file = $self->cover_file;
+    return unless defined $cover_file && -e $cover_file;
+
+    if ( my $hash = $self->_read_cover_hash ) {
+        return $hash;
+    }
+
+    my $hash = $self->_content_hash_for_file($cover_file);
+    $self->_write_cover_hash($hash);
+
+    return $hash;
+}
+
 sub create_web_cover_file {
     my $self = shift;
 
@@ -1043,6 +1127,7 @@ sub create_web_cover_file {
     }
     $self->clear_web_cover_file;
     $self->remove_web_cover_geometry_file;
+    $self->remove_cover_hash_file;
 
     return unless $self->cover_exists;
 
@@ -1060,7 +1145,10 @@ sub create_web_cover_file {
         $height = $image->getheight;
     }
 
-    $self->_write_web_cover_geometry( $width, $height );
+    my $web_hash = $self->_content_hash_for_file( $self->web_cover_file );
+    $self->_write_web_cover_geometry( $width, $height, $web_hash );
+    $self->_write_cover_hash(
+        $self->_content_hash_for_file( $self->cover_file ) );
 }
 
 # update_content_directory: Clean up (and possibly create) the content directory,

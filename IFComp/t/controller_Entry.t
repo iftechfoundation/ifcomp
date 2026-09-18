@@ -104,6 +104,9 @@ is( $entry->web_cover_width,
     $web_cover_image->getwidth,
     "Cached web-cover width is correct."
 );
+ok( $entry->web_cover_hash,            "Cached web-cover hash is present." );
+ok( $entry->cover_hash,                "Cached full-cover hash is present." );
+ok( -e "$comp_dir/$id/cover/hash.txt", "Full-cover hash file created." );
 
 ######
 # Modify entry, changing to a smaller cover image
@@ -134,6 +137,10 @@ is( $entry->web_cover_width,
     $web_cover_image->getwidth,
     "Cached web-cover width is updated."
 );
+my $web_hash   = $entry->web_cover_hash;
+my $cover_hash = $entry->cover_hash;
+ok( $web_hash,   "Cached web-cover hash is updated." );
+ok( $cover_hash, "Cached full-cover hash is updated." );
 
 unlink "$comp_dir/$id/web_cover/geometry.txt"
     or die "Could not remove geometry cache: $!";
@@ -142,6 +149,14 @@ is( $entry->web_cover_height, 200,
 ok( -e "$comp_dir/$id/web_cover/geometry.txt",
     "Regenerated web-cover geometry file."
 );
+is( $entry->web_cover_hash, $web_hash,
+    "Regenerated web-cover hash matches prior hash." );
+
+unlink "$comp_dir/$id/cover/hash.txt"
+    or die "Could not remove cover hash cache: $!";
+is( $entry->cover_hash, $cover_hash,
+    "Missing cover hash cache is regenerated on read." );
+ok( -e "$comp_dir/$id/cover/hash.txt", "Regenerated cover hash file." );
 
 ######
 # Modify an entry, removing cover files
@@ -161,6 +176,7 @@ ok( not( -e "$comp_dir/$id/web_cover/tiny_cover.png" ),
     "Web cover deleted." );
 ok( not( -e "$comp_dir/$id/web_cover/geometry.txt" ),
     "Web-cover geometry file deleted." );
+ok( not( -e "$comp_dir/$id/cover/hash.txt" ), "Cover hash file deleted." );
 
 ######
 # Modify an entry, trying to upload a bogus image
