@@ -176,7 +176,9 @@ $mech->submit_form_ok(
     },
 );
 $mech->content_like(
-    qr/doesn't appear to be a valid PNG or JPEG/,
+
+    # HTML::FormHandler >= 0.410002 HTML-encodes field errors (CVE-2026-85485)
+    qr/doesn(?:'|&#39;)t appear to be a valid PNG or JPEG/,
     "Pushing back on a bad-image upload.",
 );
 
